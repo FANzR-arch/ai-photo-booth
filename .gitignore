@@ -1,0 +1,10 @@
+node_modules/
+dist/
+data/
+.env
+.env.*
+!.env.example
+*.log
+docs/evidence/
+API.txt
+*-acceptance.jpg

@@ -1,0 +1,122 @@
+{
+  "schema": "prompt-library-v1",
+  "model": "doubao-seedream-5-0-pro-260628",
+  "status": "draft-not-applied",
+  "styles": [
+    {
+      "id": "cinema",
+      "name": "电影主角",
+      "promptVersion": "2-draft",
+      "existingStyle": true,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成一张雨夜都市电影剧照。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，保持原照的表情与头部朝向。人物换穿合体深色外套，站在雨后街边，远处紫蓝霓虹与路面反光虚化，暖琥珀色轮廓光勾勒肩线，柔和主光照清面部。竖幅3:4，胸部以上肖像，头顶留白、双肩完整、手在画外。真实皮肤纹理，克制的胶片颗粒，暗部保留细节。仅一位人物，无文字、片名、边框或标志。",
+      "characterCount": 185,
+      "imageTested": false
+    },
+    {
+      "id": "business",
+      "name": "职场高光",
+      "promptVersion": "2-draft",
+      "existingStyle": true,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成真实自然的专业商务肖像。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，不瘦脸、美白或减龄。换穿剪裁合体的深蓝商务外套与素色内搭，保持原照头部朝向和自然表情，肩颈放松。浅灰米色无缝摄影棚背景，大面积柔光均匀照亮面部，眼睛清晰，保留真实皮肤纹理。竖幅3:4，胸部以上肖像，头顶留白、双肩完整、手在画外。仅一位人物，无额外首饰、文字、标志或证件边框。",
+      "characterCount": 188,
+      "imageTested": false
+    },
+    {
+      "id": "cartoon",
+      "name": "另一个次元",
+      "promptVersion": "2-draft",
+      "existingStyle": true,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "把参考照片中的人物转化为可辨认的原创3D动画角色肖像。保留本人的脸型轮廓、五官相对位置、发型、发色、肤色、眼镜和年龄特征，沿用原照的表情、头部朝向及服装主要颜色。造型圆润，眼睛仅轻度放大，保持原有年龄感；皮肤为细腻哑光材质，头发呈有体积的束状造型，衣服保留织物细节。杏色与淡粉渐变背景，柔和棚光和接触阴影体现立体感。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位角色，无文字或标志。",
+      "characterCount": 197,
+      "imageTested": false
+    },
+    {
+      "id": "editorial",
+      "name": "封面时刻",
+      "promptVersion": "2-draft",
+      "existingStyle": false,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成时尚杂志内页人像。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，保持原照表情与头部朝向。换穿有结构感的象牙白外套和简洁内搭，背景为纯钴蓝摄影棚。一侧定向光形成清晰而柔和的面部明暗，弱补光保留另一侧五官，服装轮廓利落。竖幅3:4，胸部以上肖像，人物略偏左，上方与右侧留白，双肩完整、手在画外。真实皮肤纹理，克制修饰，色彩鲜明。仅一位人物，无刊名、文字、标志或边框。",
+      "characterCount": 197,
+      "imageTested": false
+    },
+    {
+      "id": "anime",
+      "name": "动画里的我",
+      "promptVersion": "2-draft",
+      "existingStyle": false,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物转绘为原创二维动画肖像。保留可辨认的脸型、五官相对位置、发型、发色、肤色、眼镜和年龄特征，沿用原照表情、头部朝向及服装配色。使用清晰细线稿、平涂色块和两级赛璐璐阴影，眼睛适度简化，保持原有脸部比例与年龄感。背景为浅蓝天空、白云和少量随风飘动的绿叶，手绘笔触轻盈，人物边缘有柔和日光。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位角色，无文字、标志或漫画分格。",
+      "characterCount": 194,
+      "imageTested": false
+    },
+    {
+      "id": "film",
+      "name": "旧日来信",
+      "promptVersion": "2-draft",
+      "existingStyle": false,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成一张温暖的复古胶片人像。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，沿用原照的表情、头部朝向及服装。人物坐在旧咖啡馆窗边，身后木质窗框与米色窗帘柔和虚化，午后侧窗光自然照亮面部。暖米色、橄榄绿和柔和棕色为主，低饱和、适度颗粒、轻微高光晕染，五官与眼睛保持清晰，皮肤保留纹理。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无日期印字、文字或边框。",
+      "characterCount": 198,
+      "imageTested": false
+    },
+    {
+      "id": "city",
+      "name": "城市限定",
+      "promptVersion": "2-draft",
+      "existingStyle": false,
+      "requiresVariables": true,
+      "variables": [
+        "城市",
+        "地标与环境"
+      ],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成一张在{{城市}}旅行的城市纪念肖像。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，沿用原照表情、头部朝向及服装。背景呈现{{地标与环境}}，主地标可辨认但不遮挡人物，尺度与透视自然。傍晚柔和日光照亮面部，人物和背景光向一致，肤色真实，远景轻度虚化。竖幅3:4，胸部以上，人物略偏左、地标在右后方，头顶留白、双肩完整、手在画外。仅一位人物，无路人、城市名、文字或边框。",
+      "characterCount": 200,
+      "imageTested": false
+    },
+    {
+      "id": "festival",
+      "name": "节日限定",
+      "promptVersion": "2-draft",
+      "existingStyle": false,
+      "requiresVariables": false,
+      "variables": [],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成温暖喜庆的新春棚拍肖像。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，保持原照表情与头部朝向。换穿简洁合体的暗红色立领外套，细腻织物带少量暗纹。背景为暖米色摄影棚，一侧点缀红色圆灯笼和梅花枝，装饰位于肩部后方，不遮挡面部。柔和暖光，红色克制、肤色自然，皮肤纹理清晰。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无汉字、春联、文字、标志或边框。",
+      "characterCount": 197,
+      "imageTested": false
+    },
+    {
+      "id": "brand",
+      "name": "品牌限定",
+      "promptVersion": "2-draft",
+      "existingStyle": false,
+      "requiresVariables": true,
+      "variables": [
+        "品牌主色",
+        "品牌辅助色",
+        "主题道具"
+      ],
+      "size": "1.5K",
+      "prompt": "将参考照片中的人物制作成品牌活动主题肖像。保留本人的脸型、五官比例、肤色、年龄特征、发型和眼镜，沿用原照表情、头部朝向及服装。背景为{{品牌主色}}无缝摄影棚，以{{品牌辅助色}}的几何展台和{{主题道具}}形成简洁布景，道具位于人物侧后方，不接触或遮挡面部。大面积中性柔光，真实肤色与皮肤纹理，材质精致，背景色不染污面部。竖幅3:4，胸部以上，人物居中，顶部留白、双肩完整、手在画外。仅一位人物，无自动生成的文字或标志。",
+      "characterCount": 211,
+      "imageTested": false
+    }
+  ]
+}

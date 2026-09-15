@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>拍照亭 · 分阶段演示</title><style>
+:root{font-family:'Microsoft YaHei UI',sans-serif;background:#fff8e9;color:#36241e}body{max-width:1100px;margin:auto;padding:42px 24px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid;padding-bottom:22px}a{color:inherit}h1{font-size:clamp(36px,6vw,72px);line-height:1.15;letter-spacing:-3px;margin:44px 0 20px}em{font-style:normal;color:#e9523c}.intro{max-width:720px;line-height:1.9}nav{display:flex;gap:12px;margin:30px 0;flex-wrap:wrap}nav a{padding:14px 24px;background:#e9523c;color:#fff8e9;text-decoration:none;border-radius:30px;font-weight:bold}nav a+ a{background:#f7da62;color:#36241e}.flow{display:flex;flex-wrap:wrap;gap:10px;margin:40px 0}.flow span{background:#f7da62;padding:12px 18px;border-radius:8px}article{border-top:1px solid #cab9a4;padding:24px 0;display:grid;grid-template-columns:80px 1fr;gap:12px}.number{font-size:34px;color:#e9523c}h2{margin:0 0 12px;font-size:22px}p{line-height:1.8}small{font-size:13px;color:#705b4a}pre{padding:24px;background:#f0e7d4;overflow:auto;border-radius:14px;line-height:1.7}footer{padding:30px 0;border-top:2px solid;margin-top:24px}
+</style><header><b>咔嚓！ / SNAP CLUB</b><span>DEMO WORKBOOK · 01</span></header><h1>每一步，<br>都能<em>亲手试一下。</em></h1><p class="intro">用一台电脑，把灵感变成一张照片。这里是功能路线和分阶段演示入口。真实生图需要配置 Seedream；演示模式仅提供带标识的照片效果，不代表 AI 生成质量。</p><nav><a href="/">打开拍照亭 ↗</a><a href="/admin">打开管理页 ↗</a></nav><div class="flow"><span>选风格</span>→<span>拍照 / 重拍</span>→<span>生成</span>→<span>水印预览</span>→<span>模拟购买</span>→<span>手机取图</span></div>
+<article><div class="number">01</div><div><h2>功能梳理</h2><p>设备端负责拍照与选择；管理端负责风格和调用记录；手机端仅交付已解锁图片。失败可恢复，未知结果不盲目重试。</p><small>演示：当前页面 + docs/功能梳理.md</small></div></article>
+<article><div class="number">02</div><div><h2>结构与启动</h2><pre>apps/web       拍照亭 · 管理页 · 手机取图
+apps/server    生成任务 · 模拟订单 · 安全下载
+packages/shared  共用接口类型
+config/styles  3 套风格配置
+assets/examples  本地插画示例
+data           私有照片与 SQLite（不提交）
+docs           操作说明与验证记录</pre><small>演示：启动服务后，管理页可查看当前模式和配置状态。</small></div></article>
+<article><div class="number">03</div><div><h2>趣味拍照亭前端</h2><p>从风格卡片进入真实取景，倒计时拍照、重拍、等待、选图。无摄像头时可以上传经授权的测试照片。</p><small>演示：默认 demo 模式完整操作，不产生生图费用。</small></div></article>
+<article><div class="number">04</div><div><h2>提示词 + Seedream API</h2><p>电影人像、商务肖像、3D 卡通三套提示词可编辑。API 密钥只存后台。生成耗时和错误可查看。</p><small>真实样片：需配置密钥、模型并确认测试预算和照片授权；尚未配置不视为完成实测。</small></div></article>
+<article><div class="number">05</div><div><h2>模拟购买 + 手机取图</h2><p>先看带水印预览，模拟解锁已有高清图。二维码只指向该订单已购买的图片；手机与电脑连接同一 Wi-Fi。</p><small>没有真实支付；未解锁原图不能直接下载。</small></div></article>
+<article><div class="number">06</div><div><h2>连续体验与异常恢复</h2><p>验证重复提交、刷新、到期、两位用户隔离，以及失败恢复。摄像头与手机实机结果单独记录。</p><small>最终证据见 docs/验证记录.md。</small></div></article><footer>LOCAL DEMO · 云端 AI 接入 · 模拟支付，不实际扣款</footer></html>
