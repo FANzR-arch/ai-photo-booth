@@ -2,12 +2,15 @@ import 'dotenv/config';
 import { createApp } from './app.js';
 import { createServer } from 'node:net';
 import { spawn } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
+import path from 'node:path';
+import type { AddressInfo } from 'node:net';
 
-const port = Number(process.env.PORT ?? 4377);
-const url = `http://localhost:${port}`;
+let port = Number(process.env.PORT ?? 4377);
+let url = `http://localhost:${port}`;
 function openBrowser() {
     if (process.env.BOOTH_OPEN_BROWSER !== '1' || process.platform !== 'win32') return;
-    const opener = spawn('cmd.exe', ['/d', '/c', 'start', '', url], { windowsHide: true, stdio: 'ignore' });
+    const opener = spawn('explorer.exe', [url], { windowsHide: true, stdio: 'ignore' });
     opener.on('error', () => console.log(`请手动打开 ${url}`));
     opener.unref();
 }
@@ -31,6 +34,42 @@ async function probe(host: string) {
     });
 }
 async function start() {
+    if (process.env.BOOTH_FRESH_INSTANCE === '1') {
+        const dataDir = path.join(process.cwd(), 'data', 'instances', randomUUID());
+        for (let attempt = 0; attempt < 10; attempt++) {
+            // Ask Windows for an available port; no dependency on an older booth process.
+            port = await new Promise<number>((resolve, reject) => {
+                const server = createServer();
+                server.once('error', reject);
+                server.listen({ host: '0.0.0.0', port: 0, exclusive: true }, () => {
+                    const selected = (server.address() as AddressInfo).port;
+                    server.close(error => error ? reject(error) : resolve(selected));
+                });
+            });
+            process.env.PORT = String(port);
+            url = `http://localhost:${port}`;
+            const configuredBase = process.env.PICKUP_BASE_URL?.trim();
+            let pickupBaseUrl: string | undefined;
+            if (configuredBase) { const base = new URL(configuredBase); base.port = String(port); pickupBaseUrl = base.origin; }
+            try { await probe('127.0.0.1'); } catch (error) {
+                if ((error as NodeJS.ErrnoException).code === 'EADDRINUSE') continue;
+                throw error;
+            }
+            const instance = await createApp({ dataDir, pickupBaseUrl });
+            try { await instance.listen({ host: '0.0.0.0', port }); }
+            catch (error) {
+                await instance.close();
+                if ((error as NodeJS.ErrnoException).code === 'EADDRINUSE') continue;
+                throw error;
+            }
+            console.log(`拍照亭新窗口已启动：${url} （浏览器未打开时，请复制此地址）`);
+            openBrowser();
+            for (const signal of ['SIGINT', 'SIGTERM'] as const)
+                process.on(signal, () => { void instance.close().then(() => process.exit(0)); });
+            return;
+        }
+        throw new Error('暂时无法分配可用端口，请稍后重试');
+    }
     if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('PORT 必须是 1024–65535 的整数');
     // Check before opening SQLite: a second launch must not alter ongoing generation state.
     if (await existingBooth()) {

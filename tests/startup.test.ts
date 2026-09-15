@@ -64,3 +64,46 @@ test('wildcard port conflict reports a readable message without a Node stack', a
         assert.doesNotMatch(stderr, /node:net|setupListenHandle/);
     } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); }
 });
+
+import { mkdtemp, readdir, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+test('fresh launches choose distinct ports and separate databases while configured port is occupied', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'snap-fresh-'));
+    const occupied = createHttpServer((_req, res) => res.end('unrelated'));
+    await new Promise<void>(resolve => occupied.listen(0, '0.0.0.0', resolve));
+    const configuredPort = (occupied.address() as AddressInfo).port;
+    const children: ReturnType<typeof spawn>[] = [];
+    const entry = path.resolve('apps/server/index.ts');
+    const loader = pathToFileURL(path.resolve('node_modules/tsx/dist/loader.mjs')).href;
+    const launch = () => new Promise<string>((resolve, reject) => {
+        const child = spawn(process.execPath, ['--import', loader, entry], {
+            cwd: root, env: { ...process.env, PORT: String(configuredPort), BOOTH_FRESH_INSTANCE: '1', BOOTH_OPEN_BROWSER: '0', GENERATION_MODE: 'demo', PICKUP_BASE_URL: '' },
+            stdio: ['ignore', 'pipe', 'pipe'], timeout: 20000,
+        });
+        children.push(child);
+        let output = '';
+        child.stdout!.on('data', chunk => { output += chunk; const match = output.match(/http:\/\/localhost:\d+/); if (match) resolve(match[0]); });
+        child.stderr!.on('data', chunk => output += chunk);
+        child.once('error', reject);
+        child.once('exit', () => reject(new Error(output || 'Server exited before ready')));
+    });
+    try {
+        const first = await launch();
+        const second = await launch();
+        assert.notEqual(first, second);
+        for (const address of [first, second]) {
+            assert.notEqual(new URL(address).port, String(configuredPort));
+            const health = await (await fetch(address + '/api/health')).json();
+            assert.equal(health.service, 'snap-club');
+            assert.equal(new URL(health.pickupBaseUrl).port, new URL(address).port);
+        }
+        assert.equal((await readdir(path.join(root, 'data/instances'))).length, 2);
+    } finally {
+        for (const child of children) { if (child.exitCode === null) { const done = once(child, 'exit'); child.kill(); await done; } }
+        occupied.closeAllConnections(); await new Promise<void>(resolve => occupied.close(() => resolve()));
+        await rm(root, { recursive: true, force: true });
+    }
+});
