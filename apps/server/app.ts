@@ -67,7 +67,7 @@ export async function createApp(options: AppOptions = {}) {
     const parsedBase = new URL(base);
     if (!['http:', 'https:'].includes(parsedBase.protocol) || parsedBase.username || parsedBase.password || parsedBase.pathname !== '/')
         throw fail('PICKUP_BASE_URL 必须是完整的网站根地址');
-    const health = (): Health => ({ mode, configured: mode === 'demo' || !!options.provider || !!(process.env.SEEDREAM_API_KEY?.trim() && process.env.SEEDREAM_MODEL?.trim()), model: process.env.SEEDREAM_MODEL ?? '', imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
+    const health = (): Health => ({ service: 'snap-club', mode, configured: mode === 'demo' || !!options.provider || !!(process.env.SEEDREAM_API_KEY?.trim() && process.env.SEEDREAM_MODEL?.trim()), model: process.env.SEEDREAM_MODEL ?? '', imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
     // Add new bundled styles on upgrade without resetting existing edits, versions or switches.
     {
         const file = path.join(root, 'config/styles/styles.json');

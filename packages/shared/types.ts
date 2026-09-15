@@ -11,6 +11,7 @@ export interface Style {
     color: string;
 }
 export interface Health {
+    service?: 'snap-club';
     mode: Mode;
     configured: boolean;
     model: string;
