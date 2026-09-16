@@ -2,7 +2,7 @@
 
 ## 已核实的本机交接
 
-相邻 `../seedream-test/HANDOFF.md` 和 `result.json` 是当前接入证据：
+相邻 `../seedream-test/HANDOFF.md` 和 `result.json` 是早期接入证据：
 
 - POST https://ark.cn-beijing.volces.com/api/v3/images/generations
 - 模型：doubao-seedream-5-0-pro-260628
@@ -10,19 +10,19 @@
 - 不传 sequential_image_generation 或 stream。
 - 已成功单张文生图，1872×1248，23.08 秒，input_images=0。
 
-这不证明人像图生图、人物相似度或九套提示词已验证。本轮没有追加 Seedream 调用。
+后续已完成人像图生图与下载验证，见 DEMO_STATUS.md；全主题人物相似度仍未逐项验收。
 
 ## 运行方式
 
 本机 `.env` 保留了交接配置。密钥只在服务端使用，不输出、不提交、不进入前端。
 
-- start-demo.cmd：固定演示模式、每次两张，不调用云端。
+- start-demo.cmd：固定演示模式、每次一张，不调用云端。
 - npm start：读取 .env；GENERATION_MODE=seedream 时使用真实 API。
-- 测试真人照片前，明确使用该照片的同意与调用预算，先设 IMAGE_COUNT=1。
+- 测试真人照片前，明确使用该照片的同意与调用预算，拍照亭固定只生成一张。
 
-每次 provider 请求只生成一张；IMAGE_COUNT=2 时顺序请求两次，存在两次计费。第二张失败保留第一张，不自动补图。连接超时、5xx、解析或下载失败保留 unknown，避免重复计费；明确失败才允许用户修正后重试。
+拍照亭每次只提交一张生成请求，旧 IMAGE_COUNT 配置不再控制张数。连接超时、5xx、解析或下载失败保留 unknown，避免重复计费；明确失败才允许用户修正后重试。
 
-后台采用 JPEG Data URL 输入，但本地成功记录只有文生图；图生图仍需实测。九套默认配置尺寸均为 1.5K。
+后台采用 JPEG Data URL 输入。运行主题与尺寸以 config/styles/styles.json 为准，共 21 个启用主题。
 
 ## 提示词与素材
 
@@ -40,3 +40,4 @@
 
 - https://www.volcengine.com/docs/82379/1541523
 - https://github.com/volcengine/volcengine-python-sdk/blob/master/volcenginesdkarkruntime/resources/images/images.py
+
