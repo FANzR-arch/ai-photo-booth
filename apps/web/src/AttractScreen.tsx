@@ -1,23 +1,43 @@
 import { useEffect, useState } from 'react';
+import type { Style } from '../../../packages/shared/types';
 import { StyleImage } from './StyleImage';
 
-const slides = ['/examples/editorial-reference.png', '/examples/cartoon.svg', '/examples/film-reference.png'];
-
-/** Idle kiosk billboard; no camera or visitor session starts until the user taps Start. */
-export function AttractScreen({ onStart }: { onStart: () => void }) {
+/** Rotate enabled covers without starting a visitor session. */
+export function AttractScreen({ styles, onStart }: { styles: Style[]; onStart: () => void }) {
     const [active, setActive] = useState(0);
-    const [paused, setPaused] = useState(() => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false);
+    const [paused, setPaused] = useState(false);
+    const [reduced, setReduced] = useState(() => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false);
+    const [hidden, setHidden] = useState(document.hidden);
+    const count = styles.length;
+    const current = count ? active % count : 0;
     useEffect(() => {
-        if (paused) return;
-        const timer = setInterval(() => setActive(value => (value + 1) % slides.length), 6000);
+        const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+        const motion = () => setReduced(media?.matches ?? false);
+        const visibility = () => setHidden(document.hidden);
+        media?.addEventListener('change', motion);
+        document.addEventListener('visibilitychange', visibility);
+        return () => { media?.removeEventListener('change', motion); document.removeEventListener('visibilitychange', visibility); };
+    }, []);
+    useEffect(() => {
+        if (paused || reduced || hidden || count < 2) return;
+        const timer = setInterval(() => setActive(value => (value + 1) % count), 6000);
         return () => clearInterval(timer);
-    }, [paused]);
+    }, [paused, reduced, hidden, count]);
+    const move = (offset: number) => setActive(value => (value + offset + count) % count);
     return <section className="attract-screen" aria-label="拍照机待机页">
-        <div className="attract-copy"><h1>今天，<br />换个<em>样子。</em></h1><button className="primary start-button" onClick={onStart}>开始拍照 <span aria-hidden="true">→</span></button><p>先看效果，再决定 · ¥9.90 / 张</p></div>
+        <div className="attract-copy"><h1>今天，<br />换个<em>样子。</em></h1><button className="primary start-button" onClick={onStart}>开始拍照 <span aria-hidden="true">→</span></button><p>原图免费 · 生成图 ¥9.90 / 张</p></div>
         <div className="attract-gallery" aria-label="风格示意图轮播">
-            {slides.map((src, i) => <div key={src} className={`attract-slide ${active === i ? 'is-active' : ''}`} aria-hidden={active !== i}><StyleImage src={src} alt={['时尚人像示意图', '3D 卡通示意图', '复古胶片示意图'][i]} /></div>)}
-            <div className="carousel-controls">{slides.map((_, i) => <button key={i} className={active === i ? 'current' : ''} onClick={() => setActive(i)} aria-label={`查看第 ${i + 1} 张示意图`} aria-pressed={active === i}><span /></button>)}<button onClick={() => setPaused(!paused)} aria-label={paused ? '继续轮播' : '暂停轮播'}>{paused ? '▶' : 'Ⅱ'}</button></div>
-            <small className="reference-label">AI 风格示意</small>
+            {styles.map((style, i) => <div key={style.id} className={'attract-slide ' + (current === i ? 'is-active' : '')} aria-hidden={current !== i}>
+                {(current === i || i === (current + 1) % count) && <StyleImage src={style.exampleUrl} alt={style.name + '风格示意图'} />}
+            </div>)}
+            {!count && <div className="carousel-empty" role="status">暂无风格预览</div>}
+            {count > 1 && <div className="carousel-controls">
+                <button onClick={() => move(-1)} aria-label="上一张风格">‹</button>
+                <span className="carousel-count" aria-live="off">{current + 1} / {count}</span>
+                <button onClick={() => move(1)} aria-label="下一张风格">›</button>
+                <button disabled={reduced} onClick={() => setPaused(value => !value)} aria-label={reduced ? '已减少动态效果' : paused ? '继续轮播' : '暂停轮播'}>{paused || reduced ? '▶' : 'Ⅱ'}</button>
+            </div>}
+            {!!count && <small className="reference-label">{styles[current].name} · 风格示意</small>}
         </div>
     </section>;
 }

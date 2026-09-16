@@ -36,6 +36,7 @@ export interface Session {
     requestId?: string;
     promptVersion?: number;
     pickupUrl?: string;
+    originalUrl?: string;
 }
 export interface Order {
     id: string;

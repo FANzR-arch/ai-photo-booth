@@ -1,0 +1,26 @@
+/* Stable navigation and sequential content handoff. */
+:root{view-transition-name:none}
+.kiosk-shell>main>section{view-transition-name:booth-page}
+.kiosk-shell .capture-copy{view-transition-name:booth-copy}
+.kiosk-shell[data-step="camera"] .sample-preview>img,
+.kiosk-shell[data-step="camera"] .camera-frame>video,
+.kiosk-shell[data-step="confirm"] .camera-frame>img,
+.kiosk-shell[data-step="generating"] .generation-photo>img,
+.kiosk-shell[data-step="results"] .original-print>img{view-transition-name:booth-photo}
+::view-transition{pointer-events:none}
+::view-transition-group(booth-page),::view-transition-group(booth-copy){animation-duration:440ms;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+::view-transition-old(booth-page),::view-transition-old(booth-copy){animation:booth-content-out 110ms ease-out both;mix-blend-mode:normal}
+::view-transition-new(booth-page),::view-transition-new(booth-copy){animation:booth-content-in 330ms 100ms cubic-bezier(.22,1,.36,1) both;mix-blend-mode:normal}
+/* Photos stay visible independently of surrounding text. */
+::view-transition-group(booth-photo){animation-duration:440ms;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+::view-transition-old(booth-photo),::view-transition-new(booth-photo){height:100%;object-fit:contain;animation-duration:220ms;mix-blend-mode:normal}
+:root[data-booth-to="payment"]::view-transition-new(booth-page){animation-name:booth-panel-in;animation-duration:400ms}
+:root[data-booth-from="payment"]::view-transition-old(booth-page){animation-name:booth-panel-out;animation-duration:140ms}
+:root[data-booth-to="pickup"]::view-transition-new(booth-page){animation-duration:400ms}
+@keyframes booth-content-out{from{opacity:1}to{opacity:0}}
+@keyframes booth-content-in{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes booth-panel-in{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes booth-panel-out{from{opacity:1;transform:translate3d(0,0,0)}to{opacity:0;transform:translate3d(0,16px,0)}}
+@media(prefers-reduced-motion:reduce){
+ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}

@@ -126,6 +126,34 @@ async function harness(route?: Route, options: {
     return { dom, text, button, click, upload, consent, tick, flush, cleanup, calls, readers, qrs, cameraTrack, cameraCalls: () => cameraCalls, stopped: () => stopped };
 }
 
+test('theme entrance restarts after entry refresh replaces the cached home styles', async () => {
+    let requests = 0;
+    const refreshed = deferred<unknown>();
+    const h = await harness(url => url === '/api/styles' && ++requests > 1 ? refreshed.promise : undefined);
+    const animations: Array<{ cancelled: boolean }> = [];
+    try {
+        h.dom.window.HTMLElement.prototype.getBoundingClientRect = function () {
+            const card = this.classList.contains('theme-card');
+            return { left: 0, top: 100, right: card ? 200 : 1000, bottom: card ? 400 : 800,
+                width: card ? 200 : 1000, height: card ? 300 : 700, x: 0, y: 100, toJSON() {} };
+        };
+        h.dom.window.HTMLElement.prototype.animate = function () {
+            const state = { cancelled: false };
+            if (this.classList.contains('theme-card')) animations.push(state);
+            return { cancel: () => { state.cancelled = true; } } as Animation;
+        };
+        await h.click('开始拍照');
+        assert.ok(animations.length > 0, 'cached cards began their entrance');
+        assert.ok(animations.every(a => a.cancelled), 'refresh removes cached cards');
+        await act(async () => refreshed.resolve([style]));
+        await h.flush();
+        assert.ok(animations.some(a => !a.cancelled), 'new cards must have a live entrance after refresh');
+        const count = animations.length;
+        await h.click('暂停轮播');
+        assert.equal(animations.length, count, 'ordinary UI updates must not replay entrance');
+    } finally { await h.cleanup(); }
+});
+
 test('real mode requests camera only after theme selection and waits for a playable frame; disconnect cancels countdown', async () => {
     const h = await harness(url => url === '/api/health' ? { mode: 'seedream', configured: true, imageCount: 1 } : undefined, { camera: true });
     try {
@@ -206,7 +234,7 @@ test('custom admin cover is preserved and failed built-in sheet falls back to ex
     } finally { await h.cleanup(); }
 });
 test('idle carousel and start screen do not create a session before a theme is selected', async () => {
-    const h = await harness();
+    const h = await harness(url => url === '/api/styles' ? [style, { ...style, id: 'watercolor', name: '水彩', exampleUrl: '/examples/watercolor-reference.webp' }, { ...style, id: 'pixel', name: '像素', exampleUrl: '/examples/pixel-reference.webp' }] : undefined);
     try {
         assert.equal(h.dom.window.document.querySelector('.theme-grid'), null);
         assert.equal(h.dom.window.document.querySelector('video'), null);
@@ -214,6 +242,15 @@ test('idle carousel and start screen do not create a session before a theme is s
         const first = active();
         await h.tick(6000);
         assert.notEqual(active(), first);
+        const second = active();
+        await h.click('Ⅱ');
+        await h.tick(6000);
+        assert.equal(active(), second);
+        await h.click('›');
+        assert.notEqual(active(), second);
+        await h.click('›');
+        assert.equal(active(), first);
+        assert.equal(h.dom.window.document.querySelector('.carousel-count')?.textContent, '1 / 3');
         await h.click('开始拍照');
         assert.ok(h.dom.window.document.querySelector('.theme-grid'));
         assert.equal(h.calls.filter(c => c.url === '/api/sessions').length, 0);
@@ -270,10 +307,14 @@ test('explicit upload → consent → generation poll → selected purchase → 
         await h.consent();
         await h.click('确认并生成');
         assert.match(h.text(), /非 AI|不调用 AI/);
+        assert.equal(h.dom.window.document.querySelector('.generation-photo > img')?.getAttribute('src'), image);
+        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 1);
         await h.tick(1800);
-        assert.match(h.text(), /选择照片/);
-        await h.click('照片 2');
+        assert.match(h.text(), /照片已生成/);
+        assert.equal(h.dom.window.document.querySelector('.generation-preview'), null);
+        assert.ok(h.dom.window.document.querySelector('.original-download'));
+        assert.match(h.text(), /免费保存原图/);
         assert.match(h.button('模拟购买').textContent || '', /1 张 · ¥9.90/);
         await h.click('模拟购买');
         await h.click('模拟支付成功');
@@ -296,7 +337,7 @@ test('failed and cancelled simulated payments return to results without pickup',
     assert.equal(h.dom.window.document.querySelector('img[alt="手机取图二维码"]'), null);
     await h.click('模拟购买');
     await h.click('返回选图');
-    assert.match(h.text(), /选择照片/);
+    assert.match(h.text(), /照片已生成/);
     assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
 }
 finally {
@@ -310,7 +351,7 @@ test('restore ready session does not regenerate; delayed restore cannot replace 
         await act(async () => late.resolve({ ...fresh('old'), status: 'ready', images: [{ id: 'old', previewUrl: '/old' }] }));
         await h.flush();
         assert.match(h.text(), /准备一张照片/);
-        assert.doesNotMatch(h.text(), /选择照片/);
+        assert.doesNotMatch(h.text(), /照片已生成/);
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-1');
     }
     finally {
@@ -370,3 +411,32 @@ test('mobile pickup renders only unlocked API images and expiry', async () => { 
 finally {
     await h.cleanup();
 } });
+
+test('generation failure preserves original, stops animation, and ending clears the next visitor screen', async () => {
+    const h = await harness(url => /^\/api\/sessions\/session-1$/.test(url) ? { ...fresh(), status: 'failed', error: '模拟生成失败' } : undefined);
+    try {
+        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent();
+        await h.click('确认并生成');
+        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
+        await h.tick(1800);
+        assert.equal(h.dom.window.document.querySelector('.generation-photo > img')?.getAttribute('src'), image);
+        assert.equal(h.dom.window.document.querySelector('.generation-preview.is-rendering'), null);
+        assert.match(h.text(), /模拟生成失败/);
+        await h.click('重新生成');
+        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
+        await h.click('结束本次');
+        assert.equal(h.dom.window.document.querySelector('.generation-preview'), null);
+        await h.click('开始拍照'); await h.click('电影人像');
+        assert.equal(h.dom.window.document.querySelector(`img[src="${image}"]`), null);
+    } finally { await h.cleanup(); }
+});
+
+test('restored generation without in-memory photo has an honest placeholder, not a broken image', async () => {
+    const h = await harness(url => url === '/api/sessions/restored' ? { ...fresh('restored'), status: 'generating' } : undefined, { saved: 'restored' });
+    try {
+        assert.match(h.text(), /已恢复生成任务/);
+        assert.equal(h.dom.window.document.querySelector('.generation-photo > img'), null);
+        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
+        assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 0);
+    } finally { await h.cleanup(); }
+});

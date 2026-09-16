@@ -5,5 +5,8 @@ import { Admin } from './Admin';
 import './styles.css';
 import './editorial.css';
 import './theme-gallery.css';
+import './generation-preview.css';
+import './studio-polish.css';
+import './page-motion.css';
 const path = location.pathname;
 createRoot(document.getElementById('root')!).render(path.startsWith('/pickup/') ? <Pickup /> : path === '/admin' ? <Admin /> : <Booth />);

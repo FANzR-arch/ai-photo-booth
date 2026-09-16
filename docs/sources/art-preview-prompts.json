@@ -1,0 +1,22 @@
+{
+  "tool": "built-in imagegen",
+  "status": "Original illustrative previews, not verified Seedream results",
+  "prompts": [
+    [
+      "watercolor",
+      "Transparent watercolor portrait on ivory cold-pressed paper, teal and apricot wet-on-wet washes, soft bleeding edges around shoulders, precise gentle facial features, airy negative space, botanical washes in background."
+    ],
+    [
+      "popart",
+      "Vintage pop art screenprinted comic portrait, bold black ink contours, visible Ben-Day halftone dots, flat cobalt blue, coral red and lemon yellow color blocks, cream highlights, punchy graphic geometric backdrop. Not anime, not photographic."
+    ],
+    [
+      "charcoal",
+      "Hand drawn monochrome charcoal and graphite portrait on warm ivory textured paper, rich charcoal shadows, fine cross hatching and expressive soft rubbed strokes, excellent lifelike face structure, sketchbook museum quality, minimal light background."
+    ],
+    [
+      "oilpainting",
+      "Classical fine-art oil painted portrait, visible thick brush strokes and linen canvas grain, warm ochre light and deep olive green background, burnt sienna and ivory palette, soft chiaroscuro keeping both eyes visible, museum quality, dignified and intimate."
+    ]
+  ]
+}

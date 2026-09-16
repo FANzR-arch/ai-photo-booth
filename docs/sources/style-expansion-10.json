@@ -1,0 +1,126 @@
+{
+  "tool": "built-in imagegen",
+  "status": "Original style illustrations, not verified Seedream results",
+  "styles": [
+    {
+      "id": "inkwash",
+      "name": "墨色留白",
+      "description": "水墨浓淡之间，留住你的神情。",
+      "color": "#c6c9bb",
+      "art": "中国水墨写意肖像。宣纸纤维、墨色浓淡和干笔飞白清晰可见，以细墨线描绘五官，衣服与背景用疏朗墨块晕染，背景留白并点缀少量远山轮廓。黑白为主，一点淡赭石，区别于彩色水彩。",
+      "visual": "Chinese ink wash portrait on fibrous xuan paper. Sensitive precise face contours, expressive dry brush hair and clothing, black and grey washes, generous white negative space and a faint distant mountain. Tiny touch of ochre, no calligraphy, no red seal.",
+      "subject": "an East Asian woman in her thirties, medium length straight dark hair, simple dark linen top",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Chinese ink wash portrait on fibrous xuan paper. Sensitive precise face contours, expressive dry brush hair and clothing, black and grey washes, generous white negative space and a faint distant mountain. Tiny touch of ochre, no calligraphy, no red seal. Subject: an East Asian woman in her thirties, medium length straight dark hair, simple dark linen top. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-97e2ef76-fb13-46f5-8e50-44007c7e1790.png",
+      "prompt": "将参考照片中的人物转绘为中国水墨写意肖像。宣纸纤维、墨色浓淡和干笔飞白清晰可见，以细墨线描绘五官，衣服与背景用疏朗墨块晕染，背景留白并点缀少量远山轮廓。黑白为主，一点淡赭石，区别于彩色水彩。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "papercut",
+      "name": "纸间层次",
+      "description": "层层彩纸，拼出立体的你。",
+      "color": "#df9477",
+      "art": "多层彩色剪纸浮雕肖像。五官、发丝和衣领由精确裁切的哑光彩纸分层构成，纸张边缘清晰、层间有柔和投影。珊瑚红、墨绿、奶油白配色，背景为层叠抽象植物纸片，具有实体手工纸雕质感。",
+      "visual": "Handmade layered paper-cut relief portrait, intricate cut paper face and hair, distinct stacked edges and soft cast shadows. Coral terracotta, forest green and cream papers. Abstract cut-paper botanical background. Physical paper construction, not flat digital painting.",
+      "subject": "an East Asian adult man, slightly wavy short dark hair, round glasses, casual cream shirt",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Handmade layered paper-cut relief portrait, intricate cut paper face and hair, distinct stacked edges and soft cast shadows. Coral terracotta, forest green and cream papers. Abstract cut-paper botanical background. Physical paper construction, not flat digital painting. Subject: an East Asian adult man, slightly wavy short dark hair, round glasses, casual cream shirt. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-df09642a-7982-4483-8ff5-c45fdbbb9070.png",
+      "prompt": "将参考照片中的人物转绘为多层彩色剪纸浮雕肖像。五官、发丝和衣领由精确裁切的哑光彩纸分层构成，纸张边缘清晰、层间有柔和投影。珊瑚红、墨绿、奶油白配色，背景为层叠抽象植物纸片，具有实体手工纸雕质感。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "clay",
+      "name": "黏土小剧场",
+      "description": "手捏的温度，定格一个可爱的你。",
+      "color": "#d4ac81",
+      "art": "手工黏土定格动画人偶肖像。人物由哑光陶土与彩色橡皮泥捏塑，脸颊和衣物可见细小指压纹、接缝与柔和不规则边缘。低饱和杏橙与天蓝摄影棚背景，柔和实体微缩布光，比例适度简化，不画成光滑塑料玩具。",
+      "visual": "Stop-motion handmade clay puppet bust portrait. Matte plasticine with subtle fingerprints, handmade seams, softly imperfect sculpted surfaces; small realistic puppet eyes, not giant cartoon eyes. Muted apricot and sky blue studio set, soft miniature photography lighting. Clearly clay, never smooth shiny plastic.",
+      "subject": "an East Asian adult woman, short dark bob, friendly smile, pale blue sweater",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Stop-motion handmade clay puppet bust portrait. Matte plasticine with subtle fingerprints, handmade seams, softly imperfect sculpted surfaces; small realistic puppet eyes, not giant cartoon eyes. Muted apricot and sky blue studio set, soft miniature photography lighting. Clearly clay, never smooth shiny plastic. Subject: an East Asian adult woman, short dark bob, friendly smile, pale blue sweater. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-e05ed9f6-7d4d-4a6a-9466-922db465b310.png",
+      "prompt": "将参考照片中的人物转绘为手工黏土定格动画人偶肖像。人物由哑光陶土与彩色橡皮泥捏塑，脸颊和衣物可见细小指压纹、接缝与柔和不规则边缘。低饱和杏橙与天蓝摄影棚背景，柔和实体微缩布光，比例适度简化，不画成光滑塑料玩具。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "felt",
+      "name": "毛毡朋友",
+      "description": "蓬松柔软，把自己变成手作小偶。",
+      "color": "#c2b5c9",
+      "art": "针毡羊毛手作人偶肖像。脸部、头发与衣服均由密实彩色羊毛塑形，表面可见细软毛纤维和戳针质感，五官用细羊毛线精细勾勒。薰衣草灰与奶油色背景，暖柔光，温和圆润但保留成年人年龄感，不使用黏土或塑料材质。",
+      "visual": "Needle-felted wool sculpture portrait, all face, hair and clothing made of dense soft colored wool fibers. Clearly visible fuzzy fibers and needle-punched texture; carefully shaped recognizable adult features and small wool-thread eyes. Lavender grey and cream background, warm soft light, tactile macro craft photography.",
+      "subject": "an East Asian woman in her sixties, silver grey short hair, round spectacles, lavender cardigan",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Needle-felted wool sculpture portrait, all face, hair and clothing made of dense soft colored wool fibers. Clearly visible fuzzy fibers and needle-punched texture; carefully shaped recognizable adult features and small wool-thread eyes. Lavender grey and cream background, warm soft light, tactile macro craft photography. Subject: an East Asian woman in her sixties, silver grey short hair, round spectacles, lavender cardigan. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-4e7f9707-2431-4d3e-a2b3-e4624307124a.png",
+      "prompt": "将参考照片中的人物转绘为针毡羊毛手作人偶肖像。脸部、头发与衣服均由密实彩色羊毛塑形，表面可见细软毛纤维和戳针质感，五官用细羊毛线精细勾勒。薰衣草灰与奶油色背景，暖柔光，温和圆润但保留成年人年龄感，不使用黏土或塑料材质。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "pixel",
+      "name": "像素人生",
+      "description": "复古游戏里的你，也很有辨识度。",
+      "color": "#a6b5df",
+      "art": "复古游戏像素肖像。用整齐方形像素、有限32色调色板和抖动阴影描绘五官、发型与服装，边缘保持像素阶梯，禁止平滑渐变。蓝紫与珊瑚粉背景，构图简洁，像素密度足以保留身份特征，不添加游戏界面或文字。",
+      "visual": "Authentic retro pixel art portrait. Clearly visible square pixels, 32 color palette, hand-placed dithered shadows, hard stair-step edges, no smooth gradients or vector curves. A detailed 128x172 pixel design enlarged with nearest-neighbor, rich indigo, lilac and coral. Simple pixel geometric backdrop, no game UI.",
+      "subject": "an East Asian adult man, straight short dark hair, glasses, casual blue jacket",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Authentic retro pixel art portrait. Clearly visible square pixels, 32 color palette, hand-placed dithered shadows, hard stair-step edges, no smooth gradients or vector curves. A detailed 128x172 pixel design enlarged with nearest-neighbor, rich indigo, lilac and coral. Simple pixel geometric backdrop, no game UI. Subject: an East Asian adult man, straight short dark hair, glasses, casual blue jacket. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-a57781f4-8419-48b3-ac11-372eb13c6968.png",
+      "prompt": "将参考照片中的人物转绘为复古游戏像素肖像。用整齐方形像素、有限32色调色板和抖动阴影描绘五官、发型与服装，边缘保持像素阶梯，禁止平滑渐变。蓝紫与珊瑚粉背景，构图简洁，像素密度足以保留身份特征，不添加游戏界面或文字。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "risograph",
+      "name": "双色印记",
+      "description": "错版与纸纹，印出独特的轮廓。",
+      "color": "#ed907c",
+      "art": "双色孔版印刷肖像。仅用朱红和湖蓝两种油墨叠印在米白纸上，细密颗粒、轻微套色错位、半透明叠色和粗粝墨面构成明暗，五官轮廓完整清晰。背景为少量大色块，表现独立艺术刊物印刷质感，不使用波普漫画粗黑轮廓。",
+      "visual": "Two-color risograph print portrait on warm off-white uncoated paper. Only vermilion red and teal blue inks, translucent overlapping ink, subtle print misregistration, fine grain and coarse stencil textures forming lifelike face. Quiet independent art-zine aesthetic. No black comic outlines, no yellow, no Ben-Day comic dots.",
+      "subject": "an East Asian adult woman, dark hair tied back, relaxed neutral expression, simple shirt",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Two-color risograph print portrait on warm off-white uncoated paper. Only vermilion red and teal blue inks, translucent overlapping ink, subtle print misregistration, fine grain and coarse stencil textures forming lifelike face. Quiet independent art-zine aesthetic. No black comic outlines, no yellow, no Ben-Day comic dots. Subject: an East Asian adult woman, dark hair tied back, relaxed neutral expression, simple shirt. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-feb87295-9e91-47d2-bf9b-b02c8a239559.png",
+      "prompt": "将参考照片中的人物转绘为双色孔版印刷肖像。仅用朱红和湖蓝两种油墨叠印在米白纸上，细密颗粒、轻微套色错位、半透明叠色和粗粝墨面构成明暗，五官轮廓完整清晰。背景为少量大色块，表现独立艺术刊物印刷质感，不使用波普漫画粗黑轮廓。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "cyanotype",
+      "name": "蓝晒记忆",
+      "description": "普鲁士蓝里，留下光的痕迹。",
+      "color": "#7c9cb7",
+      "art": "传统蓝晒摄影肖像。只使用深普鲁士蓝与暖白的连续明暗，纸基颗粒、轻微手工涂布边缘和柔和感光层次清晰可见。人物五官保持正像可辨认，背景有淡淡蕨叶接触印相轮廓，整体静谧，区别于普通蓝色滤镜。",
+      "visual": "Fine-art cyanotype photographic positive portrait printed on watercolor paper. Deep Prussian blue and ivory tonal range only, handcrafted emulsion brush edges, delicate paper grain, subtle ghostly fern contact-print silhouettes behind the shoulders. Lifelike positive facial features clearly visible, quiet analog chemistry aesthetic.",
+      "subject": "an East Asian adult man, naturally curly dark hair, linen shirt, gentle expression",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Fine-art cyanotype photographic positive portrait printed on watercolor paper. Deep Prussian blue and ivory tonal range only, handcrafted emulsion brush edges, delicate paper grain, subtle ghostly fern contact-print silhouettes behind the shoulders. Lifelike positive facial features clearly visible, quiet analog chemistry aesthetic. Subject: an East Asian adult man, naturally curly dark hair, linen shirt, gentle expression. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-6eae2d82-1e7b-44e7-a151-78c55903c7dc.png",
+      "prompt": "将参考照片中的人物转绘为传统蓝晒摄影肖像。只使用深普鲁士蓝与暖白的连续明暗，纸基颗粒、轻微手工涂布边缘和柔和感光层次清晰可见。人物五官保持正像可辨认，背景有淡淡蕨叶接触印相轮廓，整体静谧，区别于普通蓝色滤镜。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "stainedglass",
+      "name": "琉璃映像",
+      "description": "光穿过彩色玻璃，照出你的轮廓。",
+      "color": "#c6a754",
+      "art": "彩绘玻璃镶嵌肖像。透明宝石色玻璃片由细深色铅条连接，玻璃有细微气泡与波纹，背光使琥珀、青绿、宝蓝色透亮。面部用较小浅色玻璃片细致塑形、双眼清晰，背景为简洁放射几何纹样，不使用宗教符号。",
+      "visual": "Artisan stained-glass portrait panel. Translucent jewel-tone glass pieces joined by fine dark lead cames, rippled glass with tiny bubbles and luminous backlighting. Amber, turquoise, sapphire, pale warm glass for the face. Many small carefully shaped pieces render natural recognizable facial features. Abstract radial geometric background, no religious symbols.",
+      "subject": "an East Asian adult woman, shoulder-length wavy dark hair, simple blouse",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Artisan stained-glass portrait panel. Translucent jewel-tone glass pieces joined by fine dark lead cames, rippled glass with tiny bubbles and luminous backlighting. Amber, turquoise, sapphire, pale warm glass for the face. Many small carefully shaped pieces render natural recognizable facial features. Abstract radial geometric background, no religious symbols. Subject: an East Asian adult woman, shoulder-length wavy dark hair, simple blouse. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-d149cd47-3523-4346-8ef2-1fa0d480e357.png",
+      "prompt": "将参考照片中的人物转绘为彩绘玻璃镶嵌肖像。透明宝石色玻璃片由细深色铅条连接，玻璃有细微气泡与波纹，背光使琥珀、青绿、宝蓝色透亮。面部用较小浅色玻璃片细致塑形、双眼清晰，背景为简洁放射几何纹样，不使用宗教符号。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "mosaic",
+      "name": "拼出此刻",
+      "description": "一块块陶片，拼成专属肖像。",
+      "color": "#b7c3ab",
+      "art": "手工陶瓷马赛克肖像。用尺寸细小且略不规则的哑光陶瓷方片拼出五官与发型，陶片间有真实浅色填缝，细微釉面反光与手作边缘可见。赭石、奶油白、松绿配色，背景疏朗，面部拼片更细，不画成像素屏幕或透明玻璃。",
+      "visual": "Handcrafted ceramic tessera mosaic portrait, small slightly irregular opaque matte ceramic tiles, real ivory grout gaps and subtly glazed surfaces with side lighting. Ochre, cream, pine green; finely detailed smaller tesserae render face and hair, simpler tiled background. A photographed physical wall mosaic, not pixel art, not stained glass.",
+      "subject": "an East Asian woman in her fifties, short dark hair with some grey, warm smile, olive green top",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Handcrafted ceramic tessera mosaic portrait, small slightly irregular opaque matte ceramic tiles, real ivory grout gaps and subtly glazed surfaces with side lighting. Ochre, cream, pine green; finely detailed smaller tesserae render face and hair, simpler tiled background. A photographed physical wall mosaic, not pixel art, not stained glass. Subject: an East Asian woman in her fifties, short dark hair with some grey, warm smile, olive green top. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-a6b16e42-232c-4fa5-8c9e-cf373bf10be7.png",
+      "prompt": "将参考照片中的人物转绘为手工陶瓷马赛克肖像。用尺寸细小且略不规则的哑光陶瓷方片拼出五官与发型，陶片间有真实浅色填缝，细微釉面反光与手作边缘可见。赭石、奶油白、松绿配色，背景疏朗，面部拼片更细，不画成像素屏幕或透明玻璃。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    },
+    {
+      "id": "lowpoly",
+      "name": "几何分身",
+      "description": "三角切面，重新构建你的立体感。",
+      "color": "#9dc4cc",
+      "art": "低多边形三维几何肖像。脸部、头发和服装由清晰的三角平面构成，平面着色与硬边形成雕塑般体积，五官位置与脸型准确，不光滑细分。青绿、暖桃与石灰白背景，中性柔光突出几何面，非纸雕、非卡通大眼。",
+      "visual": "Low-poly 3D geometric portrait sculpture with visible triangular planar facets across face, hair and clothes. Flat shading, hard edges, carefully modeled lifelike proportions and adult features, no smooth subdivision. Teal, warm peach and limestone-white palette, clean studio backdrop and soft directional light. Sculptural, not paper craft.",
+      "subject": "an East Asian adult man with short dark hair, casual collared shirt",
+      "previewPrompt": "Create one original artwork for a photo booth style gallery. Low-poly 3D geometric portrait sculpture with visible triangular planar facets across face, hair and clothes. Flat shading, hard edges, carefully modeled lifelike proportions and adult features, no smooth subdivision. Teal, warm peach and limestone-white palette, clean studio backdrop and soft directional light. Sculptural, not paper craft. Subject: an East Asian adult man with short dark hair, casual collared shirt. One fictional person only. Chest-up centered vertical 3:4 composition, entire head and both shoulders within frame, generous headroom. Natural expression. Beautiful medium-specific rendering with immediately recognizable material. No text, letters, signature, watermark, logos, border or collage.",
+      "source": "E:\\CodexHome\\generated_images\\01a0aac3-fbeb-7e93-8ef8-f851ebad8f98\\exec-222da702-f43c-4d70-ad7b-71ea1b811bcf.png",
+      "prompt": "将参考照片中的人物转绘为低多边形三维几何肖像。脸部、头发和服装由清晰的三角平面构成，平面着色与硬边形成雕塑般体积，五官位置与脸型准确，不光滑细分。青绿、暖桃与石灰白背景，中性柔光突出几何面，非纸雕、非卡通大眼。保留本人脸型、五官比例、年龄、发型、眼镜及性别呈现，沿用原照表情、朝向及服装主要特征，不换脸、不幼化。竖幅3:4，胸部以上，头顶留白、双肩完整、手在画外。仅一位人物，无文字、签名、水印、标志或边框。"
+    }
+  ]
+}

@@ -10,7 +10,8 @@
 - POST /api/sessions/:id/generate {} -> Session（幂等，运行中/已完成不得重复调用；failed 允许显式重试，unknown 不重试）
 - POST /api/sessions/:id/end {} -> {ok:true}（停止设备显示，保留已购取图）
 - GET /api/sessions/:id/images/:imageId/preview -> 带水印 JPEG，仅本机
-- POST /api/sessions/:id/orders {imageIds:string[]} -> Order
+- GET /api/sessions/:id/original -> 免费、无水印的拍摄原照片 JPEG；仅本机，no-store；会话结束或过期返回 410
+- POST /api/sessions/:id/orders {imageIds:string[]} -> Order（必须且仅能包含一张生成图 ID；拒绝原图与多图）
 - POST /api/orders/:id/simulate {outcome:'paid'|'failed'|'cancelled'} -> {order:Order,pickupUrl?:string}（paid 幂等且不可退回；仅本机；明确无真实收费）
 - GET /api/pickup/:token -> {status:'paid',expiresAt:number,mode:string,images:{id:string,downloadUrl:string}[]}
 - GET /api/pickup/:token/images/:imageId -> 已解锁高清 JPEG 下载；缺少权限 404，过期 410
@@ -19,7 +20,7 @@
 - POST /api/admin/examples {dataUrl} -> {url:string}（验证图片后保存为管理上传示例）
 
 Style: {id,name,description,prompt?,version,enabled,exampleUrl,size,color}
-Session: {id,styleId,styleName,status:'created'|'photographed'|'generating'|'ready'|'partial'|'failed'|'unknown'|'ended',mode,createdAt,expiresAt,images:{id,previewUrl}[],error?:string,elapsedMs?:number,requestId?:string,promptVersion?:number,pickupUrl?:string}
-Order: {id,sessionId,imageIds:string[],amount:number,status:'pending'|'paid'|'failed'|'cancelled',createdAt:number}。amount 单位分；一张 990，两张 1990；只产出一张则全部也是 990。
+Session: {id,styleId,styleName,status:'created'|'photographed'|'generating'|'ready'|'partial'|'failed'|'unknown'|'ended',mode,createdAt,expiresAt,images:{id,previewUrl}[],error?:string,elapsedMs?:number,requestId?:string,promptVersion?:number,pickupUrl?:string,originalUrl?:string}
+Order: {id,sessionId,imageIds:string[],amount:number,status:'pending'|'paid'|'failed'|'cancelled',createdAt:number}。amount 单位分；每笔一张生成图 990；原图免费、不进入订单。
 
-后台使用 Node24 node:sqlite + Fastify、Sharp。data 不静态暴露。图片 24 小时过期，清理以服务运行/重启执行。模式读取 GENERATION_MODE=demo|seedream，SEEDREAM_API_KEY、SEEDREAM_MODEL、IMAGE_COUNT=1|2、PICKUP_BASE_URL、PORT=4377。demo 默认 2 张，Seedream 初测 1 张。无密钥不回退 demo。服务启动时 generating 转 unknown，明确不自动重试。
+后台使用 Node24 node:sqlite + Fastify、Sharp。data 不静态暴露。图片 24 小时过期，清理以服务运行/重启执行。模式读取 GENERATION_MODE=demo|seedream，SEEDREAM_API_KEY、SEEDREAM_MODEL、PICKUP_BASE_URL、PORT=4377。demo 和 Seedream 拍照亭均固定生成 1 张；旧 IMAGE_COUNT 环境变量不再影响拍照亭。无密钥不回退 demo。服务启动时 generating 转 unknown，明确不自动重试。

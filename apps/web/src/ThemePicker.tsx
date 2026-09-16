@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { Style } from '../../../packages/shared/types';
 import { StyleImage } from './StyleImage';
 
@@ -21,6 +21,47 @@ export function ThemePicker({ styles, loading, busy, error, onBack, onChoose }: 
     const [focused, setFocused] = useState(false);
     const [failed, setFailed] = useState<string[]>([]);
     const gesture = useRef({ x: 0, y: 0, moved: false });
+    const grid = useRef<HTMLDivElement>(null);
+    useLayoutEffect(() => {
+        if (reduced || loading || !styles.length || !grid.current) return;
+        const cards = Array.from(grid.current.querySelectorAll<HTMLButtonElement>('.theme-card'));
+        if (!cards[0]?.animate) return;
+        const viewport = grid.current.parentElement!.getBoundingClientRect();
+        const centerX = (viewport.left + viewport.right) / 2;
+        const centerY = (viewport.top + viewport.bottom) / 2;
+        // Read every resting position before starting any animations. Only the opening viewport flies in.
+        const visible = cards.map(card => ({ card, rect: card.getBoundingClientRect() }))
+            .filter(({ rect }) => rect.top < viewport.bottom && rect.bottom > viewport.top);
+        const animations = visible.map(({ card, rect }, index) => {
+            const x = (rect.left + rect.right) / 2;
+            const y = (rect.top + rect.bottom) / 2;
+            const dx = x - centerX;
+            const dy = y - centerY;
+            const horizontal = Math.abs(dx / viewport.width) >= Math.abs(dy / viewport.height);
+            const distance = horizontal
+                ? (dx < 0 ? -(rect.right + 40) : window.innerWidth - rect.left + 40)
+                : (dy < 0 ? -(rect.bottom + 40) : window.innerHeight - rect.top + 40);
+            const fromX = horizontal ? distance : distance * dx / (Math.abs(dy) < 1 ? 1 : dy);
+            const fromY = horizontal ? distance * dy / (Math.abs(dx) < 1 ? 1 : dx) : distance;
+            return card.animate([
+                { transform: `translate3d(${fromX}px,${fromY}px,0) scale(1.08)`, opacity: 0 },
+                { opacity: 1, offset: 0.22 },
+                { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 },
+            ], { duration: 720, delay: Math.min(index * 38, 228), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+        });
+        // Scrolling or choosing a card always takes precedence over the entrance choreography.
+        const settle = () => animations.forEach(animation => animation.cancel());
+        const scroll = grid.current.parentElement!;
+        scroll.addEventListener('pointerdown', settle, { once: true });
+        scroll.addEventListener('keydown', settle, { once: true });
+        scroll.addEventListener('wheel', settle, { once: true, passive: true });
+        return () => {
+            settle();
+            scroll.removeEventListener('pointerdown', settle);
+            scroll.removeEventListener('keydown', settle);
+            scroll.removeEventListener('wheel', settle);
+        };
+    }, [loading, styles.length, reduced]);
     useEffect(() => {
         const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
         const update = () => setReduced(media?.matches ?? false);
@@ -40,7 +81,7 @@ export function ThemePicker({ styles, loading, busy, error, onBack, onChoose }: 
                 onClick={() => setPaused(value => !value)}>{reduced ? '静态预览' : paused ? '继续轮播' : '暂停轮播'}</button>
         </div>
         <div className="theme-scroll" role="region" aria-label="上下滑动选择主题" tabIndex={0}>
-            <div className="theme-grid" onPointerDown={e => { gesture.current = { x: e.clientX, y: e.clientY, moved: false }; setTouching(true); }}
+            <div ref={grid} className="theme-grid" onPointerDown={e => { gesture.current = { x: e.clientX, y: e.clientY, moved: false }; setTouching(true); }}
                 onPointerMove={e => { if (Math.hypot(e.clientX - gesture.current.x, e.clientY - gesture.current.y) > 12) gesture.current.moved = true; }}
                 onPointerUp={() => setTouching(false)} onPointerCancel={() => { gesture.current.moved = true; setTouching(false); }}
                 onPointerLeave={() => setTouching(false)} onFocus={() => setFocused(true)}
@@ -62,7 +103,6 @@ export function ThemePicker({ styles, loading, busy, error, onBack, onChoose }: 
                 })}
             </div>
             {!styles.length && !error && <p role="status">{loading ? '正在加载主题…' : '暂无可用主题'}</p>}
-            {!!styles.length && <p className="theme-end">选择喜欢的风格，开始拍摄</p>}
         </div>
     </section>;
 }

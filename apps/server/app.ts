@@ -60,7 +60,8 @@ export async function createApp(options: AppOptions = {}) {
     if (!['demo', 'seedream'].includes(selectedMode))
         throw fail('GENERATION_MODE 只能为 demo 或 seedream');
     const mode = selectedMode as Mode;
-    const count = options.imageCount ?? (process.env.IMAGE_COUNT === '2' ? 2 : process.env.IMAGE_COUNT === '1' ? 1 : mode === 'demo' ? 2 : 1);
+    // The booth sells one generated portrait; the captured original is always free.
+    const count = options.imageCount ?? 1;
     const port = process.env.PORT ?? '4377';
     const ips = Object.values(networkInterfaces()).flat().filter(x => x?.family === 'IPv4' && !x.internal).map(x => x!.address);
     const base = ((options.pickupBaseUrl ?? process.env.PICKUP_BASE_URL)?.trim() || `http://${ips[0] ?? 'localhost'}:${port}`).replace(/\/$/, '');
@@ -135,7 +136,7 @@ export async function createApp(options: AppOptions = {}) {
         throw fail('照片已过期', 410); if (s.status === 'ended' && !allowEnded)
         throw fail('本次拍照已结束', 410); return s; };
     // Never return raw paths, original images, prompt snapshots or pickup secrets in ordinary session responses.
-    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, ...v } = s; return v; };
+    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, ...v } = s; return { ...v, ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}) }; };
     const validImage = async (v: unknown) => { if (typeof v !== 'string' || !/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=\r\n]+$/.test(v))
         throw fail('只支持 JPEG 或 PNG 照片'); const b = Buffer.from(v.slice(v.indexOf(',') + 1), 'base64'); if (b.length > 12 * 1024 * 1024)
         throw fail('照片不能超过 12MB', 413); try {
@@ -149,6 +150,13 @@ export async function createApp(options: AppOptions = {}) {
     } };
     app.get('/api/health', async () => health());
     app.get('/api/styles', async () => all<Style>('style').filter(s => s.enabled).map(({ prompt, ...s }) => s));
+    app.get<{ Params: { id: string } }>('/api/sessions/:id/original', async (req, reply) => {
+        const s = session(req.params.id);
+        if (!s.photo) throw fail('原照片不存在', 404);
+        return reply.type('image/jpeg').header('Cache-Control', 'no-store')
+            .header('Content-Disposition', 'attachment; filename="snap-original.jpg"')
+            .send(readFileSync(path.join(data, s.photo)));
+    });
     app.post('/api/sessions', async (req) => { const b = object(req.body), style = get<Style>('style', b.styleId); if (!style?.enabled)
         throw fail('风格不可用'); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); const s: StoredSession = { id: randomUUID(), styleId: style.id, styleName: style.name, status: 'created', mode, createdAt: now(), expiresAt: now() + ttl, images: [], files: {} }; put('session', s); return view(s); });
     app.get<{
@@ -236,9 +244,9 @@ export async function createApp(options: AppOptions = {}) {
             id: string;
         };
     }>('/api/sessions/:id/orders', async (req) => { const s = session(req.params.id); if (!['ready', 'partial'].includes(s.status))
-        throw fail('图片尚未准备好', 409); const ids = object(req.body).imageIds; if (!Array.isArray(ids) || !ids.length || ids.length > 2 || new Set(ids).size !== ids.length || ids.some(id => typeof id !== 'string' || !Object.hasOwn(s.files, id)))
+        throw fail('图片尚未准备好', 409); const ids = object(req.body).imageIds; if (!Array.isArray(ids) || ids.length !== 1 || new Set(ids).size !== ids.length || ids.some(id => typeof id !== 'string' || !Object.hasOwn(s.files, id)))
         throw fail('选择的图片无效'); const existing = all<Order>('order').find(o => o.sessionId === s.id && ['pending', 'paid'].includes(o.status) && [...o.imageIds].sort().join() === [...ids].sort().join()); if (existing)
-        return existing; const o: Order = { id: randomUUID(), sessionId: s.id, imageIds: ids, amount: ids.length === 1 ? 990 : 1990, status: 'pending', createdAt: now() }; put('order', o); return o; });
+        return existing; const o: Order = { id: randomUUID(), sessionId: s.id, imageIds: ids, amount: 990, status: 'pending', createdAt: now() }; put('order', o); return o; });
     app.post<{
         Params: {
             id: string;

@@ -57,7 +57,7 @@ test('unresolved theme cannot be enabled; resolving variables increments version
     } finally { await f.close(); }
 });
 test('demo flow preserves locked image authorization, idempotent paid order and pickup after end', async () => {
-    const f = await fixture();
+    const f = await fixture({ imageCount: 2 });
     try {
         const id = await f.make();
         const start = await f.req('POST', `/api/sessions/${id}/generate`, {});
@@ -241,4 +241,29 @@ test('image upload checks decoded format, not only data URL declaration', async 
     finally {
         await f.close();
     }
+});
+
+test('kiosk generates one paid image and serves the original free without adding it to an order', async () => {
+    const f = await fixture();
+    try {
+        assert.equal((await f.req('GET','/api/health')).json().imageCount, 1);
+        const id = await f.make();
+        const photographed = (await f.req('GET',`/api/sessions/${id}`)).json();
+        assert.equal(photographed.originalUrl, `/api/sessions/${id}/original`);
+        const original = await f.req('GET', photographed.originalUrl);
+        assert.equal(original.statusCode, 200);
+        assert.equal(original.headers['content-type'], 'image/jpeg');
+        assert.equal(original.headers['cache-control'], 'no-store');
+        assert.equal((await sharp(original.rawPayload).metadata()).format, 'jpeg');
+        const remote = await f.app.inject({url:photographed.originalUrl,remoteAddress:'192.168.1.20',headers:{host:'localhost:4377'}});
+        assert.equal(remote.statusCode,403);
+        await f.req('POST',`/api/sessions/${id}/generate`,{});
+        const ready=await f.finish(id); assert.equal(ready.images.length,1);
+        assert.equal((await f.req('GET',photographed.originalUrl)).statusCode,200);
+        assert.equal((await f.req('POST',`/api/sessions/${id}/orders`,{imageIds:['original']})).statusCode,400);
+        const order=(await f.req('POST',`/api/sessions/${id}/orders`,{imageIds:[ready.images[0].id]})).json();
+        assert.equal(order.amount,990); assert.equal(order.imageIds.length,1);
+        await f.req('POST',`/api/sessions/${id}/end`,{});
+        assert.equal((await f.req('GET',photographed.originalUrl)).statusCode,410);
+    } finally { await f.close(); }
 });
