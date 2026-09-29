@@ -1,13 +1,20 @@
 /** Single-device server: SQLite owns session/payment state; only token-gated pickup is exposed to LAN clients. */
+import { recommendedFrame, purposes } from '../../packages/shared/portrait-experience.js';
 import Fastify from 'fastify';
+import { isFrameId, isCaption, defaultCaption, type Caption, type FrameId } from '../../packages/shared/frames.js';
+import { framePhoto } from './photo-frame.js';
 import fastifyStatic from '@fastify/static';
 import sharp from 'sharp';
 import { DatabaseSync } from 'node:sqlite';
-import { randomUUID, randomBytes } from 'node:crypto';
+import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { networkInterfaces } from 'node:os';
 import type { Session, Order, Style, Mode, Health } from '../../packages/shared/types.js';
+import { isPhotoOrientation, orientedSize } from '../../packages/shared/photo-orientation.js';
+import { isClothingMode } from '../../packages/shared/clothing.js';
+import { generationPrompt } from './generation-prompt.js';
+import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
 export interface GenerateInput {
     photo: Buffer;
     prompt: string;
@@ -38,13 +45,36 @@ type StoredSession = Session & {
     }>;
     snapshot?: Style;
     token?: string;
+    tokenHash?: string;
+    retentionMs?: number;
 };
 const local = (s: string) => ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(s);
 const fail = (message: string, statusCode = 400) => Object.assign(new Error(message), { statusCode });
+const validatePreset = (style: Style | undefined, orientation: Session['orientation'], clothing: Session['clothingMode']) => {
+    if (style?.generationPreset === 'coming-of-age') {
+        if (orientation !== 'poster' || clothing !== 'theme') throw fail('成人礼海报固定使用 2:3 竖版与深蓝主题换装');
+    } else if (style?.generationPreset === 'directed-portrait') {
+        if (orientation !== style.sceneOrientation) throw fail('此主题使用固定的场景画幅');
+    } else if (orientation !== 'portrait' && orientation !== 'landscape') throw fail('此主题仅支持 3:4 竖版或 4:3 横版');
+};
 const object = (v: unknown): Record<string, any> => { if (!v || typeof v !== 'object' || Array.isArray(v))
     throw fail('需要 JSON 对象'); return v as Record<string, any>; };
 export async function createApp(options: AppOptions = {}) {
     const root = options.rootDir ?? process.cwd(), data = options.dataDir ?? path.join(root, 'data');
+    const now = options.clock ?? Date.now, ttl = options.ttlMs ?? 10 * 60 * 1000;
+    const selectedMode = options.mode ?? process.env.GENERATION_MODE ?? 'seedream';
+    if (!['demo', 'seedream'].includes(selectedMode))
+        throw fail('GENERATION_MODE 只能为 demo 或 seedream');
+    const mode = selectedMode as Mode;
+    // The booth sells one generated portrait; the captured original is always free.
+    const count = options.imageCount ?? 1;
+    const port = process.env.PORT ?? '4377';
+    const ips = Object.values(networkInterfaces()).flat().filter(x => x?.family === 'IPv4' && !x.internal).map(x => x!.address);
+    const base = ((options.pickupBaseUrl ?? process.env.PICKUP_BASE_URL)?.trim() || `http://${ips[0] ?? 'localhost'}:${port}`).replace(/\/$/, '');
+    const parsedBase = new URL(base);
+    if (!['http:', 'https:'].includes(parsedBase.protocol) || parsedBase.username || parsedBase.password || parsedBase.pathname !== '/' || parsedBase.search || parsedBase.hash)
+        throw fail('PICKUP_BASE_URL 必须是完整的网站根地址');
+    const health = (): Health => ({ service: 'snap-club', mode, paymentMode: 'simulate', configured: mode === 'demo' || !!options.provider || !!(process.env.SEEDREAM_API_KEY?.trim() && process.env.SEEDREAM_MODEL?.trim()), model: process.env.SEEDREAM_MODEL ?? '', imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
     mkdirSync(data, { recursive: true });
     for (const folder of ['sessions', 'examples'])
         mkdirSync(path.join(data, folder), { recursive: true });
@@ -55,44 +85,96 @@ export async function createApp(options: AppOptions = {}) {
     const put = (kind: string, v: {
         id: string;
     }) => db.prepare('INSERT OR REPLACE INTO records VALUES(?,?,?)').run(kind, v.id, JSON.stringify(v));
-    const now = options.clock ?? Date.now, ttl = options.ttlMs ?? 86400000;
-    const selectedMode = options.mode ?? process.env.GENERATION_MODE ?? 'demo';
-    if (!['demo', 'seedream'].includes(selectedMode))
-        throw fail('GENERATION_MODE 只能为 demo 或 seedream');
-    const mode = selectedMode as Mode;
-    // The booth sells one generated portrait; the captured original is always free.
-    const count = options.imageCount ?? 1;
-    const port = process.env.PORT ?? '4377';
-    const ips = Object.values(networkInterfaces()).flat().filter(x => x?.family === 'IPv4' && !x.internal).map(x => x!.address);
-    const base = ((options.pickupBaseUrl ?? process.env.PICKUP_BASE_URL)?.trim() || `http://${ips[0] ?? 'localhost'}:${port}`).replace(/\/$/, '');
-    const parsedBase = new URL(base);
-    if (!['http:', 'https:'].includes(parsedBase.protocol) || parsedBase.username || parsedBase.password || parsedBase.pathname !== '/')
-        throw fail('PICKUP_BASE_URL 必须是完整的网站根地址');
-    const health = (): Health => ({ service: 'snap-club', mode, configured: mode === 'demo' || !!options.provider || !!(process.env.SEEDREAM_API_KEY?.trim() && process.env.SEEDREAM_MODEL?.trim()), model: process.env.SEEDREAM_MODEL ?? '', imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
+    const retirementFile = path.join(root, 'config/styles/retired-styles.json');
+    const retired: Record<string, string> = existsSync(retirementFile) ? JSON.parse(readFileSync(retirementFile, 'utf8')) : {};
     // Add new bundled styles on upgrade without resetting existing edits, versions or switches.
     {
         const file = path.join(root, 'config/styles/styles.json');
         if (existsSync(file)) {
             const initial = JSON.parse(readFileSync(file, 'utf8'));
-            for (const style of Array.isArray(initial) ? initial : initial.styles)
-                if (!get<Style>('style', style.id)) put('style', style);
+            // Upgrade only exact bundled originals; preserve custom prompts and session snapshots.
+            const migrationFile = path.join(root, 'config/styles/group-photo-migration.json');
+            const previous: Record<string, string> = existsSync(migrationFile)
+                ? JSON.parse(readFileSync(migrationFile, 'utf8')) : {};
+            const portraitFile = path.join(root, 'config/styles/portrait-migration.json');
+            const portraitPrevious: Record<string, string> = existsSync(portraitFile) ? JSON.parse(readFileSync(portraitFile, 'utf8')) : {};
+            const wardrobeFile = path.join(root, 'config/styles/wardrobe-migration.json');
+            const wardrobePrevious: Record<string, string> = existsSync(wardrobeFile) ? JSON.parse(readFileSync(wardrobeFile, 'utf8')) : {};
+            const qualityFile = path.join(root, 'config/styles/quality-migration.json');
+            const qualityPrevious: Record<string, string> = existsSync(qualityFile) ? JSON.parse(readFileSync(qualityFile, 'utf8')) : {};
+            const poseFile = path.join(root, 'config/styles/pose-migration.json');
+            const posePrevious: Record<string, { prompt: string; outfitPrompt?: string }> = existsSync(poseFile) ? JSON.parse(readFileSync(poseFile, 'utf8')) : {};
+            const sceneFile = path.join(root, 'config/styles/scene-quality-migration.json');
+            const scenePrevious: Record<string, Record<string, string | string[]>> = existsSync(sceneFile) ? JSON.parse(readFileSync(sceneFile, 'utf8')) : {};
+            for (const style of Array.isArray(initial) ? initial : initial.styles) {
+                if (Object.hasOwn(retired, style.id)) continue;
+                const saved = get<Style>('style', style.id);
+                if (!saved) put('style', style);
+                else {
+                    const replacePrompt = typeof saved.prompt === 'string' && saved.prompt !== style.prompt &&
+                        [previous[style.id], portraitPrevious[style.id], wardrobePrevious[style.id], qualityPrevious[style.id], posePrevious[style.id]?.prompt].includes(createHash('sha256').update(saved.prompt).digest('hex'));
+                    const addOutfit = saved.outfitPrompt === undefined && typeof style.outfitPrompt === 'string';
+                    const replaceOutfit = typeof saved.outfitPrompt === 'string' && typeof style.outfitPrompt === 'string' && saved.outfitPrompt !== style.outfitPrompt &&
+                        posePrevious[style.id]?.outfitPrompt === createHash('sha256').update(saved.outfitPrompt).digest('hex');
+                    const sceneKeys = (['name', 'prompt', 'description', 'exampleUrl', 'size'] as const).filter(key => {
+                        if (saved[key] === style[key] || saved[key] === undefined) return false;
+                        const hashes = scenePrevious[style.id]?.[key];
+                        return (Array.isArray(hashes) ? hashes : [hashes]).includes(createHash('sha256').update(JSON.stringify(saved[key])).digest('hex'));
+                    });
+                    const addSceneMetadata = style.sourceCode && saved.sourceCode === undefined;
+                    if (replacePrompt || addOutfit || replaceOutfit || sceneKeys.length || addSceneMetadata) {
+                        const upgraded: Style = { ...saved, version: Math.max(saved.version + 1, style.version) };
+                        if (replacePrompt) upgraded.prompt = style.prompt;
+                        if (addOutfit || replaceOutfit) upgraded.outfitPrompt = style.outfitPrompt;
+                        for (const key of sceneKeys) (upgraded as any)[key] = style[key];
+                        if (addSceneMetadata) {
+                            upgraded.sourceCode = style.sourceCode;
+                            upgraded.sceneOrientation = style.sceneOrientation;
+                            upgraded.subjectCount = style.subjectCount;
+                        }
+                        if (style.id === 'festival' && saved.description === '节日换装 · 暗红衣衫与梅枝，留一张新春纪念。') upgraded.description = style.description;
+                        put('style', upgraded);
+                    }
+                }
+            }
         }
     }
+    // Remove duplicates from the active catalog, preserving custom prompts for old sessions.
+    db.exec('BEGIN IMMEDIATE');
+    try {
+        for (const id of Object.keys(retired)) {
+            const saved = get<Style>('style', id);
+            if (saved) {
+                put('retired-style', saved);
+                db.prepare('DELETE FROM records WHERE kind=? AND id=?').run('style', id);
+            }
+        }
+        db.exec('COMMIT');
+    } catch (error) { db.exec('ROLLBACK'); db.close(); throw error; }
     for (const s of all<StoredSession>('session'))
         if (s.status === 'generating') {
             s.status = 'unknown';
             s.error = '服务曾重启，上游结果未知；为避免重复计费，不自动重试。';
             put('session', s);
         }
+    const erasePhotos = (s: StoredSession) => {
+        if (s.deletedAt !== undefined) return;
+        const sessionsDir = path.resolve(data, 'sessions');
+        const target = path.resolve(sessionsDir, s.id);
+        if (path.dirname(target) !== sessionsDir) throw Error('Invalid session directory');
+        rmSync(target, { recursive: true, force: true });
+        // Keep only accounting/status records; neither captions nor pickup secrets survive expiry.
+        if (s.token) s.tokenHash = createHash('sha256').update(s.token).digest('hex');
+        s.token = undefined; s.pickupUrl = undefined; s.photo = undefined; s.snapshot = undefined;
+        s.files = {}; s.images = []; s.frame = undefined; s.caption = undefined;
+        s.error = undefined; s.deletedAt = now(); s.status = 'ended';
+        db.prepare('DELETE FROM records WHERE kind=? AND id=?').run('frame', s.id);
+        put('session', s);
+    };
     const cleanup = () => { for (const s of all<StoredSession>('session'))
-        if (s.expiresAt <= now()) {
-            rmSync(path.join(data, 'sessions', s.id), { recursive: true, force: true });
-            s.photo = undefined;
-            s.files = {};
-            put('session', s);
-        } };
+        if (s.expiresAt <= now()) erasePhotos(s); };
     cleanup();
-    const timer = setInterval(cleanup, 60000);
+    const timer = setInterval(() => { try { cleanup(); } catch (error) { console.error('Photo cleanup failed', error); } }, 1000);
     timer.unref();
     const app = Fastify({ logger: false, bodyLimit: 17 * 1024 * 1024, trustProxy: false });
     const jobs = new Set<Promise<void>>();
@@ -124,6 +206,7 @@ export async function createApp(options: AppOptions = {}) {
         if (req.headers['sec-fetch-site'] === 'cross-site')
             throw fail('拒绝跨站请求', 403);
         const url = req.url.split('?')[0];
+        if (mode === 'seedream' && ['/stages', '/stages.html'].includes(url)) throw fail('页面不存在', 404);
         const publicRoute = /^\/api\/pickup\/[a-f0-9]{64}(?:\/images\/[a-f0-9-]+)?$/.test(url) || /^\/pickup\/[a-f0-9]{64}$/.test(url) || (/^\/assets\/[\w.-]+$/.test(url) && !url.includes('..')) || url === '/favicon.svg';
         if (!publicRoute && (!local(req.ip) || !['localhost', '127.0.0.1', '::1'].includes(hostname)))
             throw fail('此入口仅允许本机访问', 403);
@@ -132,24 +215,38 @@ export async function createApp(options: AppOptions = {}) {
         reply.header('Cache-Control', 'no-store').header('X-Content-Type-Options', 'nosniff').header('Referrer-Policy', 'no-referrer').header('X-Frame-Options', 'DENY').header('Content-Security-Policy', "frame-ancestors 'none'");
     });
     const session = (id: string, allowEnded = false) => { const s = get<StoredSession>('session', id); if (!s)
-        throw fail('会话不存在', 404); if (s.expiresAt <= now())
-        throw fail('照片已过期', 410); if (s.status === 'ended' && !allowEnded)
+        throw fail('会话不存在', 404); if (s.expiresAt <= now()) {
+        erasePhotos(s); throw fail('照片已过期并删除', 410); } if (s.status === 'ended' && !allowEnded)
         throw fail('本次拍照已结束', 410); return s; };
+    // Store decoration separately so a slow generation job cannot overwrite a later selection.
+    const selectedDecoration = (id: string) => get<{ id: string; frame: FrameId; caption?: Caption }>('frame', id);
+    const selectedFrame = (id: string): FrameId => selectedDecoration(id)?.frame ?? 'none';
+    const selectedCaption = (id: string): Caption => selectedDecoration(id)?.caption ?? defaultCaption;
+    app.post<{ Params: { id: string } }>('/api/sessions/:id/frame', async req => {
+        const s = session(req.params.id);
+        const frame = object(req.body).frame;
+        if (!isFrameId(frame)) throw fail('边框样式无效');
+        const caption = object(req.body).caption ?? selectedCaption(s.id);
+        if (!isCaption(caption)) throw fail('文字设置无效，最多输入 80 个字符');
+        const choice = { id: s.id, frame, caption };
+        put('frame', choice);
+        return { frame, caption };
+    });
     // Never return raw paths, original images, prompt snapshots or pickup secrets in ordinary session responses.
-    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, ...v } = s; return { ...v, ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}) }; };
+    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, tokenHash, retentionMs, ...v } = s; return { ...v, frame: selectedFrame(s.id), caption: selectedCaption(s.id), ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}) }; };
     const validImage = async (v: unknown) => { if (typeof v !== 'string' || !/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=\r\n]+$/.test(v))
         throw fail('只支持 JPEG 或 PNG 照片'); const b = Buffer.from(v.slice(v.indexOf(',') + 1), 'base64'); if (b.length > 12 * 1024 * 1024)
         throw fail('照片不能超过 12MB', 413); try {
         const meta = await sharp(b, { limitInputPixels: 25000000 }).metadata();
         if (!['jpeg', 'png'].includes(meta.format ?? '') || (meta.pages ?? 1) > 1)
             throw Error('format');
-        return await sharp(b, { limitInputPixels: 25000000 }).rotate().resize({ width: 2048, height: 2048, fit: 'inside', withoutEnlargement: true }).jpeg({ quality: 92 }).toBuffer();
+        return await normalizeSourcePhoto(b);
     }
     catch {
         throw fail('无法读取照片，请更换 JPEG 或 PNG 图片');
     } };
     app.get('/api/health', async () => health());
-    app.get('/api/styles', async () => all<Style>('style').filter(s => s.enabled).map(({ prompt, ...s }) => s));
+    app.get('/api/styles', async () => all<Style>('style').filter(s => s.enabled).map(({ prompt, outfitPrompt, ...s }) => s));
     app.get<{ Params: { id: string } }>('/api/sessions/:id/original', async (req, reply) => {
         const s = session(req.params.id);
         if (!s.photo) throw fail('原照片不存在', 404);
@@ -157,8 +254,8 @@ export async function createApp(options: AppOptions = {}) {
             .header('Content-Disposition', 'attachment; filename="snap-original.jpg"')
             .send(readFileSync(path.join(data, s.photo)));
     });
-    app.post('/api/sessions', async (req) => { const b = object(req.body), style = get<Style>('style', b.styleId); if (!style?.enabled)
-        throw fail('风格不可用'); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); const s: StoredSession = { id: randomUUID(), styleId: style.id, styleName: style.name, status: 'created', mode, createdAt: now(), expiresAt: now() + ttl, images: [], files: {} }; put('session', s); return view(s); });
+    app.post('/api/sessions', async (req) => { const b = object(req.body), style = get<Style>('style', b.styleId); if (b.purpose !== undefined && !purposes.some(p => p.id === b.purpose)) throw fail('照片用途无效'); if (!style?.enabled)
+        throw fail('风格不可用'); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); const s: StoredSession = { id: randomUUID(), styleId: style.id, styleName: style.name, purpose: b.purpose ?? 'self', orientation: style.sceneOrientation ?? (style.generationPreset === 'coming-of-age' ? 'poster' : 'portrait'), clothingMode: style.generationPreset ? 'theme' : 'keep', status: 'created', mode, createdAt: now(), expiresAt: now() + ttl, retentionMs: ttl, images: [], files: {} }; put('session', s); const decoration = { id: s.id, frame: recommendedFrame(style.id, s.purpose), caption: defaultCaption }; put('frame', decoration); return view(s); });
     app.get<{
         Params: {
             id: string;
@@ -169,9 +266,8 @@ export async function createApp(options: AppOptions = {}) {
             id: string;
         };
     }>('/api/sessions/:id/photo', async (req) => { const s = session(req.params.id); if (!['created', 'photographed'].includes(s.status))
-        throw fail('当前状态不能替换照片', 409); const photo = await validImage(object(req.body).dataUrl); const latest = session(s.id); if (!['created', 'photographed'].includes(latest.status))
-        throw fail('会话状态已变化', 409); mkdirSync(path.join(data, 'sessions', s.id), { recursive: true }); s.photo = path.join('sessions', s.id, 'photo.jpg'); writeFileSync(path.join(data, s.photo), photo); s.status = 'photographed'; put('session', s); return view(s); });
-    const stamp = async (b: Buffer, label: string, preview = false) => { const resized = await sharp(b, { limitInputPixels: 25000000 }).rotate().resize({ width: preview ? 600 : 1600, height: preview ? 800 : 2000, fit: 'inside', withoutEnlargement: true }).jpeg().toBuffer(); const m = await sharp(resized).metadata(); const width = m.width!, height = m.height!; const svg = Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${height - 64}" width="${width}" height="64" fill="#121212" fill-opacity=".65"/><text x="24" y="${height - 23}" font-family="sans-serif" font-weight="bold" font-size="${Math.min(28, width / 18)}" fill="white">${label}</text></svg>`); return sharp(resized).composite([{ input: svg }]).jpeg({ quality: preview ? 65 : 92 }).toBuffer(); };
+        throw fail('当前状态不能替换照片', 409); const body = object(req.body); if (!isPhotoOrientation(body.orientation)) throw fail('照片比例无效'); const clothing = body.clothingMode === undefined ? s.clothingMode ?? 'keep' : body.clothingMode; if (!isClothingMode(clothing)) throw fail('服装选项无效'); validatePreset(get<Style>('style', s.styleId) ?? get<Style>('retired-style', s.styleId), body.orientation, clothing); const photo = await validImage(body.dataUrl); const latest = session(s.id); if (!['created', 'photographed'].includes(latest.status))
+        throw fail('会话状态已变化', 409); mkdirSync(path.join(data, 'sessions', s.id), { recursive: true }); s.photo = path.join('sessions', s.id, 'photo.jpg'); s.orientation = body.orientation; s.clothingMode = clothing; writeFileSync(path.join(data, s.photo), photo); s.status = 'photographed'; put('session', s); return view(s); });
     // Re-read state after every long operation so a completed job cannot revive an abandoned device session.
     async function run(id: string) {
         const start = now();
@@ -179,28 +275,48 @@ export async function createApp(options: AppOptions = {}) {
         try {
             const s = session(id), photo = readFileSync(path.join(data, s.photo!));
             let result: GenerateResult;
+            const orientation = s.orientation ?? 'portrait';
+            const outputSize = orientedSize(s.snapshot!.size, orientation);
+            const [outputWidth, outputHeight] = /^\d+x\d+$/.test(outputSize) ? outputSize.split('x').map(Number) : orientation === 'poster' ? [1024, 1536] : orientation === 'portrait' ? [1152, 1536] : [1536, 1152];
             if (mode === 'demo') {
-                result = { images: await Promise.all(Array.from({ length: count }, async (_, i) => stamp(await sharp(photo).modulate({ saturation: i ? 0.25 : 1.25, brightness: i ? 1.05 : 1 }).toBuffer(), 'DEMO - NOT AI GENERATED'))) };
+                result = { images: await Promise.all(Array.from({ length: count }, async (_, i) => sharp(photo).resize({ width: outputWidth, height: outputHeight, fit: 'cover' }).modulate({ saturation: i ? 0.25 : 1.25, brightness: i ? 1.05 : 1 }).jpeg({ quality: 92 }).toBuffer())) };
             }
             else {
                 const provider = options.provider ?? (await import('./providers/seedream.js')).generate;
-                result = await provider({ photo, prompt: s.snapshot!.prompt ?? '', size: s.snapshot!.size, count });
+                result = await provider({ photo, prompt: generationPrompt(s.snapshot!, s.clothingMode ?? 'keep', orientation), size: outputSize, count });
                 providerCompleted = true;
             }
-            const current = get<StoredSession>('session', id);
-            if (!current || current.status === 'ended' || current.expiresAt <= now())
-                return;
+            const active = () => {
+                const value = get<StoredSession>('session', id);
+                if (!value) return;
+                if (value.expiresAt <= now()) { erasePhotos(value); return; }
+                if (value.status !== 'generating') return;
+                return value;
+            };
+            if (!active()) return;
+            // Prepare in memory, then commit synchronously. Expiry/end during Sharp work cannot recreate files.
+            const prepared: { id: string; full: string; preview: string; clean: Buffer; thumbnail: Buffer }[] = [];
             for (const b of result.images.slice(0, count)) {
                 const imageId = randomUUID(), full = path.join('sessions', id, `${imageId}.jpg`), preview = path.join('sessions', id, `${imageId}-preview.jpg`);
-                const clean = await sharp(b, { limitInputPixels: 25000000 }).jpeg({ quality: 95 }).toBuffer();
-                writeFileSync(path.join(data, full), clean);
-                writeFileSync(path.join(data, preview), await stamp(clean, 'PREVIEW / DEMO PAYMENT', true));
-                current.files[imageId] = { full, preview };
-                current.images.push({ id: imageId, previewUrl: `/api/sessions/${id}/images/${imageId}/preview` });
+                const clean = await fullPhoto(b);
+                const thumbnail = await previewPhoto(clean);
+                if (!active()) return;
+                prepared.push({ id: imageId, full, preview, clean, thumbnail });
             }
-            if (get<StoredSession>('session', id)?.status === 'ended' || current.expiresAt <= now())
-                return;
+            const current = active();
+            if (!current) return;
+            for (const item of prepared) {
+                writeFileSync(path.join(data, item.full), item.clean);
+                writeFileSync(path.join(data, item.preview), item.thumbnail);
+                current.files[item.id] = { full: item.full, preview: item.preview };
+                current.images.push({ id: item.id, previewUrl: `/api/sessions/${id}/images/${item.id}/preview` });
+            }
             current.status = current.images.length >= count ? 'ready' : current.images.length ? 'partial' : result.unknown ? 'unknown' : 'failed';
+            if (current.images.length && !current.completedAt) {
+                current.completedAt = now();
+                // Existing sessions keep their previously promised expiry during upgrades.
+                if (current.retentionMs) current.expiresAt = current.completedAt + current.retentionMs;
+            }
             current.error = result.error ?? (current.images.length ? undefined : '未返回可用图片');
             current.elapsedMs = now() - start;
             current.requestId = result.requestId;
@@ -208,7 +324,8 @@ export async function createApp(options: AppOptions = {}) {
         }
         catch (error) {
             const s = get<StoredSession>('session', id);
-            if (s && s.status !== 'ended') {
+            if (s && s.expiresAt <= now()) erasePhotos(s);
+            else if (s && s.status !== 'ended') {
                 s.status = (error as any).unknown || providerCompleted ? 'unknown' : 'failed';
                 s.error = providerCompleted ? '上游已返回，但本地保存失败；请检查磁盘，不重复提交以避免重复计费。' : (error as Error).message;
                 s.requestId = (error as any).requestId;
@@ -221,12 +338,12 @@ export async function createApp(options: AppOptions = {}) {
         Params: {
             id: string;
         };
-    }>('/api/sessions/:id/generate', async (req) => { const s = session(req.params.id); if (['generating', 'ready', 'partial'].includes(s.status))
+    }>('/api/sessions/:id/generate', async (req) => { const s = session(req.params.id); const requestedClothing = object(req.body).clothingMode; const clothing = requestedClothing === undefined ? s.clothingMode ?? 'keep' : requestedClothing; if (!isClothingMode(clothing)) throw fail('服装选项无效'); if (['generating', 'ready', 'partial'].includes(s.status))
         return view(s); if (s.status === 'unknown')
         throw fail('上游结果未知，禁止重复提交以避免重复计费', 409); if (!['photographed', 'failed'].includes(s.status) || !s.photo)
         throw fail('请先拍照', 409); if (!health().configured)
-        throw fail('请配置 Seedream API 密钥及模型标识', 503); const style = get<Style>('style', s.styleId); if (!style?.enabled)
-        throw fail('风格已关闭'); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); s.snapshot = { ...style }; s.promptVersion = style.version; s.status = 'generating'; s.error = undefined; s.images = []; s.files = {}; put('session', s); const job = Promise.resolve().then(() => run(s.id)); jobs.add(job); void job.finally(() => jobs.delete(job)); return view(s); });
+        throw fail('请配置 Seedream API 密钥及模型标识', 503); if (jobs.size >= 1) throw fail('设备正在处理上一张照片，请稍后再试', 429); const style = get<Style>('style', s.styleId) ?? get<Style>('retired-style', s.styleId); if (!style?.enabled)
+        throw fail('风格已关闭'); validatePreset(style, s.orientation ?? 'portrait', clothing); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); s.clothingMode = clothing; s.snapshot = { ...style }; s.promptVersion = style.version; s.status = 'generating'; s.error = undefined; s.images = []; s.files = {}; put('session', s); const job = Promise.resolve().then(() => run(s.id)); jobs.add(job); void job.finally(() => jobs.delete(job)); return view(s); });
     app.post<{
         Params: {
             id: string;
@@ -246,7 +363,7 @@ export async function createApp(options: AppOptions = {}) {
     }>('/api/sessions/:id/orders', async (req) => { const s = session(req.params.id); if (!['ready', 'partial'].includes(s.status))
         throw fail('图片尚未准备好', 409); const ids = object(req.body).imageIds; if (!Array.isArray(ids) || ids.length !== 1 || new Set(ids).size !== ids.length || ids.some(id => typeof id !== 'string' || !Object.hasOwn(s.files, id)))
         throw fail('选择的图片无效'); const existing = all<Order>('order').find(o => o.sessionId === s.id && ['pending', 'paid'].includes(o.status) && [...o.imageIds].sort().join() === [...ids].sort().join()); if (existing)
-        return existing; const o: Order = { id: randomUUID(), sessionId: s.id, imageIds: ids, amount: 990, status: 'pending', createdAt: now() }; put('order', o); return o; });
+        return existing; const o: Order = { id: randomUUID(), sessionId: s.id, imageIds: ids, amount: 990, paymentMode: 'simulate', status: 'pending', createdAt: now() }; put('order', o); return o; });
     app.post<{
         Params: {
             id: string;
@@ -263,21 +380,23 @@ export async function createApp(options: AppOptions = {}) {
         put('order', o);
     } return { order: o, pickupUrl: o.status === 'paid' ? s.pickupUrl : undefined }; });
     const pickup = (token: string) => { if (!/^[a-f0-9]{64}$/.test(token))
-        throw fail('取图链接不存在', 404); const s = all<StoredSession>('session').find(s => s.token === token); if (!s)
-        throw fail('取图链接不存在', 404); if (s.expiresAt <= now())
-        throw fail('图片已过期', 410); const ids = [...new Set(all<Order>('order').filter(o => o.sessionId === s.id && o.status === 'paid').flatMap(o => o.imageIds))]; return { s, ids }; };
+        throw fail('取图链接不存在', 404); const hash = createHash('sha256').update(token).digest('hex'); const s = all<StoredSession>('session').find(s => s.token === token || s.tokenHash === hash); if (!s)
+        throw fail('取图链接不存在', 404); if (s.expiresAt <= now()) {
+        erasePhotos(s); throw fail('照片已过期并删除', 410); } const ids = [...new Set(all<Order>('order').filter(o => o.sessionId === s.id && o.status === 'paid').flatMap(o => o.imageIds))]; return { s, ids }; };
     app.get<{
         Params: {
             token: string;
         };
-    }>('/api/pickup/:token', async (req) => { const { s, ids } = pickup(req.params.token); return { status: 'paid', expiresAt: s.expiresAt, mode: s.mode, images: ids.map(id => ({ id, downloadUrl: `/api/pickup/${req.params.token}/images/${id}` })) }; });
+    }>('/api/pickup/:token', async (req) => { const { s, ids } = pickup(req.params.token); return { status: 'paid', paymentMode: 'simulate', expiresAt: s.expiresAt, mode: s.mode, images: ids.map(id => ({ id, downloadUrl: `/api/pickup/${req.params.token}/images/${id}` })) }; });
     app.get<{
         Params: {
             token: string;
             imageId: string;
         };
     }>('/api/pickup/:token/images/:imageId', async (req, reply) => { const { s, ids } = pickup(req.params.token); if (!ids.includes(req.params.imageId) || !s.files[req.params.imageId])
-        throw fail('图片不存在', 404); return reply.type('image/jpeg').header('Content-Disposition', `attachment; filename="photo-${req.params.imageId}.jpg"`).send(readFileSync(path.join(data, s.files[req.params.imageId].full))); });
+        throw fail('图片不存在', 404); const image = await framePhoto(readFileSync(path.join(data, s.files[req.params.imageId].full)), selectedFrame(s.id), selectedCaption(s.id));
+        pickup(req.params.token); // Decoration may finish after the deadline; never send an expired image.
+        return reply.type('image/jpeg').header('Content-Disposition', `attachment; filename="photo-${req.params.imageId}.jpg"`).send(image); });
     app.get('/api/admin', async () => ({ health: health(), styles: all<Style>('style'), sessions: all<StoredSession>('session').sort((a, b) => b.createdAt - a.createdAt).slice(0, 100).map(view), orders: all<Order>('order').sort((a, b) => b.createdAt - a.createdAt).slice(0, 100) }));
     app.put<{
         Params: {
@@ -288,8 +407,8 @@ export async function createApp(options: AppOptions = {}) {
         if (typeof b[key] !== 'string' || b[key].length > 12000)
             throw fail(`无效字段：${key}`); if (typeof b.enabled !== 'boolean' || !/^\/(examples|admin-examples)\/[\w./-]+$/.test(b.exampleUrl) || b.exampleUrl.includes('..'))
         throw fail('示例图路径或开关无效'); if (!b.name.trim() || !b.prompt.trim() || !b.size.trim())
-        throw fail('名称、提示词和尺寸不能为空'); if (b.enabled && /\{\{[^}]*\}\}/.test(b.prompt)) throw fail('请先将提示词中的 {{占位内容}} 替换为实际主题，再开启风格'); if (s.prompt !== b.prompt)
-        s.version++; Object.assign(s, ...['name', 'prompt', 'description', 'size', 'exampleUrl', 'enabled'].map(k => ({ [k]: b[k] }))); put('style', s); return s; });
+        throw fail('名称、提示词和尺寸不能为空'); if (b.enabled && /\{\{[^}]*\}\}/.test(b.prompt)) throw fail('请先将提示词中的 {{占位内容}} 替换为实际主题，再开启风格'); if (b.outfitPrompt !== undefined && (typeof b.outfitPrompt !== 'string' || b.outfitPrompt.length > 4000 || !b.outfitPrompt.trim())) throw fail('换装提示词不能为空且最多 4000 字'); if (s.prompt !== b.prompt || (b.outfitPrompt !== undefined && s.outfitPrompt !== b.outfitPrompt))
+        s.version++; if (b.outfitPrompt !== undefined) s.outfitPrompt = b.outfitPrompt; Object.assign(s, ...['name', 'prompt', 'description', 'size', 'exampleUrl', 'enabled'].map(k => ({ [k]: b[k] }))); put('style', s); return s; });
     app.post('/api/admin/examples', async (req) => { const b = await validImage(object(req.body).dataUrl), id = randomUUID() + '.jpg'; writeFileSync(path.join(data, 'examples', id), b); return { url: `/admin-examples/${id}` }; });
     app.get<{
         Params: {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
-const stages = ['home', 'styles', 'camera', 'confirm', 'generating', 'results', 'payment', 'pickup'];
+const stages = ['home', 'styles', 'library', 'camera', 'confirm', 'generating', 'results', 'payment', 'pickup'];
 type Transition = { finished: Promise<void>; skipTransition: () => void };
 type TransitionDocument = Document & { startViewTransition?: (update: () => void) => Transition };
 
@@ -17,7 +17,7 @@ export function useBoothTransition() {
     const alive = useRef(true);
     const reduced = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
-    const setStep = useCallback((next: string) => {
+    const setStep = useCallback((next: string, immediate = false) => {
         const previous = current.current;
         if (previous === next) return;
         const version = ++revision.current;
@@ -26,7 +26,7 @@ export function useBoothTransition() {
         direction.current = stages.indexOf(next) < stages.indexOf(previous) ? 'back' : 'forward';
         const doc = document as TransitionDocument;
         // Ending a visitor session clears personal imagery immediately, without keeping an exit snapshot.
-        if (!doc.startViewTransition || reduced() || next === 'home' || next === 'styles') {
+        if (immediate || !doc.startViewTransition || reduced() || next === 'home' || next === 'styles') {
             native.current = false;
             updateStep(next);
             return;

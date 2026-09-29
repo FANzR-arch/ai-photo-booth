@@ -2,7 +2,6 @@
 :root{view-transition-name:none}
 .kiosk-shell>main>section{view-transition-name:booth-page}
 .kiosk-shell .capture-copy{view-transition-name:booth-copy}
-.kiosk-shell[data-step="camera"] .sample-preview>img,
 .kiosk-shell[data-step="camera"] .camera-frame>video,
 .kiosk-shell[data-step="confirm"] .camera-frame>img,
 .kiosk-shell[data-step="generating"] .generation-photo>img,

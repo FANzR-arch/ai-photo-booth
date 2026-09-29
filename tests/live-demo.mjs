@@ -21,7 +21,7 @@ for (const expected of bundled.filter(style=>style.enabled && style.exampleUrl.e
 }
 const photo=await sharp('assets/examples/cartoon-editorial.png').resize({width:640}).jpeg().toBuffer();
 const session=await api('/api/sessions',{styleId:styles[0].id});
-await api(`/api/sessions/${session.id}/photo`,{dataUrl:`data:image/jpeg;base64,${photo.toString('base64')}`});
+await api(`/api/sessions/${session.id}/photo`,{dataUrl:`data:image/jpeg;base64,${photo.toString('base64')}`,orientation:'portrait'});
 await api(`/api/sessions/${session.id}/generate`,{});
 let ready;
 for(let i=0;i<60;i++){

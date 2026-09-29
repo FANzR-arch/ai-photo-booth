@@ -26,3 +26,25 @@
 @media(orientation:portrait),(max-width:700px){.theme-library .theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.theme-library .theme-heading{min-height:82px;gap:12px}.theme-library .theme-heading .secondary{min-width:0;padding:12px;min-height:48px;font-size:14px}.theme-library .theme-heading h1{font-size:26px}.theme-library .theme-grid{gap:20px 12px}.theme-library .theme-caption{min-height:58px;padding:12px}.theme-library .theme-caption h2{font-size:18px}.theme-library .theme-caption>span{font-size:23px}.theme-scroll{padding-right:4px}.theme-dots{bottom:12px}}
 @media(prefers-reduced-motion:reduce){.theme-library *{transition:none!important;animation:none!important;scroll-behavior:auto}}
+/* Concrete categories keep one home for each template; counts reflect enabled photos only. */
+.purpose-tabs{display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;padding:0 0 12px}
+.purpose-tabs button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 16px;background:transparent;border:1px solid #b5b8a9;border-radius:28px;color:#394332;font:inherit;font-size:16px;white-space:nowrap;cursor:pointer}
+.category-count{font-size:12px;opacity:.7;font-variant-numeric:tabular-nums}
+.purpose-tabs button[aria-pressed=true]{background:#3d4c39;border-color:#3d4c39;color:#fffaf0}
+.purpose-tabs button:focus-visible{outline:3px solid #ac432e;outline-offset:3px}
+.purpose-note{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 18px;color:#48523f;font-size:15px;flex-shrink:0}
+.purpose-note span{font-size:12px;color:#606553}
+.theme-library .style-description{font-size:14px;line-height:1.55;margin:8px 0 0;color:#545c4a}
+.theme-library .theme-caption small{display:block;font-size:12px;margin-top:8px;color:#82432f}
+.theme-library .theme-caption{align-items:flex-start}
+.capture-guidance{max-width:30em;font-size:clamp(16px,1.5vw,21px);line-height:1.7;color:#45503c}
+.capture-group-note{font-size:14px;color:#61664e}
+.caption-more summary{padding:16px 0;cursor:pointer;color:#43513b;min-height:48px}
+@media(max-width:700px){.theme-library .theme-heading h1{font-size:21px;letter-spacing:0}.purpose-tabs{gap:6px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.purpose-tabs button{min-width:0;padding:8px 6px;gap:5px;font-size:14px;min-height:42px}.purpose-note{font-size:14px;margin-bottom:12px}.theme-library .style-description{font-size:12px}.theme-library .theme-heading{gap:8px}.theme-library .theme-motion{padding:8px!important;font-size:12px!important}.theme-library .theme-caption h2{font-size:17px}}
+.result-review-note{font-size:14px;line-height:1.7;font-weight:400;letter-spacing:0;color:#5b624f;max-width:34em;margin:12px 0 0}
+/* Two independent photos share the existing gallery clock without sprite cropping. */
+.theme-variant{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;pointer-events:none}
+.theme-variant.is-current{opacity:1}
+.theme-variant img{display:block;width:100%;height:100%;object-fit:cover}
+/* Show the entire directed composition, including poster lettering and landscape props. */
+.scene-art .style-image img{object-fit:contain;object-position:center}

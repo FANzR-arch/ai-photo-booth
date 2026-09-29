@@ -1,35 +1,31 @@
-# 演示 API 配置说明
+# API 配置
 
-## 当前实现
+当前为现场拍照亭：真实 Seedream 生图 + 模拟支付。配置只由本机 Node 后端读取，顾客无需提供密钥。
 
-当前是内部 Demo：API 配置直接放在运行电脑的项目内部 `.env` 文件中，由 Node 后端读取，用同一个 Seedream 账户完成演示生成。这里的“内部”指服务端本地配置，不是把真实密钥写进前端代码或公开仓库。
-
-仓库不包含可直接使用的真实密钥。内部演示 ZIP 已带演示配置，无需同事再次填写；从 GitHub 克隆源码则需单独配置。无需顾客输入密钥。服务端将照片和选中主题的提示词发送给火山方舟，浏览器只访问本地拍照亭接口。
+复制 .env.example 为 .env，填写：
 
 ```dotenv
 GENERATION_MODE=seedream
 PORT=4377
-IMAGE_COUNT=1
-SEEDREAM_API_KEY=填写演示账户密钥
-SEEDREAM_MODEL=doubao-seedream-5-0-pro-260628
+SEEDREAM_API_KEY=在本机填写
+SEEDREAM_MODEL=填写账户实际可用的模型ID
 PICKUP_BASE_URL=
 ```
 
-模型 ID 以账户实际可用权限为准。接口为 `https://ark.cn-beijing.volces.com/api/v3/images/generations`。当前单次生成一张；再次提交会产生新的 API 调用。模拟付款和下载只解锁已生成文件，不重新生成。
+接口固定为 https://ark.cn-beijing.volces.com/api/v3/images/generations；模型权限以账户配置为准。密钥不进入前端，不写入 Git，不随新制作的 Windows 包分发。
 
-## 边界
+每次生成一张，重试会再次调用 API；模拟支付、相纸文字编辑和下载不重新生成。上游结果未知时禁止重复提交。
 
-- 支付是模拟流程，没有实际扣款；API 生成是真实调用，可能产生费用。
-- 当前没有每人配额、设备账号、预算上限和密钥托管平台，不适合开放给未知用户任意使用。
-- `.env`、本地照片、SQLite 数据库、测试取图凭证不提交 GitHub。参考图库是项目演示素材，不是用户照片。
-- 同一 Wi-Fi 取图需要电脑保持运行，并允许局域网访问端口；服务不自动修改防火墙。
-- 本机网络权限拒绝会明确报错；不确定是否已完成的生成不会自动重试，避免重复请求。
+确认照片页的 clothingMode 为 keep（默认保留原服装）或 theme（按主题换装），随照片上传和生成请求保存到会话。生成开始后，返回查看、重复提交和付款都不会改变该张照片的服装选择。旧客户端不传此字段时沿用会话值，历史会话默认 keep。
 
-## 启动
+图片接口只接收一个 prompt；后端将人脸身份、主题视觉、动作表情、服装选择与输出比例组合后发送。主题的 outfitPrompt 仅在 theme 模式使用，keep 模式保留衣服款式、领口、层次、图案与主要配色，衣物可随新动作重新呈现。两种模式都允许按主题描述重新设计姿势、头部朝向、视线、表情、手势及合照站位；人脸身份与实际人数优先，动作不得改变五官结构或交换面孔。工作台将“主题视觉提示词”和“换装搭配提示词”分开编辑，动作写入视觉提示词，服装搭配不再锁定原姿态。
 
-1. 安装 Node.js 24+，将 `.env.example` 复制为 `.env`，填写密钥与模型。
-2. 双击 `start-photo-booth.cmd`，首次安装依赖并构建，保持启动窗口打开。
-3. 打开 `http://localhost:4377`，允许摄像头。管理页是 `/admin`。
-4. 完成模拟解锁后，手机连接同一 Wi-Fi 扫码。
+默认启动真实模式。缺少密钥或模型会停止启动；不会返回模拟图片冒充真实结果。仅 start-demo.cmd 显式进入独立的本地模拟环境。
 
-`start-demo.cmd` 强制使用本地模拟图片处理，不调用 Seedream；它不代表真实 AI 效果。不要同时启动两个占用 4377 的服务。
+成人礼海报有独立配置：styleId=coming-of-age、generationPreset=coming-of-age。创建会话默认 orientation=poster、clothingMode=theme；上传及生成时拒绝冲突配置。poster 表示固定 2:3 竖版，当前 HQ 对应 1216×1824；普通模板不接受 poster，完整场景模板仅接受其 sceneOrientation。生成使用该模板的完整 prompt，允许其中明确授权的造型、姿态和图内文字，不拼接普通肖像的禁字和可选服装规则。公共模板接口返回 preset 元数据但隐藏提示词。已有生成会话的快照不受影响。
+
+PICKUP_BASE_URL 是手机可访问的网站根地址。现场使用固定局域网 IP 和端口，并让手机连接同一 Wi-Fi。配置修改后重启服务。
+
+当前没有真实支付或每日费用上限，请在 Seedream 账户侧设置适当额度并由现场工作人员管理设备。
+
+新导入模板携带 sourceCode、subjectCount、sceneOrientation。generationPreset=directed-portrait 使用完整场景提示词，固定其 3:4、4:3、2:3、4:5 或 3:2 比例；clothingMode 默认 theme，允许 keep。portrait4x5 和 landscape3x2 是新增画幅值。HQ 对应约 220 万像素的实测尺寸；照片归一化及输出质量设置见 README。双人模板暂不启用，不推断单人照片中的缺失伴侣。

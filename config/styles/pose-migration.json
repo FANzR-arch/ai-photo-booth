@@ -1,0 +1,164 @@
+{
+  "cinema": {
+    "prompt": "27b9d4ff8b5d63c94f06d4ab939305673ecb924838d55edbd6b859b09f61d227"
+  },
+  "business": {
+    "prompt": "a1b5c260454526c514a4311642bae1446b87e61342a46c0ea6e69e5b07a33583"
+  },
+  "cartoon": {
+    "prompt": "6b29dcb4719312dca7833305e3da76cb230a162a2b9bb12064b32a02759226a0"
+  },
+  "editorial": {
+    "prompt": "2ab11e7fff99266a723e232ea394af38f7454d8b40fdcaa1f765c0d1267936cc"
+  },
+  "anime": {
+    "prompt": "08f086469b25138affb99957722a1d7154ce1f75dae0064802cf356607356d5b"
+  },
+  "film": {
+    "prompt": "767989a17e7683243b608d885e1ad1a337ea4d86c1c5ecfc21524aa402ebdb9f"
+  },
+  "city": {
+    "prompt": "a5f45283787243ee6164c5fe8087819baebd673b3a734bce66b07bc6921217d9"
+  },
+  "festival": {
+    "prompt": "ce904bf7224b5fc93ca7e2ea798f8632ac21b503ddbecf762264569020e1552e"
+  },
+  "brand": {
+    "prompt": "7aa952f5b4162dc830cda1571db6fd26dc8d923d805ab7b3a30cf7a12ffcd354"
+  },
+  "watercolor": {
+    "prompt": "7faf3aee987babcc6b1599dae4f56b0607a127b903860abc4806275a29d2f640"
+  },
+  "popart": {
+    "prompt": "94e25ea50615a2c00d7a1bc43f5e6843e43907ed2cddf2cefacdfb84d9fac24a"
+  },
+  "charcoal": {
+    "prompt": "60ac5f287e9fdd0d9e3daf4d3567ea0433075f1ddc3428760e7c7b9f06fd43b8"
+  },
+  "oilpainting": {
+    "prompt": "ca28679d2c1b393d6bf8d8c2858a1b5fb741383c5ce18819ae707a5201992644"
+  },
+  "inkwash": {
+    "prompt": "a2194353d7b8d08cd51389c4796c3a2ae847306566378e46c59610b20a27d68f"
+  },
+  "papercut": {
+    "prompt": "5668f98e1782bd83308075ec8f6a973fe47fbfce0e5d0d0f739fd0dd31c4beb4"
+  },
+  "clay": {
+    "prompt": "f16e4037ca113a98ec9ac6df6ea518b225a77ea317625974a6dbe333111eca49"
+  },
+  "felt": {
+    "prompt": "7145b6b1af6b411f1a61cf620fe54cdfec5402727dede3dd82bf1d91384fd5e4"
+  },
+  "pixel": {
+    "prompt": "7feab7e6650df7e0c70a6e89a26b9ca4f8bdf83dd5485be6c00af6590f73f41b"
+  },
+  "risograph": {
+    "prompt": "1172f4af6720fa0e0ad4dd0ec7239e8dd6a04db9f571172257cd9f5d26f3f250"
+  },
+  "cyanotype": {
+    "prompt": "c0225ef53ec80ebd14ba6e85d825c86923719c3700017aa7a7d3dfd17be27cb7"
+  },
+  "stainedglass": {
+    "prompt": "4882bbc6121dcbae59da78bb06b9152ee5a3ebddabde0bcd03eec68891fbd604"
+  },
+  "mosaic": {
+    "prompt": "fa4925a5d27f3401b0a001812e0c00c365a74caed5e10d39e3740073c386f744"
+  },
+  "lowpoly": {
+    "prompt": "09ef80e46636de5ca96b1cddb36201184ab4b79f841d863d7d0cde810a7a3ddf"
+  },
+  "together-01": {
+    "prompt": "746cca25380c1193430dde26530528e13fa16715cc1e6a319174fbcb90a76afa"
+  },
+  "together-02": {
+    "prompt": "50e1f731c46e4736ae337f86e0a3777ab775c8e54a112f6090eabd096109b3f7"
+  },
+  "together-03": {
+    "prompt": "9dc04518d1c4fda9e2e73ad4632f7c10ac9585a3beb9b928934bd73778603fa0"
+  },
+  "together-04": {
+    "prompt": "4eefcedaddb618343c7b6cdf2c126834a9d6c3048f3d97306069075769d14539"
+  },
+  "together-05": {
+    "prompt": "17dde9113be6f78cf8f04b614fde2a393ae8f64051229b0b9add862160c93c23"
+  },
+  "together-06": {
+    "prompt": "191d43b52df265d4dfbc1870000c64811f6ea6c358558fba2d62888d37fd2125"
+  },
+  "together-07": {
+    "prompt": "a4ea68cf86526bb8db910569fdc991f319f11582bb6d01a7f5b8b286380028f4"
+  },
+  "together-08": {
+    "prompt": "992390f2bc4181fbd802c5012d39c055149dc24d245130940bede1873e0bace5"
+  },
+  "together-09": {
+    "prompt": "c754139ab6b802266c4257c67b2a13b7e24cd0bc0e0d4fbd087797ab30563a41"
+  },
+  "together-10": {
+    "prompt": "41e50071737fce4cd222a49754f2868f2bb8839f704c5b20c1d1720fb48b0778"
+  },
+  "memory-01": {
+    "prompt": "c2309419e2f667a2936796348cedf27ebac3d3b02eef5e15ed2a25796098113f"
+  },
+  "memory-02": {
+    "prompt": "941889f08f68048036f57ede4e4c050ba5d467d19f8ed561ef1a09fc9e47bdf7"
+  },
+  "memory-03": {
+    "prompt": "842db05d9e20f6ae99b171a49fd61284ba28d1d6da503680a5b9109c5f12c040",
+    "outfitPrompt": "5fd2c1189e6433cde4b3b9e03504f8b21f0b832921bcce44c3c82a5accbf841a"
+  },
+  "memory-04": {
+    "prompt": "4df29be5a5b920ef7b960dfda0ffbf8a708dd2d8deb05334822483b2b78dcd1d"
+  },
+  "memory-05": {
+    "prompt": "b50b7e2a8c1a7b46b247f262132f3e24a03d206e076bf5fd4362483d460842f8"
+  },
+  "memory-06": {
+    "prompt": "d7febde8503ea874e4ffc57f4cba75e7a72be08c964dcf2863e6fee9ddf88a04"
+  },
+  "memory-07": {
+    "prompt": "4e1425621fe73ec8ebe953310fca022c97f4f1e8465994cb0ba9a088951ffbb1"
+  },
+  "memory-08": {
+    "prompt": "f4c13e5e1b44a0b33650893a3d5682b88fdf95278aa2b80c60a6e708463907fb",
+    "outfitPrompt": "ec5c5579da04a0b0eba0a2d5f1280bc14d3dd07e32e8b4fcca9b7dfb1b070278"
+  },
+  "memory-09": {
+    "prompt": "98e6261df1fb44535534414fb4ec63714463deffd78939bb44b62b6d1fa5148e",
+    "outfitPrompt": "ff3ff342446d2209285bb0d0d82b7bb095406ff7b11b43d5e96de74044d20c27"
+  },
+  "memory-10": {
+    "prompt": "53b1ee789a4c92d6f2f4469c82648834cee728177109aadc088d1ad3ae57f23a"
+  },
+  "self-01": {
+    "prompt": "8c0268e59dbb77fb882d47f00573bc90bb2be462d8aa3829a2a0db3d2876c260"
+  },
+  "self-02": {
+    "prompt": "42ba38434e447bc85f1289b600200ad4f55256ac2511e557e41640df32c77d5e"
+  },
+  "self-03": {
+    "prompt": "0e924ef0ce5e8fc64ccaa50f356f87099cb5219080bbdbe955da1e94d014f648"
+  },
+  "self-04": {
+    "prompt": "cd70bf6b6229dce77a6946af27c14cf229574f6f676dd51667ade72df9fb0f44"
+  },
+  "self-05": {
+    "prompt": "45572c8f7b545ddf7714200332907bdc78a1623a402072794c80e0a4ba002bd2"
+  },
+  "self-06": {
+    "prompt": "12af37ac2e16eb17eb782e70620384a986beae556faf55e91da5435a1fb52da8"
+  },
+  "self-07": {
+    "prompt": "52d8b1776c30d99d9b8b2bb56650e7ebf2b5a231e411257e786011a6e7925cfe"
+  },
+  "self-08": {
+    "prompt": "e8f6d95dc61dc905e42f21b044195432fa792c298dd36f344b5f8f3534af34f3"
+  },
+  "self-09": {
+    "prompt": "84b6e77fc8d14550083792a2c3a231c7cd7fa4697e81fa1b51fab3651b46b990"
+  },
+  "self-10": {
+    "prompt": "36254363e92e3eff00c29723b891c1b7a5a7f0c11a8bb264414e706d8595b0d7"
+  }
+}

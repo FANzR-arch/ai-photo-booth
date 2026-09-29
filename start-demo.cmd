@@ -1,7 +1,10 @@
 @echo off
 setlocal
+rem Demo mode: local sample images, no Seedream API calls or costs.
 set "GENERATION_MODE=demo"
-set "IMAGE_COUNT=2"
+set "BOOTH_FRESH_INSTANCE=1"
+rem The kiosk always generates one portrait; IMAGE_COUNT is no longer used.
+set "BOOTH_OPEN_BROWSER=1"
 cd /d "%~dp0"
 where node >nul 2>nul
 if errorlevel 1 (
@@ -11,13 +14,13 @@ if errorlevel 1 (
 )
 if not exist node_modules (
   echo Installing dependencies...
-  call npm install --no-audit --no-fund
+  call npm ci --include=dev --no-audit --no-fund
   if errorlevel 1 goto fail
 )
 echo Building the local photo booth...
 call npm run build
 if errorlevel 1 goto fail
-echo Open http://localhost:4377 in your browser.
+echo Starting an isolated test instance with a free port and separate data.
 echo Keep this window open. Press Ctrl+C to stop.
 call npm start
 if errorlevel 1 goto fail

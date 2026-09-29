@@ -6,7 +6,7 @@ export async function api<T>(path: string, body?: unknown, method = 'POST'): Pro
             message = (await response.json()).error || message;
         }
         catch { }
-        throw new Error(message);
+        throw Object.assign(new Error(message), { status: response.status });
     }
     return response.json();
 }

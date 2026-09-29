@@ -2,7 +2,7 @@ param([string]$OutputName = ('SNAP-CLUB-Windows-' + (Get-Date -Format 'yyyyMMdd-
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 Set-Location -LiteralPath $projectRoot
-if (!(Test-Path '.env') -or !(Test-Path 'dist/web/index.html')) { throw 'Build the app and configure .env first.' }
+if (!(Test-Path 'dist/web/index.html')) { throw 'Build the app first.' }
 if ($OutputName -notmatch '^[A-Za-z0-9_-]+$') { throw 'Use a simple output name.' }
 $releaseRoot = Join-Path $projectRoot 'releases'
 $packageRoot = Join-Path $releaseRoot $OutputName
@@ -12,7 +12,9 @@ $folders = @('apps','assets','config','packages','tests','scripts','node_modules
 foreach ($folder in $folders) { Copy-Item -LiteralPath (Join-Path $projectRoot $folder) -Destination $packageRoot -Recurse }
 New-Item -ItemType Directory -Path (Join-Path $packageRoot 'docs') | Out-Null
 Get-ChildItem -LiteralPath (Join-Path $projectRoot 'docs') | Where-Object Name -ne 'evidence' | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $packageRoot 'docs') -Recurse }
-Get-ChildItem -LiteralPath $projectRoot -File | Where-Object { $_.Name -ne '.env' -and $_.Name -notmatch '\.log$' } | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $packageRoot }
+foreach ($name in @('package.json','package-lock.json','tsconfig.json','vite.config.ts','README.md','.env.example','.gitignore','start-photo-booth.cmd','start-demo.cmd','启动拍照亭.cmd','演示说明.txt')) {
+    Copy-Item -LiteralPath (Join-Path $projectRoot $name) -Destination $packageRoot
+}
 $runtimeRoot = Join-Path $packageRoot 'runtime'
 New-Item -ItemType Directory -Path $runtimeRoot | Out-Null
 $nodePath = (Get-Command node).Source
@@ -28,14 +30,8 @@ if (Test-Path (Join-Path $nodeRoot 'node_modules/npm')) {
     New-Item -ItemType Directory -Path (Join-Path $runtimeRoot 'node_modules') | Out-Null
     Copy-Item -LiteralPath (Join-Path $nodeRoot 'node_modules/npm') -Destination (Join-Path $runtimeRoot 'node_modules') -Recurse
 }
-# Only required demo configuration; no fixed LAN IP, visitor database, or photo history.
-$env:BOOTH_PACKAGE_TARGET = $packageRoot
-@'
-const fs=require('node:fs');const path=require('node:path');const dotenv=require('dotenv');
-const e=dotenv.parse(fs.readFileSync('.env'));if(!e.SEEDREAM_API_KEY||!e.SEEDREAM_MODEL)throw Error('Missing demo API configuration');
-fs.writeFileSync(path.join(process.env.BOOTH_PACKAGE_TARGET,'.env'),`GENERATION_MODE=seedream\nPORT=4377\nIMAGE_COUNT=1\nSEEDREAM_API_KEY=${e.SEEDREAM_API_KEY}\nSEEDREAM_MODEL=${e.SEEDREAM_MODEL}\nPICKUP_BASE_URL=\n`);
-'@ | & $nodePath
-if ($LASTEXITCODE -ne 0) { throw 'Configuration packaging failed.' }
+# Distributable packages contain an empty configuration template, never local credentials.
+Copy-Item -LiteralPath (Join-Path $projectRoot '.env.example') -Destination (Join-Path $packageRoot '.env')
 # CRLF batch files and BOM text are readable on Windows regardless of editor defaults.
 Get-ChildItem -LiteralPath $packageRoot -Filter '*.cmd' | ForEach-Object {
     $content = [IO.File]::ReadAllText($_.FullName) -replace '\r?\n', "`r`n"

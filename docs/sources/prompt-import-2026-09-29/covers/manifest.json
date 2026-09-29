@@ -1,0 +1,148 @@
+{
+  "images": [
+    {
+      "code": "01",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-01.png",
+      "cover": "assets/examples/scene-01.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-169f1e4d-1928-47b9-8d45-62c48c0147bb.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "5f0de494dd86d362b43b1e2326a8b3218bb2286fc0e7cc37c570b5cb37d1c5a3",
+      "promptSha256": "a2a7b6295f52a58dab01cebb2cb16351e5e696770ab11a3b95a5191f7e8eb8da",
+      "coverSha256": "b1d81cc6c346d0bbbb720bc00315795dfbcc4c19de4c78a058819935ec0c8a0e"
+    },
+    {
+      "code": "02A",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-02a.png",
+      "cover": "assets/examples/scene-02a.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-7fc45f95-917f-4fbe-9ca0-f946da7e4c56.png",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "38920455e2934726787a2c3e99c6a1bceb2053b1c712809cb0992fd07c55fb87",
+      "promptSha256": "e5a01e649f0c23d5778f3170515ee6d5d2820dbbe25a1bba70d04c5f92047335",
+      "coverSha256": "003a660ff3dbb99c50dbd25199e5d8aa8d64a3cce1be5d69377e17748d9c9128"
+    },
+    {
+      "code": "02B",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-02b.png",
+      "cover": "assets/examples/scene-02b.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-800dcd32-dc55-4ed2-83f9-d7e98bf98dcb.png",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "2ebae2186dc42e65ecb8f90075ceb429f44d73a76287d96b838c4dc08e87d855",
+      "promptSha256": "14abed69229cbc5aa151af884cb345685407b6e71e3342dd9a0b69a9caed9002",
+      "coverSha256": "fcd31757fd9bec2841157cd0f07d9347e80e6e1cf0b151109511cd2df0d1e6fd"
+    },
+    {
+      "code": "02C",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-02c.png",
+      "cover": "assets/examples/scene-02c.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-8c6c30a7-76e3-4079-b8c0-7897dd946191.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "d976f0eaaffb0ffdda6431e260bd95b663e707a0f76d6613fd96e9c43bf14f4c",
+      "promptSha256": "40461672b151856b2484f567707e718f8879a32d434f7ae3a61f75f7417c5e5a",
+      "coverSha256": "ea10a2c2eac410753f6d83925f0f322078d506d9d89c26f141c7aa85e59fae89"
+    },
+    {
+      "code": "02D",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-02d.png",
+      "cover": "assets/examples/scene-02d.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-391e6c9f-0b5c-4c38-91ec-19d9ad27e0e5.png",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "efe6e10cb9a4c9421c7b33ba02ed9a8bd6bf55e936095c9576c560f71268a348",
+      "promptSha256": "f19322f71d50847d2b3f4e3b4907b1b8bd3aa4a42a1b156b27be7f171d891c19",
+      "coverSha256": "3571d63ecc8531d1558a65bbc5b5de59c6f1895d17fc5b0e4f6349591a0db387"
+    },
+    {
+      "code": "06",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-06.png",
+      "cover": "assets/examples/scene-06.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-02416999-ea2e-45dd-8bf8-f38111100fdf.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "3328bfc4b4d87311315a520edc9130ce8645ae0adbdef016727e2f3dd5f5cc49",
+      "promptSha256": "77791ae4091f6d2c5bd62c01755df6c1cb3605a011172f8b74253cf3a2fe87a3",
+      "coverSha256": "b2a00b3a6336be060f28426bc3e01d3d8ed3e604365fd10b3a0f64254461d0c7"
+    },
+    {
+      "code": "07",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-07.png",
+      "cover": "assets/examples/scene-07.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-583bd0f6-65d2-4e9d-a8ec-e493b6c37c7c.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "32c0ad91da72b31091e38849134b6b4f8120aa4208d11397a1d09ef13c98be9d",
+      "promptSha256": "879cbd51bbe1a607869243c57337003651fe30ac521b5779bb1387ed2f96a45f",
+      "coverSha256": "8338e57772e9918c1e8f4c0accd697af79512756c64a530c4f883db0549de826"
+    },
+    {
+      "code": "08",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-08.png",
+      "cover": "assets/examples/scene-08.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-4f855068-ccf7-42a0-918a-d82a21d478a4.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "851d28fe7eba839cd23527cd67059bc42f357f35db1551842e5ad0e08cd1641b",
+      "promptSha256": "be01c0fb9b9a62533fa9a2276b642fef5910b2372e5977a906babb1b3570027e",
+      "coverSha256": "704d9b758d25039a2bd8709193a620694716a6765659a9a86f9a2077d955d52e"
+    },
+    {
+      "code": "09A",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-09a.png",
+      "cover": "assets/examples/scene-09a.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-68831c7c-9dd7-4af0-bf19-f6575bdc16e7.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "da00f62c18040c039dca580b192eb81d5eededabb4ef55ebdbf9fcf3ee8931fd",
+      "promptSha256": "bd5581512231bec4b3d0821aec2cb58b2d581adc7659dba662fa20fabe8e3bbb",
+      "coverSha256": "87795d814d8b1960a1edfde2a1ccae459031f9597218ad59bd40c00d9ed2cf00"
+    },
+    {
+      "code": "09B",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-09b.png",
+      "cover": "assets/examples/scene-09b.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-5401a389-7803-4fda-846a-98c67a38d4c4.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "44c068cd40c03cfa357e1fa287bb56d35a5184330e4c9687c90316e57bfa87a6",
+      "promptSha256": "6248ceb54b4ea435f354d8fbba78f64bac88f7f20c03b8fbfefc038cb256db9a",
+      "coverSha256": "06301bba89fc8e60f7dd955315235d6f12e47c14b0d97804b44521f8e4971a0e"
+    },
+    {
+      "code": "10A",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-10a.png",
+      "cover": "assets/examples/scene-10a.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-fc955bd8-b398-45e7-a792-74b4635ce75b.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "dac49674a1897c9d9545ff3639981cb3b6ea32ff2a377d8bc0282f3167851ab9",
+      "promptSha256": "5afb393062055be0d64bed0f8f25cab9ad7b1c5866d542adc7e8aa1658ab7df7",
+      "coverSha256": "5ce65bdc4cc6ad861bd3daa0109342ed002bac14f984794536386303421c2735"
+    },
+    {
+      "code": "10B",
+      "provider": "Codex built-in imagegen",
+      "original": "docs/sources/prompt-import-2026-09-29/covers/scene-10b.png",
+      "cover": "assets/examples/scene-10b.webp",
+      "source": "E:\\CodexHome\\generated_images\\01a0eb38-93f4-7961-8db9-2aa6d3a55561\\exec-a5d53d1e-f2fd-44ce-8487-0a2aa6acfee0.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "b0d592b12f48f51661e6ad48011298dad4d172957ce789d00b70f5f7143f5106",
+      "promptSha256": "1e2246c71feee6b72b41dbc6aa691886ff88334e50393813f0212eb252176f44",
+      "coverSha256": "a2acf9fd40ca213d4d137cb6c23b9b8dbf7d2a4efa9966857d147436a9bc8cfa"
+    }
+  ]
+}

@@ -16,5 +16,5 @@ export function DisplayControls() {
             else setMessage('此浏览器不支持按钮全屏，可使用浏览器菜单或 F11。');
         } catch { setMessage('未能进入全屏，可使用浏览器菜单或 F11。'); }
     };
-    return <div className="display-controls"><button className="secondary" onClick={toggle}>{fullscreen ? '退出全屏' : '全屏演示'}</button>{message && <span role="status">{message}</span>}</div>;
+    return <div className="display-controls"><button className="secondary" onClick={toggle}>{fullscreen ? '退出全屏' : '全屏显示'}</button>{message && <span role="status">{message}</span>}</div>;
 }

@@ -4,14 +4,21 @@ export interface Style {
     name: string;
     description: string;
     prompt?: string;
+    outfitPrompt?: string;
+    generationPreset?: 'coming-of-age' | 'directed-portrait';
+    sceneOrientation?: import('./photo-orientation').PhotoOrientation;
+    subjectCount?: 1 | 2;
+    sourceCode?: string;
     version: number;
     enabled: boolean;
     exampleUrl: string;
+    exampleUrls?: string[];
     size: string;
     color: string;
 }
 export interface Health {
     service?: 'snap-club';
+    paymentMode: 'simulate';
     mode: Mode;
     configured: boolean;
     model: string;
@@ -20,6 +27,11 @@ export interface Health {
     lanUrls: string[];
 }
 export interface Session {
+    purpose?: import('./portrait-experience').Purpose;
+    orientation?: import('./photo-orientation').PhotoOrientation;
+    clothingMode?: import('./clothing').ClothingMode;
+    frame?: import('./frames').FrameId;
+    caption?: import('./frames').Caption;
     id: string;
     styleId: string;
     styleName: string;
@@ -27,6 +39,8 @@ export interface Session {
     mode: Mode;
     createdAt: number;
     expiresAt: number;
+    completedAt?: number;
+    deletedAt?: number;
     images: {
         id: string;
         previewUrl: string;
@@ -45,4 +59,5 @@ export interface Order {
     amount: number;
     status: 'pending' | 'paid' | 'failed' | 'cancelled';
     createdAt: number;
+    paymentMode?: 'simulate';
 }

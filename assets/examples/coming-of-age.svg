@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+ <defs>
+  <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#d7d9dd"/><stop offset="1" stop-color="#b3b8c1"/></linearGradient>
+  <linearGradient id="silver" x2=".35" y2="1"><stop stop-color="#fff"/><stop offset=".24" stop-color="#d9e1eb"/><stop offset=".45" stop-color="#fff"/><stop offset=".53" stop-color="#a6b5c8"/><stop offset=".76" stop-color="#f7f8fa"/><stop offset="1" stop-color="#8394ac"/></linearGradient>
+  <linearGradient id="navy" x2="1" y2="1"><stop stop-color="#263850"/><stop offset="1" stop-color="#101c31"/></linearGradient>
+ </defs>
+ <rect width="600" height="800" fill="url(#bg)"/>
+ <text x="42" y="56" fill="#fff" font-family="Georgia,serif" font-style="italic" font-size="15">Coming-of-age ceremony</text>
+ <text x="558" y="56" text-anchor="end" fill="#fff" font-family="Georgia,serif" font-style="italic" font-size="15">Celebration</text>
+ <text x="300" y="206" text-anchor="middle" fill="#627084" font-family="Georgia,serif" font-size="108" font-style="italic">18</text>
+ <text x="300" y="248" text-anchor="middle" fill="#596679" font-family="Microsoft YaHei,sans-serif" font-size="17" letter-spacing="7">成人礼写真海报</text>
+ <path d="M0 372 Q300 268 600 372 V800 H0Z" fill="url(#navy)"/>
+ <g transform="translate(34 0) skewX(-8)" font-family="KaiTi,STKaiti,serif" font-weight="bold" fill="url(#silver)" stroke="#e9eef5" stroke-width=".7">
+  <text x="190" y="459" font-size="75">你好</text>
+  <text x="84" y="568" font-size="105">我的18岁</text>
+ </g>
+ <text x="300" y="618" text-anchor="middle" fill="#fff" font-family="cursive,Georgia,serif" font-size="43" font-style="italic">Hello, eighteen</text>
+ <path d="M125 633 Q300 617 483 631" fill="none" stroke="#e7edf6" stroke-width="1"/>
+ <text x="300" y="731" text-anchor="middle" fill="#a5b2c4" font-family="Microsoft YaHei,sans-serif" font-size="14" letter-spacing="3">版式示意 · 以你的照片生成</text>
+ <text x="300" y="764" text-anchor="middle" fill="#a5b2c4" font-family="Georgia,serif" font-size="12" font-style="italic">I am just right at every age</text>
+</svg>

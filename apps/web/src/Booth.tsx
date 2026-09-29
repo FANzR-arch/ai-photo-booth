@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { recommendedFrame, captureGuide, type Purpose } from '../../../packages/shared/portrait-experience';
 import QRCode from 'qrcode';
+import { FramePicker } from './PhotoFrame';
+import { defaultCaption, type Caption, type FrameId } from '../../../packages/shared/frames';
 import { useBoothTransition } from './useBoothTransition';
 import { AttractScreen } from './AttractScreen';
 import { ThemePicker } from './ThemePicker';
@@ -9,21 +12,42 @@ import type { Health, Session, Style, Order } from '../../../packages/shared/typ
 import { api, readFile, money } from './api';
 import { Brand } from './Brand';
 import { PhotoResults } from './PhotoResults';
-export function Pickup() { const [data, setData] = useState<{
-    expiresAt: number;
-    mode: string;
-    images: {
-        id: string;
-        downloadUrl: string;
-    }[];
-}>(); const [error, setError] = useState(''); useEffect(() => { api<any>(`/api${location.pathname}`).then(setData).catch(e => setError(e.message)); }, []); return <div className="shell"><header><Brand /></header><main className="pickup"><h1>你的照片</h1>{error ? <div role="alert" className="error">{error}</div> : !data ? <p role="status">正在打开你的相册…</p> : <><p>{data.mode === 'demo' ? '演示效果图 · 非 AI 生成' : '你的高清照片已解锁'} · 模拟购买 · 不扣款</p><p className="muted">请在 {new Date(data.expiresAt).toLocaleString('zh-CN')} 前下载。</p><div className="results-grid">{data.images.map((item, i) => <article className="photo-print" key={item.id}><img src={item.downloadUrl} alt={`已解锁高清照片 ${i + 1}`}/><a className="button primary" download href={item.downloadUrl}>下载照片 {i + 1} ↗</a></article>)}</div><p className="muted">无法保存时，请用浏览器打开。</p></>}</main></div>; }
+import { orientationLabel, type PhotoOrientation } from '../../../packages/shared/photo-orientation';
+import { PhotoLibrary, timeLeft, usePhotoClock } from './PhotoLibrary';
+import { ClothingPicker } from './ClothingPicker';
+import { clothingLabel, type ClothingMode } from '../../../packages/shared/clothing';
+export { Pickup } from './Pickup';
+type Draft = { photo: string; consent: boolean; orientation: PhotoOrientation; clothingMode: ClothingMode };
+type SavedRound = { ids: string[]; activeAt: number; idleMs: number };
+const readRound = (): SavedRound | undefined => {
+    try {
+        const value = JSON.parse(localStorage.getItem('snap-round') || 'null');
+        if (value && Array.isArray(value.ids) && value.ids.every((id: unknown) => typeof id === 'string') && Number.isFinite(value.activeAt)) return value;
+    } catch { }
+};
 export function Booth() {
+    const [frame, setFrame] = useState<FrameId>('none');
+    const [caption, setCaption] = useState<Caption>(defaultCaption);
+    const [orientation, setOrientation] = useState<PhotoOrientation>('portrait');
+    const [clothingMode, setClothingMode] = useState<ClothingMode>('keep');
+    const [frameSaving, setFrameSaving] = useState(false);
+    const [frameError, setFrameError] = useState('');
+    const frameQueue = useRef<Promise<void>>(Promise.resolve());
+    const frameRequest = useRef(0);
     const [health, setHealth] = useState<Health>();
     const [styles, setStyles] = useState<Style[]>([]);
     const [stylesLoading, setStylesLoading] = useState(false);
     const [configAttempt, setConfigAttempt] = useState(0);
     const [session, setSession] = useState<Session>();
+    const [library, setLibrary] = useState<Session[]>([]);
+    const libraryRef = useRef<Session[]>([]);
+    const drafts = useRef(new Map<string, Draft>());
+    const roundEpoch = useRef(0);
+    const libraryFrom = useRef('styles');
+    const now = Math.max(usePhotoClock(), Date.now());
     const { step, setStep, main: motionMain } = useBoothTransition();
+    const currentStep = useRef(step); currentStep.current = step;
+    const currentSession = useRef(session); currentSession.current = session;
     const [photo, setPhoto] = useState('');
     const [error, setError] = useState('');
     const [cameraError, setCameraError] = useState('');
@@ -37,7 +61,6 @@ export function Booth() {
     const [remaining, setRemaining] = useState(120);
     const [cameraReady, setCameraReady] = useState(false);
     const [cameraAttempt, setCameraAttempt] = useState(0);
-    const [cameraRequested, setCameraRequested] = useState(false);
     useEffect(() => { document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }, [step]);
     const video = useRef<HTMLVideoElement>(null);
     const stream = useRef<MediaStream | null>(null);
@@ -47,11 +70,20 @@ export function Booth() {
     const mounted = useRef(true);
     const configRequest = useRef(0);
     const captureTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+    const saveRound = () => {
+        const ids = libraryRef.current.map(s => s.id);
+        if (ids.length) localStorage.setItem('snap-round', JSON.stringify({ ids, activeAt: lastAction.current, idleMs: libraryRef.current.some(s => s.status === 'generating') ? 300000 : 120000 }));
+        else localStorage.removeItem('snap-round');
+    };
+    const updateLibrary = (items: Session[]) => { libraryRef.current = items; setLibrary(items); saveRound(); };
+    const remember = (s: Session) => { if (s.expiresAt <= Date.now() || s.status === 'ended') return;
+        updateLibrary([s, ...libraryRef.current.filter(item => item.id !== s.id)].sort((a, b) => b.createdAt - a.createdAt));
+    };
     const stopCamera = () => { stream.current?.getTracks().forEach(t => t.stop()); stream.current = null; setCameraReady(false); if (captureTimer.current) {
         clearInterval(captureTimer.current);
         captureTimer.current = null;
     } setCount(0); };
-    const applySession = (s: Session) => { setSession(s); if (s.pickupUrl) {
+    const applySession = (s: Session) => { setSession(s); setOrientation(drafts.current.get(s.id)?.orientation ?? s.orientation ?? 'portrait'); setClothingMode(drafts.current.get(s.id)?.clothingMode ?? s.clothingMode ?? 'keep'); if (s.pickupUrl) {
         setPickup(s.pickupUrl);
         setStep('pickup');
     }
@@ -63,7 +95,7 @@ export function Booth() {
         setStep('generating');
     }
     else {
-        setStep('camera');
+        setStep(drafts.current.get(s.id)?.photo || s.originalUrl ? 'confirm' : 'camera');
     } };
     useEffect(() => {
         if (!['home', 'styles'].includes(step)) return;
@@ -75,17 +107,29 @@ export function Booth() {
             if (current()) { setHealth(h); setStyles(s); }
         }).catch(e => { if (current()) setError(e.message); }).finally(() => { if (current()) setStylesLoading(false); });
     }, [step, configAttempt]);
-    useEffect(() => { mounted.current = true; const version = epoch.current; const id = localStorage.getItem('snap-session'); if (id)
-        Promise.all([api<Session>(`/api/sessions/${id}`), api<Health>('/api/health')]).then(([s, h]) => { if (version !== epoch.current || !mounted.current)
-            return; if (s.mode === h.mode && s.status !== 'ended' && s.expiresAt > Date.now())
-            applySession(s);
-        else
-            localStorage.removeItem('snap-session'); }).catch(() => { if (version === epoch.current)
-            localStorage.removeItem('snap-session'); }); return () => { mounted.current = false; stream.current?.getTracks().forEach(t => t.stop()); if (captureTimer.current)
-        clearInterval(captureTimer.current); }; }, []);
-    useEffect(() => { if (session)
-        localStorage.setItem('snap-session', session.id); }, [session]);
-    useEffect(() => { if (step !== 'camera' || !health || (health.mode === 'demo' && !cameraRequested)) {
+    useEffect(() => {
+        mounted.current = true;
+        const version = epoch.current, saved = readRound(), id = localStorage.getItem('snap-session');
+        const ids = [...new Set(saved?.ids ?? (id ? [id] : []))];
+        if (saved && Date.now() - saved.activeAt >= Math.min(saved.idleMs || 120000, 300000)) {
+            localStorage.removeItem('snap-session'); localStorage.removeItem('snap-round');
+            for (const oldId of ids) void api(`/api/sessions/${oldId}/end`, {}).catch(() => {});
+        } else if (ids.length) {
+            Promise.all([Promise.all(ids.map(savedId => api<Session>(`/api/sessions/${savedId}`).catch(() => undefined))), api<Health>('/api/health')]).then(([items, h]) => {
+                if (version !== epoch.current || !mounted.current) return;
+                setHealth(h);
+                const valid = items.filter((s): s is Session => !!s && s.mode === h.mode && s.status !== 'ended' && s.expiresAt > Date.now());
+                updateLibrary(valid);
+                const s = valid.find(item => item.id === id);
+                if (s) { setFrame(s.frame ?? 'none'); setCaption(s.caption ?? defaultCaption); applySession(s); }
+                else { localStorage.removeItem('snap-session'); if (valid.length) setStep('library'); }
+            }).catch(() => { if (version === epoch.current) { localStorage.removeItem('snap-session'); localStorage.removeItem('snap-round'); } });
+        }
+        return () => { mounted.current = false; stream.current?.getTracks().forEach(t => t.stop()); if (captureTimer.current) clearInterval(captureTimer.current); };
+    }, []);
+    useEffect(() => { if (session) { localStorage.setItem('snap-session', session.id); remember(session); } }, [session]);
+    useEffect(() => { if (session && photo) drafts.current.set(session.id, { photo, consent, orientation, clothingMode }); }, [session?.id, photo, consent, orientation, clothingMode]);
+    useEffect(() => { if (step !== 'camera' || !health) {
         stopCamera();
         return;
     } let active = true; setCameraError(''); setCameraReady(false); if (!navigator.mediaDevices?.getUserMedia) {
@@ -111,35 +155,72 @@ export function Booth() {
         };
         setCameraError(messages[e.name] || '摄像头未能开启，请检查设备连接和浏览器权限后重试。');
     } }); return () => { active = false; stream.current?.getTracks().forEach(t => t.stop()); stream.current = null; if (captureTimer.current)
-        clearInterval(captureTimer.current); }; }, [step, cameraAttempt, cameraRequested, health?.mode]);
-    useEffect(() => { if (session?.status !== 'generating')
-        return; const id = session.id; const version = epoch.current; let active = true; const poll = async () => { try {
-        const s = await api<Session>(`/api/sessions/${id}`);
-        if (!active || version !== epoch.current)
-            return;
-        setSession(s);
-        if (s.status !== 'generating')
-            applySession(s);
-    }
-    catch (e) {
-        if (active && version === epoch.current)
-            setError((e as Error).message);
-    } }; const interval = setInterval(poll, 1800); return () => { active = false; clearInterval(interval); }; }, [session?.id, session?.status]);
+        clearInterval(captureTimer.current); }; }, [step, cameraAttempt, health?.mode]);
+    const generatingIds = library.filter(s => s.status === 'generating').map(s => s.id).sort().join(',');
+    useEffect(() => {
+        if (!generatingIds) return;
+        const version = roundEpoch.current; let active = true, polling = false;
+        const poll = async () => {
+            if (polling) return; polling = true;
+            await Promise.all(generatingIds.split(',').map(async id => {
+                try {
+                    const s = await api<Session>(`/api/sessions/${id}`);
+                    if (!active || version !== roundEpoch.current || !libraryRef.current.some(item => item.id === id)) return;
+                    // A local decoration edit may still be queued while the job finishes.
+                    const previous = libraryRef.current.find(item => item.id === id);
+                    const refreshed = { ...s, frame: previous?.frame ?? s.frame, caption: previous?.caption ?? s.caption };
+                    remember(refreshed);
+                    if (currentSession.current?.id === id) {
+                        setSession(refreshed);
+                        if (s.images.length) setSelected(previousIds => previousIds.length ? previousIds : s.images.slice(0, 1).map(i => i.id));
+                        if (s.status !== 'generating' && currentStep.current === 'generating') applySession(refreshed);
+                    }
+                } catch (e) { if (active && version === roundEpoch.current) setError((e as Error).message); }
+            }));
+            polling = false;
+        };
+        const interval = setInterval(poll, 1800);
+        return () => { active = false; clearInterval(interval); };
+    }, [generatingIds]);
     useEffect(() => { let active = true; const version = epoch.current; setQr(''); if (pickup)
         QRCode.toDataURL(pickup, { width: 280, margin: 2, color: { dark: '#33281f', light: '#fffaf0' } }).then(value => { if (active && version === epoch.current)
             setQr(value); }).catch(() => { if (active && version === epoch.current)
             setError('二维码生成失败，请使用下方取图链接'); }); return () => { active = false; }; }, [pickup]);
-    const finish = async (destination: 'home' | 'styles' = 'home') => { const version = ++epoch.current; busyRef.current = false; stopCamera(); const previous = session; setSession(undefined); setStep(destination); setPhoto(''); setOrder(undefined); setPickup(''); setQr(''); setSelected([]); setConsent(false); setError(''); setBusy(false); localStorage.removeItem('snap-session'); lastAction.current = Date.now(); setRemaining(120); if (previous)
-        try {
-            await api(`/api/sessions/${previous.id}/end`, {});
+    const clearCurrent = () => {
+        epoch.current++; busyRef.current = false; stopCamera(); frameRequest.current++; frameQueue.current = Promise.resolve();
+        setFrame('none'); setCaption(defaultCaption); setOrientation('portrait'); setClothingMode('keep'); setFrameSaving(false); setFrameError('');
+        setSession(undefined); setPhoto(''); setOrder(undefined); setPickup(''); setQr(''); setSelected([]); setConsent(false); setError(''); setBusy(false);
+        localStorage.removeItem('snap-session');
+    };
+    const finish = async () => {
+        const previous = [...new Set([...libraryRef.current.map(s => s.id), ...(session ? [session.id] : [])])];
+        roundEpoch.current++; clearCurrent(); const version = epoch.current;
+        drafts.current.clear(); updateLibrary([]); setStep('home'); lastAction.current = Date.now(); setRemaining(120);
+        const results = await Promise.allSettled(previous.map(id => api(`/api/sessions/${id}/end`, {}).catch(e => { if (e.status !== 410) throw e; })));
+        if (version === epoch.current && results.some(r => r.status === 'rejected')) setError('已清除屏幕内容；后台会话未能结束，请检查网络。');
+    };
+    useEffect(() => { const limit = generatingIds ? 300 : 120; lastAction.current = Date.now(); setRemaining(limit); saveRound(); if (step === 'home' && !libraryRef.current.length)
+        return; const touch = () => { lastAction.current = Date.now(); saveRound(); }; window.addEventListener('pointerdown', touch); window.addEventListener('keydown', touch); const timer = setInterval(() => { const seconds = Math.max(0, limit - Math.floor((Date.now() - lastAction.current) / 1000)); setRemaining(seconds); if (seconds === 0)
+        void finish(); }, 1000); return () => { clearInterval(timer); window.removeEventListener('pointerdown', touch); window.removeEventListener('keydown', touch); }; }, [step, session?.id, !!generatingIds]);
+    useEffect(() => {
+        const expired = libraryRef.current.filter(s => s.expiresAt <= now);
+        if (!expired.length) return;
+        expired.forEach(s => drafts.current.delete(s.id));
+        updateLibrary(libraryRef.current.filter(s => s.expiresAt > now));
+        if (session && expired.some(s => s.id === session.id)) {
+            clearCurrent(); setStep('library', true); libraryFrom.current = 'styles'; setError('照片已到期并自动删除。可以再拍一张。');
         }
-        catch {
-            if (version === epoch.current)
-                setError('已清除屏幕内容；后台会话未能结束，请检查网络。');
-        } };
-    useEffect(() => { const limit = step === 'generating' ? 300 : 120; lastAction.current = Date.now(); setRemaining(limit); if (step === 'home')
-        return; const touch = () => { lastAction.current = Date.now(); }; window.addEventListener('pointerdown', touch); window.addEventListener('keydown', touch); const timer = setInterval(() => { const seconds = Math.max(0, limit - Math.floor((Date.now() - lastAction.current) / 1000)); setRemaining(seconds); if (seconds === 0)
-        void finish(); }, 1000); return () => { clearInterval(timer); window.removeEventListener('pointerdown', touch); window.removeEventListener('keydown', touch); }; }, [step, session?.id]);
+    }, [now]);
+    const openLibrary = () => { if (busyRef.current || frameSaving || frameError) return; stopCamera(); libraryFrom.current = step; setStep('library'); };
+    const back = () => {
+        if (busyRef.current || frameSaving || frameError) return;
+        setError('');
+        if (step === 'camera') setStep('styles');
+        else if (step === 'confirm') setStep(['created', 'photographed'].includes(session?.status || '') ? 'camera' : 'library');
+        else if (step === 'generating') setStep('confirm');
+        else if (step === 'results') { libraryFrom.current = 'results'; setStep('library'); }
+        else if (step === 'payment' || step === 'pickup') setStep('results');
+    };
     const run = async (action: () => Promise<void>) => { if (busyRef.current)
         return; busyRef.current = true; const version = epoch.current; setBusy(true); setError(''); try {
         await action();
@@ -154,17 +235,17 @@ export function Booth() {
             setBusy(false);
         }
     } };
-    const choose = (style: Style) => { if (busyRef.current)
-        return; epoch.current++; return run(async () => { const version = epoch.current; const s = await api<Session>('/api/sessions', { styleId: style.id }); if (version !== epoch.current)
-        return; setSession(s); setPhoto(''); setConsent(false); setCameraRequested(false); setStep('camera'); }); };
-    const samplePhoto = () => run(async () => {
-        if (health?.mode !== 'demo') return;
+    const choose = (style: Style, selectedPurpose: Purpose = 'self') => { if (busyRef.current)
+        return; epoch.current++; return run(async () => { const version = epoch.current; const s = await api<Session>('/api/sessions', { styleId: style.id, purpose: selectedPurpose }); if (version !== epoch.current)
+        return; setFrame(s.frame ?? 'none'); setCaption(s.caption ?? defaultCaption); setOrientation(s.orientation ?? 'portrait'); setClothingMode(s.clothingMode ?? 'keep'); setSession(s); setPhoto(''); setConsent(false); setSelected([]); setOrder(undefined); setPickup(''); setQr(''); setStep('camera'); }); };
+    const openPhoto = (item: Session) => run(async () => {
         const version = epoch.current;
-        const response = await fetch('/examples/cartoon-editorial.png');
-        if (!response.ok) throw new Error('示例照片暂时无法读取，请重试。');
-        const value = await readFile(await response.blob());
+        const s = await api<Session>(`/api/sessions/${item.id}`);
         if (version !== epoch.current) return;
-        setPhoto(value); setConsent(false); setStep('confirm');
+        const draft = drafts.current.get(s.id);
+        setFrame(s.frame ?? 'none'); setCaption(s.caption ?? defaultCaption); setOrientation(draft?.orientation ?? s.orientation ?? 'portrait');
+        setPhoto(draft?.photo || ''); setConsent(draft?.consent ?? false); setFrameError(''); setOrder(undefined); setPickup(s.pickupUrl || ''); setSelected(s.images.slice(0, 1).map(i => i.id));
+        applySession(s);
     });
     const takePhoto = () => { if (count || captureTimer.current || !cameraReady || busyRef.current)
         return; setCount(3); let left = 3; captureTimer.current = setInterval(() => { left--; setCount(left); if (left === 0) {
@@ -186,17 +267,36 @@ export function Booth() {
         setPhoto(canvas.toDataURL('image/jpeg', .92));
         setStep('confirm');
     } }, 1000); };
-    const generate = () => run(async () => { if (!session || !consent)
-        return; const version = epoch.current; const s = await api<Session>(`/api/sessions/${session.id}/photo`, { dataUrl: photo }); if (version !== epoch.current)
-        return; setSession(s); const next = await api<Session>(`/api/sessions/${s.id}/generate`, {}); if (version === epoch.current)
+    const generate = () => run(async () => { if (!session || !consent || !['created', 'photographed'].includes(session.status))
+        return; const version = epoch.current; const s = photo ? await api<Session>(`/api/sessions/${session.id}/photo`, { dataUrl: photo, orientation, clothingMode }) : session; if (version !== epoch.current)
+        return; setSession(s); const next = await api<Session>(`/api/sessions/${s.id}/generate`, { clothingMode }); if (version === epoch.current)
         applySession(next); });
     const retry = () => run(async () => { if (!session)
         return; const version = epoch.current; const next = await api<Session>(`/api/sessions/${session.id}/generate`, {}); if (version === epoch.current)
         applySession(next); });
-    const checkout = () => run(async () => { if (!session || !selected.length)
+    const changeFrame = (next: FrameId, nextCaption: Caption = caption) => {
+        if (!session) return;
+        const id = session.id, version = epoch.current, request = ++frameRequest.current;
+        setFrame(next); setCaption(nextCaption); setFrameSaving(true); setFrameError('');
+        setSession({ ...session, frame: next, caption: nextCaption });
+        // Serial saves prevent fast taps from reaching the server out of order.
+        frameQueue.current = frameQueue.current.then(async () => {
+            if (version !== epoch.current) return;
+            try {
+                await api('/api/sessions/' + id + '/frame', { frame: next, caption: nextCaption });
+                if (mounted.current && version === epoch.current && request === frameRequest.current) setFrameSaving(false);
+            } catch {
+                if (mounted.current && version === epoch.current && request === frameRequest.current) {
+                    setFrameSaving(false); setFrameError('边框尚未保存，请重试。');
+                }
+            }
+        });
+    };
+    const checkout = () => run(async () => { if (!session || !selected.length || frameSaving || frameError)
         return; const version = epoch.current; const o = await api<Order>(`/api/sessions/${session.id}/orders`, { imageIds: selected }); if (version === epoch.current) {
         setOrder(o);
-        setStep('payment');
+        if (o.status === 'paid' && session.pickupUrl) { setPickup(session.pickupUrl); setStep('pickup'); }
+        else setStep('payment');
     } });
     const pay = (outcome: 'paid' | 'failed' | 'cancelled') => run(async () => { if (!order)
         return; const version = epoch.current; const result = await api<{
@@ -205,25 +305,27 @@ export function Booth() {
     }>(`/api/orders/${order.id}/simulate`, { outcome }); if (version !== epoch.current)
         return; setOrder(result.order); if (result.pickupUrl) {
         setPickup(result.pickupUrl);
+        if (session) setSession({ ...session, pickupUrl: result.pickupUrl });
         setStep('pickup');
     }
     else if (outcome === 'cancelled') {
         setStep('results');
     }
     else {
-        setError('模拟支付失败。没有扣款，请重新选择购买。');
+        setError('未能完成，请返回选图后重试。');
         setStep('results');
     } });
     const style = styles.find(s => s.id === session?.styleId);
+    const lockedPhoto = !!session && !['created', 'photographed'].includes(session.status);
     const index = step === 'home' ? 0 : ['camera', 'confirm'].includes(step) ? 1 : step === 'generating' ? 2 : 3;
-    return <div data-step={step} className={`shell kiosk-shell ${step === 'home' ? 'is-idle' : ''}`}><header><Brand /><div className="header-right">{step === 'home' && <DisplayControls />}<span className="mode"><i />{!health ? '连接设备中' : health.mode === 'seedream' ? 'Seedream 云端' : '演示模式 · 非 AI 生图'}</span></div></header>
- <main ref={motionMain}>{step === 'home' ? <AttractScreen styles={styles} onStart={() => { epoch.current++; setStep('styles'); }} /> : step === 'styles' ? <ThemePicker styles={styles} loading={stylesLoading} busy={busy} error={error} onBack={() => void finish()} onChoose={choose} /> : <><nav className="progress" aria-label="拍照进度">{['主题', '拍照', '生成', '取图'].map((text, i) => <span className={i === index ? 'active current' : i < index ? 'active complete' : ''} key={text}><b>0{i + 1}</b>{text}</span>)}<button className="text-button" onClick={() => void finish()}>结束本次 ↗</button></nav>
- {['camera', 'confirm'].includes(step) && <section className="capture-layout"><div className="camera-frame">{step === 'camera' && health?.mode === 'demo' && !cameraRequested ? <div className="sample-preview"><img src="/examples/cartoon-editorial.png" alt="演示用示例照片" /><span>示例照片</span></div> : step === 'camera' ? <><video ref={video} muted playsInline autoPlay className="mirror" onPlaying={e => { const v = e.currentTarget; if (stream.current?.active && v.videoWidth > 0 && v.videoHeight > 0) { setCameraReady(true); setCameraError(''); } }} onWaiting={() => setCameraReady(false)}/><div className="viewfinder"/>{!cameraReady && <div className="camera-placeholder"><span>◎</span><p>{cameraError ? '摄像头需要你帮个忙' : '正在打开摄像头…'}</p></div>}{count > 0 && <div className="countdown" role="status" aria-live="assertive">{count}</div>}</> : <img src={photo} alt="刚刚拍摄或上传的照片"/>}</div><div className="capture-copy"><div className="capture-theme"><span className="selected-theme">{style?.name || session?.styleName}</span>{step === 'camera' && <button className="secondary" onClick={() => void finish('styles')}>更换主题</button>}</div><h1>{step === 'camera' ? (health?.mode === 'demo' && !cameraRequested ? <>准备一张照片</> : <>看向镜头</>) : <>确认照片</>}</h1>{step === 'camera' ? <>{(health?.mode !== 'demo' || cameraRequested) && <button className="primary capture-button" disabled={!cameraReady || count > 0 || busy} onClick={takePhoto}>◎ {count ? '看镜头，保持微笑' : '拍照'}</button>}{health?.mode === 'demo' && <><button className={cameraRequested ? 'secondary' : 'primary'} disabled={busy || count > 0} onClick={samplePhoto}>{busy ? '正在读取…' : '使用示例照片'}</button>{!cameraRequested && <button className="secondary" disabled={busy} onClick={() => setCameraRequested(true)}>使用摄像头</button>}</>}{cameraError && <><p role="alert" className="error">{cameraError}</p><button className="secondary" onClick={() => setCameraAttempt(n => n + 1)}>重新连接摄像头</button></>}<details className="photo-options"><summary>使用其他照片</summary><label className="upload-link">上传照片<input type="file" accept="image/jpeg,image/png" disabled={count > 0 || busy} onChange={e => { const file = e.target.files?.[0]; const version = epoch.current; if (file)
+    return <div data-step={step} className={`shell kiosk-shell ${step === 'home' ? 'is-idle' : ''}`}><header><Brand /><div className="header-right">{step === 'home' && <DisplayControls />}<div className="visit-actions">{(step !== 'home' || library.length > 0) && <button className="text-button" disabled={busy || frameSaving || !!frameError || step === 'library'} onClick={openLibrary}>本轮照片库</button>}{(library.length > 0 || step === 'library') && <button className="text-button" onClick={() => void finish()}>结束本次 ↗</button>}</div><span className="mode"><i />{!health ? '连接设备中' : health.mode === 'seedream' ? '真实 AI 生图' : '模拟生图'}</span></div></header>
+ <main ref={motionMain}>{step === 'home' ? <AttractScreen styles={styles} onStart={() => { epoch.current++; setStep('styles'); }} /> : step === 'styles' ? <ThemePicker styles={styles} loading={stylesLoading} busy={busy} error={error} onBack={() => { epoch.current++; setStep('home'); }} onChoose={choose} /> : step === 'library' ? <PhotoLibrary sessions={library} draftPhoto={id => drafts.current.get(id)?.photo || ''} now={now} busy={busy} onOpen={openPhoto} onNew={() => setStep('styles')} onBack={() => setStep(session && !['home', 'styles', 'library'].includes(libraryFrom.current) ? libraryFrom.current : 'styles')} /> : <><nav className="progress" aria-label="拍照进度">{['主题', '拍照', '生成', '取图'].map((text, i) => <span className={i === index ? 'active current' : i < index ? 'active complete' : ''} key={text}><b>0{i + 1}</b>{text}</span>)}</nav><div className="step-back-row"><button className="text-button" disabled={busy || frameSaving || !!frameError} onClick={back}>← {step === 'results' ? '返回照片库' : step === 'payment' || step === 'pickup' ? '返回选图' : '返回上一步'}</button>{session && <span className="photo-expiry">{session.images.length ? '剩余保存时间' : '本次有效时间'} {timeLeft(session.expiresAt, now)} · 到期自动删除</span>}</div>
+ {['camera', 'confirm'].includes(step) && <section className="capture-layout"><div className="camera-frame">{step === 'camera' ? <><video ref={video} muted playsInline autoPlay className="mirror" onPlaying={e => { const v = e.currentTarget; if (stream.current?.active && v.videoWidth > 0 && v.videoHeight > 0) { setCameraReady(true); setCameraError(''); } }} onWaiting={() => setCameraReady(false)}/><div className="viewfinder"/>{!cameraReady && <div className="camera-placeholder"><span>◎</span><p>{cameraError ? '摄像头需要你帮个忙' : '正在打开摄像头…'}</p></div>}{count > 0 && <div className="countdown" role="status" aria-live="assertive">{count}</div>}</> : <img src={photo || session?.originalUrl} alt="刚刚拍摄或上传的照片"/>}</div><div className="capture-copy"><div className="capture-theme"><span className="selected-theme">{style?.name || session?.styleName}</span>{step === 'camera' && <button className="secondary" disabled={busy} onClick={() => setStep('styles')}>更换主题</button>}</div><h1>{step === 'camera' ? <>看向镜头</> : <>确认照片</>}</h1>{step === 'camera' ? <><p className="capture-guidance">{captureGuide(session?.styleId || '', session?.purpose === 'together')}</p>{session?.purpose !== "together" && !style?.subjectCount && session?.orientation !== "poster" && <p className="capture-guidance capture-group-note">多人合照时，每个人的脸都要清楚入镜，避免前后遮挡。</p>}<button className="primary capture-button" disabled={!cameraReady || count > 0 || busy} onClick={takePhoto}>◎ {count ? '看镜头，保持微笑' : '拍照'}</button>{cameraError && <><p role="alert" className="error">{cameraError}</p><button className="secondary" onClick={() => setCameraAttempt(n => n + 1)}>重新连接摄像头</button></>}{photo && <button className="secondary" disabled={busy || count > 0} onClick={() => setStep('confirm')}>使用刚才的照片</button>}<details className="photo-options"><summary>使用其他照片</summary><label className="upload-link">上传照片<input type="file" accept="image/jpeg,image/png" disabled={count > 0 || busy} onChange={e => { const file = e.target.files?.[0]; const version = epoch.current; if (file)
             void run(async () => { const value = await readFile(file); if (version !== epoch.current)
-                return; setPhoto(value); setStep('confirm'); }); e.target.value = ''; }}/></label></details></> : <><label className="consent"><input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)}/><span>{health?.mode === 'seedream' ? '同意上传照片至 Seedream 生成，保存 24 小时。' : '同意本机处理照片，保存 24 小时。'}</span></label><button className="primary" disabled={!health || !consent || busy || (health?.mode === 'seedream' && !health.configured)} onClick={generate}>{busy ? '正在提交…' : '确认并生成'}</button>{health?.mode === 'seedream' && !health.configured && <p className="error">Seedream 尚未配置，请先在后台完成配置。</p>}<button className="secondary" disabled={busy} onClick={() => { setPhoto(''); setConsent(false); setStep('camera'); }}>重新拍一张</button></>}</div></section>}
- {step === 'generating' && <section className="waiting"><GenerationPreview photo={photo || session?.originalUrl || ''} active={session?.status === 'generating'} demo={session?.mode === 'demo'} theme={style?.name || session?.styleName} />{session?.status !== 'generating' && <p role="alert">{session?.error || '生成未完成'}</p>}{session?.status === 'generating' && session.mode !== 'demo' && <p className="fine-print">结束体验不会取消云端生成。</p>}{session?.status === 'failed' && <button className="primary" onClick={retry} disabled={busy}>{busy ? '正在重试…' : '重新生成'}{session.mode === 'seedream' ? '（会再次调用 API）' : ''}</button>}{session?.status === 'unknown' && <p className="error">结果暂时无法确认。为避免重复计费，不提供自动重试，请到工作台检查记录。</p>}</section>}
- {step === 'results' && session && <PhotoResults session={session} photo={photo} selected={selected} busy={busy} onSelect={id => setSelected([id])} onCheckout={checkout} />}
- {step === 'payment' && <section className="payment"><h1>确认购买</h1><div className="purchase-ticket"><span>高清无水印照片 × {order?.imageIds.length}</span><strong>{money(order?.amount || 0)}</strong><div className="ticket-line"/><b>模拟支付，不实际扣款</b><button className="primary" disabled={busy} onClick={() => pay('paid')}>{busy ? '处理中…' : '模拟支付成功 →'}</button><button className="secondary cancel-purchase" disabled={busy} onClick={() => pay('cancelled')}>返回选图</button><details className="simulation-options"><summary>异常演示</summary><button className="text-button" disabled={busy} onClick={() => pay('failed')}>模拟支付失败</button></details></div></section>}
- {step === 'pickup' && <section className="delivery"><div><h1>扫码取图</h1><p className="muted">连接同一 Wi-Fi · 24 小时内下载</p><button className="primary" onClick={() => void finish()}>完成，返回首页</button></div><div className="qr-ticket">{qr ? <img src={qr} alt="手机取图二维码"/> : <p>正在生成二维码…</p>}<a href={pickup} target="_blank" rel="noreferrer">在当前设备打开相册 ↗</a></div></section>}
- </>}{error && <div role="alert" className="error global-error">{error}{['home', 'styles'].includes(step) && <button className="secondary" disabled={stylesLoading} onClick={() => setConfigAttempt(value => value + 1)}>重新连接</button>}<button className="text-button" onClick={() => setError('')} aria-label="关闭错误提示">×</button></div>}{remaining <= 20 && step !== 'home' && <div className="timeout" role="alert">{remaining} 秒后结束本次体验<button onClick={() => { lastAction.current = Date.now(); setRemaining(step === 'generating' ? 300 : 120); }}>我还在，继续</button></div>}</main><footer><span>{health?.mode === 'demo' ? '本地演示 · 不实际扣款' : 'SNAP CLUB'}</span>{step === 'home' && <a href="/admin" aria-label="设备工作台">设备设置</a>}</footer></div>;
+                return; setPhoto(value); setStep('confirm'); }); e.target.value = ''; }}/></label></details></> : lockedPhoto ? <><p className="muted">服装：{clothingLabel(session?.clothingMode)}</p><p className="locked-photo-note">{session?.status === 'generating' ? '这张照片正在生成，返回查看不会中断制作。' : '这张原照片已用于生成，可以返回查看结果。'}</p><button className="primary" onClick={() => setStep(session?.images.length ? 'results' : 'generating')}>{session?.images.length ? '查看生成照片' : '查看生成进度'}</button><button className="secondary" onClick={openLibrary}>查看本轮照片库</button></> : <><p className="capture-guidance">确认每个人的脸都清晰、没有闭眼或遮挡；不满意可以先重拍。</p>{style?.generationPreset === 'coming-of-age' || session?.styleId === 'coming-of-age' ? <div className="poster-settings"><strong>成人礼写真海报 · 竖版 2:3</strong><p>深蓝主题换装 · 整理发型与姿势 · 银白金属艺术字</p><p>「你好 / 我的18岁」与指定英文直接生成在图片中，保留本人样貌与年龄感。</p></div> : style?.generationPreset === 'directed-portrait' ? <><div className="poster-settings"><strong>{style.name} · {orientationLabel(orientation)}</strong><p>{style.description}</p><p>动作与场景按主题设计，优先保留本人样貌。{style.subjectCount === 2 ? '请确认照片内有两位本人。' : '请使用单人照片。'}</p></div><ClothingPicker value={clothingMode} onChange={setClothingMode} disabled={busy} /></> : <><fieldset className="orientation-picker" disabled={busy || (!photo && !!session?.originalUrl)}><legend>选择照片比例</legend><div className="orientation-options">{([{id:'portrait',name:'竖版',ratio:'3:4',note:'适合单人肖像'},{id:'landscape',name:'横版',ratio:'4:3',note:'适合合照与环境'}] as const).map(item=><button type="button" key={item.id} className={orientation===item.id?'selected':''} aria-pressed={orientation===item.id} onClick={()=>setOrientation(item.id)}><span className={`orientation-shape ${item.id}`} aria-hidden="true"/><span><strong>{item.name}</strong><small>{item.ratio} · {item.note}</small></span><i aria-hidden="true">{orientation===item.id?'✓':''}</i></button>)}</div></fieldset><ClothingPicker value={clothingMode} onChange={setClothingMode} disabled={busy} /></>}<label className="consent"><input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)}/><span>{health?.mode === 'seedream' ? '同意将照片上传至云端生成；生成完成后保留 10 分钟，到期自动删除。' : '同意本机处理照片；生成完成后保留 10 分钟，到期自动删除。'}</span></label><button className="primary" disabled={!health || !consent || busy || (health?.mode === 'seedream' && !health.configured)} onClick={generate}>{busy ? '正在提交…' : `确认并生成 · ${orientationLabel(orientation)}`}</button>{health?.mode === 'seedream' && !health.configured && <p className="error">Seedream 尚未配置，请先在后台完成配置。</p>}<button className="secondary" disabled={busy} onClick={() => { if (session) drafts.current.delete(session.id); setPhoto(''); setConsent(false); setStep('camera'); }}>重新拍一张</button></>}</div></section>}
+ {step === 'generating' && <section className="waiting" data-orientation={session?.orientation ?? orientation}><GenerationPreview photo={photo || session?.originalUrl || ''} active={session?.status === 'generating'} demo={session?.mode === 'demo'} theme={style?.name || session?.styleName} frame={frame} caption={caption} orientation={session?.orientation ?? orientation} /><p className="generation-clothing">服装：{clothingLabel(session?.clothingMode)}</p><FramePicker recommended={recommendedFrame(session?.styleId || "", session?.purpose)} value={frame} caption={caption} onCaptionChange={value => changeFrame(frame, value)} onChange={changeFrame} saving={frameSaving} error={frameError} />{session?.status !== 'generating' && <p role="alert">{session?.error || '生成未完成'}</p>}{session?.status === 'generating' && session.mode !== 'demo' && <p className="fine-print">结束体验不会取消云端生成。</p>}{session?.status === 'failed' && <button className="primary" onClick={retry} disabled={busy}>{busy ? '正在重试…' : '重新生成'}{session.mode === 'seedream' ? '（会再次调用 API）' : ''}</button>}{session?.status === 'unknown' && <p className="error">结果暂时无法确认。为避免重复计费，不提供自动重试，请到工作台检查记录。</p>}</section>}
+ {step === 'results' && session && <><PhotoResults session={session} photo={photo} selected={selected} frame={frame} caption={caption} busy={busy || frameSaving || !!frameError} onSelect={id => setSelected([id])} onCheckout={checkout}><FramePicker recommended={recommendedFrame(session?.styleId || "", session?.purpose)} value={frame} caption={caption} onCaptionChange={value => changeFrame(frame, value)} onChange={changeFrame} saving={frameSaving} error={frameError} /></PhotoResults><div className="library-toolbar"><button className="secondary" disabled={busy || frameSaving || !!frameError} onClick={() => setStep('styles')}>再拍一张 ↗</button></div></>}
+ {step === 'payment' && <section className="payment"><h1>确认购买</h1><div className="purchase-ticket"><span>高清无水印照片 × {order?.imageIds.length}</span><strong>{money(order?.amount || 0)}</strong><div className="ticket-line"/><button className="primary" disabled={busy} onClick={() => pay('paid')}>{busy ? '处理中…' : '确认取图 →'}</button><button className="secondary cancel-purchase" disabled={busy} onClick={() => setStep('results')}>返回选图</button><details className="simulation-options"><summary>其他操作</summary><button className="text-button" disabled={busy} onClick={() => pay('failed')}>取消本次操作</button></details></div></section>}
+ {step === 'pickup' && <section className="delivery"><div><h1>扫码取图</h1><p className="muted">连接同一 Wi-Fi · 请在倒计时结束前下载</p><button className="primary" onClick={() => void finish()}>完成，返回首页</button></div><div className="qr-ticket">{qr ? <img src={qr} alt="手机取图二维码"/> : <p>正在生成二维码…</p>}<a href={pickup} target="_blank" rel="noreferrer">在当前设备打开相册 ↗</a></div></section>}
+ </>}{error && <div role="alert" className="error global-error">{error}{['home', 'styles'].includes(step) && <button className="secondary" disabled={stylesLoading} onClick={() => setConfigAttempt(value => value + 1)}>重新连接</button>}<button className="text-button" onClick={() => setError('')} aria-label="关闭错误提示">×</button></div>}{remaining <= 20 && (step !== 'home' || library.length > 0) && <div className="timeout" role="alert">{remaining} 秒后结束本次体验<button onClick={() => { lastAction.current = Date.now(); setRemaining(generatingIds ? 300 : 120); saveRound(); }}>我还在，继续</button></div>}</main><footer><span>SNAP CLUB</span>{step === 'home' && <a href="/admin" aria-label="设备工作台">设备设置</a>}</footer></div>;
 }
