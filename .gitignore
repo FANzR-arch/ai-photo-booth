@@ -10,3 +10,5 @@ API.txt
 *-acceptance.jpg
 releases/
 runtime/
+.mac-ready*
+diagnostics/

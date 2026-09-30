@@ -12,9 +12,10 @@ let url = `http://localhost:${port}`;
 const mode = process.env.GENERATION_MODE?.trim() || 'seedream';
 process.env.GENERATION_MODE = mode;
 function openBrowser() {
-    if (process.env.BOOTH_OPEN_BROWSER !== '1' || process.platform !== 'win32') return;
-    const opener = spawn('explorer.exe', [url], { windowsHide: true, stdio: 'ignore' });
+    if (process.env.BOOTH_OPEN_BROWSER !== '1' || !['win32', 'darwin'].includes(process.platform)) return;
+    const opener = spawn(process.platform === 'darwin' ? '/usr/bin/open' : 'explorer.exe', [url], { windowsHide: true, stdio: 'ignore' });
     opener.on('error', () => console.log(`请手动打开 ${url}`));
+    opener.on('exit', code => { if (code) console.log(`请手动打开 ${url}`); });
     opener.unref();
 }
 async function existingBooth(): Promise<'same' | 'different' | false> {

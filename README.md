@@ -4,6 +4,8 @@
 
 ## 启动
 
+**Apple 芯片 Mac：**请使用 [Mac 安装说明](README-Mac.md)；交给设备上的 AI 执行时，可直接提供 [完整部署提示词](docs/Mac-AI-部署提示词.md)。Mac 脚本支持安装与联调，应用自动打印、管理员登录、真实支付和公网取图尚未接入。
+
 1. 首次使用：安装 Node.js 24+，复制 `.env.example` 为 `.env`，填写 Seedream 密钥和模型。
 2. 双击 `启动拍照亭.cmd`。源码目录会安装锁定依赖并构建；便携包使用自带 Node。
 3. 在电脑打开 [拍照亭](http://localhost:4377)，管理入口为 [/admin](http://localhost:4377/admin)。手机连接同一 Wi-Fi 扫码取图。
