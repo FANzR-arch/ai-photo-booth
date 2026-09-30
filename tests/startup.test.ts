@@ -12,7 +12,7 @@ test('startup rejects occupied loopback port without touching the existing liste
     try {
         const port = (listener.address() as AddressInfo).port;
         const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
+            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
         });
         let stderr = '';
         child.stderr.on('data', chunk => stderr += chunk);
@@ -38,7 +38,7 @@ test('duplicate launch recognizes a running booth and exits successfully without
     try {
         const port = (listener.address() as AddressInfo).port;
         const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String(port), BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
+            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
         });
         let output = ''; child.stdout.on('data', chunk => output += chunk);
         const [code] = await once(child, 'exit');
@@ -55,7 +55,7 @@ test('wildcard port conflict reports a readable message without a Node stack', a
     try {
         const port = (listener.address() as AddressInfo).port;
         const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String(port), BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
+            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
         });
         let stderr = ''; child.stderr.on('data', chunk => stderr += chunk);
         const [code] = await once(child, 'exit');

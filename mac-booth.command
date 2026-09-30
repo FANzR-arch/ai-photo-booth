@@ -49,7 +49,7 @@ case "$choice" in
       printf 'Node: '; node --version
       printf 'npm: '; npm --version
       echo '--- Printer queues (OS status, not proof of physical output) ---'
-      /usr/bin/lpstat -p -d || true
+      node scripts/macos/printer-diagnostics.mjs --stdout || true
       echo '--- Disk space ---'
       /bin/df -h .
       echo '--- App health (fixed port from configuration) ---'
