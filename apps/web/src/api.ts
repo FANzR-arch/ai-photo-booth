@@ -1,6 +1,7 @@
 export async function api<T>(path: string, body?: unknown, method = 'POST'): Promise<T> {
     const response = await fetch(path, body === undefined ? undefined : { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     if (!response.ok) {
+        if (response.status === 401 && path.startsWith('/api/admin') && !path.includes('/auth/') && typeof window !== 'undefined') window.dispatchEvent(new Event('snap-admin-expired'));
         let message = `请求失败（${response.status}）`;
         try {
             message = (await response.json()).error || message;

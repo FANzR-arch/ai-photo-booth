@@ -15,6 +15,8 @@ import { isPhotoOrientation, orientedSize } from '../../packages/shared/photo-or
 import { isClothingMode } from '../../packages/shared/clothing.js';
 import { generationPrompt } from './generation-prompt.js';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
+import { createAdminAccess } from './admin-auth.js';
+import { adminConfiguration } from './admin-config.js';
 export interface GenerateInput {
     photo: Buffer;
     prompt: string;
@@ -177,6 +179,11 @@ export async function createApp(options: AppOptions = {}) {
     const timer = setInterval(() => { try { cleanup(); } catch (error) { console.error('Photo cleanup failed', error); } }, 1000);
     timer.unref();
     const app = Fastify({ logger: false, bodyLimit: 17 * 1024 * 1024, trustProxy: false });
+    const admin = createAdminAccess(root, now);
+    const config = adminConfiguration(root, process.env.SEEDREAM_API_KEY?.trim() || '', process.env.SEEDREAM_MODEL?.trim() || '');
+    const cookieName = `snap_admin_${port}`;
+    const adminToken = (cookie?: string) => cookie?.split(';').map(value => value.trim()).find(value => value.startsWith(`${cookieName}=`))?.slice(cookieName.length + 1);
+    const publicAdminRoutes = new Set(['/api/admin/auth/status', '/api/admin/auth/login', '/api/admin/auth/logout']);
     const jobs = new Set<Promise<void>>();
     app.addHook('onClose', async () => { clearInterval(timer); await Promise.allSettled([...jobs]); db.close(); });
     app.setErrorHandler((error, _req, reply) => { reply.code((error as any).statusCode ?? 500).send({ error: (error as any).statusCode ? (error as Error).message : '服务处理失败，请查看服务端记录或重试。' }); });
@@ -213,7 +220,21 @@ export async function createApp(options: AppOptions = {}) {
         if (['POST', 'PUT', 'PATCH'].includes(req.method) && !req.headers['content-type']?.toLowerCase().startsWith('application/json'))
             throw fail('请使用 application/json', 415);
         reply.header('Cache-Control', 'no-store').header('X-Content-Type-Options', 'nosniff').header('Referrer-Policy', 'no-referrer').header('X-Frame-Options', 'DENY').header('Content-Security-Policy', "frame-ancestors 'none'");
+        const route = req.routeOptions.url || url;
+        if ((route === '/api/admin' || route.startsWith('/api/admin/')) && !publicAdminRoutes.has(route)) admin.require(adminToken(req.headers.cookie));
     });
+    app.get('/api/admin/auth/status', async req => admin.status(adminToken(req.headers.cookie)));
+    app.post('/api/admin/auth/login', { bodyLimit: 2048 }, async (req, reply) => {
+        const token = await admin.login(object(req.body).password);
+        reply.header('Set-Cookie', `${cookieName}=${token}; Path=/api/admin; HttpOnly; SameSite=Strict${req.protocol === 'https' ? '; Secure' : ''}`);
+        return admin.status(token);
+    });
+    app.post('/api/admin/auth/logout', async (req, reply) => {
+        admin.logout(adminToken(req.headers.cookie));
+        reply.header('Set-Cookie', `${cookieName}=; Path=/api/admin; HttpOnly; SameSite=Strict; Max-Age=0`);
+        return { authenticated: false };
+    });
+    app.post('/api/admin/auth/touch', async req => { admin.touch(adminToken(req.headers.cookie)); return { authenticated: true }; });
     const session = (id: string, allowEnded = false) => { const s = get<StoredSession>('session', id); if (!s)
         throw fail('会话不存在', 404); if (s.expiresAt <= now()) {
         erasePhotos(s); throw fail('照片已过期并删除', 410); } if (s.status === 'ended' && !allowEnded)
@@ -398,6 +419,12 @@ export async function createApp(options: AppOptions = {}) {
         pickup(req.params.token); // Decoration may finish after the deadline; never send an expired image.
         return reply.type('image/jpeg').header('Content-Disposition', `attachment; filename="photo-${req.params.imageId}.jpg"`).send(image); });
     app.get('/api/admin', async () => ({ health: health(), styles: all<Style>('style'), sessions: all<StoredSession>('session').sort((a, b) => b.createdAt - a.createdAt).slice(0, 100).map(view), orders: all<Order>('order').sort((a, b) => b.createdAt - a.createdAt).slice(0, 100) }));
+    app.get('/api/admin/config', async () => config.status());
+    app.put('/api/admin/config', { bodyLimit: 4096 }, async req => {
+        if (jobs.size || all<StoredSession>('session').some(s => s.status === 'generating')) throw fail('正在生成照片，请等待完成后再保存配置。', 409);
+        const body = object(req.body);
+        return config.save(body.apiKey, body.model);
+    });
     app.put<{
         Params: {
             id: string;

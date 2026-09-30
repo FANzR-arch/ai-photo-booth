@@ -7,6 +7,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
+    "admin:password": "tsx scripts/admin-password.ts",
     "dev": "concurrently -k \"tsx watch apps/server/index.ts\" \"vite --host 127.0.0.1\"",
     "build": "tsc --noEmit && vite build",
     "start": "tsx apps/server/index.ts",

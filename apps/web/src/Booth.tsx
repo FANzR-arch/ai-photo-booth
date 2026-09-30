@@ -16,6 +16,7 @@ import { orientationLabel, type PhotoOrientation } from '../../../packages/share
 import { PhotoLibrary, timeLeft, usePhotoClock } from './PhotoLibrary';
 import { ClothingPicker } from './ClothingPicker';
 import { clothingLabel, type ClothingMode } from '../../../packages/shared/clothing';
+import { cameraConstraints, cameraFailure } from './camera-settings';
 export { Pickup } from './Pickup';
 type Draft = { photo: string; consent: boolean; orientation: PhotoOrientation; clothingMode: ClothingMode };
 type SavedRound = { ids: string[]; activeAt: number; idleMs: number };
@@ -135,7 +136,7 @@ export function Booth() {
     } let active = true; setCameraError(''); setCameraReady(false); if (!navigator.mediaDevices?.getUserMedia) {
         setCameraError('无法访问摄像头。请在这台电脑使用 localhost 打开，或选择上传照片。');
         return;
-    } navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false }).then(s => { if (!active) {
+    } navigator.mediaDevices.getUserMedia(cameraConstraints()).then(s => { if (!active) {
         s.getTracks().forEach(t => t.stop());
         return;
     } stream.current = s;
@@ -148,12 +149,7 @@ export function Booth() {
             if (active) { stopCamera(); setCameraError('画面未能播放，请点击重新连接摄像头。'); }
         });
     } }).catch((e: DOMException) => { if (active) {
-        const messages: Record<string, string> = {
-            NotAllowedError: '请点击浏览器地址栏的摄像头权限，允许此页面使用摄像头，再重新连接。',
-            NotFoundError: '没有找到摄像头，请接入摄像头后重新连接。',
-            NotReadableError: '摄像头被占用或无法读取，请关闭会议、相机等软件后重新连接。',
-        };
-        setCameraError(messages[e.name] || '摄像头未能开启，请检查设备连接和浏览器权限后重试。');
+        setCameraError(cameraFailure(e.name));
     } }); return () => { active = false; stream.current?.getTracks().forEach(t => t.stop()); stream.current = null; if (captureTimer.current)
         clearInterval(captureTimer.current); }; }, [step, cameraAttempt, health?.mode]);
     const generatingIds = library.filter(s => s.status === 'generating').map(s => s.id).sort().join(',');

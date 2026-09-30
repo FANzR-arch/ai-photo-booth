@@ -4,11 +4,11 @@
 
 ## 启动
 
-**Apple 芯片 Mac：**请使用 [Mac 安装说明](README-Mac.md)；交给设备上的 AI 执行时，可直接提供 [完整部署提示词](docs/Mac-AI-部署提示词.md)。Mac 脚本支持安装与联调，应用自动打印、管理员登录、真实支付和公网取图尚未接入。
+**Apple 芯片 Mac：**请使用 [Mac 安装说明](README-Mac.md)；交给设备上的 AI 执行时，可直接提供 [完整部署提示词](docs/Mac-AI-部署提示词.md)。Mac 脚本支持安装与联调，已支持管理员登录、API 配置和摄像头选择；应用自动打印、真实支付和公网取图尚未接入。
 
 1. 首次使用：安装 Node.js 24+，复制 `.env.example` 为 `.env`，填写 Seedream 密钥和模型。
 2. 双击 `启动拍照亭.cmd`。源码目录会安装锁定依赖并构建；便携包使用自带 Node。
-3. 在电脑打开 [拍照亭](http://localhost:4377)，管理入口为 [/admin](http://localhost:4377/admin)。手机连接同一 Wi-Fi 扫码取图。
+3. 在电脑打开 [拍照亭](http://localhost:4377)，首页“设备设置”可主动进入 [/admin](http://localhost:4377/admin)。首次运行 `npm run admin:password`（Mac 菜单选 5）设置管理员密码；程序启动默认打开拍照首页。手机连接同一 Wi-Fi 扫码取图。
 
 正式入口固定使用 `PORT`（默认 4377）与 `data/`。重启会保留主题设置、订单与未过期照片；相同模式重复启动会打开已有服务。请勿删除 data，或改变设备局域网地址后仍使用旧二维码。
 

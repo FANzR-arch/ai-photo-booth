@@ -7,13 +7,22 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { DatabaseSync } from 'node:sqlite';
 import { createApp, type AppOptions } from '../apps/server/app.js';
+import { setAdminPassword } from '../apps/server/admin-auth.js';
 async function fixture(options: AppOptions = {}) {
     const root = mkdtempSync(path.join(tmpdir(), 'booth-test-'));
     mkdirSync(path.join(root, 'config/styles'), { recursive: true });
     writeFileSync(path.join(root, 'config/styles/styles.json'), JSON.stringify([{ id: 'cinema', name: '电影', description: '测试', prompt: 'keep identity', version: 1, enabled: true, exampleUrl: '/examples/cinema.svg', size: '2K', color: '#f00' }]));
     const dataDir = path.join(root, 'data');
+    await setAdminPassword(root, 'test-admin-password-only');
     let app = await createApp({ mode: 'demo', ...options, rootDir: root, dataDir });
-    const req = (method: string, url: string, payload?: unknown) => app.inject({ method: method as any, url, payload: payload as any, headers: { host: 'localhost:4377' } });
+    let cookie = '';
+    const req = async (method: string, url: string, payload?: unknown) => {
+        if (url.startsWith('/api/admin') && !cookie) {
+            const login = await app.inject({ method: 'POST', url: '/api/admin/auth/login', payload: { password: 'test-admin-password-only' }, headers: { host: 'localhost:4377' } });
+            assert.equal(login.statusCode, 200); cookie = String(login.headers['set-cookie']).split(';')[0];
+        }
+        return app.inject({ method: method as any, url, payload: payload as any, headers: { host: 'localhost:4377', cookie } });
+    };
     const photo = await sharp({ create: { width: 160, height: 200, channels: 3, background: '#f2a399' } }).jpeg().toBuffer();
     const make = async () => { const s = (await req('POST', '/api/sessions', { styleId: 'cinema' })).json(); assert.ok(s.id); assert.equal((await req('POST', `/api/sessions/${s.id}/photo`, { dataUrl: `data:image/jpeg;base64,${photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 200); return s.id as string; };
     const finish = async (id: string) => { for (let i = 0; i < 100; i++) {
@@ -22,7 +31,7 @@ async function fixture(options: AppOptions = {}) {
             return s;
         await new Promise(r => setTimeout(r, 10));
     } throw Error('generation did not finish'); };
-    return { root, dataDir, photo, req, make, finish, get app() { return app; }, restart: async () => { await app.close(); app = await createApp({ mode: 'demo', ...options, rootDir: root, dataDir }); }, close: async () => { await app.close(); rmSync(root, { recursive: true, force: true }); } };
+    return { root, dataDir, photo, req, make, finish, get app() { return app; }, restart: async () => { await app.close(); cookie = ''; app = await createApp({ mode: 'demo', ...options, rootDir: root, dataDir }); }, close: async () => { await app.close(); rmSync(root, { recursive: true, force: true }); } };
 }
 test('new bundled styles are added on restart without overwriting saved prompts or switches', async () => {
     const f = await fixture();
