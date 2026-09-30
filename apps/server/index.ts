@@ -9,11 +9,14 @@ import type { AddressInfo } from 'node:net';
 
 let port = Number(process.env.PORT ?? 4377);
 let url = `http://localhost:${port}`;
-const mode = process.env.GENERATION_MODE?.trim() || 'seedream';
+const easyStart = process.env.BOOTH_EASY_START === '1';
+const mode = easyStart ? 'seedream' : process.env.GENERATION_MODE?.trim() || 'seedream';
 process.env.GENERATION_MODE = mode;
+if (easyStart) process.env.BOOTH_FRESH_INSTANCE = '0';
 function openBrowser() {
     if (process.env.BOOTH_OPEN_BROWSER !== '1' || !['win32', 'darwin'].includes(process.platform)) return;
-    const opener = spawn(process.platform === 'darwin' ? '/usr/bin/open' : 'explorer.exe', [url], { windowsHide: true, stdio: 'ignore' });
+    const chrome = process.platform === 'darwin' && existsSync('/Applications/Google Chrome.app');
+    const opener = spawn(process.platform === 'darwin' ? '/usr/bin/open' : 'explorer.exe', chrome ? ['-a', 'Google Chrome', url] : [url], { windowsHide: true, stdio: 'ignore' });
     opener.on('error', () => console.log(`请手动打开 ${url}`));
     opener.on('exit', code => { if (code) console.log(`请手动打开 ${url}`); });
     opener.unref();
@@ -40,7 +43,7 @@ async function probe(host: string) {
 async function start() {
     if (!['seedream', 'demo'].includes(mode)) throw new Error('GENERATION_MODE 只能为 seedream 或 demo');
     if (mode === 'seedream') {
-        if (!process.env.SEEDREAM_API_KEY?.trim() || !process.env.SEEDREAM_MODEL?.trim())
+        if (!easyStart && (!process.env.SEEDREAM_API_KEY?.trim() || !process.env.SEEDREAM_MODEL?.trim()))
             throw new Error('请在 .env 配置 SEEDREAM_API_KEY 和 SEEDREAM_MODEL；不会回退到模拟生图。');
         if (!existsSync(path.join(process.cwd(), 'dist/web/index.html')))
             throw new Error('尚未构建正式页面，请先运行 npm run build。');

@@ -76,7 +76,7 @@ export async function createApp(options: AppOptions = {}) {
     const parsedBase = new URL(base);
     if (!['http:', 'https:'].includes(parsedBase.protocol) || parsedBase.username || parsedBase.password || parsedBase.pathname !== '/' || parsedBase.search || parsedBase.hash)
         throw fail('PICKUP_BASE_URL 必须是完整的网站根地址');
-    const health = (): Health => ({ service: 'snap-club', mode, paymentMode: 'simulate', configured: mode === 'demo' || !!options.provider || !!(process.env.SEEDREAM_API_KEY?.trim() && process.env.SEEDREAM_MODEL?.trim()), model: process.env.SEEDREAM_MODEL ?? '', imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
+    const health = (): Health => ({ service: 'snap-club', mode, paymentMode: 'simulate', configured: mode === 'demo' || !!options.provider || config.status().activeConfigured, model: config.credentials().model, imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
     mkdirSync(data, { recursive: true });
     for (const folder of ['sessions', 'examples'])
         mkdirSync(path.join(data, folder), { recursive: true });
@@ -183,7 +183,7 @@ export async function createApp(options: AppOptions = {}) {
     const config = adminConfiguration(root, process.env.SEEDREAM_API_KEY?.trim() || '', process.env.SEEDREAM_MODEL?.trim() || '');
     const cookieName = `snap_admin_${port}`;
     const adminToken = (cookie?: string) => cookie?.split(';').map(value => value.trim()).find(value => value.startsWith(`${cookieName}=`))?.slice(cookieName.length + 1);
-    const publicAdminRoutes = new Set(['/api/admin/auth/status', '/api/admin/auth/login', '/api/admin/auth/logout']);
+    const publicAdminRoutes = new Set(['/api/admin/auth/status', '/api/admin/auth/setup', '/api/admin/auth/login', '/api/admin/auth/logout']);
     const jobs = new Set<Promise<void>>();
     app.addHook('onClose', async () => { clearInterval(timer); await Promise.allSettled([...jobs]); db.close(); });
     app.setErrorHandler((error, _req, reply) => { reply.code((error as any).statusCode ?? 500).send({ error: (error as any).statusCode ? (error as Error).message : '服务处理失败，请查看服务端记录或重试。' }); });
@@ -224,6 +224,11 @@ export async function createApp(options: AppOptions = {}) {
         if ((route === '/api/admin' || route.startsWith('/api/admin/')) && !publicAdminRoutes.has(route)) admin.require(adminToken(req.headers.cookie));
     });
     app.get('/api/admin/auth/status', async req => admin.status(adminToken(req.headers.cookie)));
+    app.post('/api/admin/auth/setup', { bodyLimit: 2048 }, async (req, reply) => {
+        const token = await admin.setup(object(req.body).password);
+        reply.header('Set-Cookie', `${cookieName}=${token}; Path=/api/admin; HttpOnly; SameSite=Strict${req.protocol === 'https' ? '; Secure' : ''}`);
+        return admin.status(token);
+    });
     app.post('/api/admin/auth/login', { bodyLimit: 2048 }, async (req, reply) => {
         const token = await admin.login(object(req.body).password);
         reply.header('Set-Cookie', `${cookieName}=${token}; Path=/api/admin; HttpOnly; SameSite=Strict${req.protocol === 'https' ? '; Secure' : ''}`);
@@ -304,7 +309,7 @@ export async function createApp(options: AppOptions = {}) {
             }
             else {
                 const provider = options.provider ?? (await import('./providers/seedream.js')).generate;
-                result = await provider({ photo, prompt: generationPrompt(s.snapshot!, s.clothingMode ?? 'keep', orientation), size: outputSize, count });
+                result = await provider({ photo, prompt: generationPrompt(s.snapshot!, s.clothingMode ?? 'keep', orientation), size: outputSize, count }, config.credentials());
                 providerCompleted = true;
             }
             const active = () => {

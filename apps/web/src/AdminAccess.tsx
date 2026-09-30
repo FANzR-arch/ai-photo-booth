@@ -55,11 +55,11 @@ export function AdminAccess({ children }: { children: (lock: () => Promise<void>
         <span className="eyebrow">DEVICE WORKSPACE</span><h1>解锁设备工作台</h1>
         <p>仅供设备管理员使用。登录后可配置设备、管理主题和查看订单。</p>
         {error && <p className="error" role="alert">{error}</p>}
-        {!status ? <p>{error ? '请检查服务连接后刷新页面。' : '正在检查工作台…'}</p> : !status.configured ? <div className="admin-setup-note"><h2>先设置管理员密码</h2><p>在这台电脑的维护终端运行以下命令，设置至少 12 个字符的密码。</p><code>npm run admin:password</code><p>Mac 可打开拍照亭菜单并选择「5」。设置后刷新此页面。</p><button className="secondary" onClick={() => location.reload()}>已设置，刷新页面</button></div> : <form className="editor-fields" onSubmit={async e => {
+        {!status ? <p>{error ? '请检查服务连接后刷新页面。' : '正在检查工作台…'}</p> : <form className="editor-fields" onSubmit={async e => {
             e.preventDefault(); if (busy) return; setBusy(true); setError('');
-            try { const value = await api<Status>('/api/admin/auth/login', { password }); setPassword(''); setStatus(value); }
-            catch (cause) { setError((cause as Error).message); setPassword(''); }
+            try { const value = await api<Status>(status.configured ? '/api/admin/auth/login' : '/api/admin/auth/setup', { password }); setPassword(''); setStatus(value); }
+            catch (cause) { setError((cause as Error).message); setPassword(''); try { setStatus(await api<Status>('/api/admin/auth/status')); } catch {} }
             finally { setBusy(false); }
-        }}><label>管理员密码<input type="password" autoComplete="current-password" value={password} maxLength={128} onChange={e => setPassword(e.target.value)} autoFocus required /></label><button className="primary" disabled={busy || !password}>{busy ? '正在解锁…' : '解锁工作台'}</button><p className="muted">闲置 10 分钟自动锁定。忘记密码时，通过本机维护入口重置。</p></form>}
+        }}>{!status.configured && <p>首次使用，设置一个至少 8 位的密码。以后用这个密码解锁。</p>}<label>管理员密码<input type="password" autoComplete={status.configured ? 'current-password' : 'new-password'} value={password} minLength={status.configured ? 1 : 8} maxLength={128} onChange={e => setPassword(e.target.value)} autoFocus required /></label><button className="primary" disabled={busy || !password}>{busy ? '正在解锁…' : status.configured ? '解锁工作台' : '设置并解锁'}</button><p className="muted">闲置 10 分钟自动锁定。</p></form>}
     </main></div>;
 }

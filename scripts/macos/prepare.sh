@@ -9,7 +9,8 @@ root="$(cd "$(dirname "$0")/../.." && pwd -P)"
 cd "$root"
 if [[ "${1:-}" != '' && "${1:-}" != '--update' ]]; then echo '仅支持 --update 参数。' >&2; exit 1; fi
 if [[ -f .mac-ready && "${1:-}" != '--update' ]]; then
-  echo '此设备已经安装完成；不会在运行中的应用上重装依赖。请使用 mac-booth.command。'
+  /bin/bash scripts/macos/install-shortcut.sh
+  echo '此设备已经安装完成；双击桌面「启动拍照亭」即可。'
   exit 0
 fi
 if [[ "${1:-}" == '--update' ]]; then
@@ -43,3 +44,4 @@ if [[ ! -f .env ]]; then /bin/cp .env.example .env; fi
 /bin/chmod 600 .env
 # Use bash explicitly so Git executable-bit differences do not affect launch.
 printf '%s\n' 'macOS arm64 / Node 24.15.0 / dependencies ready' > .mac-ready
+/bin/bash scripts/macos/install-shortcut.sh

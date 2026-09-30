@@ -8,7 +8,7 @@ try {
         const muted = new Writable({ write(_chunk, _encoding, callback) { callback(); } });
         const reader = createInterface({ input: process.stdin, output: muted, terminal: true });
         try {
-            process.stdout.write('设置管理员密码（12–128 个字符，输入不显示）：');
+            process.stdout.write('设置管理员密码（8–128 个字符，输入不显示）：');
             password = await reader.question('');
             process.stdout.write('\n再次输入：');
             confirmation = await reader.question('');

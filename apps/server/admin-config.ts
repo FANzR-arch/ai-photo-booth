@@ -22,6 +22,7 @@ export function adminConfiguration(root: string, activeKey: string, activeModel:
     };
     return {
         status,
+        credentials: () => ({ key: activeKey, model: activeModel }),
         save: (key: unknown, model: unknown) => {
             if (typeof key !== 'string' || typeof model !== 'string' || key.length > 1024 || model.length > 200) throw error('配置格式无效。');
             const nextKey = key.trim() || read().key;
@@ -32,6 +33,7 @@ export function adminConfiguration(root: string, activeKey: string, activeModel:
                 if (/原配置未修改/.test((cause as Error).message)) throw error((cause as Error).message);
                 throw Object.assign(Error('配置保存失败，原配置未主动清空。请检查本机文件权限。'), { statusCode: 500 });
             }
+            activeKey = nextKey; activeModel = model.trim();
             return status();
         },
     };

@@ -150,11 +150,11 @@ async function generateOne(input: GenerateInput, key: string, model: string): Pr
         clearTimeout(timer);
     }
 }
-export async function generate(input: GenerateInput): Promise<GenerateResult> {
-    const key = process.env.SEEDREAM_API_KEY?.trim();
-    const model = process.env.SEEDREAM_MODEL?.trim();
+export async function generate(input: GenerateInput, credentials?: { key: string; model: string }): Promise<GenerateResult> {
+    const key = (credentials?.key ?? process.env.SEEDREAM_API_KEY)?.trim();
+    const model = (credentials?.model ?? process.env.SEEDREAM_MODEL)?.trim();
     if (!key || !model)
-        throw new ProviderError('尚未配置 Seedream 密钥和模型，请先在本机配置 .env。');
+        throw new ProviderError('请在设备设置中填写 API 密钥和模型 ID 并保存。');
     if (!input.photo.length || !input.prompt.trim() || !input.size.trim() || ![1, 2].includes(input.count)) {
         throw new ProviderError('照片、提示词、尺寸或生成数量无效。');
     }

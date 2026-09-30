@@ -23,8 +23,12 @@ export function printerReport(run, readPpd = () => '') {
     return output;
   };
   const listing = query('/usr/bin/lpstat', ['-p', '-d']);
-  query('/usr/bin/lpstat', ['-a']);
-  const queues = [...new Set([...listing.matchAll(/^printer\s+(\S+)/gm)].map(match => match[1]))];
+  const acceptance = query('/usr/bin/lpstat', ['-a']);
+  // macOS may localize -p even with LC_ALL=C. In -a, the queue name is
+  // the first field; only the following acceptance/status text is localized.
+  const queues = [...new Set(acceptance
+    ? acceptance.split(/\r?\n/).filter(line => line.trim()).map(line => line.trim().split(/\s+/)[0])
+    : [...listing.matchAll(/^printer\s+(\S+)/gm)].map(match => match[1]))];
   for (const queue of queues) {
     // CUPS names are used only as separate arguments and a validated PPD basename.
     if (!/^[a-zA-Z0-9_][a-zA-Z0-9_.-]{0,126}$/.test(queue)) {

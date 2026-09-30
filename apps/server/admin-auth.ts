@@ -1,6 +1,6 @@
 /** Local administrator boundary: scrypt password on disk, revocable sessions in memory. */
 import { randomBytes, scrypt, timingSafeEqual, createHash } from 'node:crypto';
-import { existsSync, readFileSync, mkdirSync, writeFileSync, renameSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync, mkdirSync, writeFileSync, renameSync, linkSync, rmSync } from 'node:fs';
 import path from 'node:path';
 
 export const adminIdleMs = 10 * 60_000;
@@ -9,16 +9,20 @@ const fail = (message: string, statusCode: number) => Object.assign(new Error(me
 const derive = (password: string, salt: string) => new Promise<Buffer>((resolve, reject) => scrypt(password, salt, 64, (error, key) => error ? reject(error) : resolve(key)));
 export const adminPasswordPath = (root: string) => path.join(root, 'data', 'admin-auth.json');
 
-export async function setAdminPassword(root: string, password: string) {
-    if (typeof password !== 'string' || password.length < 12 || password.length > 128 || !password.trim() || /[\r\n\0]/.test(password))
-        throw Error('管理员密码需为 12–128 个字符，不能全为空格或包含换行。');
+export async function setAdminPassword(root: string, password: string, createOnly = false) {
+    if (typeof password !== 'string' || password.length < 8 || password.length > 128 || !password.trim() || /[\r\n\0]/.test(password))
+        throw fail('管理员密码需为 8–128 个字符，不能全为空格或包含换行。', 400);
     const salt = randomBytes(32).toString('hex');
     const hash = (await derive(password, salt)).toString('hex');
     const target = adminPasswordPath(root), temporary = `${target}.${randomBytes(8).toString('hex')}.tmp`;
     mkdirSync(path.dirname(target), { recursive: true, mode: 0o700 });
     try {
         writeFileSync(temporary, JSON.stringify({ version: 1, salt, hash }), { flag: 'wx', mode: 0o600 });
-        renameSync(temporary, target);
+        // Atomic create prevents two local instances from overwriting first-use setup.
+        if (createOnly) {
+            try { linkSync(temporary, target); }
+            catch (error) { if ((error as NodeJS.ErrnoException).code === 'EEXIST') throw fail('密码已设置，请用已有密码解锁。', 409); throw error; }
+        } else renameSync(temporary, target);
     } finally { rmSync(temporary, { force: true }); }
 }
 
@@ -49,9 +53,21 @@ export function createAdminAccess(root: string, now: () => number) {
         require: (id?: string) => { if (!current(id)) throw fail('工作台已锁定，请重新登录。', 401); },
         touch: (id?: string) => { if (!current(id, true)) throw fail('工作台已锁定，请重新登录。', 401); },
         logout: (id?: string) => { if (id) sessions.delete(id); },
+        setup: async (password: unknown) => {
+            if (credential()) throw fail('密码已设置，请用已有密码解锁。', 409);
+            if (pending) throw fail('正在设置密码，请稍后重试。', 429);
+            pending = true;
+            try {
+                await setAdminPassword(root, password as string, true);
+                const saved = credential()!;
+                const id = randomBytes(32).toString('hex');
+                sessions.set(id, { revision: saved.revision, touched: now(), created: now() });
+                return id;
+            } finally { pending = false; }
+        },
         login: async (password: unknown) => {
             const saved = credential();
-            if (!saved) throw fail('尚未设置管理员密码，请在本机维护入口设置。', 409);
+            if (!saved) throw fail('尚未设置管理员密码，请刷新页面后设置。', 409);
             failures = failures.filter(time => now() - time < 15 * 60_000);
             if (pending || failures.length >= 5) throw fail('尝试次数过多，请在 15 分钟后重试。', 429);
             if (typeof password !== 'string' || password.length > 128 || password.length < 1) { failures.push(now()); throw fail('密码不正确。', 401); }

@@ -187,3 +187,45 @@ test('fresh launches choose distinct ports and separate databases while configur
         await rm(root, { recursive: true, force: true });
     }
 });
+
+test('desktop startup allows empty API, applies browser settings live and retains them on restart', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'snap-desktop-'));
+    const probe = createServer();
+    await new Promise<void>(resolve => probe.listen(0, '127.0.0.1', resolve));
+    const port = (probe.address() as AddressInfo).port;
+    await new Promise<void>(resolve => probe.close(() => resolve()));
+    const entry = path.resolve('apps/server/index.ts');
+    const loader = pathToFileURL(path.resolve('node_modules/tsx/dist/loader.mjs')).href;
+    const env: NodeJS.ProcessEnv = { ...process.env, PORT: String(port), GENERATION_MODE: 'demo', BOOTH_EASY_START: '1', BOOTH_FRESH_INSTANCE: '1', BOOTH_OPEN_BROWSER: '0', PICKUP_BASE_URL: '' };
+    delete env.SEEDREAM_API_KEY; delete env.SEEDREAM_MODEL;
+    let child: ReturnType<typeof spawn> | undefined;
+    const stop = async () => { if (child && child.exitCode === null) { const done = once(child, 'exit'); child.kill(); await done; } };
+    const launch = () => new Promise<void>((resolve, reject) => {
+        child = spawn(process.execPath, ['--import', loader, entry], { cwd: root, env, stdio: ['ignore', 'pipe', 'pipe'], timeout: 20000 });
+        let output = '';
+        child.stdout!.on('data', chunk => { output += chunk; if (output.includes('AI 拍照亭已启动')) resolve(); });
+        child.stderr!.on('data', chunk => output += chunk);
+        child.once('error', reject); child.once('exit', () => reject(Error(output)));
+    });
+    const url = `http://localhost:${port}`;
+    const send = (route: string, body: unknown, cookie = '', method = 'POST') => fetch(url + route, { method, headers: { 'Content-Type': 'application/json', cookie }, body: JSON.stringify(body) });
+    try {
+        await mkdir(path.join(root, 'dist/web'), { recursive: true });
+        await writeFile(path.join(root, 'dist/web/index.html'), '<html>test</html>');
+        await writeFile(path.join(root, '.env.example'), 'GENERATION_MODE=demo\nSEEDREAM_API_KEY=\nSEEDREAM_MODEL=\n');
+        await launch();
+        const first = await (await fetch(url + '/api/health')).json();
+        assert.equal(first.mode, 'seedream'); assert.equal(first.configured, false);
+        const setup = await send('/api/admin/auth/setup', { password: 'test-desktop-password' });
+        assert.equal(setup.status, 200);
+        const cookie = setup.headers.get('set-cookie')!.split(';')[0];
+        assert.equal((await send('/api/admin/config', { apiKey: 'test-only-desktop-key', model: 'test-desktop-model' }, cookie, 'PUT')).status, 200);
+        assert.equal((await (await fetch(url + '/api/health')).json()).configured, true);
+        await stop(); await launch();
+        const health = await (await fetch(url + '/api/health')).json();
+        assert.equal(health.mode, 'seedream'); assert.equal(health.configured, true); assert.equal(health.model, 'test-desktop-model');
+        assert.equal((await readdir(path.join(root, 'data'))).includes('instances'), false);
+        assert.equal((await fetch(url + '/api/admin/config', { headers: { cookie } })).status, 401);
+        assert.equal((await send('/api/admin/auth/login', { password: 'test-desktop-password' })).status, 200);
+    } finally { await stop(); await rm(root, { recursive: true, force: true }); }
+});
