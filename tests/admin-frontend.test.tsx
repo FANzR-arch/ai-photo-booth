@@ -88,3 +88,44 @@ test('missing selected camera reports a fault without silently requesting anothe
         assert.equal(save.disabled, true);
     } finally { await h.close(); }
 });
+
+import { PrintPhoto } from '../apps/web/src/PrintPhoto';
+test('printing waits for a click and saved frame, then disables duplicate submission', async () => {
+    let count = 0, finish!: (value: unknown) => void;
+    const submitted = new Promise(resolve => { finish = resolve; });
+    const h = await harness(<PrintPhoto sessionId="test" imageId="image" disabled={true} />, () => {
+        globalThis.fetch = (async (url: string, init?: RequestInit) => {
+            let value: unknown = url === '/api/printing' ? { supported: true, configured: true } : { job: null };
+            if (init?.method === 'POST') { count++; value = await submitted; }
+            return { ok: true, status: 200, json: async () => value };
+        }) as typeof fetch;
+    });
+    try {
+        const button = () => [...h.dom.window.document.querySelectorAll('button')].find(b => /打印照片|正在提交|已提交打印/.test(b.textContent || ''))!;
+        assert.equal(count, 0); assert.equal(button().disabled, true);
+        await act(async () => h.root.render(<PrintPhoto sessionId="test" imageId="image" disabled={false} />));
+        await act(async () => { button().click(); button().click(); });
+        assert.equal(count, 1);
+        await act(async () => finish({ id: 'print', status: 'submitted', copies: 1, cupsId: 'EPSON-42' })); await h.flush();
+        assert.equal(button().disabled, true);
+        assert.match(h.dom.window.document.body.textContent || '', /已提交 1 张/);
+        assert.doesNotMatch(h.dom.window.document.body.textContent || '', /已打印完成/);
+    } finally { finish({}); await h.close(); }
+});
+test('printing connection loss blocks resubmission and offers only a status query', async () => {
+    let count = 0;
+    const h = await harness(<PrintPhoto sessionId="test" imageId="image" disabled={false} />, () => {
+        globalThis.fetch = (async (url: string, init?: RequestInit) => {
+            if (init?.method === 'POST') { count++; throw Error('network lost'); }
+            const value = url === '/api/printing' ? { supported: true, configured: true } : { job: count ? { id: 'print', status: 'unknown', error: '请检查队列' } : null };
+            return { ok: true, status: 200, json: async () => value };
+        }) as typeof fetch;
+    });
+    try {
+        const buttons = () => [...h.dom.window.document.querySelectorAll('button')];
+        await act(async () => buttons().find(b => b.textContent === '打印照片')!.click()); await h.flush();
+        assert.equal(buttons().find(b => b.textContent === '打印照片')!.disabled, true);
+        await act(async () => buttons().find(b => b.textContent === '查询打印状态')!.click()); await h.flush();
+        assert.equal(count, 1); assert.match(h.dom.window.document.body.textContent || '', /请检查队列/);
+    } finally { await h.close(); }
+});

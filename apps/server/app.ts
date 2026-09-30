@@ -17,6 +17,9 @@ import { generationPrompt } from './generation-prompt.js';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
 import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
+import { createMacPrinter, type MacPrinter } from './mac-printer.js';
+import { registerPrinting } from './printing.js';
+import type { PrintJob } from '../../packages/shared/printing.js';
 export interface GenerateInput {
     photo: Buffer;
     prompt: string;
@@ -30,6 +33,7 @@ export interface GenerateResult {
     unknown?: boolean;
 }
 export interface AppOptions {
+    printer?: MacPrinter;
     dataDir?: string;
     rootDir?: string;
     clock?: () => number;
@@ -185,7 +189,7 @@ export async function createApp(options: AppOptions = {}) {
     const adminToken = (cookie?: string) => cookie?.split(';').map(value => value.trim()).find(value => value.startsWith(`${cookieName}=`))?.slice(cookieName.length + 1);
     const publicAdminRoutes = new Set(['/api/admin/auth/status', '/api/admin/auth/setup', '/api/admin/auth/login', '/api/admin/auth/logout']);
     const jobs = new Set<Promise<void>>();
-    app.addHook('onClose', async () => { clearInterval(timer); await Promise.allSettled([...jobs]); db.close(); });
+    app.addHook('onClose', async () => { clearInterval(timer); await Promise.allSettled([...jobs]); await printing.close(); db.close(); });
     app.setErrorHandler((error, _req, reply) => { reply.code((error as any).statusCode ?? 500).send({ error: (error as any).statusCode ? (error as Error).message : '服务处理失败，请查看服务端记录或重试。' }); });
     app.addHook('onRequest', async (req, reply) => {
         let host: URL;
@@ -248,6 +252,15 @@ export async function createApp(options: AppOptions = {}) {
     const selectedDecoration = (id: string) => get<{ id: string; frame: FrameId; caption?: Caption }>('frame', id);
     const selectedFrame = (id: string): FrameId => selectedDecoration(id)?.frame ?? 'none';
     const selectedCaption = (id: string): Caption => selectedDecoration(id)?.caption ?? defaultCaption;
+    const printing = registerPrinting(app, {
+        printer: options.printer ?? createMacPrinter(root), data, now,
+        all: () => all<PrintJob>('print'), get: id => get<PrintJob>('print', id), put: job => put('print', job),
+        photo: (id, imageId) => {
+            const s = session(id);
+            if (!['ready', 'partial'].includes(s.status) || !Object.hasOwn(s.files, imageId)) throw fail('生成照片尚未准备好。', 409);
+            return { photo: readFileSync(path.join(data, s.files[imageId].full)), frame: selectedFrame(id), caption: selectedCaption(id) };
+        },
+    });
     app.post<{ Params: { id: string } }>('/api/sessions/:id/frame', async req => {
         const s = session(req.params.id);
         const frame = object(req.body).frame;

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { PhotoFrame } from './PhotoFrame';
+import { PrintPhoto } from './PrintPhoto';
 import type { FrameId, Caption } from '../../../packages/shared/frames';
 import type { Session } from '../../../packages/shared/types';
 import { orientationLabel } from '../../../packages/shared/photo-orientation';
@@ -25,6 +26,6 @@ export function PhotoResults({ session, photo, selected, busy, frame, caption, c
         </div>
         {session.status === 'partial' && <p className="error">部分生成成功，仅展示可用图片。</p>}
         {children}
-        <div className="checkout-bar"><button className="primary" disabled={!selected.length || busy} onClick={onCheckout}>{busy ? '正在准备…' : `选择照片 ${selected.length} 张 · ${selected.length ? '¥9.90' : '请选择'}`}</button></div>
+        <div className="checkout-bar" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 10, position: 'static' }}><PrintPhoto sessionId={session.id} imageId={selected[0]} disabled={busy} /><button className="secondary" disabled={!selected.length || busy} onClick={onCheckout}>{busy ? '正在准备…' : `选择照片 ${selected.length} 张 · ${selected.length ? '¥9.90' : '请选择'}`}</button></div>
     </section>;
 }

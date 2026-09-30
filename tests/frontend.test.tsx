@@ -79,7 +79,9 @@ async function harness(route?: Route, options: {
         const custom = route ? await route(url, body) : undefined;
         let result = custom;
         if (result === undefined) {
-            if (url === '/api/health')
+            if (url === '/api/printing') result = { supported: false, configured: false };
+            else if (/\/print\//.test(url)) result = { job: null };
+            else if (url === '/api/health')
                 result = { mode: options.unconfigured ? 'seedream' : 'demo', configured: !options.unconfigured, model: '', imageCount: 2, pickupBaseUrl: 'http://localhost:4377', lanUrls: [] };
             else if (url === '/api/styles')
                 result = [style];
