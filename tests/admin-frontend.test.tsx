@@ -35,7 +35,7 @@ test('administrator lock removes sensitive controls immediately and logs out on 
         time += 600_001;
         await act(async () => { for (const tick of [...h.timers.values()]) tick(); }); await h.flush();
         assert.doesNotMatch(h.dom.window.document.body.textContent || '', /private-orders/);
-        assert.match(h.dom.window.document.body.textContent || '', /解锁设备工作台/);
+        assert.match(h.dom.window.document.body.textContent || '', /设备设置/);
         assert.ok(h.calls.includes('/api/admin/auth/logout'));
     } finally { Date.now = originalNow; await h.close(); }
 });

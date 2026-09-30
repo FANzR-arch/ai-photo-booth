@@ -52,14 +52,14 @@ export function AdminAccess({ children }: { children: (lock: () => Promise<void>
     }, [status?.authenticated]);
     if (status?.authenticated) return <>{children(lock)}</>;
     return <div className="shell admin"><header><Brand /><a className="button secondary" href="/">返回拍照亭 ↗</a></header><main className="admin-unlock">
-        <span className="eyebrow">DEVICE WORKSPACE</span><h1>解锁设备工作台</h1>
-        <p>仅供设备管理员使用。登录后可配置设备、管理主题和查看订单。</p>
+        <h1>设备设置</h1>
+
         {error && <p className="error" role="alert">{error}</p>}
         {!status ? <p>{error ? '请检查服务连接后刷新页面。' : '正在检查工作台…'}</p> : <form className="editor-fields" onSubmit={async e => {
             e.preventDefault(); if (busy) return; setBusy(true); setError('');
             try { const value = await api<Status>(status.configured ? '/api/admin/auth/login' : '/api/admin/auth/setup', { password }); setPassword(''); setStatus(value); }
             catch (cause) { setError((cause as Error).message); setPassword(''); try { setStatus(await api<Status>('/api/admin/auth/status')); } catch {} }
             finally { setBusy(false); }
-        }}>{!status.configured && <p>首次使用，设置一个至少 8 位的密码。以后用这个密码解锁。</p>}<label>管理员密码<input type="password" autoComplete={status.configured ? 'current-password' : 'new-password'} value={password} minLength={status.configured ? 1 : 8} maxLength={128} onChange={e => setPassword(e.target.value)} autoFocus required /></label><button className="primary" disabled={busy || !password}>{busy ? '正在解锁…' : status.configured ? '解锁工作台' : '设置并解锁'}</button><p className="muted">闲置 10 分钟自动锁定。</p></form>}
+        }}>{!status.configured && <p>首次设置密码，至少 8 位。</p>}<label>管理员密码<input type="password" autoComplete={status.configured ? 'current-password' : 'new-password'} value={password} minLength={status.configured ? 1 : 8} maxLength={128} onChange={e => setPassword(e.target.value)} autoFocus required /></label><button className="primary" disabled={busy || !password}>{busy ? '正在解锁…' : status.configured ? '解锁' : '设置并解锁'}</button></form>}
     </main></div>;
 }
