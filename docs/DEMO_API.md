@@ -14,7 +14,11 @@ PICKUP_BASE_URL=
 
 接口固定为 https://ark.cn-beijing.volces.com/api/v3/images/generations；模型权限以账户配置为准。密钥不进入前端，不写入 Git，不随新制作的 Windows 包分发。
 
-每次生成一张，重试会再次调用 API；模拟支付、相纸文字编辑和下载不重新生成。上游结果未知时禁止重复提交。
+确认并上传照片后，先调用 `/api/sessions/:id/orders`（可带 clothingMode）创建模拟套餐，再调用 `/api/orders/:id/simulate` 确认付款，最后调用生成接口。Session.order 用于恢复付款状态；未付套餐不能生成或打印，重复创建待付或已付订单会返回同一订单。
+
+每次生成一张，明确失败后的人工重试会再次调用 API；相纸文字编辑和下载不重新生成。上游结果未知时禁止重复提交。模拟付款不会实际扣款，真实生图仍会消耗提供商额度。
+
+手机取图接口返回 images 和已付套餐授权的 original.downloadUrl；原片走 `/api/pickup/:token/original`，与生成图共用凭证及到期限制。旧数字订单保留原有生成图权限，不自动升级套餐权限。
 
 确认照片页的 clothingMode 为 keep（默认保留原服装）或 theme（按主题换装），随照片上传和生成请求保存到会话。生成开始后，返回查看、重复提交和付款都不会改变该张照片的服装选择。旧客户端不传此字段时沿用会话值，历史会话默认 keep。
 
