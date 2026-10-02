@@ -10,7 +10,7 @@ import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { networkInterfaces } from 'node:os';
-import type { Session, Order, Style, Mode, Health } from '../../packages/shared/types.js';
+import type { Session, Order, Style, Mode, Health, PickupData } from '../../packages/shared/types.js';
 import { isPhotoOrientation, orientedSize } from '../../packages/shared/photo-orientation.js';
 import { isClothingMode } from '../../packages/shared/clothing.js';
 import { generationPrompt } from './generation-prompt.js';
@@ -72,7 +72,7 @@ export async function createApp(options: AppOptions = {}) {
     if (!['demo', 'seedream'].includes(selectedMode))
         throw fail('GENERATION_MODE 只能为 demo 或 seedream');
     const mode = selectedMode as Mode;
-    // The booth sells one generated portrait; the captured original is always free.
+    // Demo package: one generation plus digital delivery, captured original and manual printing.
     const count = options.imageCount ?? 1;
     const port = process.env.PORT ?? '4377';
     const ips = Object.values(networkInterfaces()).flat().filter(x => x?.family === 'IPv4' && !x.internal).map(x => x!.address);
@@ -218,7 +218,7 @@ export async function createApp(options: AppOptions = {}) {
             throw fail('拒绝跨站请求', 403);
         const url = req.url.split('?')[0];
         if (mode === 'seedream' && ['/stages', '/stages.html'].includes(url)) throw fail('页面不存在', 404);
-        const publicRoute = /^\/api\/pickup\/[a-f0-9]{64}(?:\/images\/[a-f0-9-]+)?$/.test(url) || /^\/pickup\/[a-f0-9]{64}$/.test(url) || (/^\/assets\/[\w.-]+$/.test(url) && !url.includes('..')) || url === '/favicon.svg';
+        const publicRoute = /^\/api\/pickup\/[a-f0-9]{64}(?:\/images\/[a-f0-9-]+|\/original)?$/.test(url) || /^\/pickup\/[a-f0-9]{64}$/.test(url) || (/^\/assets\/[\w.-]+$/.test(url) && !url.includes('..')) || url === '/favicon.svg';
         if (!publicRoute && (!local(req.ip) || !['localhost', '127.0.0.1', '::1'].includes(hostname)))
             throw fail('此入口仅允许本机访问', 403);
         if (['POST', 'PUT', 'PATCH'].includes(req.method) && !req.headers['content-type']?.toLowerCase().startsWith('application/json'))
@@ -248,6 +248,16 @@ export async function createApp(options: AppOptions = {}) {
         throw fail('会话不存在', 404); if (s.expiresAt <= now()) {
         erasePhotos(s); throw fail('照片已过期并删除', 410); } if (s.status === 'ended' && !allowEnded)
         throw fail('本次拍照已结束', 410); return s; };
+    const packageOrders = (id: string) => all<Order>('order').filter(o => o.sessionId === id && o.product === 'photo-package');
+    const currentOrder = (id: string) => {
+        const orders = packageOrders(id).reverse();
+        return orders.find(o => o.status === 'paid') ?? orders.find(o => o.status === 'pending') ?? orders[0];
+    };
+    const paidPackage = (id: string) => {
+        const order = packageOrders(id).find(o => o.status === 'paid');
+        if (!order) throw fail('请先完成套餐付款，再生成或打印照片。', 403);
+        return order;
+    };
     // Store decoration separately so a slow generation job cannot overwrite a later selection.
     const selectedDecoration = (id: string) => get<{ id: string; frame: FrameId; caption?: Caption }>('frame', id);
     const selectedFrame = (id: string): FrameId => selectedDecoration(id)?.frame ?? 'none';
@@ -257,7 +267,9 @@ export async function createApp(options: AppOptions = {}) {
         all: () => all<PrintJob>('print'), get: id => get<PrintJob>('print', id), put: job => put('print', job),
         photo: (id, imageId) => {
             const s = session(id);
+            const order = paidPackage(id);
             if (!['ready', 'partial'].includes(s.status) || !Object.hasOwn(s.files, imageId)) throw fail('生成照片尚未准备好。', 409);
+            if (!order.imageIds.includes(imageId)) throw fail('此照片未包含在已付套餐中。', 403);
             return { photo: readFileSync(path.join(data, s.files[imageId].full)), frame: selectedFrame(id), caption: selectedCaption(id) };
         },
     });
@@ -272,7 +284,7 @@ export async function createApp(options: AppOptions = {}) {
         return { frame, caption };
     });
     // Never return raw paths, original images, prompt snapshots or pickup secrets in ordinary session responses.
-    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, tokenHash, retentionMs, ...v } = s; return { ...v, frame: selectedFrame(s.id), caption: selectedCaption(s.id), ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}) }; };
+    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, tokenHash, retentionMs, order: _staleOrder, ...v } = s; return { ...v, order: currentOrder(s.id), frame: selectedFrame(s.id), caption: selectedCaption(s.id), ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}) }; };
     const validImage = async (v: unknown) => { if (typeof v !== 'string' || !/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=\r\n]+$/.test(v))
         throw fail('只支持 JPEG 或 PNG 照片'); const b = Buffer.from(v.slice(v.indexOf(',') + 1), 'base64'); if (b.length > 12 * 1024 * 1024)
         throw fail('照片不能超过 12MB', 413); try {
@@ -306,7 +318,7 @@ export async function createApp(options: AppOptions = {}) {
         };
     }>('/api/sessions/:id/photo', async (req) => { const s = session(req.params.id); if (!['created', 'photographed'].includes(s.status))
         throw fail('当前状态不能替换照片', 409); const body = object(req.body); if (!isPhotoOrientation(body.orientation)) throw fail('照片比例无效'); const clothing = body.clothingMode === undefined ? s.clothingMode ?? 'keep' : body.clothingMode; if (!isClothingMode(clothing)) throw fail('服装选项无效'); validatePreset(get<Style>('style', s.styleId) ?? get<Style>('retired-style', s.styleId), body.orientation, clothing); const photo = await validImage(body.dataUrl); const latest = session(s.id); if (!['created', 'photographed'].includes(latest.status))
-        throw fail('会话状态已变化', 409); mkdirSync(path.join(data, 'sessions', s.id), { recursive: true }); s.photo = path.join('sessions', s.id, 'photo.jpg'); s.orientation = body.orientation; s.clothingMode = clothing; writeFileSync(path.join(data, s.photo), photo); s.status = 'photographed'; put('session', s); return view(s); });
+        throw fail('会话状态已变化', 409); if (currentOrder(s.id)?.status === 'paid') throw fail('已付款的原照片不能替换，请开始新体验。', 409); mkdirSync(path.join(data, 'sessions', s.id), { recursive: true }); s.photo = path.join('sessions', s.id, 'photo.jpg'); s.orientation = body.orientation; s.clothingMode = clothing; writeFileSync(path.join(data, s.photo), photo); s.status = 'photographed'; put('session', s); return view(s); });
     // Re-read state after every long operation so a completed job cannot revive an abandoned device session.
     async function run(id: string) {
         const start = now();
@@ -359,6 +371,9 @@ export async function createApp(options: AppOptions = {}) {
             current.error = result.error ?? (current.images.length ? undefined : '未返回可用图片');
             current.elapsedMs = now() - start;
             current.requestId = result.requestId;
+            const order = paidPackage(id);
+            order.imageIds = current.images.map(image => image.id);
+            put('order', order);
             put('session', current);
         }
         catch (error) {
@@ -377,7 +392,7 @@ export async function createApp(options: AppOptions = {}) {
         Params: {
             id: string;
         };
-    }>('/api/sessions/:id/generate', async (req) => { const s = session(req.params.id); const requestedClothing = object(req.body).clothingMode; const clothing = requestedClothing === undefined ? s.clothingMode ?? 'keep' : requestedClothing; if (!isClothingMode(clothing)) throw fail('服装选项无效'); if (['generating', 'ready', 'partial'].includes(s.status))
+    }>('/api/sessions/:id/generate', async (req) => { const s = session(req.params.id); const requestedClothing = object(req.body).clothingMode; const clothing = requestedClothing === undefined ? s.clothingMode ?? 'keep' : requestedClothing; if (!isClothingMode(clothing)) throw fail('服装选项无效'); paidPackage(s.id); if (['generating', 'ready', 'partial'].includes(s.status))
         return view(s); if (s.status === 'unknown')
         throw fail('上游结果未知，禁止重复提交以避免重复计费', 409); if (!['photographed', 'failed'].includes(s.status) || !s.photo)
         throw fail('请先拍照', 409); if (!health().configured)
@@ -399,10 +414,25 @@ export async function createApp(options: AppOptions = {}) {
         Params: {
             id: string;
         };
-    }>('/api/sessions/:id/orders', async (req) => { const s = session(req.params.id); if (!['ready', 'partial'].includes(s.status))
-        throw fail('图片尚未准备好', 409); const ids = object(req.body).imageIds; if (!Array.isArray(ids) || ids.length !== 1 || new Set(ids).size !== ids.length || ids.some(id => typeof id !== 'string' || !Object.hasOwn(s.files, id)))
-        throw fail('选择的图片无效'); const existing = all<Order>('order').find(o => o.sessionId === s.id && ['pending', 'paid'].includes(o.status) && [...o.imageIds].sort().join() === [...ids].sort().join()); if (existing)
-        return existing; const o: Order = { id: randomUUID(), sessionId: s.id, imageIds: ids, amount: 990, paymentMode: 'simulate', status: 'pending', createdAt: now() }; put('order', o); return o; });
+    }>('/api/sessions/:id/orders', async (req) => {
+        const s = session(req.params.id), body = object(req.body);
+        if (body.imageIds !== undefined && (!Array.isArray(body.imageIds) || body.imageIds.length)) throw fail('套餐在生成前购买，无需选择生成照片。');
+        if (body.clothingMode !== undefined && !isClothingMode(body.clothingMode)) throw fail('服装选项无效');
+        // Serialize creation against another instance using this SQLite file as well as duplicate clicks.
+        db.exec('BEGIN IMMEDIATE');
+        try {
+            const existing = currentOrder(s.id);
+            if (existing?.status === 'paid') { db.exec('COMMIT'); return existing; }
+            if (!['photographed', 'failed'].includes(s.status) || !s.photo) throw fail('请先确认拍摄照片；已完成或结果未知的体验不能再次下单。', 409);
+            if (body.clothingMode !== undefined) {
+                validatePreset(get<Style>('style', s.styleId) ?? get<Style>('retired-style', s.styleId), s.orientation ?? 'portrait', body.clothingMode);
+                s.clothingMode = body.clothingMode; put('session', s);
+            }
+            if (existing?.status === 'pending') { db.exec('COMMIT'); return existing; }
+            const order: Order = { id: randomUUID(), sessionId: s.id, product: 'photo-package', imageIds: [], amount: 990, paymentMode: 'simulate', status: 'pending', createdAt: now() };
+            put('order', order); db.exec('COMMIT'); return order;
+        } catch (error) { db.exec('ROLLBACK'); throw error; }
+    });
     app.post<{
         Params: {
             id: string;
@@ -410,6 +440,8 @@ export async function createApp(options: AppOptions = {}) {
     }>('/api/orders/:id/simulate', async (req) => { const o = get<Order>('order', req.params.id); if (!o)
         throw fail('订单不存在', 404); const s = session(o.sessionId, true), outcome = object(req.body).outcome; if (!['paid', 'failed', 'cancelled'].includes(outcome))
         throw fail('支付结果无效'); if (o.status !== 'paid') {
+        if (o.product !== 'photo-package' || o.status !== 'pending') throw fail('订单已结束，请创建新的套餐订单。', 409);
+        if (!['photographed', 'failed'].includes(s.status) || !s.photo) throw fail('当前照片状态不能付款。', 409);
         o.status = outcome;
         if (outcome === 'paid') {
             s.token ??= randomBytes(32).toString('hex');
@@ -417,16 +449,21 @@ export async function createApp(options: AppOptions = {}) {
             put('session', s);
         }
         put('order', o);
-    } return { order: o, pickupUrl: o.status === 'paid' ? s.pickupUrl : undefined }; });
+    } return { order: o, session: view(s), pickupUrl: o.status === 'paid' ? s.pickupUrl : undefined }; });
     const pickup = (token: string) => { if (!/^[a-f0-9]{64}$/.test(token))
         throw fail('取图链接不存在', 404); const hash = createHash('sha256').update(token).digest('hex'); const s = all<StoredSession>('session').find(s => s.token === token || s.tokenHash === hash); if (!s)
         throw fail('取图链接不存在', 404); if (s.expiresAt <= now()) {
-        erasePhotos(s); throw fail('照片已过期并删除', 410); } const ids = [...new Set(all<Order>('order').filter(o => o.sessionId === s.id && o.status === 'paid').flatMap(o => o.imageIds))]; return { s, ids }; };
+        erasePhotos(s); throw fail('照片已过期并删除', 410); } const paid = all<Order>('order').filter(o => o.sessionId === s.id && o.status === 'paid'); if (!paid.length) throw fail('取图链接尚未授权', 403); const ids = [...new Set(paid.flatMap(o => o.imageIds))]; return { s, ids, originalAllowed: paid.some(o => o.product === 'photo-package') }; };
     app.get<{
         Params: {
             token: string;
         };
-    }>('/api/pickup/:token', async (req) => { const { s, ids } = pickup(req.params.token); return { status: 'paid', paymentMode: 'simulate', expiresAt: s.expiresAt, mode: s.mode, images: ids.map(id => ({ id, downloadUrl: `/api/pickup/${req.params.token}/images/${id}` })) }; });
+    }>('/api/pickup/:token', async (req): Promise<PickupData> => { const { s, ids, originalAllowed } = pickup(req.params.token); return { status: 'paid', paymentMode: 'simulate', expiresAt: s.expiresAt, mode: s.mode, images: ids.map(id => ({ id, downloadUrl: `/api/pickup/${req.params.token}/images/${id}` })), ...(originalAllowed && s.photo ? { original: { downloadUrl: `/api/pickup/${req.params.token}/original` } } : {}) }; });
+    app.get<{ Params: { token: string } }>('/api/pickup/:token/original', async (req, reply) => {
+        const { s, originalAllowed } = pickup(req.params.token);
+        if (!originalAllowed || !s.photo) throw fail('原照片不存在或未授权', 404);
+        return reply.type('image/jpeg').header('Content-Disposition', 'attachment; filename="snap-original.jpg"').send(readFileSync(path.join(data, s.photo)));
+    });
     app.get<{
         Params: {
             token: string;

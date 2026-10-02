@@ -101,7 +101,7 @@ test('printing waits for a click and saved frame, then disables duplicate submis
         }) as typeof fetch;
     });
     try {
-        const button = () => [...h.dom.window.document.querySelectorAll('button')].find(b => /打印照片|正在提交|已提交打印/.test(b.textContent || ''))!;
+        const button = () => [...h.dom.window.document.querySelectorAll('button')].find(b => /打印照片|正在打印|请确认打印状态/.test(b.textContent || ''))!;
         assert.equal(count, 0); assert.equal(button().disabled, true);
         await act(async () => h.root.render(<PrintPhoto sessionId="test" imageId="image" disabled={false} />));
         await act(async () => { button().click(); button().click(); });
@@ -124,7 +124,7 @@ test('printing connection loss blocks resubmission and offers only a status quer
     try {
         const buttons = () => [...h.dom.window.document.querySelectorAll('button')];
         await act(async () => buttons().find(b => b.textContent === '打印照片')!.click()); await h.flush();
-        assert.equal(buttons().find(b => b.textContent === '打印照片')!.disabled, true);
+        assert.equal(buttons().find(b => b.textContent === '请确认打印状态')!.disabled, true);
         await act(async () => buttons().find(b => b.textContent === '查询打印状态')!.click()); await h.flush();
         assert.equal(count, 1); assert.match(h.dom.window.document.body.textContent || '', /请检查队列/);
     } finally { await h.close(); }

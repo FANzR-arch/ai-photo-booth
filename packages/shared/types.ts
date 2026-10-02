@@ -51,6 +51,8 @@ export interface Session {
     promptVersion?: number;
     pickupUrl?: string;
     originalUrl?: string;
+    /** Current package order, including payment state for kiosk refresh/recovery. */
+    order?: Order;
 }
 export interface Order {
     id: string;
@@ -60,4 +62,14 @@ export interface Order {
     status: 'pending' | 'paid' | 'failed' | 'cancelled';
     createdAt: number;
     paymentMode?: 'simulate';
+    /** Absent on legacy digital-photo orders; those do not authorize a package generation. */
+    product?: 'photo-package';
+}
+export interface PickupData {
+    status: 'paid';
+    paymentMode: 'simulate';
+    expiresAt: number;
+    mode: Mode;
+    images: { id: string; downloadUrl: string }[];
+    original?: { downloadUrl: string };
 }

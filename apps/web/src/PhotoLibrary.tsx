@@ -29,7 +29,7 @@ export function PhotoLibrary({ sessions, draftPhoto, now, busy, onOpen, onNew, o
         <div className="library-heading"><div><span className="eyebrow">THIS VISIT</span><h1>本轮照片库</h1><p>生成完成后保留 10 分钟，到期自动删除。结束本次后，照片库会隐藏。</p></div><button className="primary" disabled={busy} onClick={onNew}>再拍一张 ↗</button></div>
         {photos.length ? <div className="library-grid">{photos.map(s => {
             const src = s.images[0]?.previewUrl || draftPhoto(s.id) || s.originalUrl!;
-            const status = s.pickupUrl ? '已购买 · 查看取图码' : s.images.length ? '查看照片' : s.status === 'generating' ? '正在生成' : ['failed', 'unknown'].includes(s.status) ? '查看生成状态' : '待确认';
+            const status = s.status === 'generating' ? '正在生成' : ['failed', 'unknown'].includes(s.status) ? '查看生成状态' : s.images.length ? (s.pickupUrl ? '已购买 · 查看照片' : '查看照片') : s.order?.status === 'paid' ? '已付款 · 继续生成' : '待确认';
             return <button className="library-card" key={s.id} disabled={busy} onClick={() => onOpen(s)} aria-label={`${s.styleName} · ${status}`}>
                 <PhotoFrame src={src} frame={s.images.length ? s.frame ?? 'none' : 'none'} caption={s.caption} alt={`${s.styleName}照片`} />
                 <span className="library-card-title"><strong>{s.styleName}</strong><span>↗</span></span>

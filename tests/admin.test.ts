@@ -111,6 +111,8 @@ test('provider configuration cannot be saved while a generation is in flight', a
         const photo = await sharp({ create: { width: 8, height: 8, channels: 3, background: 'white' } }).jpeg().toBuffer();
         const session = (await f.req('/api/sessions', { styleId: 'test' })).json();
         assert.equal((await f.req(`/api/sessions/${session.id}/photo`, { dataUrl: `data:image/jpeg;base64,${photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 200);
+        const order = (await f.req(`/api/sessions/${session.id}/orders`, {})).json();
+        await f.req(`/api/orders/${order.id}/simulate`, { outcome: 'paid' });
         assert.equal((await f.req(`/api/sessions/${session.id}/generate`, {})).statusCode, 200);
         assert.equal((await f.req('/api/admin/config', { apiKey: 'test-key', model: 'test-model' }, cookie, {}, 'PUT')).statusCode, 409);
     } finally { finish({ images: [] }); await f.close(); }
@@ -171,6 +173,8 @@ test('next generation uses the saved key and model with no upstream request duri
         assert.equal(calls, 0);
         const session = (await f.req('/api/sessions', { styleId: 'test' })).json();
         await f.req(`/api/sessions/${session.id}/photo`, { dataUrl: `data:image/jpeg;base64,${photo.toString('base64')}`, orientation: 'portrait' });
+        const order = (await f.req(`/api/sessions/${session.id}/orders`, {})).json();
+        await f.req(`/api/orders/${order.id}/simulate`, { outcome: 'paid' });
         assert.equal((await f.req(`/api/sessions/${session.id}/generate`, {})).statusCode, 200);
         let status = 'generating';
         for (let attempt = 0; attempt < 100 && status === 'generating'; attempt++) {

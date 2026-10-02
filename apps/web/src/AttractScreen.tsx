@@ -28,7 +28,7 @@ export function AttractScreen({ styles, onStart }: { styles: Style[]; onStart: (
     }, [paused, reduced, hidden, count]);
     const move = (offset: number) => setActive(value => (value + offset + count) % count);
     return <section className="attract-screen" aria-label="拍照机待机页">
-        <div className="attract-copy"><h1><span className="attract-title-line">今天，</span><span className="attract-title-line">留张<em>好照片。</em></span></h1><button className="primary start-button" onClick={onStart}>开始拍照 <span aria-hidden="true">→</span></button><p>原图免费 · 生成图 ¥9.90 / 张</p></div>
+        <div className="attract-copy"><h1><span className="attract-title-line">今天，</span><span className="attract-title-line">留张<em>好照片。</em></span></h1><button className="primary start-button" onClick={onStart}>开始拍照 <span aria-hidden="true">→</span></button></div>
         <div className="attract-gallery" aria-label="风格示意图轮播">
             {styles.map((style, i) => <div key={style.id} className={'attract-slide ' + (current === i ? 'is-active' : '')} aria-hidden={current !== i}>
                 {(current === i || i === (current + 1) % count) && <StyleImage src={style.exampleUrl} alt={style.name + '风格示意图'} />}

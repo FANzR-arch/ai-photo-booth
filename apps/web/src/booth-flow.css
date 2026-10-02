@@ -1,0 +1,125 @@
+/* In-visit navigation: back, progress and expiry share one row so capture controls stay in view. */
+.step-bar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:20px;padding:14px 0}
+.step-bar .step-back{justify-self:start;min-height:52px;padding:10px 20px;font-size:16px;white-space:nowrap}
+.step-bar .progress{padding:0;gap:26px;justify-content:center}
+.step-bar .progress>span{white-space:nowrap}
+.step-bar .photo-expiry{justify-self:end;font-size:13px;white-space:nowrap}
+.step-bar .photo-expiry b{font-weight:600;color:var(--studio-accent,#b84730)}
+
+/* Consent and the primary action stay reachable while the options above scroll. */
+.confirm-actions{position:sticky;bottom:0;z-index:2;padding:12px 0 14px;background:linear-gradient(to bottom,transparent,var(--studio-bg,#f5f2eb) 18px)}
+.confirm-actions .consent{margin:0 0 12px}
+.confirm-actions>.primary{width:100%;max-width:440px;min-height:66px;font-size:21px}
+.consent-hint{margin:8px 0 0;max-width:440px;text-align:center;font-size:14px;color:#786b5c}
+.capture-copy>.confirm-actions+.secondary{margin-top:4px}
+.capture-copy>.error{max-width:440px}
+
+.purchase-preview{width:min(180px,60%);margin:0 auto 18px}
+.purchase-preview .photo-frame{box-shadow:0 6px 22px #33382a14}
+
+.pickup-countdown{font-size:18px;color:#5b5f53;margin:6px 0 0}
+.pickup-countdown b{font-size:26px;font-variant-numeric:tabular-nums;color:var(--studio-accent,#b84730);margin:0 4px}
+
+@media(orientation:portrait) and (min-width:701px){.confirm-actions>.primary,.consent-hint{max-width:none}}
+@media(max-width:900px){.step-bar{grid-template-columns:auto minmax(0,1fr);row-gap:10px}
+.step-bar .progress{grid-column:1/-1;grid-row:2;justify-content:flex-start;gap:16px}}
+@media(max-width:700px){.step-bar{padding:10px 0}
+.step-bar .step-back{min-height:46px;padding:8px 14px;font-size:14px}
+.step-bar .photo-expiry{font-size:11px}
+.confirm-actions>.primary{max-width:none;min-height:60px;font-size:19px}
+.consent-hint{max-width:none;font-size:13px}
+.pickup-countdown{font-size:15px}
+.pickup-countdown b{font-size:21px}}
+
+/* Bright booth palette: warm paper keeps the portrait in focus, coral marks the next action. */
+:root{
+  --studio-bg:#fffaf5;
+  --studio-line:#eaded5;
+  --studio-muted:#75675e;
+  --studio-green:#486848;
+  --studio-accent:#c54b32;
+  --studio-surface:#fffdf9;
+  --studio-peach:#fff0e7;
+  --studio-success:#eef5e8;
+  --ink:#332c27;
+  --paper:var(--studio-surface);
+  --red:var(--studio-accent);
+  --yellow:#f7d278;
+  background:var(--studio-bg);
+  color:var(--ink);
+}
+.kiosk-shell,.pickup{color:var(--ink)}
+.kiosk-shell p,.pickup p{color:var(--studio-muted)}
+.kiosk-shell h1 em{color:var(--studio-accent)}
+.primary{color:var(--studio-surface)}
+.primary:hover:not(:disabled){background:#aa3e28}
+.secondary{background:var(--studio-surface);border-color:var(--studio-line)}
+.secondary:hover:not(:disabled){background:var(--studio-peach);border-color:#dfbda9}
+.kiosk-shell header,.kiosk-shell>footer{border-color:var(--studio-line)}
+.kiosk-shell .mode i{background:var(--studio-green)}
+.attract-copy>p{font-size:15px;color:var(--studio-muted)}
+.attract-gallery{background:#f5e5d5}
+.theme-library .theme-card{background:var(--studio-surface);box-shadow:0 0 0 1px #eaded5}
+.theme-library .theme-art{background:#f4ede5}
+.theme-library .theme-caption{background:var(--studio-surface)}
+.purpose-tabs button{background:var(--studio-surface);border-color:var(--studio-line);color:var(--ink)}
+.purpose-tabs button[aria-pressed=true]{background:var(--studio-accent);border-color:var(--studio-accent);color:var(--studio-surface)}
+.theme-library .purpose-note,.theme-library .style-description,.capture-guidance{color:var(--studio-muted)}
+.theme-library .theme-end{color:var(--studio-muted)}
+.capture-copy .poster-settings{background:var(--studio-peach);border-color:var(--studio-line)}
+.capture-copy .consent{background:var(--studio-surface)}
+.orientation-options button{background:var(--studio-surface)}
+.orientation-options button:hover{background:var(--studio-peach)}
+.orientation-options button.selected{background:var(--studio-success);border-color:var(--studio-green)}
+.step-bar .progress{gap:clamp(10px,1.6vw,22px)}
+.step-bar .progress>span{gap:6px}
+.step-bar .photo-expiry{color:var(--studio-muted)}
+.consent-hint,.photo-expiry{color:var(--studio-muted)}
+.free-label{background:var(--studio-success);color:var(--studio-green)}
+.generated-label{background:var(--studio-peach);color:var(--studio-accent)}
+.frame-options button:hover{background:var(--studio-peach)}
+.frame-options button[aria-pressed=true]{background:var(--studio-success);border-color:#9daf90}
+.caption-editor textarea,.caption-controls select{background:var(--studio-surface);border-color:var(--studio-line)}
+.frame-options,.portrait-results .checkout-bar{border-color:var(--studio-line)}
+.qr-ticket{background:var(--studio-surface);border-color:var(--studio-line)}
+.error{background:#fff0e7;border-color:#e9c5b4;color:#8e331f}
+.kiosk-shell p.error,.pickup p.error{color:#8e331f}
+.package-payment{max-width:760px;margin:0 auto;padding:12px 0 32px}
+.package-payment h1{font-size:clamp(32px,3.3vw,44px);margin:12px 0 16px}
+.package-payment .purchase-ticket{width:100%;max-width:none;display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px 24px;padding:24px;background:var(--studio-surface);border-color:var(--studio-line);margin-top:16px}
+.package-payment .purchase-preview{grid-column:1;grid-row:1/5;width:100%;margin:0;align-self:start}
+.purchase-preview>img{display:block;width:100%;height:auto;max-height:160px;object-fit:contain;border-radius:8px}
+.package-payment .purchase-ticket>span,.package-payment .purchase-ticket>p,.package-payment .purchase-ticket>strong,.package-payment .purchase-ticket>small,.package-summary{grid-column:2;text-align:left;margin:0}
+.package-payment .purchase-ticket>strong{font-size:44px;line-height:1.2}
+.package-payment .purchase-ticket>small{color:var(--studio-muted);font-size:12px}
+.package-payment .purchase-ticket>.ticket-line,.package-payment .purchase-ticket>button,.package-payment .simulation-options{grid-column:1/-1;margin:0}
+.package-payment .purchase-ticket>.ticket-line{margin:6px 0}
+.package-payment .purchase-ticket>button{min-height:52px}
+.package-summary{list-style:none;padding:0}
+.package-summary li{display:flex;justify-content:space-between;gap:16px;padding:3px 0;font-size:15px;line-height:1.6;color:var(--ink)}
+.package-payment .cancel-purchase{border:0;background:transparent;color:var(--studio-muted)}
+.simulation-notice{font-size:13px;line-height:1.7;color:#8c4b21;background:#fff2d9;padding:10px 14px;border-radius:10px}
+.kiosk-shell p.simulation-notice{color:#8c4b21}
+.package-paid{padding:12px 16px;margin:0;background:var(--studio-success);border-radius:10px;font-size:14px;line-height:1.7;color:var(--studio-green)}
+.kiosk-shell p.package-paid{color:var(--studio-green)}
+.result-delivery-actions>.secondary{min-height:58px;font-weight:600}
+.portrait-results .results-heading>.result-theme{margin-left:auto}
+.result-paid{color:var(--studio-green);font-size:12px;white-space:nowrap}
+.photo-print-action .primary{min-height:60px;font-size:18px}
+.photo-print-action>p[role=status],.print-status{margin:8px 0;padding:0;color:var(--studio-green);font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.kiosk-shell .photo-print-action>p[role=status]{color:var(--studio-green)}
+.photo-print-action .text-button{min-height:48px}
+.photo-print-action:is([data-print-status="preparing"],[data-print-status="submitting"],[data-print-status="submitted"])>.primary{opacity:1;background:var(--studio-green);color:var(--studio-surface)}
+.photo-print-action[data-print-status="unknown"]>.primary{opacity:1;background:#fff2d9;color:#8c4b21}
+.photo-print-action[data-print-status="unknown"]>.print-status{color:#8c4b21}
+@media(max-width:700px){
+  .attract-copy>p{font-size:12px}
+  .step-bar .progress{gap:9px}
+  .step-bar .progress>span{font-size:10px;gap:4px}
+  .step-bar .progress b{width:22px;height:22px}
+  .package-summary li{font-size:14px}
+  .package-payment .purchase-ticket{padding:20px;grid-template-columns:80px minmax(0,1fr);gap:10px 14px}
+  .package-payment .purchase-preview{width:100%}
+  .package-payment .purchase-ticket>strong{font-size:36px}
+  .simulation-notice,.package-paid{font-size:12px}
+}

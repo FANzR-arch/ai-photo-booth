@@ -4,30 +4,52 @@ import { createServer, type AddressInfo, type Socket } from 'node:net';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { createServer as createHttpServer } from 'node:http';
+import { mkdtemp, readdir, rm, mkdir, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+/** Listener checks need a built page, but must not share Vite's concurrently rebuilt output. */
+async function listenerFixture() {
+    const root = await mkdtemp(path.join(tmpdir(), 'snap-listener-'));
+    await mkdir(path.join(root, 'dist/web'), { recursive: true });
+    await writeFile(path.join(root, 'dist/web/index.html'), '<html>startup fixture</html>');
+    const entry = path.resolve('apps/server/index.ts');
+    const loader = pathToFileURL(path.resolve('node_modules/tsx/dist/loader.mjs')).href;
+    return {
+        launch: (port: number) => spawn(process.execPath, ['--import', loader, entry], {
+            cwd: root,
+            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0', BOOTH_EASY_START: '0', PICKUP_BASE_URL: '' },
+            stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
+        }),
+        close: () => rm(root, { recursive: true, force: true }),
+    };
+}
 test('startup rejects occupied loopback port without touching the existing listener', async () => {
+    const fixture = await listenerFixture();
     const listener = createServer();
     const sockets = new Set<Socket>();
     listener.on('connection', socket => { sockets.add(socket); socket.on('close', () => sockets.delete(socket)); });
     await new Promise<void>(resolve => listener.listen(0, '127.0.0.1', resolve));
     try {
         const port = (listener.address() as AddressInfo).port;
-        const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
-        });
+        const child = fixture.launch(port);
         let stderr = '';
         child.stderr.on('data', chunk => stderr += chunk);
-        const [code] = await once(child, 'exit');
-        assert.equal(code, 1);
+        const [code] = await once(child, 'close');
+        assert.equal(code, 1, stderr);
         assert.match(stderr, /已被占用/);
         assert.equal(listener.listening, true);
     }
     finally {
         for (const socket of sockets) socket.destroy();
         await new Promise<void>((resolve, reject) => listener.close(error => error ? reject(error) : resolve()));
+        await fixture.close();
     }
 });
 
 test('duplicate launch recognizes a running booth and exits successfully without writing to it', async () => {
+    const fixture = await listenerFixture();
     const requests: string[] = [];
     const listener = createHttpServer((req, res) => {
         requests.push(`${req.method} ${req.url}`);
@@ -37,38 +59,30 @@ test('duplicate launch recognizes a running booth and exits successfully without
     await new Promise<void>(resolve => listener.listen(0, '127.0.0.1', resolve));
     try {
         const port = (listener.address() as AddressInfo).port;
-        const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
-        });
-        let output = ''; child.stdout.on('data', chunk => output += chunk);
-        const [code] = await once(child, 'exit');
-        assert.equal(code, 0);
+        const child = fixture.launch(port);
+        let output = '', stderr = ''; child.stdout.on('data', chunk => output += chunk); child.stderr.on('data', chunk => stderr += chunk);
+        const [code] = await once(child, 'close');
+        assert.equal(code, 0, stderr);
         assert.match(output, /已经运行/);
         assert.deepEqual(requests, ['GET /api/health']);
         assert.equal(listener.listening, true);
-    } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); }
+    } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); await fixture.close(); }
 });
 
 test('wildcard port conflict reports a readable message without a Node stack', async () => {
+    const fixture = await listenerFixture();
     const listener = createHttpServer((_req, res) => { res.writeHead(404); res.end('other app'); });
     await new Promise<void>(resolve => listener.listen(0, '0.0.0.0', resolve));
     try {
         const port = (listener.address() as AddressInfo).port;
-        const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String(port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only-never-submitted', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' }, stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
-        });
+        const child = fixture.launch(port);
         let stderr = ''; child.stderr.on('data', chunk => stderr += chunk);
-        const [code] = await once(child, 'exit');
-        assert.equal(code, 1);
+        const [code] = await once(child, 'close');
+        assert.equal(code, 1, stderr);
         assert.match(stderr, /已被占用/);
         assert.doesNotMatch(stderr, /node:net|setupListenHandle/);
-    } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); }
+    } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); await fixture.close(); }
 });
-
-import { mkdtemp, readdir, rm, mkdir, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import path from 'node:path';
-import { pathToFileURL } from 'node:url';
 
 test('real launch requires key, model and a built page before creating persistent data', async () => {
     const root = await mkdtemp(path.join(tmpdir(), 'snap-config-'));
@@ -133,21 +147,19 @@ test('production restart keeps the port, saved settings and session without call
 });
 
 test('a real launch refuses to reopen a demo booth as production', async () => {
+    const fixture = await listenerFixture();
     const listener = createHttpServer((_req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({ service: 'snap-club', mode: 'demo', configured: true, imageCount: 1 }));
     });
     await new Promise<void>(resolve => listener.listen(0, '127.0.0.1', resolve));
     try {
-        const child = spawn(process.execPath, ['--import', 'tsx', 'apps/server/index.ts'], {
-            env: { ...process.env, PORT: String((listener.address() as AddressInfo).port), GENERATION_MODE: 'seedream', SEEDREAM_API_KEY: 'test-only', SEEDREAM_MODEL: 'test-model', BOOTH_FRESH_INSTANCE: '0', BOOTH_OPEN_BROWSER: '0' },
-            stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000,
-        });
+        const child = fixture.launch((listener.address() as AddressInfo).port);
         let output = ''; child.stderr.on('data', chunk => output += chunk);
-        assert.equal((await once(child, 'exit'))[0], 1);
+        assert.equal((await once(child, 'close'))[0], 1, output);
         assert.match(output, /模式不同/);
         assert.equal(listener.listening, true);
-    } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); }
+    } finally { listener.closeAllConnections(); await new Promise<void>(resolve => listener.close(() => resolve())); await fixture.close(); }
 });
 
 test('fresh launches choose distinct ports and separate databases while configured port is occupied', async () => {

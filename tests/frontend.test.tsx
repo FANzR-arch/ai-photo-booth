@@ -6,11 +6,12 @@ import { createRoot } from 'react-dom/client';
 import { JSDOM } from 'jsdom';
 import QRCode from 'qrcode';
 import { Booth, Pickup } from '../apps/web/src/Booth';
-import type { Session } from '../packages/shared/types';
+import type { Order, Session } from '../packages/shared/types';
 function deferred<T>() { let resolve!: (value: T) => void; const promise = new Promise<T>(r => resolve = r); return { promise, resolve }; }
 const image = 'data:image/png;base64,c3ludGhldGlj';
 const style = { id: 'cinema', name: '电影人像', description: '电影感测试', enabled: true, version: 1, exampleUrl: '/examples/cinema.svg', size: '2K', color: '#eed8a0' };
 const fresh = (id = 'session-1'): Session => ({ id, styleId: 'cinema', styleName: '电影人像', status: 'created', mode: 'demo', createdAt: Date.now(), expiresAt: Date.now() + 600000, images: [] });
+const paidSession = (s: Session): Session => ({ ...s, pickupUrl: `http://localhost:4377/pickup/${s.id}`, order: { id: `paid-${s.id}`, sessionId: s.id, imageIds: s.images.map(i => i.id), amount: 990, status: 'paid', product: 'photo-package', paymentMode: 'simulate', createdAt: s.createdAt } });
 type Route = (url: string, body: any) => unknown | Promise<unknown>;
 async function harness(route?: Route, options: {
     saved?: string;
@@ -72,14 +73,17 @@ async function harness(route?: Route, options: {
     }> = [];
     let current = fresh();
     const sessions = new Map<string, Session>();
+    const orders = new Map<string, Order>();
     let seq = 0;
+    let orderSeq = 0;
     put('fetch', async (url: string, init?: RequestInit) => {
         const body = init?.body ? JSON.parse(String(init.body)) : undefined;
         calls.push({ url, body });
         const custom = route ? await route(url, body) : undefined;
         let result = custom;
         if (result === undefined) {
-            if (url === '/api/printing') result = { supported: false, configured: false };
+            if (url === '/examples/film-reference.png') result = { sample: true };
+            else if (url === '/api/printing') result = { supported: false, configured: false };
             else if (/\/print\//.test(url)) result = { job: null };
             else if (url === '/api/health')
                 result = { mode: options.unconfigured ? 'seedream' : 'demo', configured: !options.unconfigured, model: '', imageCount: 2, pickupBaseUrl: 'http://localhost:4377', lanUrls: [] };
@@ -96,7 +100,7 @@ async function harness(route?: Route, options: {
                 result = current;
             }
             else if (url.endsWith('/generate')) {
-                current = { ...current, status: 'generating', clothingMode: body.clothingMode ?? current.clothingMode ?? 'keep' };
+                current = { ...(sessions.get(url.split('/')[3]) || current), status: 'generating', clothingMode: body.clothingMode ?? current.clothingMode ?? 'keep' };
                 sessions.set(current.id, current);
                 result = current;
             }
@@ -107,11 +111,17 @@ async function harness(route?: Route, options: {
             }
             else if (url.endsWith('/orders')) {
                 current = sessions.get(url.split('/')[3]) || current;
-                result = { id: `order-${seq}`, sessionId: current.id, imageIds: body.imageIds, amount: body.imageIds.length === 1 ? 990 : 1990, status: current.pickupUrl ? 'paid' : 'pending', createdAt: Date.now() };
+                const existing = current.order;
+                const order: Order = existing && ['paid', 'pending'].includes(existing.status) ? existing : { id: `order-${++orderSeq}`, sessionId: current.id, imageIds: [], amount: 990, status: 'pending', product: 'photo-package', paymentMode: 'simulate', createdAt: Date.now() };
+                orders.set(order.id, order); current = { ...current, clothingMode: body.clothingMode ?? current.clothingMode, order }; sessions.set(current.id, current); result = order;
             }
             else if (url.endsWith('/simulate')) {
-                result = { order: { id: `order-${seq}`, status: body.outcome }, ...(body.outcome === 'paid' ? { pickupUrl: `http://localhost:4377/pickup/token-${seq}` } : {}) };
-                if (body.outcome === 'paid') { current = { ...current, pickupUrl: `http://localhost:4377/pickup/token-${seq}` }; sessions.set(current.id, current); }
+                const previous = orders.get(url.split('/')[3])!;
+                const order = { ...previous, status: body.outcome };
+                orders.set(order.id, order);
+                current = { ...sessions.get(order.sessionId)!, order, ...(body.outcome === 'paid' ? { pickupUrl: `http://localhost:4377/pickup/token-${orderSeq}` } : {}) };
+                sessions.set(current.id, current);
+                result = { order, session: current, pickupUrl: current.pickupUrl };
             }
             else if (url.endsWith('/end'))
                 result = { ok: true };
@@ -123,7 +133,10 @@ async function harness(route?: Route, options: {
             else
                 throw Error(`Unexpected route ${url}`);
         }
-        return { ok: true, status: 200, json: async () => result };
+        if (result && typeof result === 'object' && 'styleId' in result && 'id' in result) {
+            current = result as Session; sessions.set(current.id, current);
+        }
+        return { ok: true, status: 200, json: async () => result, ...(url === '/examples/film-reference.png' ? { blob: async () => new dom.window.Blob(['synthetic'], { type: 'image/png' }) } : {}) };
     });
     const root = createRoot(dom.window.document.getElementById('root')!);
     const flush = async () => { await act(async () => { await Promise.resolve(); await Promise.resolve(); }); };
@@ -146,32 +159,20 @@ async function harness(route?: Route, options: {
     return { dom, text, button, click, upload, consent, tick, flush, cleanup, calls, readers, qrs, cameraTrack, cameraCalls: () => cameraCalls, stopped: () => stopped };
 }
 
-test('theme entrance restarts after entry refresh replaces the cached home styles', async () => {
+test('refreshed themes replace cached cards and remain immediately selectable in the native scroll area', async () => {
     let requests = 0;
     const refreshed = deferred<unknown>();
     const h = await harness(url => url === '/api/styles' && ++requests > 1 ? refreshed.promise : undefined);
-    const animations: Array<{ cancelled: boolean }> = [];
     try {
-        h.dom.window.HTMLElement.prototype.getBoundingClientRect = function () {
-            const card = this.classList.contains('theme-card');
-            return { left: 0, top: 100, right: card ? 200 : 1000, bottom: card ? 400 : 800,
-                width: card ? 200 : 1000, height: card ? 300 : 700, x: 0, y: 100, toJSON() {} };
-        };
-        h.dom.window.HTMLElement.prototype.animate = function () {
-            const state = { cancelled: false };
-            if (this.classList.contains('theme-card')) animations.push(state);
-            return { cancel: () => { state.cancelled = true; } } as Animation;
-        };
         await h.click('开始拍照');
-        assert.ok(animations.length > 0, 'cached cards began their entrance');
-        assert.ok(animations.every(a => a.cancelled), 'refresh removes cached cards');
-        await act(async () => refreshed.resolve([style]));
-        await h.flush();
-        assert.ok(animations.some(a => !a.cancelled), 'new cards must have a live entrance after refresh');
-        const count = animations.length;
-        await h.click('暂停轮播');
-        assert.equal(animations.length, count, 'ordinary UI updates must not replay entrance');
-    } finally { await h.cleanup(); }
+        assert.ok(h.dom.window.document.querySelector('.theme-scroll[role="region"]'));
+        assert.equal(h.calls.some(c => c.url === '/api/sessions'), false);
+        await act(async () => refreshed.resolve([{ ...style, name: '更新电影人像' }])); await h.flush();
+        assert.equal(h.button('更新电影人像').disabled, false);
+        await h.click('更新电影人像');
+        assert.equal(h.calls.find(c => c.url === '/api/sessions')?.body.styleId, style.id);
+        assert.match(h.text(), /看向镜头/);
+    } finally { refreshed.resolve([style]); await h.cleanup(); }
 });
 
 test('real mode requests camera only after theme selection and waits for a playable frame; disconnect cancels countdown', async () => {
@@ -183,6 +184,8 @@ test('real mode requests camera only after theme selection and waits for a playa
         await h.click('电影人像');
         assert.equal(h.cameraCalls(), 1);
         assert.doesNotMatch(h.text(), /使用内置照片/);
+        assert.doesNotMatch(h.text(), /使用演示照片/);
+        assert.doesNotMatch(h.dom.window.document.querySelector('.camera-placeholder')?.textContent || '', /上传照片或使用演示照片/);
         const capture = h.dom.window.document.querySelector('.capture-button') as HTMLButtonElement;
         assert.equal(capture.disabled, true);
         const v = h.dom.window.document.querySelector('video')!;
@@ -292,7 +295,7 @@ test('changing theme preserves this round and refreshes admin changes without cr
         await h.click('开始拍照'); await h.click('电影人像');
         updated = true;
         await h.click('更换主题');
-        assert.match(h.text(), /想留下一张怎样的照片/);
+        assert.ok(h.dom.window.document.querySelector('.theme-screen'));
         assert.match(h.text(), /更新后的主题/);
         assert.equal(h.dom.window.document.querySelector('video'), null);
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-1');
@@ -315,44 +318,35 @@ test('configuration connection failure can be retried without starting a session
         assert.match(h.text(), /看向镜头/);
     } finally { await h.cleanup(); }
 });
-test('explicit upload → consent → generation poll → selected purchase → paid QR', async () => {
+test('consented upload → demo package payment → generation → included delivery', async () => {
     const h = await harness();
     try {
-        assert.match(h.text(), /SNAP CLUB/);
-        await h.click('开始拍照'); await h.click('电影人像');
-        assert.match(h.text(), /无法访问摄像头/);
-        await h.upload();
-        assert.equal(h.button('确认并生成').disabled, true);
+        await h.click('开始拍照'); await h.click('电影人像'); await h.upload();
+        assert.equal(h.button('查看套餐').disabled, true);
+        await h.click('横版'); await h.consent(); await h.click('查看套餐');
+        assert.match(h.text(), /确认套餐|模拟付款，不会实际扣款/);
+        assert.match(h.text(), /AI 电子图 \+ 纸质打印/);
+        assert.match(h.text(), /含拍摄原片|示例价/);
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 0);
-        await h.click('横版');
-        await h.consent();
-        await h.click('确认并生成');
+        assert.deepEqual(h.calls.find(c => c.url.endsWith('/orders'))?.body, { clothingMode: 'keep' });
         assert.equal(h.calls.find(c => c.url.endsWith('/photo'))?.body.orientation, 'landscape');
-        assert.equal(h.calls.find(c => c.url.endsWith('/photo'))?.body.clothingMode, 'keep');
+        await h.click('模拟付款并生成');
         assert.match(h.text(), /效果制作中/);
         assert.equal(h.dom.window.document.querySelector('.generation-photo img.frame-photo')?.getAttribute('src'), image);
-        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 1);
+        assert.ok(h.calls.findIndex(c => c.url.endsWith('/simulate')) < h.calls.findIndex(c => c.url.endsWith('/generate')));
+        assert.equal(h.dom.window.document.querySelector('.delivery'), null);
         await h.tick(1800);
-        assert.match(h.text(), /照片已生成/);
-        assert.match(h.text(), /横版 4:3/);
-        assert.equal(h.dom.window.document.querySelector('.generation-preview'), null);
-        assert.ok(h.dom.window.document.querySelector('.original-download'));
-        assert.match(h.text(), /免费保存原图/);
-        assert.match(h.button('选择照片').textContent || '', /1 张 · ¥9.90/);
-        await h.click('选择照片');
-        await h.click('确认取图');
+        assert.match(h.text(), /照片已生成|已付款/);
+        assert.match(h.text(), /保存拍摄原片/);
+        assert.doesNotMatch(h.text(), /购买这张照片/);
+        await h.click('手机取图');
         assert.match(h.text(), /扫码取图/);
         assert.ok(h.dom.window.document.querySelector('img[alt="手机取图二维码"]'));
-        const purchase = h.calls.find(c => c.url.endsWith('/orders'));
-        assert.deepEqual(purchase?.body.imageIds, ['one']);
         await h.click('完成，返回首页');
-        assert.match(h.text(), /今天/);
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), null);
-    }
-    finally {
-        await h.cleanup();
-    }
+        assert.equal(h.calls.filter(c => c.url.endsWith('/orders')).length, 1);
+    } finally { await h.cleanup(); }
 });
 test('poster option appears under memories and confirms fixed outfit and 2:3 without conflicting controls', async () => {
     const poster = { ...style, id: 'coming-of-age', name: '你好，我的18岁', generationPreset: 'coming-of-age', exampleUrl: '/examples/coming-of-age.svg' };
@@ -367,13 +361,11 @@ test('poster option appears under memories and confirms fixed outfit and 2:3 wit
     try {
         await h.click('开始拍照'); await h.click('生日纪念'); await h.click(poster.name);
         await h.upload();
-        assert.match(h.text(), /成人礼写真海报 · 竖版 2:3/);
-        assert.match(h.text(), /深蓝主题换装/);
-        assert.match(h.text(), /指定英文直接生成在图片中/);
+        assert.match(h.dom.window.document.querySelector('.poster-settings')?.textContent || '', /成人礼海报 · 2:3/);
         assert.equal(h.dom.window.document.querySelector('.clothing-picker'), null);
         assert.equal(h.dom.window.document.querySelector('.orientation-picker'), null);
-        assert.equal(h.button('确认并生成').disabled, true);
-        await h.consent(); await h.click('确认并生成');
+        assert.equal(h.button('查看套餐').disabled, true);
+        await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成');
         assert.equal(h.calls.find(c => c.url.endsWith('/photo'))?.body.orientation, 'poster');
         assert.equal(h.calls.find(c => c.url.endsWith('/photo'))?.body.clothingMode, 'theme');
         const frame = h.dom.window.document.querySelector<HTMLElement>('.photo-frame')!;
@@ -392,29 +384,29 @@ test('directed portrait confirmation keeps its fixed ratio and offers clothing c
     });
     try {
         await h.click('开始拍照');await h.click(scene.name);await h.upload();
-        assert.match(h.text(),/工作时刻 · 竖版 4:5/);assert.doesNotMatch(h.text(),/成人礼写真海报|深蓝主题换装/);
+        assert.match(h.dom.window.document.querySelector('.poster-settings')?.textContent || '', /竖版 4:5/);assert.doesNotMatch(h.text(),/成人礼海报|深蓝换装/);
         assert.equal(h.dom.window.document.querySelectorAll('.orientation-picker:not(.clothing-picker)').length,0);
         assert.ok(h.dom.window.document.querySelector('.clothing-picker'));
-        await h.click('保留原服装');await h.consent();await h.click('确认并生成');
+        await h.click('保留原服装');await h.consent();await h.click('查看套餐'); await h.click('模拟付款并生成');
         assert.equal(h.calls.find(c=>c.url.endsWith('/photo'))?.body.orientation,'portrait4x5');
         assert.equal(h.calls.find(c=>c.url.endsWith('/photo'))?.body.clothingMode,'keep');
         assert.equal(h.dom.window.document.querySelector<HTMLElement>('.photo-frame')?.style.aspectRatio,'960/1200');
     } finally {await h.cleanup();}
 });
 
-test('failed and cancelled simulated payments return to results without pickup', async () => { const h = await harness(undefined, { saved: 'ready-session' }); try {
-    await h.click('选择照片');
-    await h.click('取消本次操作');
-    assert.match(h.text(), /未能完成/);
-    assert.equal(h.dom.window.document.querySelector('img[alt="手机取图二维码"]'), null);
-    await h.click('选择照片');
-    await h.click('返回选图');
-    assert.match(h.text(), /照片已生成/);
-    assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
-}
-finally {
-    await h.cleanup();
-} });
+test('failed and cancelled demo payments return to photo confirmation without generating', async () => {
+    const h = await harness();
+    try {
+        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent();
+        await h.click('查看套餐'); await h.click('模拟付款失败');
+        assert.match(h.text(), /确认照片|模拟付款未完成，未提交生成/);
+        assert.equal(h.dom.window.document.querySelector('.payment, .delivery'), null);
+        await h.click('查看套餐'); await h.click('取消付款');
+        assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'confirm');
+        assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
+        assert.deepEqual(h.calls.filter(c => c.url.endsWith('/simulate')).map(c => c.body.outcome), ['failed', 'cancelled']);
+    } finally { await h.cleanup(); }
+});
 test('restore ready session does not regenerate; delayed restore cannot replace a new session', async () => {
     const late = deferred<Session>();
     const h = await harness(url => url === '/api/sessions/old' ? late.promise : undefined, { saved: 'old' });
@@ -445,7 +437,7 @@ test('late uploaded photo cannot appear in the next visitor session', async () =
 finally {
     await h.cleanup();
 } });
-test('late QR from previous paid session cannot replace the new visitor QR', async () => { const h = await harness(undefined, { deferQr: true }); const buy = async () => { await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('确认并生成'); await h.tick(1800); await h.click('选择照片'); await h.click('确认取图'); }; try {
+test('late QR from previous paid session cannot replace the new visitor QR', async () => { const h = await harness(undefined, { deferQr: true }); const buy = async () => { await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成'); await h.tick(1800); await h.click('手机取图'); }; try {
     await buy();
     assert.equal(h.qrs.length, 1);
     await h.click('完成，返回首页');
@@ -466,9 +458,9 @@ test('unconfigured Seedream cannot submit even after consent', async () => { con
     await h.upload();
     await h.consent();
     assert.match(h.text(), /Seedream 尚未配置/);
-    assert.equal(h.button('确认并生成').disabled, true);
-    await h.click('确认并生成');
-    assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
+    assert.equal(h.button('查看套餐').disabled, true);
+    await h.click('查看套餐');
+    assert.equal(h.calls.some(c => c.url.endsWith('/generate') || c.url.endsWith('/orders')), false);
 }
 finally {
     await h.cleanup();
@@ -477,7 +469,7 @@ test('mobile pickup renders only unlocked API images and expiry', async () => { 
     const links = h.dom.window.document.querySelectorAll('a[download]');
     assert.equal(links.length, 1);
     assert.equal(links[0].getAttribute('href'), '/api/pickup/token/images/only-paid');
-    assert.match(h.text(), /前下载/);
+    assert.match(h.text(), /自动删除/);
     assert.equal(h.calls.length, 1);
 }
 finally {
@@ -488,7 +480,7 @@ test('generation failure preserves original, stops animation, and ending clears 
     const h = await harness(url => /^\/api\/sessions\/session-1$/.test(url) ? { ...fresh(), status: 'failed', error: '模拟生成失败' } : undefined);
     try {
         await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent();
-        await h.click('确认并生成');
+        await h.click('查看套餐'); await h.click('模拟付款并生成');
         assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
         await h.tick(1800);
         assert.equal(h.dom.window.document.querySelector('.generation-photo img.frame-photo')?.getAttribute('src'), image);
@@ -540,7 +532,7 @@ test('frame selection persists from waiting to results without generation and re
         await h.click('结束本次');
         await h.click('开始拍照');
         await h.click('电影人像');
-        await h.upload(); await h.consent(); await h.click('确认并生成');
+        await h.upload(); await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成');
         assert.equal(h.button('无边框').getAttribute('aria-pressed'), 'true');
     } finally { firstSave.resolve({ frame: 'instant' }); await h.cleanup(); }
 });
@@ -549,14 +541,14 @@ test('failed frame save keeps preview, blocks checkout and can be retried', asyn
     let attempts = 0;
     const h = await harness((url, body) => {
         if (url.endsWith('/frame')) { if (++attempts === 1) throw Error('offline'); return { frame: body.frame }; }
-        if (url === '/api/sessions/restored') return { ...fresh('restored'), status: 'ready', images: [{ id: 'image-1', previewUrl: '/preview.jpg' }] };
+        if (url === '/api/sessions/restored') return paidSession({ ...fresh('restored'), status: 'ready', images: [{ id: 'image-1', previewUrl: '/preview.jpg' }] });
     }, { saved: 'restored' });
     try {
         await h.click('留白');
         assert.ok(h.text().includes('边框尚未保存'));
         assert.equal(h.button('正在准备').disabled, true);
         await h.click('重试保存边框');
-        assert.equal(h.button('选择照片').disabled, false);
+        assert.equal(h.button('手机取图').disabled, false);
         assert.equal(attempts, 2);
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 0);
     } finally { await h.cleanup(); }
@@ -579,7 +571,7 @@ test('caption and typography restore, update, remain after frame selection and c
   assert.equal(saved.caption.text,'一起去看海');assert.equal(saved.caption.font,'hand');assert.equal(saved.caption.align,'right');assert.equal(saved.frame,'midnight');
   const art=h.dom.window.document.querySelector('.frame-art')!.getAttribute('src')!;
   assert.ok(decodeURIComponent(art).includes('一起去看海'));
-  await h.click('结束本次');await h.click('开始拍照');await h.click('电影人像');await h.upload();await h.consent();await h.click('确认并生成');
+  await h.click('结束本次');await h.click('开始拍照');await h.click('电影人像');await h.upload();await h.consent();await h.click('查看套餐'); await h.click('模拟付款并生成');
   assert.equal(h.dom.window.document.querySelector('textarea')!.value,'');
  }finally{await h.cleanup();}
 });
@@ -642,35 +634,36 @@ test('back preserves the captured photo and lets generation finish without inter
         assert.equal(h.dom.window.document.querySelector('img[alt="刚刚拍摄或上传的照片"]')?.getAttribute('src'), image);
         await h.click('横版'); await h.click('本轮照片库'); await h.click('电影人像 · 待确认');
         assert.equal(h.button('横版').getAttribute('aria-pressed'), 'true');
-        await h.consent(); await h.click('确认并生成');
+        await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成');
         await h.click('返回上一步');
-        assert.match(h.text(), /这张照片正在生成/);
+        assert.match(h.text(), /正在生成，返回不会中断/);
         assert.equal(h.dom.window.document.querySelector('input[type=checkbox]'), null);
         await h.tick(1800);
         assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'confirm');
         await h.click('查看生成照片');
-        await h.click('选择照片'); await h.click('返回选图');
+        await h.click('手机取图'); await h.click('返回照片');
         assert.match(h.text(), /照片已生成/);
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 1);
-        assert.equal(h.calls.filter(c => c.url.endsWith('/simulate')).length, 0);
+        assert.equal(h.calls.filter(c => c.url.endsWith('/simulate')).length, 1);
     } finally { await h.cleanup(); }
 });
 
 test('this round library restores earlier purchases; ending hides every session from the next visitor', async () => {
     const h = await harness();
-    const make = async () => { await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('确认并生成'); await h.tick(1800); };
+    const make = async () => { await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成'); await h.tick(1800); };
     try {
-        await h.click('开始拍照'); await make(); await h.click('选择照片'); await h.click('确认取图');
-        await h.click('返回选图');
+        await h.click('开始拍照'); await make(); await h.click('手机取图');
+        await h.click('返回照片');
         await h.click('再拍一张'); await make();
         await h.click('返回照片库');
         assert.equal(h.dom.window.document.querySelectorAll('.library-card').length, 2);
         await act(async () => (h.dom.window.document.querySelectorAll('.library-card')[1] as HTMLButtonElement).click()); await h.flush();
-        assert.match(h.text(), /扫码取图/);
+        assert.match(h.text(), /照片已生成/);
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-1');
-        await h.click('返回选图'); await h.click('选择照片');
+        await h.click('手机取图');
+        await h.click('返回照片'); await h.click('手机取图');
         assert.match(h.text(), /扫码取图/);
-        assert.equal(h.calls.filter(c => c.url.endsWith('/simulate')).length, 1);
+        assert.equal(h.calls.filter(c => c.url.endsWith('/simulate')).length, 2);
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 2);
         await h.click('结束本次');
         assert.equal(h.dom.window.localStorage.getItem('snap-round'), null);
@@ -707,8 +700,8 @@ test('kiosk expiry clears photo pixels, draft, QR and round IDs without waiting 
     const originalNow = Date.now; let time = originalNow(); Date.now = () => time;
     const h = await harness();
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('确认并生成'); await h.tick(1800);
-        await h.click('选择照片'); await h.click('确认取图');
+        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成'); await h.tick(1800);
+        await h.click('手机取图');
         assert.ok(h.dom.window.document.querySelector('img[alt="手机取图二维码"]'));
         time += 600001;
         // Visibility/pageshow also enforce expiry when a tab wakes from sleep.
@@ -727,7 +720,7 @@ test('phone detail returns to its own album and removes images and download link
     try {
         assert.match(h.text(), /10:00/);
         assert.equal(h.dom.window.document.querySelector('.brand')?.getAttribute('href'), '/pickup/token');
-        await h.click('查看照片'); await h.click('返回相册');
+        await h.click('查看AI 成片'); await h.click('返回相册');
         assert.match(h.text(), /你的照片/);
         time += 600001; await h.tick(1000);
         assert.match(h.text(), /照片已到期并自动删除/);
@@ -744,13 +737,11 @@ test('clothing choice survives back and library navigation, is submitted once, a
         assert.equal(h.button('按主题换装').getAttribute('aria-pressed'), 'true');
         await h.click('本轮照片库'); await h.click('电影人像 · 待确认');
         assert.equal(h.button('按主题换装').getAttribute('aria-pressed'), 'true');
-        await h.consent(); await h.click('确认并生成');
+        await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成');
         assert.equal(h.calls.find(c => c.url.endsWith('/photo'))?.body.clothingMode, 'theme');
         assert.equal(h.calls.find(c => c.url.endsWith('/generate'))?.body.clothingMode, 'theme');
-        assert.match(h.text(), /服装：按主题换装/);
         await h.click('返回上一步'); assert.equal(h.dom.window.document.querySelector('.clothing-picker'), null);
         await h.tick(1800); await h.click('查看生成照片');
-        assert.match(h.dom.window.document.querySelector('.result-meta')?.textContent || '', /按主题换装/);
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 1);
         await h.click('再拍一张'); await h.click('电影人像'); await h.upload();
         assert.equal(h.button('保留原服装').getAttribute('aria-pressed'), 'true');
@@ -765,9 +756,106 @@ test('restored uploaded photo retains its clothing choice and can change it befo
     }, { saved: 'restored' });
     try {
         assert.equal(h.button('按主题换装').getAttribute('aria-pressed'), 'true');
-        await h.click('保留原服装'); await h.consent(); await h.click('确认并生成');
+        await h.click('保留原服装'); await h.consent(); await h.click('查看套餐'); await h.click('模拟付款并生成');
         assert.equal(h.calls.filter(c => c.url.endsWith('/photo')).length, 0);
         assert.equal(h.calls.find(c => c.url.endsWith('/generate'))?.body.clothingMode, 'keep');
-        assert.match(h.text(), /服装：保留原服装/);
+    } finally { await h.cleanup(); }
+});
+
+test('a restored paid package resumes generation without another payment or photo replacement', async () => {
+    let saved = paidSession({ ...fresh('paid-restored'), status: 'photographed', originalUrl: '/original.jpg', clothingMode: 'theme' });
+    const h = await harness((url, body) => {
+        if (url === '/api/sessions/paid-restored') return saved;
+        if (url.endsWith('/generate')) { saved = { ...saved, status: 'generating' }; return saved; }
+    }, { saved: saved.id });
+    try {
+        assert.match(h.text(), /已付款，可继续生成/);
+        assert.equal(h.dom.window.document.querySelector('.payment, .clothing-picker, .delivery'), null);
+        assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
+        await h.click('继续生成（已付款）');
+        assert.match(h.text(), /效果制作中/);
+        assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 1);
+        assert.equal(h.calls.find(c => c.url.endsWith('/generate'))?.body.clothingMode, 'theme');
+        assert.equal(h.calls.some(c => /\/(orders|simulate|photo)$/.test(c.url)), false);
+        await h.click('返回上一步');
+        assert.equal(h.dom.window.document.querySelector('.clothing-picker'), null);
+        assert.doesNotMatch(h.text(), /重新拍一张/);
+    } finally { await h.cleanup(); }
+});
+
+test('a prepaid pickup URL does not bypass generation or reopen payment when the round restores', async () => {
+    let ready = false;
+    const restored = paidSession({ ...fresh('paid-generating'), status: 'generating', originalUrl: '/original.jpg' });
+    const h = await harness(url => url === '/api/sessions/paid-generating' ? { ...restored, status: ready ? 'ready' : 'generating', images: ready ? [{ id: 'one', previewUrl: '/preview.jpg' }] : [] } : undefined, { saved: restored.id });
+    try {
+        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
+        assert.equal(h.dom.window.document.querySelector('.delivery, .payment'), null);
+        await h.click('本轮照片库');
+        assert.match(h.text(), /正在生成/);
+        await h.click('电影人像 · 正在生成');
+        assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
+        ready = true; await h.tick(1800);
+        assert.match(h.text(), /照片已生成|已付款/);
+        assert.equal(h.calls.some(c => /\/(orders|simulate|generate)$/.test(c.url)), false);
+        await h.click('手机取图');
+        assert.ok(h.dom.window.document.querySelector('.delivery'));
+    } finally { await h.cleanup(); }
+});
+
+test('unknown paid generation keeps retry blocked while allowing its original-photo delivery', async () => {
+    const restored = paidSession({ ...fresh('paid-unknown'), status: 'unknown', originalUrl: '/original.jpg', error: '结果未知' });
+    const h = await harness(url => url === '/api/sessions/paid-unknown' ? restored : undefined, { saved: restored.id });
+    try {
+        assert.match(h.text(), /不提供自动重试/);
+        assert.equal(Array.from(h.dom.window.document.querySelectorAll('button')).some(button => /重新生成|继续生成/.test(button.textContent || '')), false);
+        await h.click('先保存拍摄原片');
+        assert.match(h.text(), /扫码取图/);
+        await h.click('返回生成状态');
+        assert.match(h.text(), /不提供自动重试/);
+        assert.equal(h.calls.some(c => /\/(orders|simulate|generate)$/.test(c.url)), false);
+    } finally { await h.cleanup(); }
+});
+
+test('a late simulated payment cannot start generation for a visitor who has already ended', async () => {
+    const payment = deferred<unknown>();
+    const h = await harness(url => url.endsWith('/simulate') ? payment.promise : undefined);
+    try {
+        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent();
+        await h.click('查看套餐'); await h.click('模拟付款并生成');
+        await h.click('结束本次'); await h.click('开始拍照'); await h.click('电影人像');
+        const previous = paidSession({ ...fresh('session-1'), status: 'photographed', originalUrl: '/old.jpg' });
+        await act(async () => payment.resolve({ order: previous.order, session: previous, pickupUrl: previous.pickupUrl })); await h.flush();
+        assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-2');
+        assert.match(h.text(), /看向镜头/);
+        assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
+    } finally { payment.resolve({}); await h.cleanup(); }
+});
+
+test('demo photo enters confirmation without a file picker, payment or generation', async () => {
+    const h = await harness();
+    try {
+        await h.click('开始拍照'); await h.click('电影人像');
+        assert.match(h.text(), /演示样图，仅用于测试/);
+        assert.match(h.dom.window.document.querySelector('.camera-placeholder')?.textContent || '', /上传照片或使用演示照片/);
+        await h.click('使用演示照片');
+        assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'confirm');
+        assert.equal(h.dom.window.document.querySelector('img[alt="刚刚拍摄或上传的照片"]')?.getAttribute('src'), image);
+        assert.equal(h.button('查看套餐').disabled, true);
+        assert.equal(h.calls.filter(c => c.url === '/examples/film-reference.png').length, 1);
+        assert.equal(h.calls.some(c => /\/(photo|orders|simulate|generate)$/.test(c.url)), false);
+    } finally { await h.cleanup(); }
+});
+
+test('a late demo sample read cannot place a previous visitor photo into the next round', async () => {
+    const h = await harness(undefined, { deferReader: true });
+    try {
+        await h.click('开始拍照'); await h.click('电影人像'); await h.click('使用演示照片');
+        assert.equal(h.readers.length, 1);
+        await h.click('结束本次'); await h.click('开始拍照'); await h.click('电影人像');
+        await act(async () => h.readers[0]()); await h.flush();
+        assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'camera');
+        assert.equal(h.dom.window.document.querySelector(`img[src="${image}"]`), null);
+        assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-2');
+        assert.equal(h.calls.some(c => /\/(orders|simulate|generate)$/.test(c.url)), false);
     } finally { await h.cleanup(); }
 });
