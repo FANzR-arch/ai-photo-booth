@@ -1,25 +1,42 @@
-/* Stable navigation and sequential content handoff. */
-:root{view-transition-name:none}
-.kiosk-shell>main>section{view-transition-name:booth-page}
-.kiosk-shell .capture-copy{view-transition-name:booth-copy}
-.kiosk-shell[data-step="camera"] .camera-frame>video,
-.kiosk-shell[data-step="confirm"] .camera-frame>img,
-.kiosk-shell[data-step="generating"] .generation-photo>img,
-.kiosk-shell[data-step="results"] .original-print>img{view-transition-name:booth-photo}
+/* Separate entry/exit snapshots keep page geometry, header and footer stationary. */
+:root{
+ view-transition-name:none;
+ --booth-motion-ease:cubic-bezier(0.23,1,0.32,1);
+ --booth-motion-duration:220ms;
+}
+:root[data-booth-phase="out"] .kiosk-shell>main>section{view-transition-name:booth-page-out}
+:root[data-booth-phase="in"] .kiosk-shell>main>section{view-transition-name:booth-page-in}
+:root[data-booth-phase="out"] .kiosk-shell .capture-copy{view-transition-name:booth-copy-out}
+:root[data-booth-phase="in"] .kiosk-shell .capture-copy{view-transition-name:booth-copy-in}
+/* Sharing is limited to the shutter handoff, never the large generating/photo-results layouts. */
+:root[data-booth-phase][data-booth-from="camera"][data-booth-to="confirm"] .kiosk-shell[data-step="camera"] .camera-frame>video,
+:root[data-booth-phase][data-booth-from="camera"][data-booth-to="confirm"] .kiosk-shell[data-step="confirm"] .camera-frame>img{view-transition-name:booth-photo}
 ::view-transition{pointer-events:none}
-::view-transition-group(booth-page),::view-transition-group(booth-copy){animation-duration:440ms;animation-timing-function:cubic-bezier(.22,1,.36,1)}
-::view-transition-old(booth-page),::view-transition-old(booth-copy){animation:booth-content-out 110ms ease-out both;mix-blend-mode:normal}
-::view-transition-new(booth-page),::view-transition-new(booth-copy){animation:booth-content-in 330ms 100ms cubic-bezier(.22,1,.36,1) both;mix-blend-mode:normal}
-/* Photos stay visible independently of surrounding text. */
-::view-transition-group(booth-photo){animation-duration:440ms;animation-timing-function:cubic-bezier(.22,1,.36,1)}
-::view-transition-old(booth-photo),::view-transition-new(booth-photo){height:100%;object-fit:contain;animation-duration:220ms;mix-blend-mode:normal}
-:root[data-booth-to="payment"]::view-transition-new(booth-page){animation-name:booth-panel-in;animation-duration:400ms}
-:root[data-booth-from="payment"]::view-transition-old(booth-page){animation-name:booth-panel-out;animation-duration:140ms}
-:root[data-booth-to="pickup"]::view-transition-new(booth-page){animation-duration:400ms}
-@keyframes booth-content-out{from{opacity:1}to{opacity:0}}
-@keyframes booth-content-in{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
-@keyframes booth-panel-in{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
-@keyframes booth-panel-out{from{opacity:1;transform:translate3d(0,0,0)}to{opacity:0;transform:translate3d(0,16px,0)}}
+::view-transition-group(booth-page-out),
+::view-transition-group(booth-page-in),
+::view-transition-group(booth-copy-out),
+::view-transition-group(booth-copy-in){animation:none}
+::view-transition-old(booth-page-out),
+::view-transition-old(booth-copy-out){animation:booth-out-forward 60ms var(--booth-motion-ease) both;mix-blend-mode:normal}
+::view-transition-new(booth-page-in),
+::view-transition-new(booth-copy-in){animation:booth-in-forward 160ms 60ms var(--booth-motion-ease) both;mix-blend-mode:normal}
+:root[data-booth-direction="back"]::view-transition-old(booth-page-out),
+:root[data-booth-direction="back"]::view-transition-old(booth-copy-out){animation-name:booth-out-back}
+:root[data-booth-direction="back"]::view-transition-new(booth-page-in),
+:root[data-booth-direction="back"]::view-transition-new(booth-copy-in){animation-name:booth-in-back}
+/* New results appear quietly instead of shrinking the source photo into a different panel. */
+:root[data-booth-from="generating"][data-booth-to="results"]::view-transition-old(booth-page-out){animation-name:booth-fade-out}
+:root[data-booth-from="generating"][data-booth-to="results"]::view-transition-new(booth-page-in){animation-name:booth-fade-in}
+::view-transition-group(booth-photo){animation-duration:var(--booth-motion-duration);animation-timing-function:var(--booth-motion-ease)}
+::view-transition-old(booth-photo),::view-transition-new(booth-photo){height:100%;object-fit:contain;mix-blend-mode:normal}
+::view-transition-old(booth-photo){animation:booth-fade-out var(--booth-motion-duration) var(--booth-motion-ease) both}
+::view-transition-new(booth-photo){animation:booth-fade-in var(--booth-motion-duration) var(--booth-motion-ease) both}
+@keyframes booth-out-forward{from{opacity:1;transform:translate3d(0,0,0)}to{opacity:0;transform:translate3d(-8px,0,0)}}
+@keyframes booth-in-forward{from{opacity:0;transform:translate3d(12px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes booth-out-back{from{opacity:1;transform:translate3d(0,0,0)}to{opacity:0;transform:translate3d(8px,0,0)}}
+@keyframes booth-in-back{from{opacity:0;transform:translate3d(-12px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes booth-fade-out{from{opacity:1}to{opacity:0}}
+@keyframes booth-fade-in{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){
  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
 }
