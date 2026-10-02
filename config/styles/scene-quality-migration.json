@@ -1,6 +1,9 @@
 {
   "coming-of-age": {
-    "prompt": "bf4834bdd5cbf542458722e4ec78ee11c8fc9f367e582061d615826fa64b1fa9",
+    "prompt": [
+      "bf4834bdd5cbf542458722e4ec78ee11c8fc9f367e582061d615826fa64b1fa9",
+      "fb442804bbcf66be28c86c4310141e8ca17e0d997c2a8e60b946016c4ffa95dd"
+    ],
     "description": "840864090ac3b794425010e11f3120a2d823d6edb710e3531ff5e13a8947b659",
     "exampleUrl": "06e4d9f1f870dc26dc1335eaedb70b7c05ca79e445f7e7c4ad068c3b295b07e5",
     "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
@@ -165,10 +168,16 @@
     "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
   },
   "doctor-relaxed": {
-    "prompt": "fd365d020ffaa224b5cd7ebd8ce7df1959e49634d037be273815fd2fb6961d91"
+    "prompt": [
+      "fd365d020ffaa224b5cd7ebd8ce7df1959e49634d037be273815fd2fb6961d91",
+      "aeeb6f5f27a2e61b4f1486d0b640dd4a6c2037bb0b5c4c1c5590f9abe4328651"
+    ]
   },
   "doctor-folder": {
-    "prompt": "16a51a6b0add8098c88efd6670a172beabcd183b659d4486a0ef6b7322e55baa"
+    "prompt": [
+      "16a51a6b0add8098c88efd6670a172beabcd183b659d4486a0ef6b7322e55baa",
+      "636c54a24fc511e9539cee256d8160effe127470bee79c3c6a28b52e68004443"
+    ]
   },
   "doctor-minimal": {
     "prompt": "0f498bfe893d7df6bdf2d46ae07c40a10bf88af9817f0d301cf60b25f99b9ffe"
@@ -176,7 +185,8 @@
   "warm-low-key": {
     "prompt": [
       "88e9c911b3fbf9e7a4df5b56eb48e65479b210cb743f7012b82602889e466714",
-      "93187df057afa17eb04f8dcbe985b79b023711eb1c6343a36e7e21e3ff10a001"
+      "93187df057afa17eb04f8dcbe985b79b023711eb1c6343a36e7e21e3ff10a001",
+      "9f17880064dd9e8b02876ec28f2393f3b76fb2e72b9382e735d2c380ddb284c4"
     ]
   },
   "birthday-home": {
@@ -185,7 +195,8 @@
   "birthday-gold": {
     "prompt": [
       "9ac9d2658ee4ec98e86bd2cdd66e247121e797aa4458a6990597a8d2c85ba59a",
-      "d4af251abb578030eae60d9e7d954516fbd5aba637d17b8ed1736ccf8d46c434"
+      "d4af251abb578030eae60d9e7d954516fbd5aba637d17b8ed1736ccf8d46c434",
+      "37bcf289c6cb8d431c2d02823d5a5127abb542c18bdf0919138248fa6602e11d"
     ],
     "description": [
       "8740f6889caa1eb4b16d63af31e3f0e07e334b1ce27d9422b2335762c7c470c4"
@@ -194,7 +205,8 @@
   "wedding-bride": {
     "prompt": [
       "9530cf1abc47eefd834ca3032650974fa6e5a40226829c534382e51b773a77d6",
-      "7019f8afea1eed806262b542e61ea487026aff519c3c8d79aa996436bbc705f5"
+      "7019f8afea1eed806262b542e61ea487026aff519c3c8d79aa996436bbc705f5",
+      "2b666a25a6d0a274907a5886cab611bbc5574948789b922b54688e9546c4f4d1"
     ],
     "name": [
       "13822ff0df4f6b26abf9c88d3478826df16f67a9387d00117d6668de4a8870f8"
@@ -206,12 +218,14 @@
   "island-coconut": {
     "prompt": [
       "d94c5ddec325b7e3c701295ba8527670fca34fe81a7f35e70e1fc3cb8a19741e",
-      "22cada5d1a566d2fabb6e2097107746f41b306b4779b782a27d7a6cdad99cccc"
+      "22cada5d1a566d2fabb6e2097107746f41b306b4779b782a27d7a6cdad99cccc",
+      "6765e68154358a038f6bb12aca1c3b7dcda77fafcca0e7088e95e480c4ea60e2"
     ]
   },
   "wedding-flash": {
     "prompt": [
-      "3810c8783e834ee39d9789bb6841b65d1e82a08beb068e921e6c0fb0b93d6b47"
+      "3810c8783e834ee39d9789bb6841b65d1e82a08beb068e921e6c0fb0b93d6b47",
+      "aabb9ab81bdd3cf0b583ec492226484806f1996c9f956a4ebb1d88872cc69e01"
     ]
   },
   "wedding-groom": {
@@ -219,7 +233,8 @@
       "ad0753425575084fd5280af86c3f3f5bba1655871c2fe1438e466f871b85ff68"
     ],
     "prompt": [
-      "c63c41b645f1e1185312653b9312c8fbae8f2a0c0fb24e7cd09db750696aa2a6"
+      "c63c41b645f1e1185312653b9312c8fbae8f2a0c0fb24e7cd09db750696aa2a6",
+      "1a663e8e3ef8460455fd2da88c98d122f55ef962275f1e2c030514d4fbbb9342"
     ],
     "description": [
       "857f2b0f8a9a8a21b21caf41d9130dcd89034f520bcd350f59121fbdb031f425"
@@ -227,12 +242,37 @@
   },
   "wedding-heart-couple": {
     "prompt": [
-      "66b5239d61550e9928016cea455885b09f9a9499da1b5c02caa1a848acec5e11"
+      "66b5239d61550e9928016cea455885b09f9a9499da1b5c02caa1a848acec5e11",
+      "bae880585c4f4fc403cf527568346a5a60b10ce61651884f5eef8b01cf37def9"
     ]
   },
   "island-surprise": {
     "prompt": [
-      "3c2a54796c8032046ca2572250338a43a624d13ec7b0af77c5e7092bb73a6b9d"
+      "3c2a54796c8032046ca2572250338a43a624d13ec7b0af77c5e7092bb73a6b9d",
+      "914239fddf061919315989a7e6cf81fcef0c296d41a32ec0ddf34e4f82524e1c"
+    ],
+    "description": [
+      "628f747e371b51deb0057f451e64183727a48d85299ad55e774bd27a6cfea29a"
+    ]
+  },
+  "doctor-classic": {
+    "prompt": [
+      "75dd86fb81ce12c227667abd143833a60992530f10a6928d6d2cea330223cd67"
+    ]
+  },
+  "film-street-couple": {
+    "prompt": [
+      "ac5431920d6c6d17bfc0b93124a3c83dc440c66ed2f5094cb9de512e80500a61"
+    ]
+  },
+  "film-surf-couple": {
+    "prompt": [
+      "36c869977a2aaaaa6813be759c271c218e4206eb471b726b2d106f3792547175"
+    ]
+  },
+  "mirror-couple": {
+    "prompt": [
+      "457cae147d32c21a2f3dc3353327471f5a6933cd0e4a3a397d0dcde4c17487fe"
     ]
   }
 }

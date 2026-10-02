@@ -18,7 +18,7 @@ export const importedScenes: { code: string; id: string; name: string; purpose: 
  {code:'09B',id:'wedding-groom',name:'朱红婚照 · 回应',purpose:'memory',orientation:'landscape3x2',people:1,description:'温暖微笑 · 回应画外花束',color:'#883b31'},
  {code:'09C',id:'wedding-heart-couple',name:'朱红婚照 · 合影',purpose:'together',orientation:'portrait',people:2,description:'并肩微笑 · 脸侧爱心手势',color:'#a54438'},
  {code:'10A',id:'island-coconut',name:'海岛写真 · 椰子',purpose:'self',orientation:'landscape3x2',people:1,description:'捧椰子指向镜头 · 热带日光',color:'#c9ad72'},
- {code:'10B',id:'island-surprise',name:'海岛写真 · 惊喜',purpose:'self',orientation:'landscape3x2',people:1,description:'指向自己的惊讶表情 · 海边小店',color:'#90b6b4'},
+ {code:'10B',id:'island-surprise',name:'海岛写真 · 惊喜',purpose:'self',orientation:'landscape3x2',people:1,description:'指向自己、轻松笑意 · 海边小店',color:'#90b6b4'},
  {code:'10C',id:'mirror-couple',name:'幕后镜面合影',purpose:'together',orientation:'portrait',people:2,description:'白衣、黑帽与粉色手机 · 轻松自拍',color:'#c3bfb6'},
 ];
 
@@ -31,6 +31,23 @@ export function adaptScenePrompt(source: string, people: 1 | 2, code?: string) {
   ? '仅使用上传照片中的这一个人作为唯一身份参考，没有第二张风格图片。保持真人的脸型、五官相对位置、眼睛形状、鼻形、唇形、眉形、肤色、发际线、原有发长、年龄感、性别特征、眼镜及可辨识的痣与胡须；不美化成另一个人，不因生日或成人礼主题强行改变年龄。服装、动作、环境与文字设计只按下文描述执行。'
   : '上传照片须包含两位本人，原照片左侧人物为A、右侧人物为B。只有这一张身份参考，没有额外风格图片。保持各自脸型、五官比例、肤色、发际线、眼镜及年龄感；不混脸、不交换身份、不创造或复制伴侣。A、B的站位、服装角色与互动按下文执行；发型保留真人基本长度。';
  const adapted = paragraphs.join('\n\n')
+  // Soften the supplied expression directions without changing the scene's physical actions.
+  .replaceAll('露出上排牙齿的自然微笑，嘴角上扬、眼神明亮，不是大笑。', '闭唇轻微一笑，嘴角轻抬、眼神明亮放松，不刻意露齿。')
+  .replaceAll('直视镜头，露上排牙齿的开朗微笑，面颊轻抬，眼睛自然弯起。', '直视镜头，闭唇轻微一笑，眉眼舒展，神态亲切专业，不刻意露齿或眯眼。')
+  .replaceAll('表情是收敛的露齿微笑，嘴唇自然打开一点，不做大笑，不露出夸张牙齿。', '表情是放松的闭唇浅笑，嘴角轻抬，眉眼舒展，不刻意露齿。')
+  .replaceAll('露出整齐上排牙齿的自然笑容，嘴角与眼角同时微微抬起。', '闭唇轻微一笑，嘴角轻抬，眼睛保持自然开合，神态亲切专业。')
+  .replaceAll('A直视镜头，嘴张开露齿，呈现惊喜而开心的笑；B同样看镜头，露上排牙齿自然微笑。', 'A直视镜头，嘴角轻抬，带轻松的笑意；B同样看镜头，闭唇浅笑。两人眉眼自然舒展，不刻意张嘴或露齿。')
+  .replaceAll('露上排牙齿灿烂微笑', '闭唇轻微一笑，眼神放松')
+  .replaceAll('轻松露齿微笑', '轻松闭唇浅笑')
+  .replaceAll('眼神直接但安静，嘴唇轻轻分开，可隐约看见少量上齿，不做露齿大笑，不做冷酷皱眉。', '眼神直接但安静，嘴唇自然轻合，神态平静放松，不刻意露齿或皱眉。')
+  .replaceAll('嘴微张、露上排牙齿，带发现惊喜时自然明亮的笑。', '嘴唇自然轻合，嘴角轻抬，眼神明亮放松，以轻微笑意表达收到惊喜的开心。')
+  .replaceAll('嘴唇轻轻嘟起，像做一个俏皮亲吻表情，不微笑露齿。', '嘴唇自然轻合，嘴角带一点俏皮笑意，眉眼放松，不嘟嘴或刻意露齿。')
+  .replaceAll('露齿灿烂微笑，眼睛自然弯起。', '闭唇浅笑，眼神温暖，眼睛保持自然开合。')
+  .replaceAll('像笑着回应画外递来的花束', '像轻松回应画外递来的花束')
+  .replaceAll('两人都看镜头并开心露齿微笑。', '两人都看镜头，嘴角轻抬，带各自自然的浅笑，不统一成夸张的露齿笑。')
+  .replaceAll('表情是活泼惊喜：眼睛睁大一点，嘴巴自然张开，像正在喊朋友过来，不是闭唇微笑。', '表情轻松愉快：嘴唇自然轻合，嘴角略微上扬，眼神明亮放松，像轻松招呼朋友，不张嘴喊叫或刻意睁大眼睛。')
+  .replaceAll('头略向后一点，眉毛抬起，眼睛睁大，嘴形成自然的小O形，表现“是在说我吗”的惊讶，不露齿大笑。', '头轻微侧偏，眉眼自然舒展，嘴唇自然轻合并带一点笑意，以视线和指向自己的手势表达“是在说我吗”的轻松惊喜，不抬眉瞪眼或做O形嘴。')
+  .replaceAll('露齿微笑。', '闭唇浅笑，眼神放松。')
   .replaceAll('造型参考是干净中分、发丝贴顺、两侧头发收在耳后并在后方扎起的发型，搭配很小的精致耳饰；套用真人时以原发长为先。', '保留本人发长、原有分缝方向和发际线，只整理凌乱发丝。短发保持短发，不添加耳后长发或发髻；只有本人原为长发时可收在耳后。')
   .replaceAll('造型参考是带轻薄刘海的自然深色长发，一侧头发垂在胸前，另一侧收在耳后；套用真人时保留原本的发长和辨识度。', '保留本人发长和原有轮廓，头发整理自然柔顺。短发保持短发；只有本人原为长发时才允许一侧垂在胸前、另一侧收在耳后。')
   .replaceAll('原样片造型是黑色长发、近中分、蓬松大波浪，头顶和额前保留几根不完全服帖的细发。大面积黑发沿两侧肩膀落下，形成包围脸部的深色轮廓。套用真人时保留其发长与发际线，只借用自然蓬松感。', '发型只整理原照已有头发：保持原来的发际线、分缝方向、发长和耳侧轮廓，头顶带自然蓬松度及几根细发。短发人物绝不生成肩部长发、发髻或额外发束。')

@@ -3,12 +3,31 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 import { createHash } from 'node:crypto';
-import { importedScenes } from '../packages/shared/imported-scenes';
+import { importedScenes, adaptScenePrompt } from '../packages/shared/imported-scenes';
+import { readdirSync } from 'node:fs';
+import path from 'node:path';
 import { orientedSize, orientationRatio } from '../packages/shared/photo-orientation';
 import { generationPrompt } from '../apps/server/generation-prompt';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from '../apps/server/photo-quality';
 import type { Style } from '../packages/shared/types';
 const styles:Style[]=JSON.parse(readFileSync('config/styles/styles.json','utf8'));
+
+test('imported scenes keep source provenance and physical actions while softening expressive faces', () => {
+ const sourceDir='docs/sources/prompt-import-2026-09-29/单张照片提示词';
+ for(const scene of importedScenes){
+  const filename=readdirSync(sourceDir).find(name=>name.startsWith(scene.code+'｜'))!;
+  const source=readFileSync(path.join(sourceDir,filename),'utf8');
+  const style=styles.find(s=>s.id===scene.id)!;
+  assert.equal(style.prompt,adaptScenePrompt(source,scene.people,scene.code),scene.id);
+  assert.doesNotMatch(style.prompt!,/露上排牙齿|露出整齐上排牙齿|露齿灿烂微笑|开心露齿微笑|嘴巴自然张开|眼睛睁大，嘴形成自然的小O形|像做一个俏皮亲吻表情/,scene.id);
+ }
+ const prompt=(id:string)=>styles.find(s=>s.id===id)!.prompt!;
+ assert.match(prompt('island-surprise'),/两只手的食指都指向自己的胸口/);
+ assert.match(prompt('island-coconut'),/食指指向观看者/);
+ assert.match(prompt('wedding-bride'),/分别叉在两侧腰部/);
+ assert.match(prompt('wedding-heart-couple'),/爱心/);
+ assert.match(prompt('film-street-couple'),/环绕B的颈部与后肩/);
+});
 
 test('all source scenes exist once, singles are available and two-person scenes stay pending',()=>{
  assert.equal(importedScenes.length,17);

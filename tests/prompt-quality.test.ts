@@ -7,6 +7,27 @@ import type { Style } from '../packages/shared/types';
 
 const styles: Style[] = JSON.parse(readFileSync('config/styles/styles.json', 'utf8'));
 
+test('all presets and clothing modes apply restrained expressions after editable theme and outfit directions', () => {
+    for (const style of styles) {
+        // Existing admin prompts and session snapshots may still request exaggerated expressions.
+        const custom = { ...style, prompt: '主题要求：张嘴大笑、睁大眼睛，摆出夸张表情。', outfitPrompt: '搭配红色外套，露齿大笑。' };
+        for (const clothing of ['keep', 'theme'] as const) {
+            const prompt = generationPrompt(custom, clothing, style.sceneOrientation ?? 'portrait');
+            const ruleAt = prompt.indexOf('【表情幅度】');
+            assert.ok(ruleAt > prompt.indexOf(custom.prompt), style.id);
+            if (clothing === 'theme' && style.generationPreset !== 'coming-of-age') {
+                assert.ok(ruleAt > prompt.indexOf(custom.outfitPrompt), style.id);
+            }
+            assert.equal(prompt.split('【表情幅度】').length, 2, style.id);
+            assert.match(prompt, /默认嘴唇自然轻合/);
+            assert.match(prompt, /原照已有的轻微露齿笑可自然保留，不扩大嘴部开合/);
+            assert.match(prompt, /人物动作与视线仍按主题设计/);
+            assert.match(prompt, /若上文要求更夸张的表情，以本段的自然幅度为准/);
+            assert.match(prompt, /合照逐人调整，不把所有人复制成同一种笑容/);
+        }
+    }
+});
+
 test('standard themes respect orientation and allow new poses while prioritizing face identity in both clothing modes', () => {
     for (const style of styles) {
         if (style.generationPreset) continue;
