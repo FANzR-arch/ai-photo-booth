@@ -1,8 +1,15 @@
 /** Interactive local-only recovery. Never accepts passwords in command-line arguments. */
 import { createInterface } from 'node:readline/promises';
 import { Writable } from 'node:stream';
-import { setAdminPassword } from '../apps/server/admin-auth.js';
+import { rmSync } from 'node:fs';
+import { setAdminPassword, adminPasswordPath, defaultAdminPassword } from '../apps/server/admin-auth.js';
 try {
+    if (process.argv.includes('--default')) {
+        // Removing the file restores the built-in default; the next login stores it again.
+        rmSync(adminPasswordPath(process.cwd()), { force: true });
+        console.log(`管理员密码已重置为默认密码 ${defaultAdminPassword}。已有登录失效；请在 /admin 登录后修改。未调用 AI API。`);
+        process.exit(0);
+    }
     let password: string, confirmation: string;
     if (process.stdin.isTTY) {
         const muted = new Writable({ write(_chunk, _encoding, callback) { callback(); } });

@@ -57,9 +57,9 @@ export function AdminAccess({ children }: { children: (lock: () => Promise<void>
         {error && <p className="error" role="alert">{error}</p>}
         {!status ? <p>{error ? '请检查服务连接后刷新页面。' : '正在检查工作台…'}</p> : <form className="editor-fields" onSubmit={async e => {
             e.preventDefault(); if (busy) return; setBusy(true); setError('');
-            try { const value = await api<Status>(status.configured ? '/api/admin/auth/login' : '/api/admin/auth/setup', { password }); setPassword(''); setStatus(value); }
+            try { const value = await api<Status>('/api/admin/auth/login', { password }); setPassword(''); setStatus(value); }
             catch (cause) { setError((cause as Error).message); setPassword(''); try { setStatus(await api<Status>('/api/admin/auth/status')); } catch {} }
             finally { setBusy(false); }
-        }}>{!status.configured && <p>首次设置密码，至少 8 位。</p>}<label>管理员密码<input type="password" autoComplete={status.configured ? 'current-password' : 'new-password'} value={password} minLength={status.configured ? 1 : 8} maxLength={128} onChange={e => setPassword(e.target.value)} autoFocus required /></label><button className="primary" disabled={busy || !password}>{busy ? '正在解锁…' : status.configured ? '解锁' : '设置并解锁'}</button></form>}
+        }}><label>管理员密码<input type="password" autoComplete="current-password" value={password} maxLength={128} onChange={e => setPassword(e.target.value)} autoFocus required /></label><button className="primary" disabled={busy || !password}>{busy ? '正在解锁…' : '解锁'}</button></form>}
     </main></div>;
 }

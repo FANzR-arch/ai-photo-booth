@@ -7,17 +7,17 @@ cd "$root"
 [[ -f .mac-ready && -x runtime/bin/node ]] || { echo '请先运行 install-mac.command；中断的安装可运行 scripts/macos/prepare.sh。'; exit 1; }
 export PATH="$root/runtime/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 echo '咔嚓！拍照亭 · Mac 设备联调'
-echo '当前仍为模拟支付；应用内自动打印和公网取图尚未接入。'
+echo '程序内无付款环节（现场先收费）；自动打印和公网取图尚未接入。'
 echo '1  免费联调（模拟图片，独立数据，不调用 AI API）'
 echo '2  配置真实生图 API（密钥输入不回显）'
-echo '3  启动真实生图（生成时消耗 API 额度，支付仍为模拟）'
-echo '4  导出设备诊断（不包含密钥、照片、订单）'
-echo '5  设置或重置管理员密码（已有登录将失效）'
+echo '3  启动真实生图（生成时消耗 API 额度）'
+echo '4  导出设备诊断（不包含密钥和照片）'
+echo '5  重置管理员密码为默认 88888888（已有登录将失效）'
 echo '0  退出'
 read -r -p '请选择 [1/2/3/4/5/0]：' choice
 case "$choice" in
   5)
-    node --import ./node_modules/tsx/dist/loader.mjs scripts/admin-password.ts
+    node --import ./node_modules/tsx/dist/loader.mjs scripts/admin-password.ts --default
     ;;
   1|3)
     export NODE_ENV=production BOOTH_OPEN_BROWSER=1

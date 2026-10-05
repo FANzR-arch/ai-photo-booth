@@ -14,23 +14,22 @@ export const photoCategories = [
         'coming-of-age', 'birthday-home', 'birthday-gold', 'memory-07', 'memory-08', 'festival',
     ] },
     { id: 'wedding', name: '婚礼写真', note: '婚纱、西装与复古婚礼布景', purpose: 'memory', styles: [
-        'wedding-bride', 'wedding-groom', 'wedding-flash', 'wedding-heart-couple',
+        'wedding-bride', 'wedding-groom',
     ] },
     { id: 'together', name: '亲友合照', note: '情侣、好友与家人一起入镜', purpose: 'together', styles: [
         'together-01', 'together-02', 'together-03', 'together-04', 'together-05',
         'together-06', 'together-07', 'together-08', 'together-09', 'together-10',
-        'film-street-couple', 'film-surf-couple', 'mirror-couple',
     ] },
     { id: 'lifestyle', name: '旅行日常', note: '海岛、街头、书店与四季生活', purpose: 'memory', styles: [
         'island-coconut', 'island-surprise', 'memory-04', 'memory-03', 'memory-01', 'memory-02',
-        'memory-05', 'memory-06', 'memory-09', 'memory-10', 'film', 'city',
+        'memory-05', 'memory-06', 'memory-09', 'memory-10', 'film',
     ] },
     { id: 'creative', name: '创意艺术', note: '动画、绘画与手作材质的人像演绎', purpose: 'creative', styles: [
         'cartoon', 'anime', 'pixel', 'lowpoly', 'watercolor', 'oilpainting', 'charcoal', 'inkwash',
         'popart', 'risograph', 'cyanotype', 'papercut', 'clay', 'felt', 'stainedglass', 'mosaic',
     ] },
     // Custom styles remain discoverable without guessing their content from their names or IDs.
-    { id: 'other', name: '其他模板', note: '新增与自定义主题', purpose: 'creative', styles: ['brand'] },
+    { id: 'other', name: '其他模板', note: '新增与自定义主题', purpose: 'creative', styles: [] },
 ] as const;
 export type PhotoCategory = typeof photoCategories[number]['id'];
 

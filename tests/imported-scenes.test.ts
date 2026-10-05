@@ -25,13 +25,13 @@ test('imported scenes keep source provenance and physical actions while softenin
  assert.match(prompt('island-surprise'),/两只手的食指都指向自己的胸口/);
  assert.match(prompt('island-coconut'),/食指指向观看者/);
  assert.match(prompt('wedding-bride'),/分别叉在两侧腰部/);
- assert.match(prompt('wedding-heart-couple'),/爱心/);
- assert.match(prompt('film-street-couple'),/环绕B的颈部与后肩/);
 });
 
-test('all source scenes exist once, singles are available and two-person scenes stay pending',()=>{
- assert.equal(importedScenes.length,17);
+test('all kept source scenes exist once and are available; scenes without covers are retired',()=>{
+ assert.equal(importedScenes.length,12);
  assert.equal(importedScenes.filter(s=>s.people===1).length,12);
+ const retired=JSON.parse(readFileSync('config/styles/retired-styles.json','utf8'));
+ for(const id of ['wedding-flash','film-street-couple','film-surf-couple','wedding-heart-couple','mirror-couple','city','brand']){assert.ok(Object.hasOwn(retired,id),id);assert.equal(styles.some(s=>s.id===id),false,id);}
  for(const scene of importedScenes){
   const matches=styles.filter(s=>s.id===scene.id);assert.equal(matches.length,1);
   const style=matches[0];assert.equal(style.enabled,scene.people===1);assert.equal(style.sceneOrientation,scene.orientation);

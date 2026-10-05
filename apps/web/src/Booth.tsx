@@ -84,7 +84,7 @@ export function Booth() {
         captureTimer.current = null;
     } setCount(0); };
     const applySession = (s: Session) => { setSession(s); setPickup(s.pickupUrl || ''); setOrientation(drafts.current.get(s.id)?.orientation ?? s.orientation ?? 'portrait'); setClothingMode(drafts.current.get(s.id)?.clothingMode ?? s.clothingMode ?? 'keep');
-    // A prepaid pickup URL may exist before an image does. Restore the work, not its QR.
+    // The pickup URL is issued when generation starts, before an image exists. Restore the work, not its QR.
     if (s.status === 'ready' || s.status === 'partial') {
         setSelected(s.images.slice(0, 1).map(i => i.id));
         setStep('results');

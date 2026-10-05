@@ -10,7 +10,7 @@ export const purposes = [
  { id: 'creative', name: '玩点不一样', note: '艺术化演绎，人物细节可能变化', styles: [] },
 ] as const;
 export type Purpose = typeof purposes[number]['id'];
-const realistic = new Set(['natural','business','editorial','cinema','film','festival','city','brand',...importedScenes.map(s=>s.id),...portraitCollection.map(s => s.id)]);
+const realistic = new Set(['natural','business','editorial','cinema','film','festival',...importedScenes.map(s=>s.id),...portraitCollection.map(s => s.id)]);
 export const isRealistic = (id: string) => realistic.has(id);
 export function recommendedFrame(id: string, purpose?: Purpose): FrameId {
  if (importedScenes.some(s=>s.id===id)) return 'none';

@@ -32,4 +32,4 @@ PICKUP_BASE_URL 是手机可访问的网站根地址。现场使用固定局域�
 
 程序没有每日费用上限，请在 Seedream 账户侧设置适当额度并由现场工作人员管理设备。
 
-新导入模板携带 sourceCode、subjectCount、sceneOrientation。generationPreset=directed-portrait 使用完整场景提示词，固定其 3:4、4:3、2:3、4:5 或 3:2 比例；clothingMode 默认 theme，允许 keep。portrait4x5 和 landscape3x2 是新增画幅值。HQ 对应约 220 万像素的实测尺寸；照片归一化及输出质量设置见 README。双人模板暂不启用，不推断单人照片中的缺失伴侣。
+新导入模板携带 sourceCode、subjectCount、sceneOrientation。generationPreset=directed-portrait 使用完整场景提示词，固定其 3:4、4:3、2:3、4:5 或 3:2 比例；clothingMode 默认 theme，允许 keep。portrait4x5 和 landscape3x2 是新增画幅值。HQ 对应约 220 万像素的实测尺寸；照片归一化及输出质量设置见 README。没有样片的 7 款模板（含 5 款双人模板与城市、品牌限定）已删除（列入 retired-styles.json，旧会话仍可完成）；不推断单人照片中的缺失伴侣。

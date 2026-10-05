@@ -102,7 +102,7 @@ async function start() {
     try { await app.listen({ host: '0.0.0.0', port }); }
     catch (error) { await app.close(); throw error; }
     console.log(`AI 拍照亭已启动：${url} （管理入口 /admin）`);
-    console.log(`生成：${mode === 'seedream' ? 'Seedream 真实生图' : '本地模拟图片'}；支付：模拟支付，不会实际扣款。`);
+    console.log(`生成：${mode === 'seedream' ? 'Seedream 真实生图' : '本地模拟图片'}；程序内无付款环节。`);
     console.log(`数据保存在 ${path.join(process.cwd(), 'data')}，重启后继续使用。`);
     openBrowser();
     for (const signal of ['SIGINT', 'SIGTERM'] as const)

@@ -26,13 +26,7 @@
   "film": {
     "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
   },
-  "city": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
-  },
   "festival": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
-  },
-  "brand": {
     "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
   },
   "watercolor": {
@@ -222,12 +216,6 @@
       "6765e68154358a038f6bb12aca1c3b7dcda77fafcca0e7088e95e480c4ea60e2"
     ]
   },
-  "wedding-flash": {
-    "prompt": [
-      "3810c8783e834ee39d9789bb6841b65d1e82a08beb068e921e6c0fb0b93d6b47",
-      "aabb9ab81bdd3cf0b583ec492226484806f1996c9f956a4ebb1d88872cc69e01"
-    ]
-  },
   "wedding-groom": {
     "name": [
       "ad0753425575084fd5280af86c3f3f5bba1655871c2fe1438e466f871b85ff68"
@@ -238,12 +226,6 @@
     ],
     "description": [
       "857f2b0f8a9a8a21b21caf41d9130dcd89034f520bcd350f59121fbdb031f425"
-    ]
-  },
-  "wedding-heart-couple": {
-    "prompt": [
-      "66b5239d61550e9928016cea455885b09f9a9499da1b5c02caa1a848acec5e11",
-      "bae880585c4f4fc403cf527568346a5a60b10ce61651884f5eef8b01cf37def9"
     ]
   },
   "island-surprise": {
@@ -258,21 +240,6 @@
   "doctor-classic": {
     "prompt": [
       "75dd86fb81ce12c227667abd143833a60992530f10a6928d6d2cea330223cd67"
-    ]
-  },
-  "film-street-couple": {
-    "prompt": [
-      "ac5431920d6c6d17bfc0b93124a3c83dc440c66ed2f5094cb9de512e80500a61"
-    ]
-  },
-  "film-surf-couple": {
-    "prompt": [
-      "36c869977a2aaaaa6813be759c271c218e4206eb471b726b2d106f3792547175"
-    ]
-  },
-  "mirror-couple": {
-    "prompt": [
-      "457cae147d32c21a2f3dc3353327471f5a6933cd0e4a3a397d0dcde4c17487fe"
     ]
   }
 }

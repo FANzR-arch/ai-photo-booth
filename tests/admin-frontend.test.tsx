@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import React, { act } from 'react';
 import { JSDOM } from 'jsdom';
+import { AdminPasswordSettings } from '../apps/web/src/AdminPasswordSettings';
+import { AdminTestMode } from '../apps/web/src/AdminTestMode';
 import { AdminAccess } from '../apps/web/src/AdminAccess';
 import { AdminCameraSettings } from '../apps/web/src/AdminCameraSettings';
 
@@ -127,5 +129,36 @@ test('printing connection loss blocks resubmission and offers only a status quer
         assert.equal(buttons().find(b => b.textContent === '请确认打印状态')!.disabled, true);
         await act(async () => buttons().find(b => b.textContent === '查询打印状态')!.click()); await h.flush();
         assert.equal(count, 1); assert.match(h.dom.window.document.body.textContent || '', /请检查队列/);
+    } finally { await h.close(); }
+});
+
+test('mode switch offers only operation and test, and saves both test switches together', async () => {
+    const puts: unknown[] = [];
+    const h = await harness(<AdminTestMode onSaved={() => {}} />, () => {
+        let state = { testEntries: false, simulatedGeneration: false, locked: false };
+        Object.defineProperty(globalThis, 'fetch', { configurable: true, writable: true, value: async (_url: string, init?: { body?: string }) => {
+            if (init?.body) { const body = JSON.parse(init.body); puts.push(body); state = { ...state, ...body }; }
+            return { ok: true, status: 200, json: async () => state };
+        } });
+    });
+    try {
+        await h.flush();
+        const buttons = [...h.dom.window.document.querySelectorAll('.mode-switch button')] as HTMLButtonElement[];
+        assert.deepEqual(buttons.map(b => b.textContent), ['运营模式', '测试模式']);
+        assert.equal(buttons[0].getAttribute('aria-pressed'), 'true');
+        assert.match(h.dom.window.document.querySelector('.mode-note')?.textContent || '', /正式营业使用/);
+        assert.equal(h.dom.window.document.querySelectorAll('.test-mode-panel input').length, 0);
+        await act(async () => buttons[1].click()); await h.flush();
+        assert.deepEqual(puts, [{ testEntries: true, simulatedGeneration: true }]);
+        assert.equal(buttons[1].getAttribute('aria-pressed'), 'true');
+        assert.match(h.dom.window.document.querySelector('.mode-note')?.textContent || '', /不消耗额度/);
+    } finally { await h.close(); }
+});
+
+test('password panel shows no password hints', async () => {
+    const h = await harness(<AdminPasswordSettings />);
+    try {
+        assert.doesNotMatch(h.dom.window.document.body.textContent || '', /8888|默认/);
+        assert.equal([...h.dom.window.document.querySelectorAll('button')].find(b => b.textContent === '修改密码')?.disabled, true);
     } finally { await h.close(); }
 });

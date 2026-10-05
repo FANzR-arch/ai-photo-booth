@@ -27,7 +27,7 @@ test('every bundled template has one explicit content category and enabled cover
  assert.equal(photoCategoryFor('memory-03'),'lifestyle');
  assert.equal(photoCategoryFor('film'),'lifestyle');
  assert.equal(photoPurposeFor(styles.find(s=>s.id==='wedding-groom')!),'memory');
- assert.equal(photoPurposeFor(styles.find(s=>s.id==='wedding-heart-couple')!),'together');
+ assert.equal(photoPurposeFor({...styles.find(s=>s.id==='wedding-groom')!,subjectCount:2}),'together');
  const custom={...active[0],id:'custom-real-photo',name:'自定义写真'};
  assert.deepEqual(categoryStyles([custom],'other'),[custom]);
  assert.equal(categoryStyles([custom],'creative').length,0);

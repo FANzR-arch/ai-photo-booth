@@ -6,7 +6,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { parse } from 'dotenv';
 import { createApp, type AppOptions } from '../apps/server/app.js';
-import { setAdminPassword, adminPasswordPath, adminIdleMs, createAdminAccess } from '../apps/server/admin-auth.js';
+import { setAdminPassword, adminPasswordPath, adminIdleMs, createAdminAccess, defaultAdminPassword } from '../apps/server/admin-auth.js';
 
 const password = 'test-admin-password-2026';
 async function fixture(configured = true, options: AppOptions = {}) {
@@ -26,11 +26,38 @@ test('admin is closed before local setup while customer routes remain available'
     const f = await fixture(false);
     try {
         assert.equal((await f.req('/api/admin/auth/status')).json().configured, false);
-        assert.equal((await f.req('/api/admin/auth/login', { password })).statusCode, 409);
+        assert.equal((await f.req('/api/admin/auth/status')).json().defaultPassword, true);
+        assert.equal((await f.req('/api/admin/auth/login', { password })).statusCode, 401);
+        assert.equal(existsSync(adminPasswordPath(f.root)), false);
         for (const url of ['/api/admin', '/api/admin/config', '/api/admin/styles/test']) assert.equal((await f.req(url)).statusCode, 401);
         assert.equal((await f.req('/api/styles')).statusCode, 200);
         assert.equal((await f.req('/api/sessions', { styleId: 'test' })).statusCode, 200);
         assert.equal((await f.req('/api/admin/config', { apiKey: 'test-key', model: 'model' }, '', {}, 'PUT')).statusCode, 401);
+    } finally { await f.close(); }
+});
+
+test('default password unlocks first use, then can be changed and reset to default', async () => {
+    const f = await fixture(false);
+    try {
+        const first = await f.req('/api/admin/auth/login', { password: defaultAdminPassword });
+        assert.equal(first.statusCode, 200); assert.equal(first.json().defaultPassword, true);
+        assert.equal(JSON.parse(readFileSync(adminPasswordPath(f.root), 'utf8')).initial, true);
+        let cookie = String(first.headers['set-cookie']).split(';')[0];
+        const other = String((await f.req('/api/admin/auth/login', { password: defaultAdminPassword })).headers['set-cookie']).split(';')[0];
+        // Changing requires a session, the right current password and a non-default new password.
+        assert.equal((await f.req('/api/admin/auth/password', { currentPassword: defaultAdminPassword, newPassword: password })).statusCode, 401);
+        assert.equal((await f.req('/api/admin/auth/password', { currentPassword: 'wrong-password', newPassword: password }, other)).statusCode, 401);
+        assert.equal((await f.req('/api/admin/auth/password', { currentPassword: defaultAdminPassword, newPassword: defaultAdminPassword }, other)).statusCode, 400);
+        assert.equal((await f.req('/api/admin/auth/password', { currentPassword: defaultAdminPassword, newPassword: 'short' }, other)).statusCode, 400);
+        const changed = await f.req('/api/admin/auth/password', { currentPassword: defaultAdminPassword, newPassword: password }, other);
+        assert.equal(changed.statusCode, 200); assert.equal(changed.json().defaultPassword, false); assert.equal(changed.json().authenticated, true);
+        assert.equal((await f.req('/api/admin', undefined, cookie)).statusCode, 401);
+        assert.equal((await f.req('/api/admin', undefined, String(changed.headers['set-cookie']).split(';')[0])).statusCode, 200);
+        assert.equal((await f.req('/api/admin/auth/login', { password: defaultAdminPassword })).statusCode, 401);
+        cookie = await f.login();
+        rmSync(adminPasswordPath(f.root));
+        assert.equal((await f.req('/api/admin', undefined, cookie)).statusCode, 401);
+        assert.equal((await f.req('/api/admin/auth/login', { password: defaultAdminPassword })).statusCode, 200);
     } finally { await f.close(); }
 });
 

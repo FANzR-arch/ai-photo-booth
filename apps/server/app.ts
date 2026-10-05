@@ -245,6 +245,11 @@ export async function createApp(options: AppOptions = {}) {
         reply.header('Set-Cookie', `${cookieName}=${token}; Path=/api/admin; HttpOnly; SameSite=Strict${req.protocol === 'https' ? '; Secure' : ''}`);
         return admin.status(token);
     });
+    app.post('/api/admin/auth/password', { bodyLimit: 2048 }, async (req, reply) => {
+        const body = object(req.body), token = await admin.change(adminToken(req.headers.cookie), body.currentPassword, body.newPassword);
+        reply.header('Set-Cookie', `${cookieName}=${token}; Path=/api/admin; HttpOnly; SameSite=Strict${req.protocol === 'https' ? '; Secure' : ''}`);
+        return admin.status(token);
+    });
     app.post('/api/admin/auth/logout', async (req, reply) => {
         admin.logout(adminToken(req.headers.cookie));
         reply.header('Set-Cookie', `${cookieName}=; Path=/api/admin; HttpOnly; SameSite=Strict; Max-Age=0`);

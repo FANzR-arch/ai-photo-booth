@@ -8,18 +8,13 @@ export const importedScenes: { code: string; id: string; name: string; purpose: 
  {code:'02B',id:'doctor-relaxed',name:'医生肖像 · 自然',purpose:'self',orientation:'portrait',people:1,description:'浅蓝衬衫 · 双手自然低放',color:'#d5e2eb'},
  {code:'02C',id:'doctor-folder',name:'医生肖像 · 工作时刻',purpose:'self',orientation:'portrait4x5',people:1,description:'短袖白衣、文件夹 · 4:5 职业照',color:'#b3c1d1'},
  {code:'02D',id:'doctor-minimal',name:'医生肖像 · 简约',purpose:'self',orientation:'portrait',people:1,description:'黑色内搭 · 干净的职业神态',color:'#a3a7ac'},
- {code:'03',id:'wedding-flash',name:'直闪婚照',purpose:'together',orientation:'landscape',people:2,description:'灰底直闪 · 戒指盒与花束',color:'#b7b4b2'},
- {code:'04',id:'film-street-couple',name:'胶片日记 · 街头',purpose:'together',orientation:'portrait',people:2,description:'复古冰淇淋车 · 动态拥抱',color:'#995e4b'},
- {code:'05',id:'film-surf-couple',name:'胶片日记 · 冲浪',purpose:'together',orientation:'portrait',people:2,description:'热带海岛 · 双人冲浪板合照',color:'#72a7b0'},
  {code:'06',id:'warm-low-key',name:'暖光暗调肖像',purpose:'self',orientation:'poster',people:1,description:'橄榄灰背景 · 黑衣与温暖侧光',color:'#55584b'},
  {code:'07',id:'birthday-home',name:'生日照 · 居家',purpose:'memory',orientation:'poster',people:1,description:'奶油沙发与窗光 · 粉色花体字',color:'#d9b9bc'},
  {code:'08',id:'birthday-gold',name:'生日照 · 金色派对',purpose:'memory',orientation:'poster',people:1,description:'香槟造型与亮片帘 · 暖金光影',color:'#b39764'},
  {code:'09A',id:'wedding-bride',name:'朱红婚照 · 俏皮',purpose:'memory',orientation:'landscape3x2',people:1,description:'俏皮叉腰 · 画外递来的玫瑰',color:'#a33b2c'},
  {code:'09B',id:'wedding-groom',name:'朱红婚照 · 回应',purpose:'memory',orientation:'landscape3x2',people:1,description:'温暖微笑 · 回应画外花束',color:'#883b31'},
- {code:'09C',id:'wedding-heart-couple',name:'朱红婚照 · 合影',purpose:'together',orientation:'portrait',people:2,description:'并肩微笑 · 脸侧爱心手势',color:'#a54438'},
  {code:'10A',id:'island-coconut',name:'海岛写真 · 椰子',purpose:'self',orientation:'landscape3x2',people:1,description:'捧椰子指向镜头 · 热带日光',color:'#c9ad72'},
  {code:'10B',id:'island-surprise',name:'海岛写真 · 惊喜',purpose:'self',orientation:'landscape3x2',people:1,description:'指向自己、轻松笑意 · 海边小店',color:'#90b6b4'},
- {code:'10C',id:'mirror-couple',name:'幕后镜面合影',purpose:'together',orientation:'portrait',people:2,description:'白衣、黑帽与粉色手机 · 轻松自拍',color:'#c3bfb6'},
 ];
 
 export const textureDirection = '【成像质感】以清晰原片的真实摄影细节为准：眼睛与眼镜边缘对焦准确，保留鼻翼、面颊的自然细纹、细小毛孔和原有痣、胡须，不把毛孔夸张成砂砾。皮肤、针织、棉布、金属和背景分别呈现各自真实纹理，不用一层噪点代替所有材质。高光渐变柔和不溢出，暗部保留层次；胶片颗粒只在明确要求的场景中轻微出现，柔光光晕仅作用于高光和背景，不模糊人脸。避免强磨皮、蜡像光泽、HDR和锐化白边。人物动作、头部朝向和视线按场景重建，不锁定原照片姿势；身份特征与年龄感始终优先。';
