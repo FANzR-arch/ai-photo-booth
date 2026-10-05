@@ -1,8 +1,16 @@
 const key = 'snap-camera-device';
+const countdownKey = 'snap-camera-countdown';
+export const countdownOptions = [3, 5, 8, 10] as const;
+export const defaultCountdown = 5;
 export function selectedCamera(): string {
     try { return localStorage.getItem(key) || ''; } catch { return ''; }
 }
 export function saveCamera(deviceId: string) { localStorage.setItem(key, deviceId); }
+/** Seconds between pressing the shutter and the capture, long enough to step back to about one metre. */
+export function countdownSeconds(): number {
+    try { const value = Number(localStorage.getItem(countdownKey)); return (countdownOptions as readonly number[]).includes(value) ? value : defaultCountdown; } catch { return defaultCountdown; }
+}
+export function saveCountdown(seconds: number) { localStorage.setItem(countdownKey, String(seconds)); }
 export function cameraConstraints(deviceId = selectedCamera()): MediaStreamConstraints {
     return { video: { ...(deviceId ? { deviceId: { exact: deviceId } } : { facingMode: 'user' }), width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false };
 }

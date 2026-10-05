@@ -157,8 +157,8 @@ test('refreshed themes replace cached cards and remain immediately selectable in
         await h.click('更新电影人像');
         assert.equal(h.calls.find(c => c.url === '/api/sessions')?.body.styleId, style.id);
         assert.match(h.text(), /看向镜头/);
-        // Standing close gives the model a real body to work from instead of inventing distorted limbs.
-        assert.equal(h.dom.window.document.querySelector('.distance-tip')?.textContent, '尽量靠近一些，展示完整的面部和上半身');
+        // About one metre keeps the webcam's wide-angle lens from enlarging the head; the countdown gives time to step back.
+        assert.equal(h.dom.window.document.querySelector('.distance-tip')?.textContent, '按下拍照后有 5 秒倒计时，可以先退到约一米外，让头顶到腰部都在画面里。');
     } finally { refreshed.resolve([style]); await h.cleanup(); }
 });
 

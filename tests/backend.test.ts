@@ -33,6 +33,8 @@ async function fixture(options: AppOptions = {}) {
     } throw Error('generation did not finish'); };
     return { root, dataDir, photo, req, make, finish, get app() { return app; }, restart: async () => { await app.close(); cookie = ''; app = await createApp({ mode: 'demo', ...options, rootDir: root, dataDir }); }, close: async () => { await app.close(); rmSync(root, { recursive: true, force: true }); } };
 }
+// Local face detection now runs before the upstream call, so the provider is reached a few ticks after the request returns.
+const until = async (ok: () => boolean) => { for (let i = 0; i < 500 && !ok(); i++) await new Promise(r => setTimeout(r, 10)); };
 test('new bundled styles are added on restart without overwriting saved prompts or switches', async () => {
     const f = await fixture();
     try {
@@ -127,7 +129,7 @@ test('concurrent generation requests and restart produce one generation', async 
         const id = await f.make();
         await f.restart();
         const requests = await Promise.all(Array.from({ length: 8 }, () => f.req('POST', `/api/sessions/${id}/generate`, {})));
-        assert.ok(requests.every(response => response.statusCode === 200)); assert.equal(calls, 1);
+        assert.ok(requests.every(response => response.statusCode === 200)); await until(() => calls >= 1); assert.equal(calls, 1);
         assert.equal(new Set(requests.map(response => response.json().pickupUrl)).size, 1);
         release(); await f.finish(id); await f.restart();
         await f.req('POST', `/api/sessions/${id}/generate`, {});
@@ -187,7 +189,7 @@ test('duplicate generation makes one upstream call; finished task cannot regener
         const id = await f.make();
         await f.req('POST', `/api/sessions/${id}/generate`, {});
         await f.req('POST', `/api/sessions/${id}/generate`, {});
-        assert.equal(calls, 1);
+        await until(() => calls >= 1); assert.equal(calls, 1);
         release();
         const s = await f.finish(id);
         assert.equal(s.requestId, 'test-request');
@@ -220,8 +222,8 @@ test('clothing choice reaches the provider, survives restart, and cannot change 
         assert.match(prompts[1], /用户选择：按主题换装/); assert.match(prompts[1], /藏蓝夹克与米白衬衫/); assert.match(prompts[1], /画面比例严格为4:3/);
         for (const prompt of prompts) {
             assert.match(prompt, /身体侧转30度，双臂交叉，微笑看镜头/);
-            assert.match(prompt, /人脸一致性是最高优先级/);
-            assert.match(prompt, /服装是否更换不限制动作设计/);
+            assert.match(prompt, /一眼可辨，不换脸/);
+            assert.match(prompt, /真实头身比例/);
             assert.doesNotMatch(prompt, /不改变身体比例、动作或互动|保留姿态、人物间的相对位置|沿用原照睁闭眼状态/);
         }
         const repeated = await f.req('POST', `/api/sessions/${changed}/generate`, { clothingMode: 'keep' });
@@ -303,8 +305,8 @@ test('quality upgrade reaches new generations while preserving settings, custom 
         assert.equal(received.length, 2);
         assert.ok(received[1].prompt.includes(bundled.prompt));
         assert.match(received[1].prompt, /店内藏蓝夹克/);
-        assert.match(received[1].prompt, /合照景深覆盖每个人的面部/);
-        assert.match(received[1].prompt, /不拉伸人物、不裁掉合照边缘的人/);
+        assert.match(received[1].prompt, /克制的电影色调/);
+        assert.match(received[1].prompt, /腰部以上半身构图/);
         assert.doesNotMatch(received[1].prompt, /3:4/);
         assert.equal(received[1].size, '2048x1536');
 
@@ -440,7 +442,7 @@ test('coming-of-age poster uses the supplied art direction, fixed 2:3 size and o
         assert.equal((await f.finish(session.id)).status, 'ready');
         assert.equal(received.length, 1); assert.equal(received[0].size, '1216x1824');
         assert.ok(received[0].prompt.includes(poster.prompt));
-        for (const text of ['你好', '我的18岁', 'Hello, eighteen', 'Coming of age ceremony', 'Celebration', 'I am just right at every age', '闭唇轻微一笑', '【表情幅度】', '约30度', '银白色薄浮雕']) assert.ok(received[0].prompt.includes(text), text);
+        for (const text of ['你好', '我的18岁', 'Hello, eighteen', 'Coming of age ceremony', 'Celebration', 'I am just right at every age', '闭唇轻微一笑', '表情放松自然', '约30度', '银白色薄浮雕']) assert.ok(received[0].prompt.includes(text), text);
         assert.doesNotMatch(received[0].prompt, /不生成文字|沿用原照睁闭眼状态|保留原服装|3:4|4:3|不新增手势/);
         assert.match(received[0].prompt, /不据此改变参考人物的真实年龄感/);
         const regular = await f.make();

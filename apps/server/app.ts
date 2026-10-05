@@ -15,6 +15,8 @@ import { isPhotoOrientation, orientedSize } from '../../packages/shared/photo-or
 import { isClothingMode } from '../../packages/shared/clothing.js';
 import { generationPrompt } from './generation-prompt.js';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
+import { frameReference, detectFaces } from './reference-framing.js';
+import { defaultPortraitSettings, isBeautyLevel, type PortraitSettings, type DistanceHint } from '../../packages/shared/portrait-settings.js';
 import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
 import { createMacPrinter, type MacPrinter } from './mac-printer.js';
@@ -86,6 +88,10 @@ export async function createApp(options: AppOptions = {}) {
         return { testEntries: mode === 'demo' || !!saved?.testEntries, simulatedGeneration: mode === 'demo' || !!saved?.simulatedGeneration, locked: mode === 'demo' };
     };
     const generationMode = (): Mode => testSettings().simulatedGeneration ? 'demo' : 'seedream';
+    const portraitSettings = (): PortraitSettings => {
+        const saved = get<Partial<PortraitSettings> & { id: string }>('setting', 'portrait');
+        return { beauty: isBeautyLevel(saved?.beauty) ? saved.beauty : defaultPortraitSettings.beauty, reframe: typeof saved?.reframe === 'boolean' ? saved.reframe : defaultPortraitSettings.reframe };
+    };
     const providerReady = (generation: Mode) => generation === 'demo' || !!options.provider || config.status().activeConfigured;
     const health = (): Health => ({ service: 'snap-club', mode, generation: generationMode(), testMode: testSettings().testEntries, configured: providerReady(generationMode()), model: config.credentials().model, imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
     mkdirSync(data, { recursive: true });
@@ -297,6 +303,18 @@ export async function createApp(options: AppOptions = {}) {
         throw fail('无法读取照片，请更换 JPEG 或 PNG 图片');
     } };
     app.get('/api/health', async () => health());
+    // Live distance feedback for the kiosk viewfinder: a small frame in, a hint out. Runs locally; nothing is stored.
+    app.post('/api/camera/check', { bodyLimit: 768 * 1024 }, async (req) => {
+        const v = object(req.body).dataUrl;
+        if (typeof v !== 'string' || !/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(v)) throw fail('取景帧无效');
+        const frame = Buffer.from(v.slice(v.indexOf(',') + 1), 'base64');
+        try {
+            const { faces, height } = await detectFaces(frame);
+            const ratio = faces[0] ? faces[0].height / height : 0;
+            const hint: DistanceHint = !faces.length ? 'none' : ratio > 0.27 ? 'farther' : ratio < 0.09 ? 'closer' : 'ok';
+            return { faces: faces.length, faceHeightRatio: Number(ratio.toFixed(3)), hint };
+        } catch { return { faces: 0, faceHeightRatio: 0, hint: 'unknown' as DistanceHint }; }
+    });
     app.get('/api/styles', async () => all<Style>('style').filter(s => s.enabled).map(({ prompt, outfitPrompt, ...s }) => s));
     app.get<{ Params: { id: string } }>('/api/sessions/:id/original', async (req, reply) => {
         const s = session(req.params.id);
@@ -334,7 +352,16 @@ export async function createApp(options: AppOptions = {}) {
             }
             else {
                 const provider = options.provider ?? (await import('./providers/seedream.js')).generate;
-                result = await provider({ photo, prompt: generationPrompt(s.snapshot!, s.clothingMode ?? 'keep', orientation), size: outputSize, count }, config.credentials());
+                const portrait = portraitSettings();
+                let reference: Buffer = photo;
+                if (portrait.reframe) {
+                    // Local face detection decides whether the reference needs padding; failures fall back to the original photo.
+                    const framing = await frameReference(photo, orientation);
+                    const { photo: _framed, ...summary } = framing;
+                    writeFileSync(path.join(data, 'sessions', id, 'reference.json'), JSON.stringify({ ...summary, beauty: portrait.beauty }, null, 2));
+                    if (framing.applied) { reference = framing.photo; writeFileSync(path.join(data, 'sessions', id, 'reference.jpg'), reference); }
+                }
+                result = await provider({ photo: reference, prompt: generationPrompt(s.snapshot!, s.clothingMode ?? 'keep', orientation, { beauty: portrait.beauty }), size: outputSize, count }, config.credentials());
                 providerCompleted = true;
             }
             const active = () => {
@@ -440,6 +467,14 @@ export async function createApp(options: AppOptions = {}) {
         const setting = { id: 'test-mode', testEntries: body.testEntries, simulatedGeneration: body.simulatedGeneration };
         put('setting', setting);
         return testSettings();
+    });
+    app.get('/api/admin/portrait', async () => portraitSettings());
+    app.put('/api/admin/portrait', { bodyLimit: 1024 }, async req => {
+        const body = object(req.body);
+        if (!isBeautyLevel(body.beauty) || typeof body.reframe !== 'boolean') throw fail('人像处理设置无效');
+        const setting = { id: 'portrait', beauty: body.beauty, reframe: body.reframe };
+        put('setting', setting);
+        return portraitSettings();
     });
     app.put('/api/admin/config', { bodyLimit: 4096 }, async req => {
         if (jobs.size || all<StoredSession>('session').some(s => s.status === 'generating')) throw fail('正在生成照片，请等待完成后再保存配置。', 409);

@@ -71,7 +71,7 @@ test('single scenes adapt wardrobe without forcing a template gender or cutting 
   assert.match(prompt,/无法明确适配时采用主题同色系的中性/);
   assert.match(prompt,/不要将男女两套衣物混合到同一个人/);
   const keep=generationPrompt(style,'keep',style.sceneOrientation!);
-  assert.ok(keep.indexOf('用户选择保留原服装：覆盖上文的换装描述')>keep.indexOf(style.prompt!));
+  assert.ok(keep.indexOf('用户选择：保留原服装，覆盖上文的换装描述')>keep.indexOf(style.prompt!));
  }
  assert.match(get('08').prompt!,/男装方案：香槟银灰色合身西装外套/);
  assert.doesNotMatch(get('08').prompt!,/穿浅银香槟色抹胸礼服/);

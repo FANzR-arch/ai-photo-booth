@@ -7,6 +7,7 @@ import { portraitCollection } from '../packages/shared/portrait-collection';
 import { purposes, recommendedFrame, captureGuide, isRealistic } from '../packages/shared/portrait-experience';
 import { photoCategories, photoCategoryFor, categoryStyles, photoPurposeFor } from '../packages/shared/photo-categories';
 import type { Style } from '../packages/shared/types';
+import { generationPrompt } from '../apps/server/generation-prompt';
 
 test('every bundled template has one explicit content category and enabled covers are unique', () => {
  const styles:Style[]=JSON.parse(readFileSync('config/styles/styles.json','utf8'));
@@ -46,9 +47,10 @@ test('30 imported styles have matching covers, purpose, guidance and preserved o
   assert.ok(isRealistic(entry.id));
   assert.equal(recommendedFrame(entry.id,entry.purpose),entry.frame);
   assert.equal(captureGuide(entry.id,entry.purpose==='together'),entry.guide);
-  assert.match(style.prompt!,/实际人物数量/);
+  assert.match(generationPrompt(style,'keep','portrait'),/按实际人数逐人保留/);
   assert.ok(style.outfitPrompt, 'clothing is controlled separately from the visual theme');
-  assert.match(style.prompt!,/人物动作、头部朝向、表情、站位与互动按主题设计/);
+  assert.match(style.prompt!,/动作：/);
+  assert.ok(style.prompt!.length<=140, `${entry.id}: theme prompt stays compact`);
   assert.doesNotMatch(style.prompt!,/主体为一位虚构|一对约\d|两位约\d|三位约\d/);
   const metadata=await sharp('assets'+style.exampleUrl).metadata();
   assert.equal(metadata.width! / metadata.height!,.75);

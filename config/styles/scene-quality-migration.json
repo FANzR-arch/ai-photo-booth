@@ -9,157 +9,311 @@
     "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
   },
   "cinema": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "8c31e02e3bec29a500a9ae817c9ce461d795743ee3bf02754a836815c5c1c9c3"
+    ]
   },
   "business": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "e00e08ca04c7ebdf9b07ef8fcd5a9ef1d63c4dfb372982fb52d8bc4574a7e213",
+      "aebccd2da2e9e7a8853c673b38b9fd1e2b33f3b11955e729f7b73c3a5e8df0bd"
+    ]
   },
   "cartoon": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "9fb93de9d88b308d44210628e4ab49f452f2779473a8890e3c3a4c542ac9f1d4"
+    ]
   },
   "editorial": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "179d31897fbbe6fe9c3ae01ca94adb9cf0c8ab0eaa01f65c2e617d33e297b67f"
+    ]
   },
   "anime": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "3b1050d9b171039481ea361faa8c1a47ddcaf3bad9ec70f0474118cf1625dfe0"
+    ]
   },
   "film": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c0d096219a31a28c60bb47022652b340b9f381be4f7ca523c645d3c372e2b3c4"
+    ]
   },
   "festival": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "5801be8f024a7793e34996e2482da8dced0f730019b09e082a6207cdb1080b0d"
+    ]
   },
   "watercolor": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "df4636c4c89ce4d49bbbc6f95eb98ffc1c2db32ba0e9bcf22cad7c8763f21b2e"
+    ]
   },
   "popart": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "dad7b90c21fc0c7f48c55edfa0d6f727658bbe7945c0c64858488d093f4b1683"
+    ]
   },
   "charcoal": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "fc53552622d860708e74ec330dd4fa551c8baf26178bca8ebb0a19755ea528ee"
+    ]
   },
   "oilpainting": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "48b83b1ea20df469c5c602cd52742e18bca446b6e6f0c90ce2b1d5df7b030f30"
+    ]
   },
   "inkwash": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "28c45e5a347014530f623d02879ea640d113c7abee12a7bda05f8903f0ba249a"
+    ]
   },
   "papercut": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "870a19a90de0abd59bc5f9988f80e8b70283872f1f8892d05943cac7c97bbcd2"
+    ]
   },
   "clay": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "d143a8f86b44690b1328bcba08292797dbe1673d0acbac18c63d375fbb8508df"
+    ]
   },
   "felt": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "bc50d164cdb1acec575401bbd15d6b1dd48e6f50ae92e5418b06d47746aaf645"
+    ]
   },
   "pixel": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "ad942193913d302104b651b0c35007686792b977f5d9e08bf8537faf3b642061"
+    ]
   },
   "risograph": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "5b7e267c180df43b79ba5d8d22504ed6105c9c8b827d9525e11abc3163361fe3"
+    ]
   },
   "cyanotype": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "1afc59f7839d8aca98e22fb90f3dd2a850fda34f2a567a57dcf33c496f0a85e6"
+    ]
   },
   "stainedglass": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "fbdd63c1ee0250b347d5167cbb71b2485ede08b1b9a7a724508f45455a63bcb8"
+    ]
   },
   "mosaic": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "00626cc5e14831f524c1123b3388ceb94a0abfb71fe08cbb12596b85377937b2"
+    ]
   },
   "lowpoly": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "b1f44494072affed272983709cc8b1702a6f79d9550de3c0d12e0fc2f20a457b"
+    ]
   },
   "together-01": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "8f35a504e876b14edb5045e3ec53a7d0182b89ba9ed43b5a2308af7c9dd545de"
+    ]
   },
   "together-02": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c438159fd786e87a7a4054cfef19cfce3b6734f1c1d8b328789e52da2a7e6260"
+    ]
   },
   "together-03": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "f04c504cfa63253f3e91346db88d1e02364a85b92e096cb2d46387b3ee34f133"
+    ]
   },
   "together-04": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "22f081df946b1d5b747c8ac8f58bfa9730c4095f978549f833954d65b96dde41"
+    ]
   },
   "together-05": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "7d35c4db805bec64f4c00a8d370b60b5cf79e54c7f333106c274cd1644e24f0a"
+    ]
   },
   "together-06": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "264df03e77f2af10047d782770628307e22109ad266a2870deaea823fc36c043"
+    ]
   },
   "together-07": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "12dfb3ae49b3584a36472bca2a0c15164aab686e93e65037bf49534663ea72f3"
+    ]
   },
   "together-08": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "07d38d31d336632a6c75832b0fbfbe5d595505e82b3d4b5083ba8d54577ad0d3"
+    ]
   },
   "together-09": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "6e2fae881ab43487047feb5b6aee4e3bf0a538db9ae0f2b985fc9509fc882f19"
+    ]
   },
   "together-10": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "1b52981d6a3384d59c41d9e3c228e4120bfdd7b39423a4def9fdb0694ce8d1c4"
+    ]
   },
   "memory-01": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "48e60a187e9fd195b425d46e875cc038227e9f5b78c719243b549849c63486f1"
+    ]
   },
   "memory-02": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "2d3b9d640517b7d81856b0397465b527fb9535aea063cd31cd2b89d9562ede6a"
+    ]
   },
   "memory-03": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "b9838f560741a3dbc0869832ff00b476074aa05e252807a9ed654f60a3a5c505"
+    ]
   },
   "memory-04": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "590a95d366123ee20bcc7aa423b3cc420cc249dd28562f5cc11a9517e3c1ff21"
+    ]
   },
   "memory-05": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "ebef2c398f5e088c6631b346daaefbda4656ccc7776ddf1a5b46aa8fe69b20ae"
+    ]
   },
   "memory-06": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "ac223cfb867f8c31a092c247851ac46938b13448d95c19c36e68fc9f01d30826"
+    ]
   },
   "memory-07": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "3438773116d68bff7a15bebf28c1e40116b0877b9176651100993ef9c0e6528e"
+    ]
   },
   "memory-08": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "daf70bfc9d6d1b8d445182666ab5aa8d503c5d2cb7739384d0e350c7941da2bc"
+    ]
   },
   "memory-09": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "77954f7dc7942442ee4952178e70856f7a475a6c20ccaa84702b4c32a6ce5583"
+    ]
   },
   "memory-10": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "116833b9fdf98d5e551a66c6cb9042909b0a2c46304d1fcc033066d1cbb23a0d"
+    ]
   },
   "self-01": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "5118017270481b25abaa68a17d717036b4773ff730bb5d2bdaf4b3e7e1e7a36c"
+    ]
   },
   "self-02": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c0f3922c49b91eac0d29049b243dc057473003f1ec2f348babdb375365ba673b"
+    ]
   },
   "self-03": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "fab0bd48506928003cf3992cd197dfec8bcfedb6a023158c83831dff36acfff6"
+    ]
   },
   "self-04": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "9d5ae21eb0d8da554effab0bfaf38126c7c4a9fa34059524ec77bd4f4e98c0cb"
+    ]
   },
   "self-05": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "09c1a4b2446d0a5e82223d54a58d934833d6ad1bf8a3dc745966508bdb7977ff"
+    ]
   },
   "self-06": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c6c66896291e2eccc6e87f961328741c43ef7e7925537f9899dee9f796616ed2"
+    ]
   },
   "self-07": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "cdd11408534138ec37edc7b9188fc491eaa174e4dd59b74ddf89dfbae4a19852"
+    ]
   },
   "self-08": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "e1ccd04b38e94d986e45576187c54bbd4e6cf1845927f212a654ce2370d93d4b"
+    ]
   },
   "self-09": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "d8872cd1210605380c815e66fe290e72e4042039bf65c58042cb5c801584c9a3"
+    ]
   },
   "self-10": {
-    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "8c901d3854720f187695769e14217304ae684e37a4d76acf60eb90938fb47c1b"
+    ]
   },
   "doctor-relaxed": {
     "prompt": [

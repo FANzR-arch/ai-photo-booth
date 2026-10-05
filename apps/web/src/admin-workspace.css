@@ -19,3 +19,5 @@
 .admin .style-grid .style-editor summary>span:last-child{font-size:12px;color:#9a8b7f}
 .admin .style-grid .style-editor[open]{grid-column:1/-1;border-color:#c9472f66}
 .admin .style-grid .style-editor[open]>.editor-fields{padding:4px 16px 18px}
+
+.portrait-panel .mode-label{margin:0 0 10px;font-size:13px;color:#5b4e45;font-weight:600}.portrait-panel .portrait-reframe{display:flex;align-items:center;gap:10px;margin-top:22px;font-size:15px;cursor:pointer}.portrait-panel .portrait-reframe input{width:22px;height:22px;accent-color:#c9472f}
