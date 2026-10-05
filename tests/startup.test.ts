@@ -134,7 +134,7 @@ test('production restart keeps the port, saved settings and session without call
         await writeFile(path.join(root, 'config/styles/styles.json'), JSON.stringify([{ id: 'test', name: 'test', enabled: true, prompt: 'test', version: 1, size: '1.5K' }]));
         await launch();
         const h = await (await fetch(url + '/api/health')).json();
-        assert.equal(h.mode, 'seedream'); assert.equal(h.paymentMode, 'simulate');
+        assert.equal(h.mode, 'seedream'); assert.equal('paymentMode' in h, false);
         const session = await (await post('/api/sessions', { styleId: 'test' })).json();
         assert.ok(session.id);
         await post(`/api/sessions/${session.id}/frame`, { frame: 'instant' });

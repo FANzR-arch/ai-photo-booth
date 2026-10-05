@@ -24,15 +24,14 @@ async function fixture(options: AppOptions = {}) {
         return app.inject({ method: method as any, url, payload: payload as any, headers: { host: 'localhost:4377', cookie } });
     };
     const photo = await sharp({ create: { width: 160, height: 200, channels: 3, background: '#f2a399' } }).jpeg().toBuffer();
-    const pay = async (id: string) => { const order = await req('POST', `/api/sessions/${id}/orders`, {}); assert.equal(order.statusCode, 200); const paid = await req('POST', `/api/orders/${order.json().id}/simulate`, { outcome: 'paid' }); assert.equal(paid.statusCode, 200); return paid.json(); };
-    const make = async (paid = true) => { const s = (await req('POST', '/api/sessions', { styleId: 'cinema' })).json(); assert.ok(s.id); assert.equal((await req('POST', `/api/sessions/${s.id}/photo`, { dataUrl: `data:image/jpeg;base64,${photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 200); if (paid) await pay(s.id); return s.id as string; };
+    const make = async () => { const s = (await req('POST', '/api/sessions', { styleId: 'cinema' })).json(); assert.ok(s.id); assert.equal((await req('POST', `/api/sessions/${s.id}/photo`, { dataUrl: `data:image/jpeg;base64,${photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 200); return s.id as string; };
     const finish = async (id: string) => { for (let i = 0; i < 100; i++) {
         const s = (await req('GET', `/api/sessions/${id}`)).json();
         if (s.status !== 'generating')
             return s;
         await new Promise(r => setTimeout(r, 10));
     } throw Error('generation did not finish'); };
-    return { root, dataDir, photo, req, make, pay, finish, get app() { return app; }, restart: async () => { await app.close(); cookie = ''; app = await createApp({ mode: 'demo', ...options, rootDir: root, dataDir }); }, close: async () => { await app.close(); rmSync(root, { recursive: true, force: true }); } };
+    return { root, dataDir, photo, req, make, finish, get app() { return app; }, restart: async () => { await app.close(); cookie = ''; app = await createApp({ mode: 'demo', ...options, rootDir: root, dataDir }); }, close: async () => { await app.close(); rmSync(root, { recursive: true, force: true }); } };
 }
 test('new bundled styles are added on restart without overwriting saved prompts or switches', async () => {
     const f = await fixture();
@@ -67,25 +66,23 @@ test('unresolved theme cannot be enabled; resolving variables increments version
         assert.equal((await f.req('POST', '/api/sessions', { styleId: 'cinema' })).statusCode, 200);
     } finally { await f.close(); }
 });
-test('prepaid demo package binds generated images and preserves pickup after end and restart', async () => {
+test('generation issues a scoped pickup link that survives end and restart', async () => {
     const f = await fixture({ imageCount: 2 });
     try {
         const id = await f.make();
-        const start = await f.req('POST', `/api/sessions/${id}/generate`, {});
-        assert.equal(start.json().status, 'generating');
+        const start = (await f.req('POST', `/api/sessions/${id}/generate`, {})).json();
+        assert.equal(start.status, 'generating');
+        assert.match(start.pickupUrl, /\/pickup\/[a-f0-9]{64}$/);
+        const token = new URL(start.pickupUrl).pathname.split('/').pop();
         const s = await f.finish(id);
         assert.equal(s.status, 'ready');
         assert.equal(s.mode, 'demo');
         assert.equal(s.images.length, 2);
+        assert.equal(s.pickupUrl, start.pickupUrl);
         assert.equal((await f.req('GET', s.images[0].previewUrl)).headers['content-type'], 'image/jpeg');
-        const order = (await f.req('POST', `/api/sessions/${id}/orders`, {})).json();
-        assert.equal(order.amount, 990);
-        assert.equal((await f.req('POST', `/api/sessions/${id}/orders`, {})).json().id, order.id);
-        const paid = (await f.req('POST', `/api/orders/${order.id}/simulate`, { outcome: 'paid' })).json();
-        const token = new URL(paid.pickupUrl).pathname.split('/').pop();
-        assert.equal((await f.req('POST', `/api/orders/${order.id}/simulate`, { outcome: 'failed' })).json().order.status, 'paid');
         const pickup = (await f.req('GET', `/api/pickup/${token}`)).json();
         assert.equal(pickup.images.length, 2);
+        assert.equal('status' in pickup || 'paymentMode' in pickup, false);
         assert.equal((await f.req('GET', pickup.images[0].downloadUrl)).statusCode, 200);
         assert.equal((await f.req('GET', `/api/pickup/${token}/images/${s.images[1].id}`)).statusCode, 200);
         const foreign = await f.make(); await f.req('POST', `/api/sessions/${foreign}/generate`, {}); const other = await f.finish(foreign);
@@ -101,92 +98,76 @@ test('prepaid demo package binds generated images and preserves pickup after end
         await f.close();
     }
 });
-test('package payment gates generation; cancelled and failed orders cannot authorize or later become paid', async () => {
+test('generation needs only a confirmed photo; payment endpoints no longer exist', async () => {
     let calls = 0;
     const f = await fixture({ mode: 'seedream', provider: async input => { calls++; return { images: [input.photo] }; } });
     try {
+        const health = (await f.req('GET', '/api/health')).json();
+        assert.equal('paymentMode' in health, false);
         const created = (await f.req('POST', '/api/sessions', { styleId: 'cinema' })).json();
-        assert.equal((await f.req('POST', `/api/sessions/${created.id}/orders`, {})).statusCode, 409);
-        const id = await f.make(false);
-        assert.equal((await f.req('POST', `/api/sessions/${id}/generate`, {})).statusCode, 403);
-        const pending = (await f.req('POST', `/api/sessions/${id}/orders`, { amount: 1, imageIds: [] })).json();
-        assert.equal(pending.product, 'photo-package'); assert.equal(pending.amount, 990); assert.deepEqual(pending.imageIds, []);
-        assert.equal((await f.req('POST', `/api/sessions/${id}/generate`, {})).statusCode, 403);
-        for (const outcome of ['cancelled', 'failed']) {
-            const order = (await f.req('POST', `/api/sessions/${id}/orders`, {})).json();
-            assert.equal((await f.req('POST', `/api/orders/${order.id}/simulate`, { outcome })).json().order.status, outcome);
-            assert.equal((await f.req('POST', `/api/orders/${order.id}/simulate`, { outcome: 'paid' })).statusCode, 409);
-            assert.equal((await f.req('POST', `/api/sessions/${id}/generate`, {})).statusCode, 403);
-        }
+        assert.equal((await f.req('POST', `/api/sessions/${created.id}/generate`, {})).statusCode, 409);
+        assert.equal(created.pickupUrl, undefined);
+        assert.equal((await f.req('POST', `/api/sessions/${created.id}/orders`, {})).statusCode, 404);
+        assert.equal((await f.req('POST', '/api/orders/anything/simulate', { outcome: 'paid' })).statusCode, 404);
         assert.equal(calls, 0);
-        const paid = await f.pay(id);
-        assert.equal(paid.session.order.status, 'paid'); assert.equal(paid.session.status, 'photographed');
-        assert.equal((await f.req('POST', `/api/sessions/${id}/photo`, { dataUrl: `data:image/jpeg;base64,${f.photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 409);
+        const id = await f.make();
+        assert.equal((await f.req('GET', `/api/sessions/${id}`)).json().pickupUrl, undefined);
         assert.equal((await f.req('POST', `/api/sessions/${id}/generate`, {})).statusCode, 200);
+        assert.equal((await f.req('POST', `/api/sessions/${id}/photo`, { dataUrl: `data:image/jpeg;base64,${f.photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 409);
         const ready = await f.finish(id);
-        assert.equal(calls, 1); assert.deepEqual(ready.order.imageIds, ready.images.map((image: any) => image.id));
+        assert.equal(calls, 1); assert.equal(ready.order, undefined);
+        assert.equal('orders' in (await f.req('GET', '/api/admin')).json(), false);
     } finally { await f.close(); }
 });
-test('concurrent package creation and restart retain one payment authorization and one generation', async () => {
+test('concurrent generation requests and restart produce one generation', async () => {
     let calls = 0, release!: () => void;
     const gate = new Promise<void>(resolve => release = resolve);
     const f = await fixture({ mode: 'seedream', provider: async input => { calls++; await gate; return { images: [input.photo] }; } });
     try {
-        const id = await f.make(false);
-        const orders = await Promise.all(Array.from({ length: 8 }, () => f.req('POST', `/api/sessions/${id}/orders`, {})));
-        assert.equal(new Set(orders.map(response => response.json().id)).size, 1);
-        const order = orders[0].json();
-        await f.req('POST', `/api/orders/${order.id}/simulate`, { outcome: 'paid' });
+        const id = await f.make();
         await f.restart();
-        const recovered = (await f.req('GET', `/api/sessions/${id}`)).json();
-        assert.equal(recovered.order.id, order.id); assert.equal(recovered.order.status, 'paid');
         const requests = await Promise.all(Array.from({ length: 8 }, () => f.req('POST', `/api/sessions/${id}/generate`, {})));
         assert.ok(requests.every(response => response.statusCode === 200)); assert.equal(calls, 1);
-        assert.equal((await f.req('POST', `/api/sessions/${id}/orders`, {})).json().id, order.id);
+        assert.equal(new Set(requests.map(response => response.json().pickupUrl)).size, 1);
         release(); await f.finish(id); await f.restart();
         await f.req('POST', `/api/sessions/${id}/generate`, {});
-        assert.equal(calls, 1); assert.equal((await f.req('GET', '/api/admin')).json().orders.length, 1);
+        assert.equal(calls, 1);
     } finally { release(); await f.close(); }
 });
-test('restored photos save clothing with the pending package without replacing the original or mutating a paid choice', async () => {
+test('restored photos take the clothing choice at generation without replacing the original', async () => {
     const received: string[] = [];
     const f = await fixture({ mode: 'seedream', provider: async input => { received.push(input.prompt); return { images: [input.photo] }; } });
     try {
-        const id = await f.make(false);
+        const id = await f.make();
         const original = (await f.req('GET', `/api/sessions/${id}/original`)).rawPayload;
         await f.restart();
-        const order = (await f.req('POST', `/api/sessions/${id}/orders`, { clothingMode: 'theme' })).json();
-        assert.equal((await f.req('GET', `/api/sessions/${id}`)).json().clothingMode, 'theme');
-        assert.equal((await f.req('POST', `/api/sessions/${id}/orders`, { clothingMode: 'invalid' })).statusCode, 400);
-        assert.equal((await f.req('POST', `/api/sessions/${id}/orders`, { clothingMode: 'keep' })).json().id, order.id);
-        const paid = (await f.req('POST', `/api/orders/${order.id}/simulate`, { outcome: 'paid' })).json();
-        assert.equal(paid.session.clothingMode, 'keep');
-        await f.req('POST', `/api/sessions/${id}/orders`, { clothingMode: 'theme' });
+        assert.equal((await f.req('POST', `/api/sessions/${id}/generate`, { clothingMode: 'invalid' })).statusCode, 400);
+        assert.deepEqual((await f.req('GET', `/api/sessions/${id}/original`)).rawPayload, original);
+        await f.req('POST', `/api/sessions/${id}/generate`, { clothingMode: 'keep' }); await f.finish(id);
+        await f.req('POST', `/api/sessions/${id}/generate`, { clothingMode: 'theme' });
         await f.restart();
         assert.equal((await f.req('GET', `/api/sessions/${id}`)).json().clothingMode, 'keep');
-        assert.deepEqual((await f.req('GET', `/api/sessions/${id}/original`)).rawPayload, original);
-        await f.req('POST', `/api/sessions/${id}/generate`, {}); await f.finish(id);
         assert.equal(received.length, 1); assert.match(received[0], /用户选择：保留原服装/);
     } finally { await f.close(); }
 });
-test('phone original pickup is package-authorized, scoped, LAN-safe and expires with generated images', async () => {
+test('phone original pickup is token-authorized, scoped, LAN-safe and expires with generated images', async () => {
     let time = 1000;
     const f = await fixture({ clock: () => time, pickupBaseUrl: 'http://192.168.1.20:4377' });
     const phone = (url: string) => f.app.inject({ url, remoteAddress: '192.168.1.21', headers: { host: '192.168.1.20:4377' } });
     try {
-        const id = await f.make(false), other = await f.make(false);
+        const id = await f.make(), other = await f.make();
         const blue = await sharp({ create: { width: 10, height: 10, channels: 3, background: 'blue' } }).jpeg().toBuffer();
         await f.req('POST', `/api/sessions/${other}/photo`, { dataUrl: `data:image/jpeg;base64,${blue.toString('base64')}`, orientation: 'portrait' });
-        const paid = await f.pay(id), token = new URL(paid.pickupUrl).pathname.split('/').pop();
+        const started = (await f.req('POST', `/api/sessions/${id}/generate`, {})).json(), token = new URL(started.pickupUrl).pathname.split('/').pop();
+        const ready = await f.finish(id);
         const album = (await phone(`/api/pickup/${token}`)).json();
-        assert.deepEqual(album.images, []); assert.equal(album.original.downloadUrl, `/api/pickup/${token}/original`);
+        assert.equal(album.original.downloadUrl, `/api/pickup/${token}/original`);
         const original = await phone(album.original.downloadUrl + `?sessionId=${other}`);
         assert.equal(original.statusCode, 200); assert.equal(original.headers['cache-control'], 'no-store');
         assert.deepEqual(original.rawPayload, (await f.req('GET', `/api/sessions/${id}/original`)).rawPayload);
         assert.notDeepEqual(original.rawPayload, (await f.req('GET', `/api/sessions/${other}/original`)).rawPayload);
         assert.equal((await phone(`/api/pickup/${'a'.repeat(64)}/original`)).statusCode, 404);
         for (const url of [`/api/sessions/${id}/original`, '/api/admin', `/api/pickup/${token}/original/extra`]) assert.equal((await phone(url)).statusCode, 403);
-        await f.req('POST', `/api/sessions/${id}/generate`, {}); const ready = await f.finish(id);
         const complete = (await phone(`/api/pickup/${token}`)).json();
         assert.equal(complete.images.length, 1);
         await f.req('POST', `/api/sessions/${id}/end`, {});
@@ -230,10 +211,9 @@ test('clothing choice reaches the provider, survives restart, and cannot change 
         await f.req('POST', `/api/sessions/${original}/generate`, {}); await f.finish(original);
         assert.match(prompts[0], /用户选择：保留原服装/); assert.doesNotMatch(prompts[0], /藏蓝夹克与米白衬衫/);
 
-        const changed = await f.make(false);
+        const changed = await f.make();
         const upload = await f.req('POST', `/api/sessions/${changed}/photo`, { dataUrl: `data:image/jpeg;base64,${f.photo.toString('base64')}`, orientation: 'landscape', clothingMode: 'theme' });
         assert.equal(upload.json().clothingMode, 'theme');
-        await f.pay(changed);
         await f.restart();
         assert.equal((await f.req('GET', `/api/sessions/${changed}`)).json().clothingMode, 'theme');
         await f.req('POST', `/api/sessions/${changed}/generate`, {}); await f.finish(changed);
@@ -300,7 +280,7 @@ test('quality upgrade reaches new generations while preserving settings, custom 
         const oldSession = await f.make();
         await f.req('POST', `/api/sessions/${oldSession}/generate`, {});
         assert.equal((await f.finish(oldSession)).status, 'ready');
-        const fresh = await f.make(false);
+        const fresh = await f.make();
         const bundled = JSON.parse(readFileSync('config/styles/styles.json', 'utf8')).find((s: any) => s.id === 'cinema');
         writeFileSync(path.join(f.root, 'config/styles/quality-migration.json'), JSON.stringify({ cinema: createHash('sha256').update(original.prompt).digest('hex') }));
         writeFileSync(path.join(f.root, 'config/styles/styles.json'), JSON.stringify([bundled]));
@@ -318,7 +298,6 @@ test('quality upgrade reaches new generations while preserving settings, custom 
         assert.ok(received[0].prompt.includes(original.prompt));
         assert.equal(received[0].prompt.includes(bundled.prompt), false);
         await f.req('POST', `/api/sessions/${fresh}/photo`, { dataUrl: `data:image/jpeg;base64,${f.photo.toString('base64')}`, orientation: 'landscape', clothingMode: 'theme' });
-        await f.pay(fresh);
         await f.req('POST', `/api/sessions/${fresh}/generate`, {});
         assert.equal((await f.finish(fresh)).status, 'ready');
         assert.equal(received.length, 2);
@@ -404,7 +383,6 @@ test('directed scenes enforce each ratio, keep clothing choice, and send the com
             const payload={dataUrl:`data:image/jpeg;base64,${f.photo.toString('base64')}`,orientation:s.orientation,clothingMode:'keep'};
             assert.equal((await f.req('POST',`/api/sessions/${s.id}/photo`,{...payload,orientation:s.orientation==='portrait'?'landscape':'portrait'})).statusCode,400);
             assert.equal((await f.req('POST',`/api/sessions/${s.id}/photo`,payload)).statusCode,200);
-            await f.pay(s.id);
             await f.req('POST',`/api/sessions/${s.id}/generate`,{clothingMode:'keep'});
             assert.equal((await f.finish(s.id)).status,'ready');
             const sent=received.at(-1)!;assert.ok(sent.prompt.includes(scene.prompt));assert.match(sent.prompt,/覆盖上文的换装描述/);
@@ -454,7 +432,6 @@ test('coming-of-age poster uses the supplied art direction, fixed 2:3 size and o
         assert.equal((await f.req('POST', `/api/sessions/${session.id}/photo`, { ...payload, clothingMode: 'keep' })).statusCode, 400);
         assert.equal(received.length, 0);
         assert.equal((await f.req('POST', `/api/sessions/${session.id}/photo`, payload)).statusCode, 200);
-        await f.pay(session.id);
         await f.restart();
         const restored = (await f.req('GET', `/api/sessions/${session.id}`)).json();
         assert.equal(restored.orientation, 'poster'); assert.equal(restored.clothingMode, 'theme');
@@ -478,11 +455,7 @@ test('unknown result blocks retry; explicitly failed request can retry', async (
         const id = await f.make();
         await f.req('POST', `/api/sessions/${id}/generate`, {});
         assert.equal((await f.finish(id)).status, 'unknown');
-        const originalOrder = (await f.req('GET', `/api/sessions/${id}`)).json().order;
-        assert.equal((await f.req('POST', `/api/sessions/${id}/orders`, {})).json().id, originalOrder.id);
-        await f.req('POST', `/api/orders/${originalOrder.id}/simulate`, { outcome: 'paid' });
         await f.restart();
-        assert.equal((await f.req('POST', `/api/sessions/${id}/orders`, {})).json().id, originalOrder.id);
         assert.equal((await f.req('POST', `/api/sessions/${id}/generate`, {})).statusCode, 409);
         assert.equal(calls, 1);
     }
@@ -501,7 +474,7 @@ test('unknown result blocks retry; explicitly failed request can retry', async (
         await g.close();
     }
 });
-test('partial generation binds available package images; another session cannot order its image', async () => {
+test('partial generation exposes only its own available images for pickup', async () => {
     const photo = await sharp({ create: { width: 100, height: 100, channels: 3, background: 'red' } }).jpeg().toBuffer();
     const f = await fixture({ mode: 'seedream', imageCount: 2, provider: async () => ({ images: [photo], error: 'second image failed', unknown: true }) });
     try {
@@ -510,13 +483,12 @@ test('partial generation binds available package images; another session cannot 
         const s = await f.finish(id);
         assert.equal(s.status, 'partial');
         assert.equal(s.error, 'second image failed');
-        const o = (await f.req('POST', `/api/sessions/${id}/orders`, {})).json();
-        assert.equal(o.amount, 990);
-        assert.deepEqual(o.imageIds, s.images.map((x: any) => x.id));
+        const token = new URL(s.pickupUrl).pathname.split('/').pop();
+        assert.deepEqual((await f.req('GET', `/api/pickup/${token}`)).json().images.map((x: any) => x.id), s.images.map((x: any) => x.id));
         const id2 = await f.make();
         await f.req('POST', `/api/sessions/${id2}/generate`, {});
-        await f.finish(id2);
-        assert.equal((await f.req('POST', `/api/sessions/${id2}/orders`, { imageIds: [s.images[0].id] })).statusCode, 400);
+        const other = await f.finish(id2);
+        assert.equal((await f.req('GET', `/api/pickup/${token}/images/${other.images[0].id}`)).statusCode, 404);
     }
     finally {
         await f.close();
@@ -529,9 +501,7 @@ test('expired links return 410 and startup cleanup removes images', async () => 
         const id = await f.make();
         await f.req('POST', `/api/sessions/${id}/generate`, {});
         const s = await f.finish(id);
-        const o = (await f.req('POST', `/api/sessions/${id}/orders`, {})).json();
-        const p = (await f.req('POST', `/api/orders/${o.id}/simulate`, { outcome: 'paid' })).json();
-        const token = new URL(p.pickupUrl).pathname.split('/').pop();
+        const token = new URL(s.pickupUrl).pathname.split('/').pop();
         time = 12000;
         assert.equal((await f.req('GET', `/api/pickup/${token}`)).statusCode, 410);
         await f.restart();
@@ -542,7 +512,7 @@ test('expired links return 410 and startup cleanup removes images', async () => 
         await f.close();
     }
 });
-test('new photos get ten minutes from completion; purchases and views do not extend it; timer erases private files and captions', async () => {
+test('new photos get ten minutes from completion; pickups and views do not extend it; timer erases private files and captions', async () => {
     let time = 1000, release!: () => void;
     const gate = new Promise<void>(resolve => release = resolve);
     const photo = await sharp({ create: { width: 40, height: 40, channels: 3, background: 'red' } }).jpeg().toBuffer();
@@ -556,9 +526,7 @@ test('new photos get ten minutes from completion; purchases and views do not ext
         assert.equal(s.completedAt, time); assert.equal(s.expiresAt, 631000);
         await f.req('POST', `/api/sessions/${id}/frame`, { frame: 'instant', caption: { text: 'private caption', font: 'sans', size: 'medium', align: 'center', color: 'auto' } });
         time = 600000;
-        const o = (await f.req('POST', `/api/sessions/${id}/orders`, {})).json();
-        const p = (await f.req('POST', `/api/orders/${o.id}/simulate`, { outcome: 'paid' })).json();
-        const token = new URL(p.pickupUrl).pathname.split('/').pop();
+        const token = new URL(s.pickupUrl).pathname.split('/').pop();
         const pickup = (await f.req('GET', `/api/pickup/${token}`)).json();
         assert.equal(pickup.expiresAt, s.expiresAt);
         assert.equal((await f.req('GET', pickup.images[0].downloadUrl)).statusCode, 200);
@@ -575,7 +543,6 @@ test('new photos get ten minutes from completion; purchases and views do not ext
             assert.equal(record.token, undefined); assert.equal(record.pickupUrl, undefined); assert.equal(record.photo, undefined); assert.equal(record.snapshot, undefined);
             assert.deepEqual(record.images, []); assert.deepEqual(record.files, {}); assert.ok(record.deletedAt);
             assert.equal(db.prepare("SELECT json FROM records WHERE kind='frame' AND id=?").get(id), undefined);
-            assert.ok(db.prepare("SELECT json FROM records WHERE kind='order' AND id=?").get(o.id));
         } finally { db.close(); }
         for (const url of [`/api/sessions/${id}`, `/api/sessions/${id}/original`, s.images[0].previewUrl, `/api/pickup/${token}`, pickup.images[0].downloadUrl]) assert.equal((await f.req('GET', url)).statusCode, 410);
     } finally { release(); await f.close(); }
@@ -682,7 +649,7 @@ test('image upload checks decoded format, not only data URL declaration', async 
     }
 });
 
-test('package includes one generated image while the local original endpoint stays isolated', async () => {
+test('generation returns one image while the local original endpoint stays isolated', async () => {
     const f = await fixture();
     try {
         assert.equal((await f.req('GET','/api/health')).json().imageCount, 1);
@@ -699,9 +666,6 @@ test('package includes one generated image while the local original endpoint sta
         await f.req('POST',`/api/sessions/${id}/generate`,{});
         const ready=await f.finish(id); assert.equal(ready.images.length,1);
         assert.equal((await f.req('GET',photographed.originalUrl)).statusCode,200);
-        assert.equal((await f.req('POST',`/api/sessions/${id}/orders`,{imageIds:['original']})).statusCode,400);
-        const order=(await f.req('POST',`/api/sessions/${id}/orders`,{})).json();
-        assert.equal(order.amount,990); assert.equal(order.imageIds.length,1);
         await f.req('POST',`/api/sessions/${id}/end`,{});
         assert.equal((await f.req('GET',photographed.originalUrl)).statusCode,410);
     } finally { await f.close(); }
@@ -765,9 +729,7 @@ test('frame survives generation and restart, exports outside image bounds, and n
         assert.equal(ready.frame, 'instant');
         await f.restart();
         assert.equal((await f.req('GET', '/api/sessions/' + id)).json().frame, 'instant');
-        const order = (await f.req('POST', '/api/sessions/' + id + '/orders', {})).json();
-        const paid = (await f.req('POST', '/api/orders/' + order.id + '/simulate', { outcome: 'paid' })).json();
-        const token = new URL(paid.pickupUrl).pathname.split('/').pop();
+        const token = new URL(ready.pickupUrl).pathname.split('/').pop();
         const url = '/api/pickup/' + token + '/images/' + ready.images[0].id;
         const bordered = await f.req('GET', url);
         const meta = await sharp(bordered.rawPayload).metadata();
@@ -814,9 +776,7 @@ test('caption validates, survives restart and legacy frame edits, and is include
   assert.deepEqual((await f.req('GET','/api/sessions/'+id)).json().caption,caption);
   await f.req('POST',path,{frame:'instant'});
   assert.deepEqual((await f.req('GET','/api/sessions/'+id)).json().caption,caption);
-  const order=(await f.req('POST','/api/sessions/'+id+'/orders',{})).json();
-  const paid=(await f.req('POST','/api/orders/'+order.id+'/simulate',{outcome:'paid'})).json();
-  const token=new URL(paid.pickupUrl).pathname.split('/').pop();
+  const token=new URL(ready.pickupUrl).pathname.split('/').pop();
   const imageUrl='/api/pickup/'+token+'/images/'+ready.images[0].id;
   const withText=await f.req('GET',imageUrl);
   assert.equal(withText.statusCode,200);
@@ -893,4 +853,40 @@ test('one device admits only one upstream generation even when a visitor starts 
   assert.equal(calls,1);
   release();
  } finally {release();await f.close();}
+});
+test('back-office test mode defaults off and switches entries and simulated generation independently', async () => {
+    let calls = 0;
+    const f = await fixture({ mode: 'seedream', provider: async input => { calls++; return { images: [input.photo] }; } });
+    try {
+        const normal = (await f.req('GET', '/api/health')).json();
+        assert.equal(normal.testMode, false); assert.equal(normal.generation, 'seedream');
+        assert.equal((await f.req('GET', '/stages.html')).statusCode, 404);
+        assert.deepEqual((await f.req('GET', '/api/admin/test-mode')).json(), { testEntries: false, simulatedGeneration: false, locked: false });
+        assert.equal((await f.app.inject({ method: 'PUT', url: '/api/admin/test-mode', payload: { testEntries: true, simulatedGeneration: true }, headers: { host: 'localhost:4377' } })).statusCode, 401);
+        assert.equal((await f.req('PUT', '/api/admin/test-mode', { testEntries: 'yes', simulatedGeneration: false })).statusCode, 400);
+        const before = await f.make();
+        assert.equal((await f.req('PUT', '/api/admin/test-mode', { testEntries: false, simulatedGeneration: true })).json().simulatedGeneration, true);
+        const health = (await f.req('GET', '/api/health')).json();
+        assert.equal(health.testMode, false); assert.equal(health.generation, 'demo'); assert.equal(health.mode, 'seedream');
+        const simulated = await f.make();
+        assert.equal((await f.req('GET', `/api/sessions/${simulated}`)).json().mode, 'demo');
+        await f.req('POST', `/api/sessions/${simulated}/generate`, {}); assert.equal((await f.finish(simulated)).status, 'ready');
+        assert.equal(calls, 0);
+        await f.req('POST', `/api/sessions/${before}/generate`, {}); await f.finish(before);
+        assert.equal(calls, 1);
+        await f.req('PUT', '/api/admin/test-mode', { testEntries: true, simulatedGeneration: false });
+        await f.restart();
+        const restored = (await f.req('GET', '/api/health')).json();
+        assert.equal(restored.testMode, true); assert.equal(restored.generation, 'seedream');
+        await f.req('PUT', '/api/admin/test-mode', { testEntries: false, simulatedGeneration: false });
+        assert.equal((await f.req('GET', '/api/health')).json().testMode, false);
+    } finally { await f.close(); }
+});
+test('a demo launch keeps test mode locked on', async () => {
+    const f = await fixture();
+    try {
+        assert.deepEqual((await f.req('GET', '/api/admin/test-mode')).json(), { testEntries: true, simulatedGeneration: true, locked: true });
+        assert.equal((await f.req('PUT', '/api/admin/test-mode', { testEntries: false, simulatedGeneration: false })).statusCode, 409);
+        assert.equal((await f.req('GET', '/api/health')).json().testMode, true);
+    } finally { await f.close(); }
 });

@@ -1,6 +1,6 @@
 # API 配置
 
-当前为现场拍照亭：真实 Seedream 生图 + 模拟支付。配置只由本机 Node 后端读取，顾客无需提供密钥。
+当前为现场拍照亭：真实 Seedream 生图，程序内不含付款环节（现场先收费再使用）。配置只由本机 Node 后端读取，顾客无需提供密钥。
 
 复制 .env.example 为 .env，填写：
 
@@ -14,13 +14,13 @@ PICKUP_BASE_URL=
 
 接口固定为 https://ark.cn-beijing.volces.com/api/v3/images/generations；模型权限以账户配置为准。密钥不进入前端，不写入 Git，不随新制作的 Windows 包分发。
 
-确认并上传照片后，先调用 `/api/sessions/:id/orders`（可带 clothingMode）创建模拟套餐，再调用 `/api/orders/:id/simulate` 确认付款，最后调用生成接口。Session.order 用于恢复付款状态；未付套餐不能生成或打印，重复创建待付或已付订单会返回同一订单。
+确认并上传照片（`/api/sessions/:id/photo`）后直接调用 `/api/sessions/:id/generate`（可带 clothingMode）。生成开始时会话获得 pickupUrl；打印与手机取图只要求该会话已有生成完成的照片。原 `/orders` 与 `/simulate` 付款接口已删除。
 
-每次生成一张，明确失败后的人工重试会再次调用 API；相纸文字编辑和下载不重新生成。上游结果未知时禁止重复提交。模拟付款不会实际扣款，真实生图仍会消耗提供商额度。
+每次生成一张，明确失败后的人工重试会再次调用 API；相纸文字编辑和下载不重新生成。上游结果未知时禁止重复提交。真实生图会消耗提供商额度。
 
-手机取图接口返回 images 和已付套餐授权的 original.downloadUrl；原片走 `/api/pickup/:token/original`，与生成图共用凭证及到期限制。旧数字订单保留原有生成图权限，不自动升级套餐权限。
+手机取图接口返回该会话的 images 和 original.downloadUrl；原片走 `/api/pickup/:token/original`，与生成图共用凭证及到期限制。
 
-确认照片页的 clothingMode 为 keep（默认保留原服装）或 theme（按主题换装），随照片上传和生成请求保存到会话。生成开始后，返回查看、重复提交和付款都不会改变该张照片的服装选择。旧客户端不传此字段时沿用会话值，历史会话默认 keep。
+确认照片页的 clothingMode 为 keep（默认保留原服装）或 theme（按主题换装），随照片上传和生成请求保存到会话。生成开始后，返回查看和重复提交都不会改变该张照片的服装选择。旧客户端不传此字段时沿用会话值，历史会话默认 keep。
 
 图片接口只接收一个 prompt；后端将人脸身份、主题视觉、动作表情、服装选择与输出比例组合后发送。主题的 outfitPrompt 仅在 theme 模式使用，keep 模式保留衣服款式、领口、层次、图案与主要配色，衣物可随新动作重新呈现。两种模式都允许按主题描述重新设计姿势、头部朝向、视线、表情、手势及合照站位；人脸身份与实际人数优先，动作不得改变五官结构或交换面孔。工作台将“主题视觉提示词”和“换装搭配提示词”分开编辑，动作写入视觉提示词，服装搭配不再锁定原姿态。
 
@@ -30,6 +30,6 @@ PICKUP_BASE_URL=
 
 PICKUP_BASE_URL 是手机可访问的网站根地址。现场使用固定局域网 IP 和端口，并让手机连接同一 Wi-Fi。配置修改后重启服务。
 
-当前没有真实支付或每日费用上限，请在 Seedream 账户侧设置适当额度并由现场工作人员管理设备。
+程序没有每日费用上限，请在 Seedream 账户侧设置适当额度并由现场工作人员管理设备。
 
 新导入模板携带 sourceCode、subjectCount、sceneOrientation。generationPreset=directed-portrait 使用完整场景提示词，固定其 3:4、4:3、2:3、4:5 或 3:2 比例；clothingMode 默认 theme，允许 keep。portrait4x5 和 landscape3x2 是新增画幅值。HQ 对应约 220 万像素的实测尺寸；照片归一化及输出质量设置见 README。双人模板暂不启用，不推断单人照片中的缺失伴侣。

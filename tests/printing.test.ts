@@ -37,8 +37,6 @@ async function fixture(submit?: (args: string[]) => Promise<string>) {
     const ready = async () => {
         const s = (await req('/api/sessions', { styleId: 'test' })).json();
         await req(`/api/sessions/${s.id}/photo`, { dataUrl: `data:image/jpeg;base64,${image.toString('base64')}`, orientation: 'portrait' });
-        const order = (await req(`/api/sessions/${s.id}/orders`, {})).json();
-        await req(`/api/orders/${order.id}/simulate`, { outcome: 'paid' });
         await req(`/api/sessions/${s.id}/generate`, {});
         for (let i = 0; i < 100; i++) { const latest = (await req(`/api/sessions/${s.id}`)).json(); if (latest.status === 'ready') return latest; await new Promise(r => setTimeout(r, 10)); }
         throw Error('Generation fixture failed');
@@ -88,31 +86,15 @@ test('a paid package click submits final framed full image once and survives res
         await f.restart();
         assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId })).json().status, 'submitted');
         assert.equal(f.printed.length, 1);
-        const admin = (await f.req('/api/admin', undefined, await f.login())).json(); assert.equal(admin.orders.length, 1); assert.equal(admin.orders[0].status, 'paid');
     } finally { await f.close(); }
 });
-test('unpaid and legacy digital orders cannot print a ready photo or authorize another image', async () => {
+test('printing needs a ready photo that belongs to the session', async () => {
     const f = await fixture();
     try {
         await f.printer.save(defaults); const s = await f.ready(), imageId = s.images[0].id;
-        const db = new DatabaseSync(path.join(f.root, 'data/booth.sqlite'));
-        const token = new URL(s.pickupUrl).pathname.split('/').pop();
-        try {
-            const order = JSON.parse(String(db.prepare("SELECT json FROM records WHERE kind='order' AND id=?").get(s.order.id)!.json));
-            for (const status of ['pending', 'failed', 'cancelled']) {
-                db.prepare('UPDATE records SET json=? WHERE kind=? AND id=?').run(JSON.stringify({ ...order, status }), 'order', order.id);
-                assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId })).statusCode, 403);
-                assert.equal((await f.req(`/api/pickup/${token}/original`)).statusCode, 403);
-            }
-            const { product: _product, ...legacy } = order;
-            db.prepare('UPDATE records SET json=? WHERE kind=? AND id=?').run(JSON.stringify(legacy), 'order', order.id);
-            assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId })).statusCode, 403);
-            assert.equal((await f.req(`/api/sessions/${s.id}/generate`, {})).statusCode, 403);
-            assert.equal((await f.req(`/api/pickup/${token}`)).json().original, undefined);
-            assert.equal((await f.req(`/api/pickup/${token}/original`)).statusCode, 404);
-            db.prepare('UPDATE records SET json=? WHERE kind=? AND id=?').run(JSON.stringify({ ...order, imageIds: [] }), 'order', order.id);
-            assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId })).statusCode, 403);
-        } finally { db.close(); }
+        const other = (await f.req('/api/sessions', { styleId: 'test' })).json();
+        assert.equal((await f.req(`/api/sessions/${other.id}/print`, { imageId })).statusCode, 409);
+        assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId: 'not-this-session' })).statusCode, 409);
         assert.equal(f.printed.length, 0);
     } finally { await f.close(); }
 });

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
-const stages = ['home', 'styles', 'library', 'camera', 'confirm', 'payment', 'generating', 'results', 'pickup'];
+const stages = ['home', 'styles', 'library', 'camera', 'confirm', 'generating', 'results', 'pickup'];
 const duration = 220;
 const easing = 'cubic-bezier(0.23, 1, 0.32, 1)';
 type Transition = { finished: Promise<void>; ready?: Promise<void>; skipTransition: () => void };

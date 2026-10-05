@@ -34,7 +34,7 @@ body:has(.kiosk-shell),body:has(.pickup){
 .kiosk-shell,.pickup{font-family:var(--sr-text);color:var(--sr-ink)}
 
 /* Type */
-.kiosk-shell h1,.pickup h1,.kiosk-shell .capture-copy h1,.kiosk-shell .delivery h1,.kiosk-shell .payment h1,
+.kiosk-shell h1,.pickup h1,.kiosk-shell .capture-copy h1,.kiosk-shell .delivery h1,
 .kiosk-shell .waiting:has(.generation-preview) h1,.kiosk-shell .frame-picker h2{font-family:var(--sr-display);font-weight:600;letter-spacing:-.02em;color:var(--sr-ink)}
 .kiosk-shell .attract-copy h1{font-family:var(--sr-text);font-weight:700;letter-spacing:-.04em}
 .kiosk-shell .attract-copy h1 em{font-family:var(--sr-display);font-weight:700}
@@ -140,13 +140,13 @@ body:has(.kiosk-shell),body:has(.pickup){
 .kiosk-shell .caption-editor textarea,.kiosk-shell .caption-controls select{border-radius:var(--sr-r-sm);border:1px solid var(--sr-line);background:#fffdfa}
 .kiosk-shell .caption-editor textarea:focus{outline:0;border-color:var(--sr-accent);box-shadow:0 0 0 3px #c9472f26}
 .kiosk-shell .portrait-results .checkout-bar{border-top:0;background:transparent}
-.kiosk-shell .package-paid{border-radius:var(--sr-r-sm)}
+
 
 /* Payment */
-.kiosk-shell .purchase-ticket{border:0;border-radius:var(--sr-r-lg);background:var(--sr-surface);box-shadow:var(--sr-shadow-2)}
-.kiosk-shell .purchase-preview img{border-radius:var(--sr-r-sm);box-shadow:var(--sr-shadow-1)}
-.kiosk-shell .package-payment .purchase-ticket>strong{font-family:var(--sr-display);letter-spacing:-.03em}
-.kiosk-shell .simulation-notice{border-radius:999px;text-align:center}
+
+
+
+
 .kiosk-shell .ticket-line{border-top-color:var(--sr-line-strong)}
 
 /* Pickup on the kiosk */

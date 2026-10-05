@@ -18,8 +18,12 @@ export interface Style {
 }
 export interface Health {
     service?: 'snap-club';
-    paymentMode: 'simulate';
+    /** How the process was started; demo launches stay locked in test mode. */
     mode: Mode;
+    /** Generation used for new sessions, after the back-office simulated-generation switch. */
+    generation: Mode;
+    /** Show test-only entries such as the sample photo. Off in normal operation. */
+    testMode: boolean;
     configured: boolean;
     model: string;
     imageCount: number;
@@ -51,25 +55,16 @@ export interface Session {
     promptVersion?: number;
     pickupUrl?: string;
     originalUrl?: string;
-    /** Current package order, including payment state for kiosk refresh/recovery. */
-    order?: Order;
-}
-export interface Order {
-    id: string;
-    sessionId: string;
-    imageIds: string[];
-    amount: number;
-    status: 'pending' | 'paid' | 'failed' | 'cancelled';
-    createdAt: number;
-    paymentMode?: 'simulate';
-    /** Absent on legacy digital-photo orders; those do not authorize a package generation. */
-    product?: 'photo-package';
 }
 export interface PickupData {
-    status: 'paid';
-    paymentMode: 'simulate';
     expiresAt: number;
     mode: Mode;
     images: { id: string; downloadUrl: string }[];
     original?: { downloadUrl: string };
+}
+export interface TestSettings {
+    testEntries: boolean;
+    simulatedGeneration: boolean;
+    /** True when the process was started in demo mode; switches cannot be turned off. */
+    locked: boolean;
 }

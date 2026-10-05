@@ -71,7 +71,7 @@ test('ending during a queued transition clears immediately and stale callbacks c
         await h.go('confirm');
         await h.apply(0);
         assert.ok(h.dom.window.document.querySelector('img'));
-        await h.go('payment');
+        await h.go('generating');
         await h.go('home');
         assert.equal(h.text(), 'home');
         assert.equal(h.queued.length, 2);
@@ -88,10 +88,10 @@ test('ending during a queued transition clears immediately and stale callbacks c
 test('native transitions preserve forward/back direction and allow subsequent navigation before completion', async () => {
     const h = await setup();
     try {
-        await h.go('payment');
+        await h.go('confirm');
         assert.equal(h.dom.window.document.documentElement.dataset.boothPhase, 'out');
         await h.apply(0);
-        assert.equal(h.text(), 'payment');
+        assert.equal(h.text(), 'confirm');
         assert.equal(h.dom.window.document.documentElement.dataset.boothPhase, 'in');
         assert.equal(h.dom.window.document.documentElement.dataset.boothDirection, 'forward');
         await h.go('generating'); await h.apply(1);
@@ -165,7 +165,7 @@ test('fallback navigation is brief, reverses direction and cancels interrupted a
         assert.equal(h.animations[0].frames[0].transform, 'translate3d(12px,0,0)');
         assert.equal((await h.wheel()).defaultPrevented, false);
         assert.ok(h.animations[0].canceled > 0);
-        await h.go('payment');
+        await h.go('results');
         await h.go('camera');
         assert.equal(h.text(), 'camera');
         assert.ok(h.animations[1].canceled > 0);

@@ -22,7 +22,7 @@ for (const expected of bundled.filter(style=>style.enabled && style.exampleUrl.e
 const photo=await sharp('assets/examples/cartoon-editorial.png').resize({width:640}).jpeg().toBuffer();
 const session=await api('/api/sessions',{styleId:styles[0].id});
 await api(`/api/sessions/${session.id}/photo`,{dataUrl:`data:image/jpeg;base64,${photo.toString('base64')}`,orientation:'portrait'});
-await api(`/api/sessions/${session.id}/generate`,{});
+const started=await api(`/api/sessions/${session.id}/generate`,{});assert.ok(started.pickupUrl);
 let ready;
 for(let i=0;i<60;i++){
  ready=await api(`/api/sessions/${session.id}`);
@@ -31,21 +31,18 @@ for(let i=0;i<60;i++){
 }
 assert.equal(ready.status,'ready');assert.equal(ready.images.length,1);
 const preview=await fetch(base+ready.images[0].previewUrl);assert.equal(preview.status,200);
-const order=await api(`/api/sessions/${session.id}/orders`,{imageIds:[ready.images[0].id]});
-assert.equal(order.amount,990);
-const paid=await api(`/api/orders/${order.id}/simulate`,{outcome:'paid'});
-const token=new URL(paid.pickupUrl).pathname.split('/').at(-1);
+const token=new URL(ready.pickupUrl).pathname.split('/').at(-1);
 const pickup=await api(`/api/pickup/${token}`);assert.equal(pickup.images.length,1);
 const lanPickup=await fetch(`${health.pickupBaseUrl}/api/pickup/${token}`);
 assert.equal(lanPickup.status,200,'Pickup API accepts LAN Host');
 const lanAdmin=await fetch(`${health.pickupBaseUrl}/api/admin`);
 assert.equal(lanAdmin.status,403,'Admin API is not exposed on LAN Host');
 const full=await fetch(base+pickup.images[0].downloadUrl);assert.equal(full.status,200);
-const forbidden=await fetch(`${base}/api/pickup/${token}/images/${'not-purchased'}`);assert.equal(forbidden.status,404);
+const forbidden=await fetch(`${base}/api/pickup/${token}/images/${'not-this-session'}`);assert.equal(forbidden.status,404);
 await api(`/api/sessions/${session.id}/end`,{});
 assert.equal((await api(`/api/pickup/${token}`)).images.length,1);
 await mkdir('docs/evidence',{recursive:true});
 await writeFile('docs/evidence/demo-preview.jpg',Buffer.from(await preview.arrayBuffer()));
-const report={at:new Date().toISOString(),mode:health.mode,checks:['HTTP health / styles','JPEG upload of generated reference artwork (no personal photo)','1 demo result + free original','single image 990 cents','simulated payment','paid image download 200','other image download 404','pickup survives session end','LAN address pickup 200 / admin 403 (same machine only)'],status:'passed',limitations:['Not a browser interaction test','No actual camera','No phone test','No Seedream call']};
+const report={at:new Date().toISOString(),mode:health.mode,checks:['HTTP health / styles','JPEG upload of generated reference artwork (no personal photo)','1 demo result + free original','pickup link issued at generation','image download 200','other image download 404','pickup survives session end','LAN address pickup 200 / admin 403 (same machine only)'],status:'passed',limitations:['Not a browser interaction test','No actual camera','No phone test','No Seedream call']};
 await writeFile('docs/evidence/live-http.json',JSON.stringify(report,null,2));
 console.log(JSON.stringify(report,null,2));

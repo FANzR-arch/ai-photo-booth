@@ -72,3 +72,19 @@ test('photography gets focus and exposure guidance while artistic themes keep th
     assert.ok(generationPrompt(custom, 'keep', 'landscape').includes(custom.prompt));
     assert.doesNotMatch(generationPrompt(custom, 'keep', 'landscape'), /真实毛孔尺度/);
 });
+
+test('every preset constrains limb anatomy, and standard themes favour simple readable poses', () => {
+    for (const style of styles) {
+        for (const clothing of ['keep', 'theme'] as const) {
+            const prompt = generationPrompt(style, clothing, style.sceneOrientation ?? 'portrait');
+            assert.equal(prompt.split('【肢体结构】').length, 2, style.id);
+            assert.match(prompt, /两条手臂和两只手，入镜的每只手有五根手指/, style.id);
+            assert.match(prompt, /不出现反关节、拉长、折断、错位/, style.id);
+            assert.match(prompt, /简化动作以保证肢体正确/, style.id);
+            if (!style.generationPreset) {
+                assert.match(prompt, /避免复杂手势、十指交叉和多人手臂缠绕/, style.id);
+                assert.ok(prompt.indexOf('【肢体结构】') > prompt.indexOf(style.prompt!), style.id);
+            }
+        }
+    }
+});
