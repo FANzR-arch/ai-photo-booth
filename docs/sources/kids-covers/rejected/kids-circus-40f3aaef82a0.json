@@ -1,0 +1,21 @@
+{
+  "id": "kids-circus",
+  "themeId": "kids-circus",
+  "subject": "one fictional East Asian boy about 6 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Inside a red and white striped circus big top, string lights, colorful triangular flags, warm stage spotlight, softly blurred small stage and balloons, cheerful vintage realistic photography.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian boy about 6 years old, short dark hair, wearing Bright red ringmaster tailcoat with gold buttons and shoulder details, white shirt and small black bow tie.\nPose: One hand lifts a small black top hat in greeting while other opens welcoming at chest height, both hands within frame and away from face, slightly turned toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\nCritical framing: the welcoming arm has a bent elbow, with its entire open hand at chest height inside the central 70 percent of the picture, never extended to the edge. All five fingers visible. Entire raised top hat and both hands have generous space from every image edge. Lower frame ends near waist, not knees.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-circus-40f3aaef82a0.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-f89ce172-8a2c-4f06-b0b4-b47c15c4226a.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "40f3aaef82a0dcf6bea0014c1bdf778e8cd0f8794085afe9cdbba41b6d060d94",
+  "coverSha256": "d3753eff81cdc804d48eaaef9b49dc037093b9823c01b594afce383ccf13a357",
+  "promptSha256": "1fed9b93f3239a73d0384bb1960be038abd6ede900fb61a2dc34a6c47f7ca18c",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 108242,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-circus.webp"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "kids-racer",
+  "themeId": "kids-racer",
+  "subject": "one fictional East Asian girl about 8 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Racing pit area with an original bright red open-wheel race car, colored confetti ribbons descending, bright sunshine, realistic sports photography, blank car body without brand names or numbers.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 8 years old, short dark hair, wearing Fitted red-and-white racing jumpsuit with simple color panels on chest and sleeves and no sponsors.\nPose: One hand raises a small plain gold trophy within top frame beside head, other holds racing helmet at waist, slightly turned, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-racer-6877572224c5.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-aa9e3c30-b85a-4485-80cb-4f88a6f1320d.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "6877572224c593dec078d8f78ce15dc71b783188165ce734cfbb1996f0dd812a",
+  "coverSha256": "309f1777b26d9011da847652c86ca1366585eb6d5d37c1cb2f41b63ac1508732",
+  "promptSha256": "71cad5ce82a4e8f123d0896327e2914133d7d069df1d41743ef1ba2a2e1fad43",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 120858,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-racer.webp"
+}

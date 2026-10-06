@@ -1,3 +1,6 @@
 # macOS shell entrypoints must survive a checkout on Windows with LF line endings.
 *.command text eol=lf
 scripts/macos/*.sh text eol=lf
+# Prompt archive checksums require the exact submitted text bytes on every platform.
+docs/sources/**/*.txt -text
+config/styles/styles.json text eol=lf

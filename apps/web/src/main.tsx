@@ -13,5 +13,6 @@ import './photo-library.css';
 import './booth-flow.css';
 import './studio-refresh.css';
 import './admin-workspace.css';
+import './kiosk-touch.css';
 const path = location.pathname;
 createRoot(document.getElementById('root')!).render(path.startsWith('/pickup/') ? <Pickup /> : path === '/admin' ? <Admin /> : <Booth />);

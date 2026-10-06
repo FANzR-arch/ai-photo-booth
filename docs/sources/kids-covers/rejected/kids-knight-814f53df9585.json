@@ -1,0 +1,21 @@
+{
+  "id": "kids-knight",
+  "themeId": "kids-knight",
+  "subject": "one fictional East Asian boy about 7 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Sunlit stone castle courtyard, colorful plain flags fluttering and softly blurred background, realistic fairy-tale adventure-film atmosphere.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian boy about 7 years old, short dark hair, wearing Silver-gray lightweight fabric knight tabard with original star crest, light gray long sleeves and light shoulder armor panels, no helmet.\nPose: One hand holds a natural wooden toy sword upright in front, the other holds the rim of a round shield with an original simple wordless crest, both hands visible, slightly turned toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-knight-814f53df9585.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-1661a8ed-118c-4481-b844-d359e70b8756.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "814f53df95859f0db77629942f623693abb26446bbb14b0d28c3c9d70b813811",
+  "coverSha256": "dc5761de71e05ba47b205283262bc51f96848e72559029de33ebb9383232da18",
+  "promptSha256": "644722b137cf72d6e7b0d46fcce895dde12dcc526b0b68c3cbd0924d874cfb71",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 132142,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-knight.webp"
+}

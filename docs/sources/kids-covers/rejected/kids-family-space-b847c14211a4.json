@@ -1,0 +1,21 @@
+{
+  "id": "kids-family-space",
+  "themeId": "kids-family-space",
+  "subject": "exactly two fictional East Asian people: a father in his thirties with short dark hair and his daughter about 6 years old with shoulder-length dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Lunar-base viewing window showing gray-white lunar terrain and blue Earth suspended in dark space, soft white light, realistic science-fiction photography.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: exactly two fictional East Asian people: a father in his thirties with short dark hair and his daughter about 6 years old with shoulder-length dark hair, wearing Each person wears a fitted white astronaut suit with an original abstract wordless mission patch, no agency insignia.\nPose: Father and child stand closely side by side retaining credible adult-child height difference; father places one hand visibly on child's shoulder and other near own waist; child holds a helmet with both hands; both faces toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one adult and one child; each person has exactly two arms and two hands, adult and child scale must remain believable. Frame wide enough for all four hands and both heads; do not crop the child at the shoulders.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-family-space-b847c14211a4.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-c36b5f96-e7be-4dd0-9e1e-f492eee11765.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "b847c14211a4592d99eb298988720c9e4a62f55067672ac63030bc88bccc4df9",
+  "coverSha256": "618df7e93f8ea1d1e5cbecc2561a17702ea5168f6f910bbe8429ed56c4fcf798",
+  "promptSha256": "2784e9efce3d9f3a2bd999cb98b3a4cf0ba7d65a48e8d72393222154412684f1",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 118542,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-family-space.webp"
+}

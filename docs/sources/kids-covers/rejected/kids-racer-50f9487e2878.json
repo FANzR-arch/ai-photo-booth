@@ -1,0 +1,21 @@
+{
+  "id": "kids-racer",
+  "themeId": "kids-racer",
+  "subject": "one fictional East Asian girl about 8 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Racing pit area with an original bright red open-wheel race car, colored confetti ribbons descending, bright sunshine, realistic sports photography, blank car body without brand names or numbers.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 8 years old, short dark hair, wearing Fitted red-and-white racing jumpsuit with simple color panels on chest and sleeves and no sponsors.\nPose: One hand raises a small plain gold trophy within top frame beside head, other holds racing helmet at waist, slightly turned, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\nCritical correction: racing suit has only immaculate red and white fabric panels and plain stitching; completely no patches, black fabric tags, tiny shoulder writing, embroidered sponsor lettering, sleeve labels or any printed marks. The helmet and trophy are equally blank. Keep both elbows and helmet hand generously inside image borders.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-racer-50f9487e2878.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-10d7028f-bd7c-4027-ad5c-08f199c1e201.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "50f9487e28781ac389edbb8bc8ef4d5e34d0e29c94ebfd900c884710e543db30",
+  "coverSha256": "9d9f82fa3e419d5c7509bcac63e7c66b4f11bd4f1b08cba9f3fbea0114231bf6",
+  "promptSha256": "825aeeec499f406562d794af68fa5f884f7db4170f7ff58e55e8391bc9151975",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 118268,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-racer.webp"
+}

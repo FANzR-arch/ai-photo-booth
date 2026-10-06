@@ -81,7 +81,8 @@
     "prompt": "191d43b52df265d4dfbc1870000c64811f6ea6c358558fba2d62888d37fd2125"
   },
   "together-07": {
-    "prompt": "a4ea68cf86526bb8db910569fdc991f319f11582bb6d01a7f5b8b286380028f4"
+    "prompt": "a4ea68cf86526bb8db910569fdc991f319f11582bb6d01a7f5b8b286380028f4",
+    "outfitPrompt": "6f243aa0d8f3143a7493d0180eb7e191237fd2e1884ee6549a932fa1947057e0"
   },
   "together-08": {
     "prompt": "992390f2bc4181fbd802c5012d39c055149dc24d245130940bede1873e0bace5"
@@ -100,7 +101,7 @@
   },
   "memory-03": {
     "prompt": "842db05d9e20f6ae99b171a49fd61284ba28d1d6da503680a5b9109c5f12c040",
-    "outfitPrompt": "5fd2c1189e6433cde4b3b9e03504f8b21f0b832921bcce44c3c82a5accbf841a"
+    "outfitPrompt": "8f794c78c6f040e14386c9ab8a929d8de6a0ae1ea86d6317247eac97cecf88d4"
   },
   "memory-04": {
     "prompt": "4df29be5a5b920ef7b960dfda0ffbf8a708dd2d8deb05334822483b2b78dcd1d"
@@ -112,11 +113,12 @@
     "prompt": "d7febde8503ea874e4ffc57f4cba75e7a72be08c964dcf2863e6fee9ddf88a04"
   },
   "memory-07": {
-    "prompt": "4e1425621fe73ec8ebe953310fca022c97f4f1e8465994cb0ba9a088951ffbb1"
+    "prompt": "4e1425621fe73ec8ebe953310fca022c97f4f1e8465994cb0ba9a088951ffbb1",
+    "outfitPrompt": "c1cb95339a5b84079de9733e1b7e39710ec58e7cef8aced98bc0d1ca75a1f0bf"
   },
   "memory-08": {
     "prompt": "f4c13e5e1b44a0b33650893a3d5682b88fdf95278aa2b80c60a6e708463907fb",
-    "outfitPrompt": "ec5c5579da04a0b0eba0a2d5f1280bc14d3dd07e32e8b4fcca9b7dfb1b070278"
+    "outfitPrompt": "e5e1a257491ec151ebc3b645b79f455dbffdb7f11418cf1d2870e7e537c3d71f"
   },
   "memory-09": {
     "prompt": "98e6261df1fb44535534414fb4ec63714463deffd78939bb44b62b6d1fa5148e",

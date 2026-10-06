@@ -1,0 +1,144 @@
+/* Kiosk touch layer: loaded last, scoped to the visitor booth (.kiosk-shell).
+   Visitors stand about a metre away with no keyboard: block browser gestures, raise type and targets.
+   The phone pickup page is untouched so long-press saving and pinch zoom keep working there. */
+html.kiosk-touch,html.kiosk-touch body{overscroll-behavior:none}
+.kiosk-shell{touch-action:pan-x pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.kiosk-shell img{-webkit-user-drag:none}
+.kiosk-shell :is(input,textarea,select){-webkit-user-select:text;user-select:text}
+
+/* Header: logo is a hidden staff entry, visit actions are full-size buttons. */
+.kiosk-shell .staff-entry{touch-action:none}
+.kiosk-shell .staff-entry .brand{cursor:default}
+.kiosk-shell .visit-actions .text-button{min-height:60px;padding:10px 26px;font-size:18px}
+
+/* Step bar */
+.kiosk-shell .step-back{min-height:60px;font-size:18px}
+.kiosk-shell .progress{font-size:17px}
+.kiosk-shell .step-bar .photo-expiry{font-size:16px}
+
+/* Confirm: pickers and consent sized for a finger, not a cursor. */
+.kiosk-shell .orientation-picker legend{font-size:17px;margin-bottom:14px}
+.kiosk-shell .orientation-options button{min-height:96px}
+.kiosk-shell .orientation-options strong{font-size:19px}
+.kiosk-shell .orientation-options small{font-size:14px}
+.kiosk-shell .orientation-options i{font-size:20px}
+.kiosk-shell .capture-copy .consent{align-items:center;min-height:76px;padding:16px 20px;font-size:17px;line-height:1.5}
+.kiosk-shell .capture-copy .consent input{width:34px;height:34px;margin:0}
+.kiosk-shell .consent-hint{font-size:16px}
+.kiosk-shell .capture-guidance,.kiosk-shell .locked-photo-note{font-size:18px}
+.kiosk-shell .photo-options summary{min-height:56px;font-size:17px}
+.kiosk-shell .error{font-size:17px}
+.kiosk-shell .error .staff-code{display:block;margin-top:6px;font-size:13px;opacity:.7}
+.kiosk-shell .fine-print{font-size:14px}
+
+/* Frame picker and results */
+.kiosk-shell .frame-picker-heading h2{font-size:22px}
+.kiosk-shell .frame-name{font-size:16px}
+.kiosk-shell .caption-heading{font-size:16px}
+.kiosk-shell .caption-more summary{min-height:56px;font-size:16px}
+.kiosk-shell .caption-controls select{min-height:56px;font-size:17px}
+.kiosk-shell .caption-alignment button{min-width:60px;min-height:60px}
+.kiosk-shell .print-heading,.kiosk-shell .generated-label{font-size:15px}
+.kiosk-shell .result-delivery-actions>.secondary{min-height:64px;font-size:19px}
+.kiosk-shell .photo-print-action .primary{min-height:68px;font-size:20px}
+.kiosk-shell .photo-print-action .text-button,.kiosk-shell .original-download{min-height:56px;font-size:16px}
+
+/* Attract carousel controls */
+.kiosk-shell .carousel-controls button{min-width:60px;min-height:60px}
+
+/* Modal used for the end-visit confirmation and the staff menu. */
+.kiosk-dialog{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:#2e272299;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.kiosk-dialog-card{display:flex;flex-direction:column;gap:14px;width:min(520px,100%);padding:36px;border-radius:var(--sr-r-lg,26px);background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-2);text-align:center}
+.kiosk-dialog-card h2{margin:0;font-size:30px;font-family:var(--sr-display);font-weight:600}
+.kiosk-dialog-card p{margin:0 0 10px;font-size:18px;line-height:1.6;color:var(--sr-muted,#7a6d63)}
+.kiosk-dialog-card :is(.primary,.secondary,.button){width:100%;min-height:68px;font-size:20px}
+.kiosk-dialog-card .text-button{min-height:56px;font-size:17px}
+.kiosk-dialog-card .display-controls{display:flex;flex-direction:column;gap:8px}
+.kiosk-dialog-card .display-controls span{font-size:14px;color:var(--sr-muted,#7a6d63)}
+
+/* ---------- Landscape kiosk layout (target device: landscape touch screen) ---------- */
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell{max-width:none;padding-inline:clamp(32px,3vw,56px)}
+
+  /* Theme library: five columns, no motion controls. */
+  .kiosk-shell .theme-library .theme-grid{grid-template-columns:repeat(5,minmax(0,1fr));width:100%;gap:22px}
+  .kiosk-shell .theme-library .theme-caption{min-height:64px;padding:14px 18px}
+
+  /* Camera and confirm share one layout so the photo stays put: large 4:3 viewfinder, controls beside it. */
+  .kiosk-shell:is([data-step="camera"],[data-step="confirm"]) .capture-layout{display:grid;grid-template-columns:auto minmax(380px,460px);justify-content:center;align-items:center;gap:clamp(32px,3vw,56px);padding:8px 0;min-height:0;height:auto}
+  .kiosk-shell:is([data-step="camera"],[data-step="confirm"]) .camera-frame{height:calc(100dvh - 290px);width:auto;max-width:calc(100vw - 600px);aspect-ratio:4/3;max-height:none;align-self:center;border-radius:20px}
+  .kiosk-shell[data-step="camera"] .capture-copy h1{font-size:56px;margin:8px 0 12px}
+  .kiosk-shell[data-step="camera"] .capture-button{min-height:104px;font-size:30px}
+  .kiosk-shell[data-step="confirm"] .capture-copy{max-height:calc(100dvh - 290px);overflow-y:auto}
+}
+
+/* Standing guide on the viewfinder */
+.pose-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;fill:#fffaf00d;stroke:#fffaf0b3;stroke-width:2.2;stroke-dasharray:7 6;stroke-linecap:round;transition:stroke .3s}
+.pose-guide.distance-ok{stroke:#7fd39a;stroke-dasharray:none;stroke-width:3}
+.pose-guide.distance-farther,.pose-guide.distance-closer,.pose-guide.distance-none{stroke:#ffb59f}
+.kiosk-shell .distance-hint{top:18px;padding:12px 26px;font-size:22px}
+
+/* Countdown big enough to read from a metre away */
+.kiosk-shell .countdown b{font-size:min(30vh,300px);font-weight:800;text-shadow:0 6px 30px #00000059}
+.kiosk-shell .countdown span{font-size:32px}
+.shutter-flash{position:fixed;inset:0;z-index:200;background:#fff;pointer-events:none;animation:shutter-flash .5s ease-out forwards}
+@keyframes shutter-flash{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion:reduce){.shutter-flash{animation-duration:.15s}}
+
+/* Theme preview sheet */
+.theme-preview-card{display:grid;grid-template-columns:auto minmax(320px,420px);gap:36px;align-items:center;max-width:min(1500px,94vw);max-height:90dvh;padding:32px;border-radius:var(--sr-r-lg,26px);background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-2)}
+.theme-preview-images{display:flex;gap:16px;justify-content:center;min-width:0}
+.theme-preview-images figure{margin:0}
+.theme-preview-images img{display:block;height:min(76dvh,820px);width:auto;max-width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;background:#f4ede5}
+.theme-preview-images[data-orientation] img{aspect-ratio:auto;object-fit:contain}
+.theme-preview-images[data-count="2"] img{width:calc((min(1500px,94vw) - 536px)/2);height:auto;max-height:76dvh}
+.theme-preview-copy{display:flex;flex-direction:column;gap:14px}
+.theme-preview-copy h2{margin:0;font-size:44px;font-family:var(--sr-display);font-weight:600}
+.theme-preview-copy p{margin:0;font-size:18px;line-height:1.6;color:var(--sr-muted,#7a6d63)}
+.theme-preview-category{align-self:flex-start;padding:6px 14px;border-radius:999px;background:var(--sr-accent-soft,#fdeee6);color:var(--sr-accent,#c9472f);font-size:16px}
+.theme-preview-copy .primary{margin-top:14px;min-height:84px;font-size:26px}
+.theme-preview-copy .secondary{min-height:68px;font-size:20px}
+@media (orientation:portrait),(max-width:1199px){.theme-preview-card{grid-template-columns:1fr;overflow-y:auto}.theme-preview-images img{height:min(50dvh,640px)}}
+
+/* Results: AI photo is the hero, decoration and the next step beside it */
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell .portrait-results{display:grid;grid-template-columns:minmax(0,1fr) minmax(440px,520px);gap:clamp(32px,3vw,56px);align-items:start;padding:8px 0}
+  .kiosk-shell .result-stage{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+  .kiosk-shell .result-hero{display:flex;justify-content:center;width:100%;height:calc(100dvh - 300px)}
+  .kiosk-shell .result-hero .photo-frame{height:100%;width:auto;max-width:100%}
+  .kiosk-shell .result-side{display:flex;flex-direction:column;gap:18px;max-height:calc(100dvh - 290px);overflow-y:auto;padding-right:6px}
+  .kiosk-shell[data-step="results"] .library-toolbar{position:fixed;left:clamp(32px,3vw,56px);bottom:8px;z-index:5}
+}
+.kiosk-shell .result-thumbs{display:flex;gap:12px}
+.kiosk-shell .result-thumbs button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px;border-radius:12px;border:2px solid transparent;background:var(--sr-surface,#fffdfa);font-size:15px;min-width:96px}
+.kiosk-shell .result-thumbs button.selected{border-color:var(--sr-accent,#c9472f)}
+.kiosk-shell .result-thumbs img{height:84px;width:auto;border-radius:8px}
+.kiosk-shell .results-heading{display:flex;align-items:baseline;gap:14px;margin:0}
+.kiosk-shell .result-original{display:flex;align-items:center;gap:16px;padding:12px;border-radius:var(--sr-r-sm,12px);background:var(--sr-sunken,#f5eee6)}
+.kiosk-shell .result-original img{height:84px;width:auto;border-radius:8px}
+.kiosk-shell .result-original p{margin:0;font-size:15px;line-height:1.5;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .result-original strong{display:block;font-size:17px;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .result-next{min-height:80px;font-size:23px;flex-shrink:0;position:sticky;bottom:0;z-index:2;box-shadow:0 -14px 22px -6px var(--sr-bg,#fbf7f2),var(--sr-shadow-accent)}
+
+/* Caption presets: tap instead of typing */
+.kiosk-shell .caption-presets{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.kiosk-shell .caption-presets button{min-height:56px;padding:10px 20px;border-radius:999px;border:1px solid var(--sr-line,#ece2d8);background:var(--sr-surface,#fffdfa);font-size:17px}
+.kiosk-shell .caption-presets button[aria-pressed="true"]{border-color:var(--sr-sage,#4f6b4c);background:var(--sr-sage-soft,#edf3e8)}
+.kiosk-shell .caption-custom summary,.kiosk-shell .caption-more summary{min-height:56px;display:flex;align-items:center;font-size:16px;color:var(--sr-muted,#7a6d63)}
+
+/* Delivery: final photo + Wi-Fi QR + pickup QR + print on one screen */
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell .delivery{display:grid;grid-template-columns:auto minmax(560px,760px);justify-content:center;align-items:center;gap:clamp(36px,4vw,72px);padding:8px 0}
+  .kiosk-shell .delivery-photo{display:flex;justify-content:center;height:calc(100dvh - 300px)}
+  .kiosk-shell .delivery-photo .photo-frame{height:100%;width:auto;max-width:44vw}
+}
+.kiosk-shell .delivery-side{display:flex;flex-direction:column;gap:18px;max-width:760px}
+.kiosk-shell .delivery-side h1{margin:0}
+.kiosk-shell .delivery-codes{display:flex;gap:24px;align-items:stretch}
+.kiosk-shell .delivery .qr-ticket{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:none;flex:1;padding:26px 22px 22px;text-align:center}
+.kiosk-shell .delivery .qr-ticket strong{font-size:24px}
+.kiosk-shell .delivery .qr-ticket img{width:min(260px,100%);height:auto}
+.kiosk-shell .delivery .qr-ticket small{font-size:16px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .qr-step{position:absolute;top:-16px;left:50%;transform:translateX(-50%);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--sr-accent,#c9472f);color:#fff;font-weight:700;font-size:18px}
+.kiosk-shell .delivery .photo-print-action{margin:0}
+.kiosk-shell .delivery-done{min-height:68px;font-size:20px}

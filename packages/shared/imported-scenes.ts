@@ -2,7 +2,7 @@ import type { PhotoOrientation } from './photo-orientation';
 import { adaptWardrobeToAppearance } from './appearance-styling';
 
 /** Zip source codes stay stable for test records, gallery grouping and fixed scene framing. */
-export const importedScenes: { code: string; id: string; name: string; purpose: 'self' | 'memory' | 'together'; orientation: PhotoOrientation; people: 1 | 2; description: string; color: string }[] = [
+export const importedScenes: { code: string; id: string; name: string; purpose: 'self' | 'memory' | 'together'; orientation: PhotoOrientation; people: 1 | 2; description: string; color: string; batch?: '2026-10-06' }[] = [
  {code:'01',id:'coming-of-age',name:'你好，我的18岁',purpose:'memory',orientation:'poster',people:1,description:'冷灰棚拍 · 深蓝针织与银白艺术字',color:'#233148'},
  {code:'02A',id:'doctor-classic',name:'医生肖像 · 经典',purpose:'self',orientation:'portrait',people:1,description:'白大褂、领带与听诊器 · 自然微笑',color:'#c2ccce'},
  {code:'02B',id:'doctor-relaxed',name:'医生肖像 · 自然',purpose:'self',orientation:'portrait',people:1,description:'浅蓝衬衫 · 双手自然低放',color:'#d5e2eb'},
@@ -15,13 +15,42 @@ export const importedScenes: { code: string; id: string; name: string; purpose: 
  {code:'09B',id:'wedding-groom',name:'朱红婚照 · 回应',purpose:'memory',orientation:'landscape3x2',people:1,description:'温暖微笑 · 回应画外花束',color:'#883b31'},
  {code:'10A',id:'island-coconut',name:'海岛写真 · 椰子',purpose:'self',orientation:'landscape3x2',people:1,description:'捧椰子指向镜头 · 热带日光',color:'#c9ad72'},
  {code:'10B',id:'island-surprise',name:'海岛写真 · 惊喜',purpose:'self',orientation:'landscape3x2',people:1,description:'指向自己、轻松笑意 · 海边小店',color:'#90b6b4'},
+ {code:'11',id:'street-motion',name:'街头流光',purpose:'self',orientation:'portrait',people:1,description:'灰呢大衣回眸 · 追焦车流',color:'#626064',batch:'2026-10-06'},
+ {code:'12',id:'sticker-pow',name:'元气贴纸海报',purpose:'self',orientation:'poster',people:1,description:'气球翅膀与便利贴 · 橙色直闪',color:'#ed8a3c',batch:'2026-10-06'},
+ {code:'13',id:'stream-swordsman',name:'溪流侠客',purpose:'self',orientation:'poster',people:1,description:'水手服与道具长刀 · 林间溪流',color:'#315b4e',batch:'2026-10-06'},
+ {code:'14',id:'pink-flash',name:'甜酷直闪',purpose:'self',orientation:'portrait',people:1,description:'粉色棒球帽与铆钉包 · Y2K 棚拍',color:'#d99cad',batch:'2026-10-06'},
+ {code:'15',id:'backstage-ccd',name:'幕后抓拍',purpose:'self',orientation:'portrait',people:1,description:'低机位与 CCD 相机 · 黑皮夹克',color:'#647584',batch:'2026-10-06'},
+ {code:'16',id:'croissant-birthday',name:'胶片生日',purpose:'memory',orientation:'poster',people:1,description:'可颂与蜡烛 · 居家胶片暖光',color:'#d7b88f',batch:'2026-10-06'},
+ {code:'17',id:'burgundy-apple',name:'酒红棚拍',purpose:'self',orientation:'poster',people:1,description:'托腮与红苹果 · 酒红无缝背景',color:'#7d303c',batch:'2026-10-06'},
+ {code:'18',id:'workday-energy',name:'职场元气',purpose:'self',orientation:'poster',people:1,description:'回身抬脚 · 清爽工牌照',color:'#bfc4ce',batch:'2026-10-06'},
+ {code:'19',id:'rattan-vintage',name:'复古藤椅',purpose:'self',orientation:'poster',people:1,description:'碎花与小辫 · 日系复古窗光',color:'#779f96',batch:'2026-10-06'},
+ {code:'20',id:'golden-butterflies',name:'光影蝴蝶',purpose:'self',orientation:'portrait',people:1,description:'提线纸蝶 · 暖金光影写真',color:'#ba9559',batch:'2026-10-06'},
+ {code:'21',id:'winter-plum',name:'雪落腊梅',purpose:'self',orientation:'poster',people:1,description:'中式提花与毛绒披肩 · 雪花暖光',color:'#496775',batch:'2026-10-06'},
+ {code:'22',id:'wet-hair-beauty',name:'湿发美妆',purpose:'self',orientation:'portrait',people:1,description:'湿发与水光皮肤 · 冷绿特写',color:'#88a39a',batch:'2026-10-06'},
+ {code:'23',id:'cobalt-denim',name:'钴蓝直闪',purpose:'self',orientation:'portrait',people:1,description:'牛仔背心与银链 · 钴蓝硬光',color:'#294aa7',batch:'2026-10-06'},
+ {code:'24',id:'low-angle-couture',name:'仰拍高定',purpose:'self',orientation:'portrait',people:1,description:'黑西装与玫红胸针 · 低机位大片',color:'#657788',batch:'2026-10-06'},
+ {code:'25',id:'bar-toast',name:'酒吧夜色',purpose:'together',orientation:'portrait',people:2,description:'同步举杯 · 琥珀色电影酒吧',color:'#886137',batch:'2026-10-06'},
+ {code:'26',id:'study-tie',name:'复古书房',purpose:'together',orientation:'poster',people:2,description:'轻扯领带 · 棕色学院写真',color:'#997553',batch:'2026-10-06'},
+ {code:'27',id:'punk-room',name:'朋克房间',purpose:'together',orientation:'poster',people:2,description:'椅上与地板 · 九十年代摇滚',color:'#727d89',batch:'2026-10-06'},
+ {code:'28',id:'blue-peek',name:'背后偷看',purpose:'together',orientation:'portrait',people:2,description:'背后环抱与伸手 · 克莱因蓝棚拍',color:'#254cad',batch:'2026-10-06'},
+ {code:'29',id:'gray-tie-duo',name:'灰墙双人',purpose:'together',orientation:'portrait',people:2,description:'领带与斜眼 · 清冷杂志合影',color:'#a2a6ab',batch:'2026-10-06'},
+ {code:'30',id:'office-partners',name:'职场搭档',purpose:'together',orientation:'portrait',people:2,description:'笔记本与咖啡 · 职场双人剧照',color:'#4e5157',batch:'2026-10-06'},
 ];
+
+/** Source batches share the same identity adaptation, import script, and cover naming. */
+export const scenePromptDirectory = (scene: typeof importedScenes[number]) =>
+ `docs/sources/prompt-import-${scene.batch ?? '2026-09-29'}/单张照片提示词`;
 
 export const textureDirection = '【成像质感】以清晰原片的真实摄影细节为准：眼睛与眼镜边缘对焦准确，保留鼻翼、面颊的自然细纹、细小毛孔和原有痣、胡须，不把毛孔夸张成砂砾。皮肤、针织、棉布、金属和背景分别呈现各自真实纹理，不用一层噪点代替所有材质。高光渐变柔和不溢出，暗部保留层次；胶片颗粒只在明确要求的场景中轻微出现，柔光光晕仅作用于高光和背景，不模糊人脸。避免强磨皮、蜡像光泽、HDR和锐化白边。人物动作、头部朝向和视线按场景重建，不锁定原照片姿势；身份特征与年龄感始终优先。';
 
 /** Only one uploaded image is available. Preserve the user's original files separately. */
 export function adaptScenePrompt(source: string, people: 1 | 2, code?: string) {
  const paragraphs = source.trim().split(/\r?\n\s*\r?\n/);
+ // New scenes already specify their expression. Normalize the heading so the existing mood cap applies.
+ if (/^\d{2}$/.test(code ?? '') && Number(code) >= 11) {
+  for (let i=1;i<paragraphs.length;i++) paragraphs[i]=paragraphs[i].replace(/^表情[：:]?/, '神态：');
+  if (!paragraphs.some(p=>p.includes('神态：'))) paragraphs.push('神态：按上文的视线和情绪自然表现，幅度克制。');
+ }
  paragraphs[0] = people === 1
   ? '仅使用上传照片中的这一个人作为唯一身份参考，没有第二张风格图片。保持真人的脸型、五官相对位置、眼睛形状、鼻形、唇形、眉形、肤色、发际线、原有发长、年龄感、性别特征、眼镜及可辨识的痣与胡须；不美化成另一个人，不因生日或成人礼主题强行改变年龄。服装、动作、环境与文字设计只按下文描述执行。'
   : '上传照片须包含两位本人，原照片左侧人物为A、右侧人物为B。只有这一张身份参考，没有额外风格图片。保持各自脸型、五官比例、肤色、发际线、眼镜及年龄感；不混脸、不交换身份、不创造或复制伴侣。A、B的站位、服装角色与互动按下文执行；发型保留真人基本长度。';

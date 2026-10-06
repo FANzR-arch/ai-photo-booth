@@ -1,0 +1,607 @@
+{
+  "coming-of-age": {
+    "prompt": [
+      "bf4834bdd5cbf542458722e4ec78ee11c8fc9f367e582061d615826fa64b1fa9",
+      "fb442804bbcf66be28c86c4310141e8ca17e0d997c2a8e60b946016c4ffa95dd"
+    ],
+    "description": "840864090ac3b794425010e11f3120a2d823d6edb710e3531ff5e13a8947b659",
+    "exampleUrl": "06e4d9f1f870dc26dc1335eaedb70b7c05ca79e445f7e7c4ad068c3b295b07e5",
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632"
+  },
+  "cinema": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "8c31e02e3bec29a500a9ae817c9ce461d795743ee3bf02754a836815c5c1c9c3",
+      "7d310283140f51278a432299b3b9680231e7f50a8db9d575202b483548cf96e6",
+      "9b6ea5e0d0bb9f12fd4430d688493b102dde8437fbbe2ea5cee4df9c33a960a5"
+    ]
+  },
+  "business": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "e00e08ca04c7ebdf9b07ef8fcd5a9ef1d63c4dfb372982fb52d8bc4574a7e213",
+      "aebccd2da2e9e7a8853c673b38b9fd1e2b33f3b11955e729f7b73c3a5e8df0bd",
+      "063380dc480568bf30689c0359f2c099624df07a61b323ee429bc54256664ea0",
+      "31f97bdeba81295e56183c0bdbe050f31d80d416f6e149feb81a45ab126eb524"
+    ]
+  },
+  "cartoon": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "9fb93de9d88b308d44210628e4ab49f452f2779473a8890e3c3a4c542ac9f1d4"
+    ]
+  },
+  "editorial": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "179d31897fbbe6fe9c3ae01ca94adb9cf0c8ab0eaa01f65c2e617d33e297b67f",
+      "91e21aedb012beaa21a9a4fe0c76176bd2ae274abcb52db4b1902ad042c98c8b",
+      "e11f6e96b95452ea50e29476bd3e6dc3137a897e124bb0a56a6a1e300b015a61"
+    ]
+  },
+  "anime": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "3b1050d9b171039481ea361faa8c1a47ddcaf3bad9ec70f0474118cf1625dfe0"
+    ]
+  },
+  "film": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c0d096219a31a28c60bb47022652b340b9f381be4f7ca523c645d3c372e2b3c4",
+      "1cfeccef54f445d6de4617064249e9b8295b3d3652a780424b9ea9251abd477c",
+      "cb8bcf05649a95425fa9601ad0afd92102de03520f3a97daab1128a7ae8f0a82"
+    ],
+    "description": [
+      "8b97ee168e4971a563952b4c6062cb034f135df17f79237811125ec59294b54e"
+    ]
+  },
+  "festival": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "5801be8f024a7793e34996e2482da8dced0f730019b09e082a6207cdb1080b0d",
+      "64764375ca585772107fed9cb75d1e12dc11c67bf995d2cefe7ad515ef5cb491",
+      "de59349f24a8551bd68b2282f8a3cabca449615cda5f833396be2f738cfbfc02"
+    ]
+  },
+  "watercolor": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "df4636c4c89ce4d49bbbc6f95eb98ffc1c2db32ba0e9bcf22cad7c8763f21b2e"
+    ]
+  },
+  "popart": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "dad7b90c21fc0c7f48c55edfa0d6f727658bbe7945c0c64858488d093f4b1683"
+    ]
+  },
+  "charcoal": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "fc53552622d860708e74ec330dd4fa551c8baf26178bca8ebb0a19755ea528ee"
+    ]
+  },
+  "oilpainting": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "48b83b1ea20df469c5c602cd52742e18bca446b6e6f0c90ce2b1d5df7b030f30"
+    ]
+  },
+  "inkwash": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "28c45e5a347014530f623d02879ea640d113c7abee12a7bda05f8903f0ba249a"
+    ]
+  },
+  "papercut": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "870a19a90de0abd59bc5f9988f80e8b70283872f1f8892d05943cac7c97bbcd2"
+    ]
+  },
+  "clay": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "d143a8f86b44690b1328bcba08292797dbe1673d0acbac18c63d375fbb8508df"
+    ]
+  },
+  "felt": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "bc50d164cdb1acec575401bbd15d6b1dd48e6f50ae92e5418b06d47746aaf645"
+    ]
+  },
+  "pixel": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "ad942193913d302104b651b0c35007686792b977f5d9e08bf8537faf3b642061"
+    ]
+  },
+  "risograph": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "5b7e267c180df43b79ba5d8d22504ed6105c9c8b827d9525e11abc3163361fe3"
+    ]
+  },
+  "cyanotype": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "1afc59f7839d8aca98e22fb90f3dd2a850fda34f2a567a57dcf33c496f0a85e6"
+    ]
+  },
+  "stainedglass": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "fbdd63c1ee0250b347d5167cbb71b2485ede08b1b9a7a724508f45455a63bcb8"
+    ]
+  },
+  "mosaic": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "00626cc5e14831f524c1123b3388ceb94a0abfb71fe08cbb12596b85377937b2"
+    ]
+  },
+  "lowpoly": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "b1f44494072affed272983709cc8b1702a6f79d9550de3c0d12e0fc2f20a457b"
+    ]
+  },
+  "together-01": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "8f35a504e876b14edb5045e3ec53a7d0182b89ba9ed43b5a2308af7c9dd545de",
+      "6d5d1f715d60f722027ba1e28bb74f92a3e8da05d87869c1137a56e55a502f04",
+      "ccfae3eb2f9cc01e4c6b0fa3d4bbb98a14f01f4c2f68df784f9e45c2093b5376"
+    ]
+  },
+  "together-02": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c438159fd786e87a7a4054cfef19cfce3b6734f1c1d8b328789e52da2a7e6260",
+      "217e436991040c691f15635b29a4eaf20a0047393ce527f9d54e2da0d55989e3",
+      "9d23bf9cf942183850adade4bc78ff2d7993bce5242348c20bc5a13639376bab"
+    ]
+  },
+  "together-03": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "f04c504cfa63253f3e91346db88d1e02364a85b92e096cb2d46387b3ee34f133",
+      "f432df1e63113f4b340ac05c05a8e3b41b9d1a5b5901dd86840ad148f6e427df",
+      "f85f37d11af800a373027bc31d915511de074296cf0fc17d82ba47ccb0f43901"
+    ]
+  },
+  "together-04": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "22f081df946b1d5b747c8ac8f58bfa9730c4095f978549f833954d65b96dde41",
+      "b3ee15817c0c2cadd928a4cbe0da8a28f8a29c7301e596efc83f7e5c53feb241",
+      "ee9a7362e5e5ca07ed0f39cabc71b21de2409b683198e4711bd9f10513cb5d5c"
+    ]
+  },
+  "together-05": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "7d35c4db805bec64f4c00a8d370b60b5cf79e54c7f333106c274cd1644e24f0a",
+      "714676007e3119468d9120c0e9cea914212d3dea2a770beb20036ce0eec3b325",
+      "6baf000544f0ff5b3c6f2ce6b5a26406b4f1dc042635963d39dc94fc43a0f5d9"
+    ]
+  },
+  "together-06": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "264df03e77f2af10047d782770628307e22109ad266a2870deaea823fc36c043",
+      "d1ff7b4ee289ddfacbab497b66e4fbf901bbda1ac5cd357da39fdf330008ecb5",
+      "68ccc104234e9d2f7dc965b526cacda28483aaeac985e46373ffdb72f9801560"
+    ]
+  },
+  "together-07": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "12dfb3ae49b3584a36472bca2a0c15164aab686e93e65037bf49534663ea72f3",
+      "1482eaf1e97435f6cc5378f863add32c75e815c11f753dcf3b03981982b29538",
+      "f6cda94c07ecb33abcced7092980217453f8b656a5fab10f9d0b00e3281ebfd8"
+    ]
+  },
+  "together-08": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "07d38d31d336632a6c75832b0fbfbe5d595505e82b3d4b5083ba8d54577ad0d3",
+      "77fde6d55d8c1724f8c87bd326468f3ce5221da0995d5139ffa57d9174d945da",
+      "a4b017a238fafa05b5904ecdb8764d7e88366fe4fac3c0a932370b75d2b45781",
+      "f164ebbd0f18e4a92eef42d72f978bea005a73d8d1360c7b7374800a15a2e94b"
+    ]
+  },
+  "together-09": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "6e2fae881ab43487047feb5b6aee4e3bf0a538db9ae0f2b985fc9509fc882f19",
+      "adc75afed74e5c9f618eb10edb52bbc3bc90f0d5bbb96d1a0fcac2a4b956d39c",
+      "9ae3bca0e6be521b886e169622ebb8b16060d60939bbacb9b58cef32b774ca0b"
+    ]
+  },
+  "together-10": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "1b52981d6a3384d59c41d9e3c228e4120bfdd7b39423a4def9fdb0694ce8d1c4",
+      "7a756042eb0dc773af3fc53c4eafee9888e09a17d03a7e74d1b4a6ff383dab9d",
+      "de32d51093feafcdcfea9e5fc0a60ae1dd62ddba38efbd092c7c12a73f076507"
+    ]
+  },
+  "memory-01": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "48e60a187e9fd195b425d46e875cc038227e9f5b78c719243b549849c63486f1",
+      "f5f052de7f5fb31b98b31f73d469cc2d35dc3074c6f993e9e407c7baafafb340",
+      "91ff860ad5299d6f2286d87f614057b6c75addfa3e9717199ae6ec8baf34ea78",
+      "acbba851ea9bb53753a0a8a5c303f5da77ff334a2a15e1b75d333da7faaa9e2a"
+    ]
+  },
+  "memory-02": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "2d3b9d640517b7d81856b0397465b527fb9535aea063cd31cd2b89d9562ede6a",
+      "d9747f4811f4b09cdf5a2993ea2178f8b78216fd87779e253ff969392bb66c0c",
+      "27ef286a01c4bd05810df0b2bdae355606ebf98b606a52fd80300ec7da69d7ec",
+      "84afd5c4e4cbd87d398e0a3ebf3016f5b547fe15c5ce365fbf20e2354a3710fe"
+    ]
+  },
+  "memory-03": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "b9838f560741a3dbc0869832ff00b476074aa05e252807a9ed654f60a3a5c505",
+      "8dfe53880683fbd6ef8c01759bb0bb8f7fe54a466f54bd2c0a525f80b9688933",
+      "bb6c96581e5e49c26153c8bec3abde54184903d4acf557b5b1cd90deaded7e71",
+      "4812666c773226ac59f60e84ca1608a9e5de4e4abc0df423ad82444fd30f1aa6"
+    ]
+  },
+  "memory-04": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "590a95d366123ee20bcc7aa423b3cc420cc249dd28562f5cc11a9517e3c1ff21",
+      "0ef0b219b1b8dcd9cb72b167090109087a9e62f8fcaa0c2dd2b1819c91db9694",
+      "044b4d17ad8b661c132306c95930d09a1e4ef52e83d59e0c459d368697fb74af"
+    ]
+  },
+  "memory-05": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "ebef2c398f5e088c6631b346daaefbda4656ccc7776ddf1a5b46aa8fe69b20ae",
+      "389eed367f6fdc35cc8cda8a407009acf5fbb86abed9bbecf51e801c6311005d",
+      "b9b819bf7c8c50886406cc4a8698598164b38b9c8193c6db156457affac92526",
+      "efcd4421074084b9dc96c4855b47b9bb7126124330fcbc276e665ff945bd7bed"
+    ],
+    "description": [
+      "4c332f88c32d0d5c5c173726d93262744cb9f3ca36d8f926ef5bbd8610005f60"
+    ]
+  },
+  "memory-06": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "ac223cfb867f8c31a092c247851ac46938b13448d95c19c36e68fc9f01d30826",
+      "8cf1b03c3e6ee0bfe1e40d09390557226f69da3a789c952ecb83f7f4f4dc5110",
+      "3bf71c607b5cb82a8f2d945ddb80e8e420c61cd3da21aad8395e72c26b9d45b9",
+      "6ab76debe048fc8187dd6409ff7bbc1204045bcd010d1233e33ecf28d0e44fb3"
+    ]
+  },
+  "memory-07": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "3438773116d68bff7a15bebf28c1e40116b0877b9176651100993ef9c0e6528e",
+      "f76310e574153aab03d898bf3091983ede1efe739d4ec929ea143bdab41155a8",
+      "be595c1add646ec7f085851e99c622c4155f304a1f83a4ddeedca2a7896cb2c7",
+      "77dfba07e858f54aee4b29ce38b4311acc5e0828ba1be87684daadbbe355c187"
+    ],
+    "description": [
+      "475672e9e95e6a23510d6a3cc691350b226ed03c8c0cfc7ca70848a6b0c0e114"
+    ]
+  },
+  "memory-08": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "daf70bfc9d6d1b8d445182666ab5aa8d503c5d2cb7739384d0e350c7941da2bc",
+      "9db1a52c97a1375df1a593d8ed1b5a10bb1ab664865a877497931c38d26e52e3",
+      "5e59fe2aaeb8afb2f043c22617565d8b4a3a4f658c5f8a9fc257a98da0b83ea7"
+    ],
+    "description": [
+      "91d5f7ec2307b85ade52f85164aebcd670a918f21dc701bd840b348e501a7cab"
+    ]
+  },
+  "memory-09": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "77954f7dc7942442ee4952178e70856f7a475a6c20ccaa84702b4c32a6ce5583",
+      "367eee746c2b372b9fb552b1d0dce2b475a57485e8e786c0b45708a2645b893b",
+      "985d48afb2c5722224e69ddd7ddfb422485faa7cb55438b9b2e26d5b4125b703"
+    ]
+  },
+  "memory-10": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "116833b9fdf98d5e551a66c6cb9042909b0a2c46304d1fcc033066d1cbb23a0d",
+      "6c2c31575b62832e4a73143c828e1fc44efdcf2b78925d929e6cdb3ecef4426f",
+      "9b0d86a7d084596f8e1fb3bd75dd21793a1c80e78946d1115ce257181f3e0e21"
+    ]
+  },
+  "self-01": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "5118017270481b25abaa68a17d717036b4773ff730bb5d2bdaf4b3e7e1e7a36c",
+      "e624875857ac4f6b79cc9aeafb9fbdeb1f04b0f2429ea32fe5e9a2e76b3f5c46",
+      "5034c7f5ae10023207b5c90070d99fc893bd5e33cc4685474d38e820f03b3677"
+    ]
+  },
+  "self-02": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c0f3922c49b91eac0d29049b243dc057473003f1ec2f348babdb375365ba673b",
+      "0ba8d8cb44ef9ba6127ed804c567c3d14c95f2fca4d3acb8f629dfb6ebcfeff1",
+      "fe6d2e4236875531bb64f7b6bcf1d4bf73dfac534f14af78f7a5c584e5638dd7"
+    ]
+  },
+  "self-03": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "fab0bd48506928003cf3992cd197dfec8bcfedb6a023158c83831dff36acfff6",
+      "2e2317be4ee9461fb327d6aa8c0695408dba758c13204387ef40e4946753b47e",
+      "4646399971e303e315903f37bb6810427048afaf3bfe74acc97348968207ba06",
+      "6c40604d07707f4a00109574be10cf5c6d9d3f17cdb230a007238b005e070704"
+    ]
+  },
+  "self-04": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "9d5ae21eb0d8da554effab0bfaf38126c7c4a9fa34059524ec77bd4f4e98c0cb",
+      "b390e21d4a8858acd97203be74b2ed645fc60d1f9ef551151320b11657b0240d",
+      "5db698963de05f1e44e3ce6596d58f51dd3fa69d0f6e4baec6864acd10cabc92"
+    ]
+  },
+  "self-05": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "09c1a4b2446d0a5e82223d54a58d934833d6ad1bf8a3dc745966508bdb7977ff",
+      "803e7fb141ac5cb3c2b32cd1f712b7d09bdc2b3778638fb44ea85b7a9ffbd28f",
+      "e49664fffd3f1fe21f4e025fdeaeff3fae5bb2456001fc606ca7657a6720a4a2"
+    ]
+  },
+  "self-06": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "c6c66896291e2eccc6e87f961328741c43ef7e7925537f9899dee9f796616ed2",
+      "a692166e375384a18ea76f3d60c6816c17c227f5157a09b276d7b8de53459d71",
+      "86596372929484ccc465472beedcc51d52a159045ac56d88000f6909a83aed59"
+    ]
+  },
+  "self-07": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "cdd11408534138ec37edc7b9188fc491eaa174e4dd59b74ddf89dfbae4a19852",
+      "b50ab1195b6f95814725c5d6850b319aa86f65a090ac668711bb88bd71795d6c",
+      "e5be4d093848946db5886d30d3e38aae31e33ca827bd1d852451ba21b82cc9d7"
+    ],
+    "description": [
+      "826f33139616f42d73b86c549969e5e3e21e32478f9dfa413a06d3660a8401c8"
+    ]
+  },
+  "self-08": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "e1ccd04b38e94d986e45576187c54bbd4e6cf1845927f212a654ce2370d93d4b",
+      "16aafc5f0497846a7e854fc63d59cd45ae34ad1150f97e4bd2b8c04e3c95b077",
+      "8de7e72f4f168f610d084341b8119474edbd816048ac5627d40fb63ac1ccb556"
+    ]
+  },
+  "self-09": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "d8872cd1210605380c815e66fe290e72e4042039bf65c58042cb5c801584c9a3",
+      "8d2d8d5ce683c53bd92b8604d5d8d4693f5865e7d9b616d789ca883c6de8473b",
+      "cc7e50b75bc23fa86a09938a02bbee94fe35bd73015970bb365eb7da930874f5"
+    ]
+  },
+  "self-10": {
+    "size": "a90a5ff95636646a3ae7a8c87c08daed506ab27d1c87de23e6ef422fe07de632",
+    "prompt": [
+      "8c901d3854720f187695769e14217304ae684e37a4d76acf60eb90938fb47c1b",
+      "0a3484d0cde6118532c86e5449cbf2d368192f94ef529867441578d9281f61fd",
+      "4875e3d011ce75ba826f12c1965656aa188ff17334f73ecf5c7410189c256a08"
+    ]
+  },
+  "doctor-relaxed": {
+    "prompt": [
+      "fd365d020ffaa224b5cd7ebd8ce7df1959e49634d037be273815fd2fb6961d91",
+      "aeeb6f5f27a2e61b4f1486d0b640dd4a6c2037bb0b5c4c1c5590f9abe4328651"
+    ]
+  },
+  "doctor-folder": {
+    "prompt": [
+      "16a51a6b0add8098c88efd6670a172beabcd183b659d4486a0ef6b7322e55baa",
+      "636c54a24fc511e9539cee256d8160effe127470bee79c3c6a28b52e68004443"
+    ]
+  },
+  "doctor-minimal": {
+    "prompt": "0f498bfe893d7df6bdf2d46ae07c40a10bf88af9817f0d301cf60b25f99b9ffe"
+  },
+  "warm-low-key": {
+    "prompt": [
+      "88e9c911b3fbf9e7a4df5b56eb48e65479b210cb743f7012b82602889e466714",
+      "93187df057afa17eb04f8dcbe985b79b023711eb1c6343a36e7e21e3ff10a001",
+      "9f17880064dd9e8b02876ec28f2393f3b76fb2e72b9382e735d2c380ddb284c4"
+    ]
+  },
+  "birthday-home": {
+    "prompt": "8b2962c9003c051de4cfbe789fe2e4b9f1cc7d690c37ec791b9613e8f64201e6"
+  },
+  "birthday-gold": {
+    "prompt": [
+      "9ac9d2658ee4ec98e86bd2cdd66e247121e797aa4458a6990597a8d2c85ba59a",
+      "d4af251abb578030eae60d9e7d954516fbd5aba637d17b8ed1736ccf8d46c434",
+      "37bcf289c6cb8d431c2d02823d5a5127abb542c18bdf0919138248fa6602e11d"
+    ],
+    "description": [
+      "8740f6889caa1eb4b16d63af31e3f0e07e334b1ce27d9422b2335762c7c470c4"
+    ]
+  },
+  "wedding-bride": {
+    "prompt": [
+      "9530cf1abc47eefd834ca3032650974fa6e5a40226829c534382e51b773a77d6",
+      "7019f8afea1eed806262b542e61ea487026aff519c3c8d79aa996436bbc705f5",
+      "2b666a25a6d0a274907a5886cab611bbc5574948789b922b54688e9546c4f4d1"
+    ],
+    "name": [
+      "13822ff0df4f6b26abf9c88d3478826df16f67a9387d00117d6668de4a8870f8"
+    ],
+    "description": [
+      "77e19804f5a9222f7b986d01e22dbc36365c421915da596f00eaaa49b62baecd"
+    ]
+  },
+  "island-coconut": {
+    "prompt": [
+      "d94c5ddec325b7e3c701295ba8527670fca34fe81a7f35e70e1fc3cb8a19741e",
+      "22cada5d1a566d2fabb6e2097107746f41b306b4779b782a27d7a6cdad99cccc",
+      "6765e68154358a038f6bb12aca1c3b7dcda77fafcca0e7088e95e480c4ea60e2"
+    ]
+  },
+  "wedding-groom": {
+    "name": [
+      "ad0753425575084fd5280af86c3f3f5bba1655871c2fe1438e466f871b85ff68"
+    ],
+    "prompt": [
+      "c63c41b645f1e1185312653b9312c8fbae8f2a0c0fb24e7cd09db750696aa2a6",
+      "1a663e8e3ef8460455fd2da88c98d122f55ef962275f1e2c030514d4fbbb9342"
+    ],
+    "description": [
+      "857f2b0f8a9a8a21b21caf41d9130dcd89034f520bcd350f59121fbdb031f425"
+    ]
+  },
+  "island-surprise": {
+    "prompt": [
+      "3c2a54796c8032046ca2572250338a43a624d13ec7b0af77c5e7092bb73a6b9d",
+      "914239fddf061919315989a7e6cf81fcef0c296d41a32ec0ddf34e4f82524e1c"
+    ],
+    "description": [
+      "628f747e371b51deb0057f451e64183727a48d85299ad55e774bd27a6cfea29a"
+    ]
+  },
+  "doctor-classic": {
+    "prompt": [
+      "75dd86fb81ce12c227667abd143833a60992530f10a6928d6d2cea330223cd67"
+    ]
+  },
+  "kids-dino": {
+    "exampleUrl": "a4648bec6bb99e31e9bc75236eea3a56ba48ce478e48a3aec5dbd7475bea3c18"
+  },
+  "kids-space": {
+    "exampleUrl": "07f3bd6e6f3797b6d1f4a5864d3bd4f228a862f1003ce0333880813c198d7596"
+  },
+  "kids-pirate": {
+    "exampleUrl": "996ddece537792ab52b8d30eabeb769f18bc5941f34fa9265f5cde8fd3622250"
+  },
+  "kids-hero": {
+    "exampleUrl": "7731bf19a3744aa675cc8e3ca2e5c98c9306f23e23ee2a7eb8f02f6d515b50c5"
+  },
+  "kids-knight": {
+    "exampleUrl": "3ee42fddc70cf875850138152d6aba0dfd871b0a3c8674dd58544597d071cd96"
+  },
+  "kids-castle": {
+    "exampleUrl": "eb72d6f2d7c475b20d5460a5ffb387ba55db760775ed26e46bfde407e5a2717f"
+  },
+  "kids-fairy": {
+    "exampleUrl": "6478cdf1d7b75d6338d929e2958c2ee05ea175bedd8ee2ac553f3160ec4f2c51"
+  },
+  "kids-unicorn": {
+    "exampleUrl": "20025e67ccf53a009d977dae9a79c9c089bf7a81d4865ec77a6962f2ff2b5012"
+  },
+  "kids-ocean": {
+    "exampleUrl": "2fc70452c8c4f8892d1fc8fcdfd5ce8eba26b480220d2c983e2a50adcbf91d40"
+  },
+  "kids-magic": {
+    "exampleUrl": "aa5412d7e6e42bdf0c81105f5160a7588d81a70e72d435ffb96470a25df49414"
+  },
+  "kids-circus": {
+    "exampleUrl": "7a3ad2f62863aebc9aca32489481499e805bc07e61e4ee6a5f27ac9eb3640efa"
+  },
+  "kids-snow": {
+    "exampleUrl": "4ad3272e199fe84f25301a05ea285eb715e7d9d8bd09ead7f9d1902b96898daf"
+  },
+  "kids-candy": {
+    "exampleUrl": "14969170a5c3d937c53846ab89692d7b35beedffa65841484c95d4f78c91c906"
+  },
+  "kids-camping": {
+    "exampleUrl": "901b8459b7fe373d01985e6fc5497baaf173e17bb80fc53e5c85a35204521f6b"
+  },
+  "kids-mecha": {
+    "exampleUrl": "3569307525e723d0f05a208a14abf186518c2067ce12d53eb7368de1443a17f3"
+  },
+  "kids-panda": {
+    "exampleUrl": "1f508f40f9ef5a17dda2446d6645962dc400050f84da764141a20ca4797e259e"
+  },
+  "kids-picturebook": {
+    "exampleUrl": "22a00c3a4989aeb6e4e57f8d55e55a24785de5ea189168053a28e34570da242d"
+  },
+  "kids-toyfigure": {
+    "exampleUrl": "751e341f4f715666294b045252c3fc80425be57221fff0ae686802744a9855aa",
+    "prompt": "51e7a3e4396efe391dd509935b3cc8b8748eff34ac8651d3907566cc4185cf02"
+  },
+  "kids-crayon": {
+    "exampleUrl": "c6c84cc83ff8adc67b8109f635162c3f19c94fd2c6bcd4e5f71d4bee4ee83da7"
+  },
+  "kids-bricks": {
+    "exampleUrl": "738bb56b9b28222ad5fd7bf26201802c129340f8d378cec73e6ee7d93be2a5b8"
+  },
+  "kids-family-space": {
+    "exampleUrl": "f0d4be25572bc36670a0b812672cdd7455c8d705d7caf318461c52ab7bbc2b24"
+  },
+  "kids-family-hero": {
+    "exampleUrl": "dbc351007d72abd84e3601cd270e6f03c39452fc018512f288d178483c7391db"
+  },
+  "kids-family-bake": {
+    "exampleUrl": "460f6c7b0c2a8c5faec0301dae8cd9851b6b1a4f78b7db889e9ec518a1661e36"
+  },
+  "kids-firefighter": {
+    "exampleUrl": "635f3b8f4680c2bf9e2b8e1ff17c7afb52b40b4064ae19bbd84848ec4e482a4a"
+  },
+  "kids-pilot": {
+    "exampleUrl": "e41b007080632b666efa072530e57f48ea8fbef6921087c5a1c4f8d155240949"
+  },
+  "kids-train": {
+    "exampleUrl": "2dbb1093dd9ff6d8928621e94408664e17c879a2c9f8277db2593a69182a2b3f"
+  },
+  "kids-racer": {
+    "exampleUrl": "420af691602938362c5ac13f1f0d14e95ca18918fdbf4e18749251a15001af43"
+  },
+  "kids-scientist": {
+    "exampleUrl": "a50c8d93c149809037ce06ddab69a7d422646ab9933aeb4c6ed9f1cbef4fb122"
+  },
+  "kids-doctor": {
+    "exampleUrl": "fea734156dab79d2b7bd19633cc2785730a81cab13a7eced251d20fe19efff46"
+  },
+  "kids-vet": {
+    "exampleUrl": "2378c2081909a0a3589544e09b82c2aa0bd42cd110ae38370d165f99b3092263"
+  },
+  "kids-bakery": {
+    "exampleUrl": "75f7d797823b34202ff24ea0440680f8e840d6a8c94551ac9bf3778488c0eb3e"
+  },
+  "kids-builder": {
+    "exampleUrl": "1ec2126948bd9028bcf569a2e7f861c3f8406c7aa77d062f0e162afb2ced68d2"
+  },
+  "kids-detective": {
+    "exampleUrl": "09828bdfd41cf19b3a8490e72343f3e264d463c5d24cc0076bbcaef8fac4a5ec"
+  },
+  "kids-football": {
+    "exampleUrl": "be257b6056f975fad210e3ca6ed993ffa036fd659f6b9b98e1726f5ed402ec68"
+  },
+  "kids-ballet": {
+    "exampleUrl": "eabec7baa6803c4e73f2835e3a663e3568de3af183f0ff8d8ecd615f0065b923"
+  },
+  "kids-painter": {
+    "exampleUrl": "50fcea162afb563fcc830f12ded319f2b1c5ff09d798315767e51d08da7422e6"
+  },
+  "kids-rockstar": {
+    "exampleUrl": "8542492cdc347d5db9bb199c9aa9d60655ca193ef51a6baf05c1f64fcd0c8498"
+  },
+  "kids-graduate": {
+    "exampleUrl": "29e3db0ee035ba04b3ee58e6b4e22490957834cd789acf3dfece30d03cf27620"
+  }
+}

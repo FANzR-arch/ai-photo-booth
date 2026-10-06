@@ -19,7 +19,7 @@ for (const expected of bundled.filter(style=>style.enabled && style.exampleUrl.e
  const cover=await fetch(base+style.exampleUrl); assert.equal(cover.status,200);
  assert.ok((await sharp(Buffer.from(await cover.arrayBuffer())).metadata()).width >= 600);
 }
-const photo=await sharp('assets/examples/cartoon-editorial.png').resize({width:640}).jpeg().toBuffer();
+const photo=await sharp('assets/examples/film-v2.webp').resize({width:640}).jpeg().toBuffer();
 const session=await api('/api/sessions',{styleId:styles[0].id});
 await api(`/api/sessions/${session.id}/photo`,{dataUrl:`data:image/jpeg;base64,${photo.toString('base64')}`,orientation:'portrait'});
 const started=await api(`/api/sessions/${session.id}/generate`,{});assert.ok(started.pickupUrl);

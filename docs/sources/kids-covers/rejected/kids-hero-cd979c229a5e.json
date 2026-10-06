@@ -1,0 +1,21 @@
+{
+  "id": "kids-hero",
+  "themeId": "kids-hero",
+  "subject": "one fictional East Asian girl about 6 years old, high dark ponytail",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: City rooftop at dusk with distant illuminated towers, warm orange sky and golden rim light, original hero-film atmosphere.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 6 years old, high dark ponytail, wearing Original dark blue and bright red hero suit, small plain star-shaped geometric chest patch, short red cape, belt and wrist guards; original tailoring with no familiar franchise design.\nPose: Both hands visibly on hips, standing confidently, cape flowing behind, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-hero-cd979c229a5e.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-167747aa-813b-40b7-b83e-9855395e8cfb.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "cd979c229a5e60c49e703a3392ec6e97ef22b10acee23f580bae4884f5c5ee47",
+  "coverSha256": "12ac5401f705f0d70628fb3c4456ff04db0852d85ff50742596ddb33a5678783",
+  "promptSha256": "24a5c9e7f55c57c6e31f08f41acdf201d0b149bfebc5be1b3cda536152f8fb9e",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 119966,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-hero.webp"
+}

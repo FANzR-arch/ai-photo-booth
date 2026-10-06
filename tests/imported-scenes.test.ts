@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 import { createHash } from 'node:crypto';
-import { importedScenes, adaptScenePrompt } from '../packages/shared/imported-scenes';
+import { importedScenes, adaptScenePrompt, scenePromptDirectory } from '../packages/shared/imported-scenes';
 import { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { orientedSize, orientationRatio } from '../packages/shared/photo-orientation';
@@ -13,8 +13,8 @@ import type { Style } from '../packages/shared/types';
 const styles:Style[]=JSON.parse(readFileSync('config/styles/styles.json','utf8'));
 
 test('imported scenes keep source provenance and physical actions while softening expressive faces', () => {
- const sourceDir='docs/sources/prompt-import-2026-09-29/单张照片提示词';
  for(const scene of importedScenes){
+  const sourceDir=scenePromptDirectory(scene);
   const filename=readdirSync(sourceDir).find(name=>name.startsWith(scene.code+'｜'))!;
   const source=readFileSync(path.join(sourceDir,filename),'utf8');
   const style=styles.find(s=>s.id===scene.id)!;
@@ -28,13 +28,14 @@ test('imported scenes keep source provenance and physical actions while softenin
 });
 
 test('all kept source scenes exist once and are available; scenes without covers are retired',()=>{
- assert.equal(importedScenes.length,12);
- assert.equal(importedScenes.filter(s=>s.people===1).length,12);
+ assert.equal(importedScenes.length,32);
+ assert.equal(importedScenes.filter(s=>s.people===1).length,26);
+ assert.equal(importedScenes.filter(s=>s.people===2).length,6);
  const retired=JSON.parse(readFileSync('config/styles/retired-styles.json','utf8'));
  for(const id of ['wedding-flash','film-street-couple','film-surf-couple','wedding-heart-couple','mirror-couple','city','brand']){assert.ok(Object.hasOwn(retired,id),id);assert.equal(styles.some(s=>s.id===id),false,id);}
  for(const scene of importedScenes){
   const matches=styles.filter(s=>s.id===scene.id);assert.equal(matches.length,1);
-  const style=matches[0];assert.equal(style.enabled,scene.people===1);assert.equal(style.sceneOrientation,scene.orientation);
+  const style=matches[0];assert.equal(style.enabled,true);assert.equal(style.sceneOrientation,scene.orientation);
   const prompt=generationPrompt(style,'theme',scene.orientation);
   assert.doesNotMatch(prompt,/参考图[123]|以上一张|与上一张|没有指定文字的场景一律有字/);
   assert.match(prompt,/年龄感/);assert.match(prompt,/自然细纹/);
@@ -87,14 +88,40 @@ test('single scenes adapt wardrobe without forcing a template gender or cutting 
 });
 
 test('enabled imported scenes use distinct generated cover files with preserved provenance',async()=>{
- const manifest=JSON.parse(readFileSync('docs/sources/prompt-import-2026-09-29/covers/manifest.json','utf8'));
- assert.equal(manifest.images.length,12);
- assert.equal(new Set(manifest.images.map((i:any)=>i.sha256)).size,12);
- for(const scene of importedScenes.filter(s=>s.people===1)){
+ const oldManifest=JSON.parse(readFileSync('docs/sources/prompt-import-2026-09-29/covers/manifest.json','utf8'));
+ const newManifest=JSON.parse(readFileSync('docs/sources/prompt-import-2026-10-06/covers/manifest.json','utf8'));
+ assert.equal(oldManifest.images.length,12);assert.equal(newManifest.images.length,20);
+ assert.equal(new Set([...oldManifest.images,...newManifest.images].map((i:any)=>i.sha256)).size,32);
+ for(const scene of importedScenes){
+  const manifest=scene.batch?newManifest:oldManifest;
   const entry=manifest.images.find((i:any)=>i.code===scene.code);assert.ok(entry);
   assert.equal(entry.cover,'assets'+styles.find(s=>s.id===scene.id)!.exampleUrl);
   assert.equal(createHash('sha256').update(readFileSync(entry.original)).digest('hex'),entry.sha256);
   assert.equal(createHash('sha256').update(readFileSync(entry.cover)).digest('hex'),entry.coverSha256);
   const m=await sharp(entry.cover).metadata();assert.ok(m.width!>=1000);assert.ok(m.height!>=750);
  }
+});
+
+test('new scenes preserve their wardrobe, physical scene and mood with one photo identity input', () => {
+ const fresh=importedScenes.filter(scene=>scene.batch==='2026-10-06');
+ assert.equal(fresh.length,20);
+ for(const scene of fresh) {
+  const style=styles.find(s=>s.id===scene.id)!;
+  assert.equal(style.generationPreset,'directed-portrait');
+  assert.equal(style.subjectCount,scene.people);
+  assert.equal(style.sourceCode,scene.code);
+  assert.ok(style.outfitPrompt && style.outfitPrompt.length>20,scene.id);
+  const prompt=generationPrompt(style,'theme',scene.orientation);
+  assert.match(prompt,/神态：/);
+  assert.match(prompt,/表情幅度克制/);
+  assert.doesNotMatch(prompt,/表情放松自然，嘴唇轻合带微笑/);
+  if(scene.people===2) assert.match(prompt,/上传照片须包含两位本人/);
+  else assert.match(prompt,/这一个人作为唯一身份参考/);
+ }
+ assert.match(styles.find(s=>s.id==='street-motion')!.prompt!,/横向拖影/);
+ assert.match(styles.find(s=>s.id==='sticker-pow')!.prompt!,/POW/);
+ assert.match(styles.find(s=>s.id==='stream-swordsman')!.prompt!,/道具长刀/);
+ assert.match(styles.find(s=>s.id==='burgundy-apple')!.prompt!,/红苹果/);
+ assert.match(styles.find(s=>s.id==='golden-butterflies')!.prompt!,/纸蝴蝶/);
+ assert.match(styles.find(s=>s.id==='office-partners')!.prompt!,/笔记本电脑/);
 });

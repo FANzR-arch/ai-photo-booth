@@ -3,7 +3,8 @@ import { api } from './api';
 
 import type { PrintJob } from '../../../packages/shared/printing';
 
-export function PrintPhoto({ sessionId, imageId, disabled }: { sessionId: string; imageId?: string; disabled: boolean }) {
+/** `hideWhenUnavailable` keeps printer setup notes off the visitor screen when no printer is configured. */
+export function PrintPhoto({ sessionId, imageId, disabled, hideWhenUnavailable = false }: { sessionId: string; imageId?: string; disabled: boolean; hideWhenUnavailable?: boolean }) {
     const [config, setConfig] = useState<{ supported: boolean; configured: boolean }>();
     const [job, setJob] = useState<PrintJob | null>(null);
     const [error, setError] = useState(''), [busy, setBusy] = useState(false), [uncertain, setUncertain] = useState(false);
@@ -27,6 +28,7 @@ export function PrintPhoto({ sessionId, imageId, disabled }: { sessionId: string
     };
     const printing = busy || !!job && ['preparing', 'submitting', 'submitted'].includes(job.status);
     const unknown = uncertain || job?.status === 'unknown';
+    if (hideWhenUnavailable && !job && !config?.configured) return null;
     return <div className="photo-print-action" data-print-status={busy ? 'preparing' : uncertain ? 'unknown' : job?.status || 'idle'} style={{ width: '100%', margin: 0 }}>
         <button className="primary" aria-live="polite" style={{ width: '100%' }} disabled={disabled || !imageId || !config?.configured || busy || !!submitted || uncertain} onClick={async () => {
             if (pending.current) return;

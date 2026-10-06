@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-06",
+  "themes": 36,
+  "acceptedImages": 46,
+  "builtInGenerationCalls": 51,
+  "reviewedImages": 46,
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 3920502,
+  "maxCoverBytes": 157990,
+  "sourceBytes": 96499479,
+  "originalAndCoverHashes": "passed",
+  "buildAssetHashes": "passed",
+  "galleryLinks": "passed",
+  "tests": {
+    "command": "npm test",
+    "passed": 174,
+    "failed": 0,
+    "log": "npm-test-verified.log"
+  },
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "status": "passed"
+  },
+  "build": {
+    "command": "npm run build",
+    "status": "passed",
+    "log": "build-verified.log"
+  },
+  "scope": "Only exampleUrl and self exampleUrls changed in styles.json; previous migration hashes preserved",
+  "runtimeChecks": "Migration, custom cover preservation, alternate image rotation and retained anime sheet validated in isolated tests",
+  "generationStatus": "Original illustrations of fictional people, not verified Seedream results"
+}

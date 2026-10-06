@@ -1,0 +1,21 @@
+{
+  "id": "kids-builder",
+  "themeId": "kids-builder",
+  "subject": "one fictional East Asian boy about 4 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Sunny building site with a bright yellow excavator working behind, blue sky and distant crane, realistic documentary children's photography; excavator without lettering or brand insignia.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian boy about 4 years old, short dark hair, wearing Bright orange reflective vest over blue work shirt, yellow safety helmet exposing hairline, small tape measure and radio on chest.\nPose: One hand rests on helmet brim clear of face, other hand points toward excavator with anatomically correct index finger, slightly turned, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-builder-15db71765698.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-7786facc-31b8-4879-aa51-22d73cf2b3d8.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "15db7176569808c07eb31cdb85884b68f1c5a9392c16c2d97365d765c9d78239",
+  "coverSha256": "28684378182f14b15a1304cc3edf73120686596a9c9c9b9e8f762d62794621be",
+  "promptSha256": "d0506f5bf702042172269366b98857df45c582f4ed0ddc24362927358a3d9ba0",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 120758,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-builder.webp"
+}

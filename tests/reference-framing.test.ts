@@ -5,7 +5,7 @@ import { detectFaces, frameReference, planFrame, faceRatioBand } from '../apps/s
 
 // The bundled sample is a 2x2 collage; one quadrant is a close-up where the face fills about 40% of the height.
 async function closeUp() {
-    const source = sharp('assets/examples/film-reference.png');
+    const source = sharp('docs/sources/portrait-covers-2026-10/before/film-reference.png');
     const meta = await source.metadata();
     return source.extract({ left: 0, top: 0, width: Math.floor(meta.width! / 2), height: Math.floor(meta.height! / 2) }).jpeg().toBuffer();
 }

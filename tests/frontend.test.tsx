@@ -9,7 +9,7 @@ import { Booth, Pickup } from '../apps/web/src/Booth';
 import type { Session } from '../packages/shared/types';
 function deferred<T>() { let resolve!: (value: T) => void; const promise = new Promise<T>(r => resolve = r); return { promise, resolve }; }
 const image = 'data:image/png;base64,c3ludGhldGlj';
-const style = { id: 'cinema', name: '电影人像', description: '电影感测试', enabled: true, version: 1, exampleUrl: '/examples/cinema.svg', size: '2K', color: '#eed8a0' };
+const style = { id: 'cinema', name: '电影人像', description: '电影感测试', enabled: true, version: 1, exampleUrl: '/examples/cinema-v2.webp', size: '2K', color: '#eed8a0' };
 const fresh = (id = 'session-1'): Session => ({ id, styleId: 'cinema', styleName: '电影人像', status: 'created', mode: 'demo', createdAt: Date.now(), expiresAt: Date.now() + 600000, images: [] });
 const withPickup = (s: Session): Session => ({ ...s, pickupUrl: `http://localhost:4377/pickup/${s.id}` });
 type Route = (url: string, body: any) => unknown | Promise<unknown>;
@@ -80,8 +80,9 @@ async function harness(route?: Route, options: {
         const custom = route ? await route(url, body) : undefined;
         let result = custom;
         if (result === undefined) {
-            if (url === '/examples/film-reference.png') result = { sample: true };
+            if (url === '/examples/film-v2.webp') result = { sample: true };
             else if (url === '/api/printing') result = { supported: false, configured: false };
+            else if (url === '/api/wifi') result = null;
             else if (/\/print\//.test(url)) result = { job: null };
             else if (url === '/api/health')
                 result = { mode: options.unconfigured ? 'seedream' : 'demo', generation: options.unconfigured ? 'seedream' : 'demo', testMode: !options.unconfigured, configured: !options.unconfigured, model: '', imageCount: 2, pickupBaseUrl: 'http://localhost:4377', lanUrls: [] };
@@ -121,7 +122,7 @@ async function harness(route?: Route, options: {
         if (result && typeof result === 'object' && 'styleId' in result && 'id' in result) {
             current = result as Session; sessions.set(current.id, current);
         }
-        return { ok: true, status: 200, json: async () => result, ...(url === '/examples/film-reference.png' ? { blob: async () => new dom.window.Blob(['synthetic'], { type: 'image/png' }) } : {}) };
+        return { ok: true, status: 200, json: async () => result, ...(url === '/examples/film-v2.webp' ? { blob: async () => new dom.window.Blob(['synthetic'], { type: 'image/png' }) } : {}) };
     });
     const root = createRoot(dom.window.document.getElementById('root')!);
     const flush = async () => { await act(async () => { await Promise.resolve(); await Promise.resolve(); }); };
@@ -154,20 +155,21 @@ test('refreshed themes replace cached cards and remain immediately selectable in
         assert.equal(h.calls.some(c => c.url === '/api/sessions'), false);
         await act(async () => refreshed.resolve([{ ...style, name: '更新电影人像' }])); await h.flush();
         assert.equal(h.button('更新电影人像').disabled, false);
-        await h.click('更新电影人像');
+        await h.click('更新电影人像'); await h.click('就拍这个');
         assert.equal(h.calls.find(c => c.url === '/api/sessions')?.body.styleId, style.id);
         assert.match(h.text(), /看向镜头/);
         // About one metre keeps the webcam's wide-angle lens from enlarging the head; the countdown gives time to step back.
-        assert.equal(h.dom.window.document.querySelector('.distance-tip')?.textContent, '按下拍照后有 5 秒倒计时，可以先退到约一米外，让头顶到腰部都在画面里。');
+        assert.equal(h.dom.window.document.querySelector('.distance-tip')?.textContent, '按下拍照后有 5 秒倒计时，可以先退到约一米外，让头顶到腰部都在画面里。成片表情会参考这张照片：放松嘴角，想一件开心的事就好。');
     } finally { refreshed.resolve([style]); await h.cleanup(); }
 });
 
 test('normal operation hides every test entry even while simulated generation is on', async () => {
     const h = await harness(url => url === '/api/health' ? { mode: 'seedream', generation: 'demo', testMode: false, configured: true, imageCount: 1 } : undefined, { camera: true });
     try {
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         assert.doesNotMatch(h.text(), /测试|演示|模拟/);
         assert.equal(h.dom.window.document.querySelector('.demo-photo-entry, header .mode'), null);
+        assert.equal(h.dom.window.document.querySelector('input[type=file]'), null);
     } finally { await h.cleanup(); }
 });
 
@@ -177,7 +179,7 @@ test('real mode requests camera only after theme selection and waits for a playa
         assert.equal(h.cameraCalls(), 0);
         await h.click('开始拍照');
         assert.equal(h.cameraCalls(), 0);
-        await h.click('电影人像');
+        await h.click('电影人像').then(() => h.click('就拍这个'));
         assert.equal(h.cameraCalls(), 1);
         assert.doesNotMatch(h.text(), /使用内置照片/);
         assert.doesNotMatch(h.text(), /使用测试照片/);
@@ -208,7 +210,7 @@ test('uncategorized custom themes stay discoverable without being mixed into cre
         assert.ok(h.dom.window.document.querySelector('.theme-scroll'));
         assert.doesNotMatch(h.text(), /更多主题|上一页/);
         assert.equal(h.calls.some(c => c.url === '/api/sessions'), false);
-        await h.click('主题6');
+        await h.click('主题6'); await h.click('就拍这个');
         assert.equal(h.calls.find(c => c.url === '/api/sessions')?.body.styleId, 'style-6');
     } finally { await h.cleanup(); }
 });
@@ -222,34 +224,66 @@ test('real mode does not restore an old demo session', async () => {
     } finally { await h.cleanup(); }
 });
 
-test('theme covers rotate through four roles and pause without starting a session', async () => {
+test('new portrait covers render as one independent image and preview without creating a session', async () => {
     const h = await harness();
+    try {
+        await h.click('开始拍照');
+        const doc = h.dom.window.document;
+        assert.equal(doc.querySelectorAll('.theme-portrait').length, 0);
+        assert.ok(doc.querySelector('img[src="/examples/cinema-v2.webp"]'));
+        await h.tick(6500);
+        assert.equal(doc.querySelectorAll('.theme-portrait').length, 0);
+        await h.click('电影人像');
+        assert.equal(doc.querySelectorAll('.theme-preview-images img').length, 1);
+        assert.equal(doc.querySelector('.theme-preview-images img')?.getAttribute('src'), '/examples/cinema-v2.webp');
+        assert.equal(h.calls.some(c => c.url === '/api/sessions'), false);
+        await h.click('再看看');
+        assert.equal(doc.querySelector('.theme-preview'), null);
+    } finally { await h.cleanup(); }
+});
+
+test('new poster scene preview preserves its original framing before a session is created', async () => {
+    const scene={...style,id:'sticker-pow',name:'元气贴纸海报',exampleUrl:'/examples/scene-12.webp',generationPreset:'directed-portrait',sceneOrientation:'poster',subjectCount:1,sourceCode:'12'};
+    const h=await harness(url=>url==='/api/styles'?[scene]:undefined);
+    try {
+        await h.click('开始拍照'); await h.click('元气贴纸海报');
+        const preview=h.dom.window.document.querySelector('.theme-preview-images');
+        assert.equal(preview?.getAttribute('data-orientation'),'poster');
+        assert.equal(preview?.querySelector('img')?.getAttribute('src'),scene.exampleUrl);
+        assert.equal(h.calls.some(c=>c.url==='/api/sessions'),false);
+    } finally { await h.cleanup(); }
+});
+
+test('anime keeps its four-role sheet and a tap only opens the preview', async () => {
+    const h = await harness(url => url === '/api/styles' ? [{ ...style, id: 'anime', name: '动画样片', exampleUrl: '/examples/anime-reference.png' }] : undefined);
     try {
         await h.click('开始拍照');
         const active = () => h.dom.window.document.querySelector('.theme-portrait.is-current img')?.getAttribute('alt');
         assert.match(active() || '', /青年女性/);
         await h.tick(6500);
         assert.match(active() || '', /成年男性/);
-        await h.click('暂停轮播');
-        await h.tick(6500);
-        assert.match(active() || '', /成年男性/);
-        await h.click('继续轮播');
+        assert.doesNotMatch(h.text(), /暂停轮播|继续轮播/);
         await h.tick(6500);
         assert.match(active() || '', /银发女性/);
         await h.tick(6500);
         assert.match(active() || '', /儿童/);
+        await h.click('动画样片');
+        assert.ok(h.dom.window.document.querySelector('.theme-preview[role=dialog]'));
+        assert.equal(h.calls.some(c => c.url === '/api/sessions'), false);
+        await h.click('再看看');
+        assert.equal(h.dom.window.document.querySelector('.theme-preview'), null);
         assert.equal(h.calls.some(c => c.url === '/api/sessions'), false);
     } finally { await h.cleanup(); }
 });
 
 test('custom admin cover is preserved and failed built-in sheet falls back to existing cover', async () => {
-    const h = await harness(url => url === '/api/styles' ? [style, { ...style, id: 'custom', name: '自定义', exampleUrl: '/custom-cover.png' }] : undefined);
+    const h = await harness(url => url === '/api/styles' ? [{ ...style, id: 'anime', name: '动画样片', exampleUrl: '/examples/anime-reference.png' }, { ...style, id: 'custom', name: '自定义', exampleUrl: '/custom-cover.png' }] : undefined);
     try {
         await h.click('开始拍照');
         const img = h.dom.window.document.querySelector('.theme-portrait img')!;
         await act(async () => img.dispatchEvent(new h.dom.window.Event('error')));
         assert.equal(h.dom.window.document.querySelectorAll('.theme-portrait').length, 0);
-        assert.ok(h.dom.window.document.querySelector('img[src="/examples/editorial-duo.png"]'));
+        assert.ok(h.dom.window.document.querySelector('img[src="/examples/style-collection.png"]'));
         await h.click('其他模板');
         assert.ok(h.dom.window.document.querySelector('img[src="/custom-cover.png"]'));
     } finally { await h.cleanup(); }
@@ -278,7 +312,7 @@ test('idle carousel and start screen do not create a session before a theme is s
         assert.equal(h.dom.window.document.querySelector('video'), null);
         await h.click('返回');
         assert.ok(h.dom.window.document.querySelector('.attract-screen'));
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         assert.equal(h.calls.filter(c => c.url === '/api/sessions').length, 1);
         assert.doesNotMatch(h.text(), /使用内置照片|准备一张照片/);
         assert.ok(h.dom.window.document.querySelector('video'));
@@ -288,7 +322,7 @@ test('changing theme preserves this round and refreshes admin changes without cr
     let updated = false;
     const h = await harness(url => url === '/api/styles' && updated ? [{ ...style, name: '更新后的主题' }] : undefined);
     try {
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         updated = true;
         await h.click('更换主题');
         assert.ok(h.dom.window.document.querySelector('.theme-screen'));
@@ -297,7 +331,7 @@ test('changing theme preserves this round and refreshes admin changes without cr
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-1');
         assert.equal(h.calls.filter(c => c.url.endsWith('/end')).length, 0);
         assert.equal(h.calls.filter(c => c.url === '/api/sessions').length, 1);
-        await h.click('更新后的主题');
+        await h.click('更新后的主题'); await h.click('就拍这个');
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-2');
     } finally { await h.cleanup(); }
 });
@@ -310,14 +344,14 @@ test('configuration connection failure can be retried without starting a session
         await h.click('重新连接');
         assert.doesNotMatch(h.text(), /服务暂时不可用/);
         assert.equal(h.calls.filter(c => c.url === '/api/sessions').length, 0);
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         assert.match(h.text(), /看向镜头/);
     } finally { await h.cleanup(); }
 });
 test('consented upload → generation → delivery with no payment step', async () => {
     const h = await harness();
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.upload();
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload();
         assert.equal(h.button('开始生成').disabled, true);
         await h.click('横版'); await h.consent(); await h.click('开始生成');
         assert.doesNotMatch(h.text(), /付款|套餐|¥/);
@@ -330,7 +364,7 @@ test('consented upload → generation → delivery with no payment step', async 
         assert.equal(h.dom.window.document.querySelector('.delivery'), null);
         await h.tick(1800);
         assert.match(h.text(), /照片已生成/);
-        assert.match(h.text(), /保存拍摄原片/);
+        assert.match(h.text(), /拍摄原片/);
         assert.doesNotMatch(h.text(), /购买这张照片/);
         await h.click('手机取图');
         assert.match(h.text(), /扫码取图/);
@@ -350,7 +384,7 @@ test('poster option appears under memories and confirms fixed outfit and 2:3 wit
         if (url === `/api/sessions/${s.id}`) return s;
     });
     try {
-        await h.click('开始拍照'); await h.click('生日纪念'); await h.click(poster.name);
+        await h.click('开始拍照'); await h.click('生日纪念'); await h.click(poster.name); await h.click('就拍这个');
         await h.upload();
         assert.match(h.dom.window.document.querySelector('.poster-settings')?.textContent || '', /成人礼海报 · 2:3/);
         assert.equal(h.dom.window.document.querySelector('.clothing-picker'), null);
@@ -374,7 +408,7 @@ test('directed portrait confirmation keeps its fixed ratio and offers clothing c
         if(url===`/api/sessions/${s.id}`)return s;
     });
     try {
-        await h.click('开始拍照');await h.click(scene.name);await h.upload();
+        await h.click('开始拍照');await h.click(scene.name);await h.click('就拍这个');await h.upload();
         assert.match(h.dom.window.document.querySelector('.poster-settings')?.textContent || '', /竖版 4:5/);assert.doesNotMatch(h.text(),/成人礼海报|深蓝换装/);
         assert.equal(h.dom.window.document.querySelectorAll('.orientation-picker:not(.clothing-picker)').length,0);
         assert.ok(h.dom.window.document.querySelector('.clothing-picker'));
@@ -389,7 +423,7 @@ test('restore ready session does not regenerate; delayed restore cannot replace 
     const late = deferred<Session>();
     const h = await harness(url => url === '/api/sessions/old' ? late.promise : undefined, { saved: 'old' });
     try {
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         await act(async () => late.resolve({ ...fresh('old'), status: 'ready', images: [{ id: 'old', previewUrl: '/old' }] }));
         await h.flush();
         assert.match(h.text(), /看向镜头/);
@@ -401,11 +435,11 @@ test('restore ready session does not regenerate; delayed restore cannot replace 
     }
 });
 test('late uploaded photo cannot appear in the next visitor session', async () => { const h = await harness(undefined, { deferReader: true }); try {
-    await h.click('开始拍照'); await h.click('电影人像');
+    await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
     await h.upload();
     assert.equal(h.readers.length, 1);
-    await h.click('结束本次');
-    await h.click('开始拍照'); await h.click('电影人像');
+    await h.click('结束本次').then(() => h.click('确认结束'));
+    await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
     await act(async () => h.readers[0]());
     await h.flush();
     assert.match(h.text(), /看向镜头/);
@@ -415,7 +449,7 @@ test('late uploaded photo cannot appear in the next visitor session', async () =
 finally {
     await h.cleanup();
 } });
-test('late QR from previous session cannot replace the new visitor QR', async () => { const h = await harness(undefined, { deferQr: true }); const buy = async () => { await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800); await h.click('手机取图'); }; try {
+test('late QR from previous session cannot replace the new visitor QR', async () => { const h = await harness(undefined, { deferQr: true }); const buy = async () => { await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800); await h.click('手机取图'); }; try {
     await buy();
     assert.equal(h.qrs.length, 1);
     await h.click('完成，返回首页');
@@ -431,11 +465,12 @@ test('late QR from previous session cannot replace the new visitor QR', async ()
 finally {
     await h.cleanup();
 } });
-test('unconfigured Seedream cannot submit even after consent', async () => { const h = await harness(undefined, { unconfigured: true }); try {
-    await h.click('开始拍照'); await h.click('电影人像');
+test('unconfigured Seedream cannot submit even after consent', async () => { const h = await harness(url => url === '/api/health' ? { mode: 'seedream', generation: 'seedream', testMode: true, configured: false, imageCount: 1 } : undefined); try {
+    await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
     await h.upload();
     await h.consent();
     assert.match(h.text(), /Seedream 尚未配置/);
+    assert.match(h.text(), /请联系工作人员/);
     assert.equal(h.button('开始生成').disabled, true);
     await h.click('开始生成');
     assert.equal(h.calls.some(c => c.url.endsWith('/generate')), false);
@@ -457,7 +492,7 @@ finally {
 test('generation failure preserves original, stops animation, and ending clears the next visitor screen', async () => {
     const h = await harness(url => /^\/api\/sessions\/session-1$/.test(url) ? { ...fresh(), status: 'failed', error: '模拟生成失败' } : undefined);
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent();
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload(); await h.consent();
         await h.click('开始生成');
         assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
         await h.tick(1800);
@@ -466,9 +501,9 @@ test('generation failure preserves original, stops animation, and ending clears 
         assert.match(h.text(), /模拟生成失败/);
         await h.click('重新生成');
         assert.ok(h.dom.window.document.querySelector('.generation-preview.is-rendering'));
-        await h.click('结束本次');
+        await h.click('结束本次').then(() => h.click('确认结束'));
         assert.equal(h.dom.window.document.querySelector('.generation-preview'), null);
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         assert.equal(h.dom.window.document.querySelector(`img[src="${image}"]`), null);
     } finally { await h.cleanup(); }
 });
@@ -507,9 +542,9 @@ test('frame selection persists from waiting to results without generation and re
         await h.click('黑胶片');
         assert.equal(h.dom.window.document.querySelector('.photo-frame')?.getAttribute('data-frame'), 'ink');
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 0);
-        await h.click('结束本次');
+        await h.click('结束本次').then(() => h.click('确认结束'));
         await h.click('开始拍照');
-        await h.click('电影人像');
+        await h.click('电影人像').then(() => h.click('就拍这个'));
         await h.upload(); await h.consent(); await h.click('开始生成');
         assert.equal(h.button('无边框').getAttribute('aria-pressed'), 'true');
     } finally { firstSave.resolve({ frame: 'instant' }); await h.cleanup(); }
@@ -549,7 +584,7 @@ test('caption and typography restore, update, remain after frame selection and c
   assert.equal(saved.caption.text,'一起去看海');assert.equal(saved.caption.font,'hand');assert.equal(saved.caption.align,'right');assert.equal(saved.frame,'midnight');
   const art=h.dom.window.document.querySelector('.frame-art')!.getAttribute('src')!;
   assert.ok(decodeURIComponent(art).includes('一起去看海'));
-  await h.click('结束本次');await h.click('开始拍照');await h.click('电影人像');await h.upload();await h.consent();await h.click('开始生成');
+  await h.click('结束本次').then(() => h.click('确认结束'));await h.click('开始拍照');await h.click('电影人像').then(() => h.click('就拍这个'));await h.upload();await h.consent();await h.click('开始生成');
   assert.equal(h.dom.window.document.querySelector('textarea')!.value,'');
  }finally{await h.cleanup();}
 });
@@ -571,13 +606,13 @@ test('content categories keep professional, wedding and daily photos separate wi
   assert.equal(h.dom.window.document.querySelector('.purpose-tabs button[aria-label="其他模板"]'),null);
   assert.equal(h.calls.some(c=>c.url==='/api/sessions'),false);
   assert.equal(h.cameraCalls(),0);
-  await h.click('together-01');
+  await h.click('together-01'); await h.click('就拍这个');
   assert.equal(h.calls.find(c=>c.url==='/api/sessions')?.body.purpose,'together');
  } finally {await h.cleanup();}
 });
 
 test('paired self covers rotate in one card, pause, and fall back to primary on failure', async () => {
- const dual={...style,id:'self-01',name:'奶油柔光',exampleUrl:'/examples/self-01-a.webp',exampleUrls:['/examples/self-01-a.webp','/examples/self-01-b.webp']};
+ const dual={...style,id:'self-01',name:'奶油柔光',exampleUrl:'/examples/self-01-v2-a.webp',exampleUrls:['/examples/self-01-v2-a.webp','/examples/self-01-v2-b.webp']};
  const h=await harness(url=>url==='/api/styles'?[dual]:undefined);
  try {
   await h.click('开始拍照');
@@ -588,16 +623,16 @@ test('paired self covers rotate in one card, pause, and fall back to primary on 
   assert.equal(doc.querySelectorAll('.theme-dots i').length,2);
   assert.equal(active(),dual.exampleUrls[0]);
   await h.tick(6500);assert.equal(active(),dual.exampleUrls[1]);
-  await h.click('暂停轮播');await h.tick(6500);assert.equal(active(),dual.exampleUrls[1]);
+  await h.tick(6500);assert.equal(active(),dual.exampleUrls[0]);
   assert.equal(h.calls.some(c=>c.url==='/api/sessions'),false);
   await act(async()=>doc.querySelector('.theme-variant.is-current img')!.dispatchEvent(new h.dom.window.Event('error')));
   assert.equal(doc.querySelectorAll('.theme-variant').length,0);
-  assert.ok(doc.querySelector('img[src="/examples/self-01-a.webp"]'));
+  assert.ok(doc.querySelector('img[src="/examples/self-01-v2-a.webp"]'));
  }finally{await h.cleanup();}
 });
 
 test('custom cover overrides bundled pair without reviving old images', async () => {
- const h=await harness(url=>url==='/api/styles'?[{...style,id:'self-01',exampleUrl:'/custom.webp',exampleUrls:['/examples/self-01-a.webp','/examples/self-01-b.webp']}]:undefined);
+ const h=await harness(url=>url==='/api/styles'?[{...style,id:'self-01',exampleUrl:'/custom.webp',exampleUrls:['/examples/self-01-v2-a.webp','/examples/self-01-v2-b.webp']}]:undefined);
  try {await h.click('开始拍照');assert.equal(h.dom.window.document.querySelectorAll('.theme-variant').length,0);assert.ok(h.dom.window.document.querySelector('img[src="/custom.webp"]'));}
  finally{await h.cleanup();}
 });
@@ -605,7 +640,7 @@ test('custom cover overrides bundled pair without reviving old images', async ()
 test('back preserves the captured photo and lets generation finish without interrupting the page or submitting twice', async () => {
     const h = await harness();
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.upload();
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload();
         await h.click('返回上一步');
         assert.match(h.text(), /看向镜头/);
         await h.click('使用刚才的照片');
@@ -628,7 +663,7 @@ test('back preserves the captured photo and lets generation finish without inter
 
 test('this round library restores earlier photos; ending hides every session from the next visitor', async () => {
     const h = await harness();
-    const make = async () => { await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800); };
+    const make = async () => { await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800); };
     try {
         await h.click('开始拍照'); await make(); await h.click('手机取图');
         await h.click('返回照片');
@@ -642,7 +677,7 @@ test('this round library restores earlier photos; ending hides every session fro
         await h.click('返回照片'); await h.click('手机取图');
         assert.match(h.text(), /扫码取图/);
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 2);
-        await h.click('结束本次');
+        await h.click('结束本次').then(() => h.click('确认结束'));
         assert.equal(h.dom.window.localStorage.getItem('snap-round'), null);
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), null);
         assert.deepEqual(h.calls.filter(c => c.url.endsWith('/end')).map(c => c.url).sort(), ['/api/sessions/session-1/end', '/api/sessions/session-2/end']);
@@ -677,7 +712,7 @@ test('kiosk expiry clears photo pixels, draft, QR and round IDs without waiting 
     const originalNow = Date.now; let time = originalNow(); Date.now = () => time;
     const h = await harness();
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800);
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800);
         await h.click('手机取图');
         assert.ok(h.dom.window.document.querySelector('img[alt="手机取图二维码"]'));
         time += 600001;
@@ -708,7 +743,7 @@ test('phone detail returns to its own album and removes images and download link
 test('clothing choice survives back and library navigation, is submitted once, and defaults to keep for the next photo', async () => {
     const h = await harness();
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.upload();
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload();
         assert.equal(h.button('保留原服装').getAttribute('aria-pressed'), 'true');
         await h.click('按主题换装'); await h.click('返回上一步'); await h.click('使用刚才的照片');
         assert.equal(h.button('按主题换装').getAttribute('aria-pressed'), 'true');
@@ -720,7 +755,7 @@ test('clothing choice survives back and library navigation, is submitted once, a
         await h.click('返回上一步'); assert.equal(h.dom.window.document.querySelector('.clothing-picker'), null);
         await h.tick(1800); await h.click('查看生成照片');
         assert.equal(h.calls.filter(c => c.url.endsWith('/generate')).length, 1);
-        await h.click('再拍一张'); await h.click('电影人像'); await h.upload();
+        await h.click('再拍一张'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload();
         assert.equal(h.button('保留原服装').getAttribute('aria-pressed'), 'true');
     } finally { await h.cleanup(); }
 });
@@ -775,14 +810,14 @@ test('unknown generation keeps retry blocked while allowing its original-photo d
 test('test photo enters confirmation without a file picker or generation', async () => {
     const h = await harness();
     try {
-        await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         assert.match(h.text(), /测试样图，仅在测试模式显示/);
         assert.match(h.dom.window.document.querySelector('.camera-placeholder')?.textContent || '', /上传照片或使用测试照片/);
         await h.click('使用测试照片');
         assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'confirm');
         assert.equal(h.dom.window.document.querySelector('img[alt="刚刚拍摄或上传的照片"]')?.getAttribute('src'), image);
         assert.equal(h.button('开始生成').disabled, true);
-        assert.equal(h.calls.filter(c => c.url === '/examples/film-reference.png').length, 1);
+        assert.equal(h.calls.filter(c => c.url === '/examples/film-v2.webp').length, 1);
         assert.equal(h.calls.some(c => /\/(photo|generate)$/.test(c.url)), false);
     } finally { await h.cleanup(); }
 });
@@ -790,13 +825,54 @@ test('test photo enters confirmation without a file picker or generation', async
 test('a late demo sample read cannot place a previous visitor photo into the next round', async () => {
     const h = await harness(undefined, { deferReader: true });
     try {
-        await h.click('开始拍照'); await h.click('电影人像'); await h.click('使用测试照片');
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.click('使用测试照片');
         assert.equal(h.readers.length, 1);
-        await h.click('结束本次'); await h.click('开始拍照'); await h.click('电影人像');
+        await h.click('结束本次').then(() => h.click('确认结束')); await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
         await act(async () => h.readers[0]()); await h.flush();
         assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'camera');
         assert.equal(h.dom.window.document.querySelector(`img[src="${image}"]`), null);
         assert.equal(h.dom.window.localStorage.getItem('snap-session'), 'session-2');
         assert.equal(h.calls.some(c => /\/(generate)$/.test(c.url)), false);
+    } finally { await h.cleanup(); }
+});
+
+test('ending a visit asks first; cancelling keeps the photo, confirming clears it', async () => {
+    const h = await harness();
+    try {
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload();
+        await h.click('结束本次');
+        assert.ok(h.dom.window.document.querySelector('[role=alertdialog]'));
+        assert.equal(h.calls.some(c => c.url.endsWith('/end')), false);
+        await h.click('继续拍照');
+        assert.equal(h.dom.window.document.querySelector('[role=alertdialog]'), null);
+        assert.equal(h.dom.window.document.querySelector('[data-step]')?.getAttribute('data-step'), 'confirm');
+        await h.click('结束本次'); await h.click('确认结束');
+        assert.ok(h.dom.window.document.querySelector('.attract-screen'));
+        assert.ok(h.calls.some(c => c.url.endsWith('/end')));
+    } finally { await h.cleanup(); }
+});
+
+test('visitors see no admin link or fullscreen control; the logo is not a link', async () => {
+    const h = await harness();
+    try {
+        const doc = h.dom.window.document;
+        assert.equal(doc.querySelector('a[href="/admin"]'), null);
+        assert.doesNotMatch(h.text(), /全屏显示|设备设置/);
+        assert.equal(doc.querySelector('.kiosk-shell a.brand'), null);
+        assert.ok(doc.documentElement.classList.contains('kiosk-touch'));
+    } finally { await h.cleanup(); }
+});
+
+test('delivery screen shows the Wi-Fi join QR before the pickup QR and hides an unconfigured printer', async () => {
+    const h = await harness(url => url === '/api/wifi' ? { ssid: 'Snap Club', password: '12345678', security: 'WPA' } : undefined);
+    try {
+        await h.click('开始拍照'); await h.click('电影人像').then(() => h.click('就拍这个'));
+        await h.upload(); await h.consent(); await h.click('开始生成'); await h.tick(1800);
+        await h.click('手机取图'); await h.flush();
+        const doc = h.dom.window.document;
+        assert.ok(doc.querySelector('img[alt="连接 Wi-Fi 二维码"]'));
+        assert.ok(doc.querySelector('img[alt="手机取图二维码"]'));
+        assert.match(h.text(), /先连 Wi-Fi.*Snap Club.*再扫码取图/);
+        assert.doesNotMatch(h.text(), /打印照片|请先设置打印机|请在连接打印机的 Mac 上打印/);
     } finally { await h.cleanup(); }
 });

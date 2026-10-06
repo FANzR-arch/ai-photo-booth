@@ -1,0 +1,232 @@
+{
+  "cinema": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-a0807b02-e71e-4095-aa16-9077d4740c1b.png",
+    "passed": true,
+    "notes": "单人回眸，双手插兜，青橙霓虹湿地与红蓝轮廓光，神情沉静；头顶完整，无文字或可见手部问题。"
+  },
+  "business": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-5c2d8eb0-e4a3-480c-a953-58e5599ccff5.png",
+    "passed": true,
+    "notes": "约35岁女性，扶袖口动作自然，暖窗轮廓光与冷灰办公背景，自信温和；指尖清楚，头顶完整。"
+  },
+  "editorial": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-bc773393-cd77-40ab-aff4-324230c6bd51.png",
+    "passed": true,
+    "notes": "钴蓝背景，上侧硬光与明确颧骨阴影，一手扶翻领，冷感不笑；人物骨相区别于前两张。"
+  },
+  "film": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-9beb850f-b068-499e-acb3-3e58a92df6d6.png",
+    "passed": true,
+    "notes": "暖米色云纹幕布、暖钨丝侧上光、明显胶片颗粒，侧坐木凳前倾、双手交叠在膝前，温柔怀旧神态，无文字。"
+  },
+  "cartoon": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-732a0bf6-387a-49e9-a3d2-4a0b14705c2d.png",
+    "passed": true,
+    "notes": "重出为明确哑光3D成年角色，杏粉渐变背景、圆形装饰、暖侧光，比例不幼化；无猫、相机或无关物件。"
+  },
+  "together-01": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-87281f20-372f-49a9-9bf5-f530ab30495d.png",
+    "passed": true,
+    "notes": "恰好情侣两人，肩膀相依，男性手臂搭肩，奶油柔光与自然眉眼笑意，圆脸卷发女性和长脸男性明显不同。"
+  },
+  "festival": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-89707d71-1f0b-4300-9238-f715f6fa9fc7.png",
+    "passed": true,
+    "notes": "窗花修正为纯梅花枝叶，无字形；保留红金侧光、腊梅、抱拳动作与自然眉眼笑意。"
+  },
+  "together-02": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-7d7a2a5a-e45e-4e78-937f-0aec428d0663.png",
+    "passed": true,
+    "notes": "清除无关花束与玩具；两位不同面孔女性，托腮和胜利手势，桃粉背景与发丝轮廓光，头顶完整。"
+  },
+  "together-03": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-7b19dff6-0684-46d3-901c-d5522a77f1db.png",
+    "passed": true,
+    "notes": "恰好两男一女，三张脸及发型不同，前后错落、搭肩与胜利手势，雾蓝清爽色调，无文字或可见肢体问题。"
+  },
+  "together-04": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-fc3348ee-67ae-4220-ab03-0ddddb489fef.png",
+    "passed": true,
+    "notes": "约65岁老夫妻并坐、头部相靠、膝前轻握手，银发皱纹自然，侧窗光与暖灯分层，书脊无可读文字。"
+  },
+  "together-05": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2a16c567-fa7c-48c4-acfb-4dabdecd946b.png",
+    "passed": true,
+    "notes": "父母约35岁与约6岁女儿恰好三人，父母环抱，孩子在前，真实年龄与身高差，暖阳客厅和自然闭唇笑。"
+  },
+  "together-07": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-14afa7a9-f754-4c50-9982-8d5c1ba398fe.png",
+    "passed": true,
+    "notes": "55岁母亲与28岁女儿，年龄差自然、捧小束野花、花墙发丝逆光，皆温柔看镜头，双手清楚。"
+  },
+  "together-08": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-d23fa911-c37a-4b1d-ba9d-2514266515c4.png",
+    "passed": true,
+    "notes": "情侣依偎，两人视线明确离镜头看海，金色发丝逆光、蜜桃落日与自然面部补光，未变成对镜头摆拍。"
+  },
+  "together-09": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-db433662-89f5-451b-a934-df1704f67ad2.png",
+    "passed": true,
+    "notes": "40岁夫妻有成熟纹理，侧后搭肩、克制温柔神态，丝绒棕酒红背景与暖聚光，无婚礼道具或文字。"
+  },
+  "together-06": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-bd079637-b713-420a-8752-128ef654fba6.png",
+    "passed": true,
+    "notes": "前方人物改为短寸发、方颌与自然胡茬，与之前卷发青年区分；两位男性搭肩，黑白银盐灰阶、单侧光与沉静眼神。"
+  },
+  "together-10": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-97f57108-62e6-42c6-b72b-7097466bae3d.png",
+    "passed": true,
+    "notes": "恰好两男两女，四张完整面孔与不同发型，搭肩和举臂庆祝、金色亮片和彩纸、自然闭唇笑；手和杯具无可见结构错误。"
+  },
+  "memory-01": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2d455849-9d90-4bf6-b78f-cce9547ea6cc.png",
+    "passed": true,
+    "notes": "短发女性双手捧白杯，明确看向窗外晨光，慵懒浅笑；侧日光、白纱帘与绿植，服装区别于旧毛衣系列。"
+  },
+  "memory-02": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-0bac2f79-032a-417c-a613-4a036207fcad.png",
+    "passed": true,
+    "notes": "戴眼镜男性侧坐托腮，望雨窗出神且不笑；脸干燥，雨滴和室内暖光/窗外冷蓝分层，皮肤纹理自然。"
+  },
+  "memory-03": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-5d81ff14-c7c2-427a-92a2-06c5126f472f.png",
+    "passed": true,
+    "notes": "长卷发女性怀抱合上的无字书，另一手轻扶书架，视线落在书架而非镜头；暖黄侧上光、木架与胶片色调。"
+  },
+  "memory-04": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-df445cb5-ebd3-49c2-a613-5a623dbb66fd.png",
+    "passed": true,
+    "notes": "自然麦色短发男性，手掌在额前遮阳但不挡眼睛，蓝海与清透侧日光，自然闭唇笑，头和手完整。"
+  },
+  "memory-05": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-8f55b2d4-1302-4a2e-8fd7-93f20f080606.png",
+    "passed": true,
+    "notes": "双手捧金黄银杏叶，垂眸端详叶片，棕色外套与秋日逆光、暖金光斑，手指和头顶完整。"
+  },
+  "memory-07": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2af98395-7e76-42fa-aab8-35ef950b76bd.png",
+    "passed": true,
+    "notes": "丸子头成年女性捧无字奶油蛋糕与单根细蜡烛，低头看烛火、安静幸福，烛光照亮下巴，数字与文字均无。"
+  },
+  "memory-06": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-ae563071-1cd0-48b7-9124-06466443e20e.png",
+    "passed": true,
+    "notes": "双手捧热可可不遮嘴，新增两缕清楚蒸汽，垂眸跟随杯上热气；暖壁炉与冷雪窗对比，自然皮肤。"
+  },
+  "memory-08": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2016d57e-729e-436a-a02f-6ab11a5a8d96.png",
+    "passed": true,
+    "notes": "成年男性毕业生持空白红丝带卷轴并比胜利手势，校园逆光、明亮自信眼神，证书无数字文字与学校标志。"
+  },
+  "memory-09": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-4a3e7658-7c2c-45ed-8cc7-a8b13aa4d698.png",
+    "passed": true,
+    "notes": "约45岁女性自然皮肤与细纹，藤椅后靠、一手搭椅背一手放腿上，庭院斑驳树影，舒适松弛。"
+  },
+  "memory-10": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2f5aa398-1b53-47ac-ad2b-e64d09a8f27d.png",
+    "passed": true,
+    "notes": "短碎发女性夜街回眸，持无标志外带杯、另一手插兜；深蓝夜色与暖琥珀光斑，随意温柔神态，杯与手清楚。"
+  },
+  "self-01-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-24c1c8e3-83f6-434b-a790-c1bf5ee5a5e8.png",
+    "passed": true,
+    "notes": "22岁女性高马尾长脸，与生活系列短发角色区分；一手轻托脸颊、眼角浅笑，奶油柔光与真实皮肤雀斑。"
+  },
+  "self-01-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-19c052b0-0b44-4b1d-8c86-014bedfb12f4.png",
+    "passed": true,
+    "notes": "29岁男性短直发、自然胡茬，另一侧托腮，温柔恬静神态、奶油柔光、清楚织纹，头顶完整。"
+  },
+  "self-02-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2b51031f-61b5-496a-91df-d9e1390907e4.png",
+    "passed": true,
+    "notes": "38岁女性，侧身双臂交叉、沉稳不笑，单侧伦勃朗光、深灰黑白银盐层次，自然成熟皮肤纹理。"
+  },
+  "self-02-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-e52e27c2-a9f2-4a0c-ba71-35f4f0e81453.png",
+    "passed": true,
+    "notes": "45岁男性银黑短发、真实眼角纹，交叉双臂、坚定不笑，黑白侧光与深暗部，面孔区别于年轻男性。"
+  },
+  "self-03-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-b7d23f25-15ea-447b-861c-c4666d477860.png",
+    "passed": true,
+    "notes": "26岁女性轻扶窗框、仰脸看向窗外阳光，离镜头视线明确；百叶条纹只在墙上，脸部明亮且无条纹遮挡。"
+  },
+  "self-03-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-2c2b074c-1a61-4be4-bf37-a710e183cae2.png",
+    "passed": true,
+    "notes": "34岁男性扶窗框、仰脸迎向窗外日光，视线不看镜头，墙上百叶条纹未压在脸部，体型自然。"
+  },
+  "self-04-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-24c9d556-a8d4-4ab1-892a-7915db63dc84.png",
+    "passed": true,
+    "notes": "42岁短卷发女性侧坐木椅，一手搭椅背，平和从容眼神；橄榄绿墙、柔和侧光与真实细纹。"
+  },
+  "self-04-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-4ba745fd-0732-49ee-98c9-d608ce0d04af.png",
+    "passed": true,
+    "notes": "24岁清瘦男性，手搭木椅背、身体转回镜头，安静神态与哑光橄榄层次，骨相和年龄区别于前面角色。"
+  },
+  "self-05-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-111916c1-a8f8-4913-bbc1-22a64149cf35.png",
+    "passed": true,
+    "notes": "31岁长波浪发女性侧身回眸、一手轻拉领口，温柔慵懒浅笑；可可背景、暖侧光与发丝光、清楚针织纹理。"
+  },
+  "self-05-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-23c22bd5-8f95-469f-ab8a-6ff7097c9399.png",
+    "passed": true,
+    "notes": "39岁男性复古梳发与自然胡茬，回眸拉领口，暖可可低对比色调与柔和轮廓光，面孔成熟不同。"
+  },
+  "self-06-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-1f63f22a-1c5f-4d1f-b973-bca75e7cb7d8.png",
+    "passed": true,
+    "notes": "28岁女性靠天台栏杆、脸转回镜头，栏杆清楚入画，深蓝天际与城市灯火，暖面部补光、松弛若有所思。"
+  },
+  "self-06-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-e9286c1e-7d51-4b3d-b2fd-ab40078721f0.png",
+    "passed": true,
+    "notes": "22岁男性双臂轻搭天台栏杆、回望镜头，栏杆完整可辨，冷蓝暮色与暖肤色、清楚城市光点。"
+  },
+  "self-07-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-4b913d53-6fa9-4bc8-a753-0007e40f1861.png",
+    "passed": true,
+    "notes": "35岁低马尾女性双手捧一颗桃子在脸侧，不遮五官，闭唇明快眉眼笑意，桃粉背景及失焦蜜桃。"
+  },
+  "self-07-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-52b41185-c4a6-4aec-bed0-4dd0119350ea.png",
+    "passed": true,
+    "notes": "27岁碎发男性双手捧桃，浅雀斑和自然皮肤，轻歪头明快笑意；粉白织物与桃色蝴蝶光，头和手完整。"
+  },
+  "self-08-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-3eb9d610-6566-4e91-b8ed-1905b911a102.png",
+    "passed": true,
+    "notes": "25岁短直发女性双手轻整浅灰蓝衣襟，清爽自信、纯白高调柔光，服装边缘可辨，手部和头顶完整。"
+  },
+  "self-08-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-727cc42e-0eb4-4f4d-b87e-6c3ada049bb8.png",
+    "passed": true,
+    "notes": "43岁成熟男性圆阔脸与真实眼角纹，双手整衣襟、自然浅笑，白场与衣物分离清楚，不磨皮。"
+  },
+  "self-09-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-5a80cd61-7929-4979-b306-b05ca11ab47d.png",
+    "passed": true,
+    "notes": "44岁女性侧身，一手抬至锁骨、不笑，金色肩线和发丝侧逆光、深暖灰背景，暗调层次与细纹自然。"
+  },
+  "self-09-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-72afae4f-da43-4c22-aeb9-cbf547b36717.png",
+    "passed": true,
+    "notes": "32岁男性深邃不笑，一手抬到锁骨，暖金发丝与肩线侧逆光、深暖灰暗部，真实胡茬与皮肤纹理。"
+  },
+  "self-10-a": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-8d58a558-2a96-4b35-a4ed-6c675429e86f.png",
+    "passed": true,
+    "notes": "30岁栗色微卷发女性背靠牛仔蓝墙，一手插兜、一手拨发，松弛微仰头；暖日光、青蓝阴影、胶片颗粒和轻微漏光。"
+  },
+  "self-10-b": {
+    "source": "E:\\CodexHome\\generated_images\\01a10f6e-b084-7412-9f47-ccbf88999ea2\\exec-5ae99bc2-80b4-4f3b-994f-8065ddf51a81.png",
+    "passed": true,
+    "notes": "37岁男性侧分发、自然成熟骨相，靠墙拨发与插兜动作，复古蓝墙侧日光、轻漏光，不同面孔，头和手完整。"
+  }
+}

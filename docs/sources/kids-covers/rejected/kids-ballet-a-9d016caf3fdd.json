@@ -1,0 +1,21 @@
+{
+  "id": "kids-ballet-a",
+  "themeId": "kids-ballet",
+  "subject": "one fictional East Asian girl about 6 years old, dark hair in small ballet bun",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Bright ballet rehearsal room, wood floor, barre and large windows, soft backlight and airy atmosphere, elegant realistic dance photography.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 6 years old, dark hair in small ballet bun, wearing Pale pink ballet practice leotard and fluffy short tulle skirt, child-appropriate fit.\nPose: Both arms form first-position ballet oval at chest, both hands and all fingers visible with gentle natural curvature, slightly turned, face toward camera with relaxed neck.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\nCritical expression correction: lips completely touching and sealed in a very small relaxed smile. Absolutely no visible teeth, no gap between lips, no open-mouth grin. Calm bright eyes. Keep both hands near chest in a gentle first-position oval and all five fingers distinct.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-ballet-a-9d016caf3fdd.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-dad7c111-7114-43c3-8d90-5af7d148b1d6.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "9d016caf3fdd77f9fdc6eaff0282be55374dc97115fa24a7f59dd26b8d0080e1",
+  "coverSha256": "be4357bcb3bafc3399410c0538943d8da1446d9b3df8ac09a2883552cf386658",
+  "promptSha256": "d75731c0ae6d7ac4d2b912f08097b35d071f126fbc41783007c858fdb97eb050",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 51248,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-ballet-a.webp"
+}

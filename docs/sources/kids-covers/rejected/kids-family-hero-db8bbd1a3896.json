@@ -1,0 +1,21 @@
+{
+  "id": "kids-family-hero",
+  "themeId": "kids-family-hero",
+  "subject": "exactly two fictional East Asian people: a mother in her thirties with shoulder-length dark hair and her son about 5 years old with short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: City rooftop at dusk, warm orange sky and city lights, original realistic family hero-film atmosphere.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: exactly two fictional East Asian people: a mother in her thirties with shoulder-length dark hair and her son about 5 years old with short dark hair, wearing Matching fitted original dark blue and bright red hero suits with small plain geometric star chest patches and short red capes; completely original tailoring.\nPose: Mother and child stand side by side with credible standing adult-child height difference, each has both hands visibly on hips, capes flowing backward, both faces toward camera; frame from mother's head to child's waist, do not enlarge child to adult height.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one adult and one child; each person has exactly two arms and two hands, adult and child scale must remain believable. Frame wide enough for all four hands and both heads; do not crop the child at the shoulders.\nCostumes must use soft navy fabric with narrow bright-red vertical side panels, simple plain red cuffs and belt, tiny flat eight-point red star on upper chest and short red cape. No metallic armor, no chest chevron, no large gold central star, no familiar existing superhero silhouette.\nCritical family framing: step the camera back enough to show both people's complete shoulders, both elbows and all four hands with at least eight percent inset from side borders. Keep each entire head within frame, don't crop the parent's outer shoulder or arm. All uniform equipment and kitchen props are completely blank without even tiny engraved labels or writing-like marks; control panels only plain color buttons.\nHighest-priority composition correction: a wider medium group portrait, the entire two-person group occupies only the central 70 percent of picture width, background visible along both outer sides. Mother stands at 35 percent horizontal position and boy at 65 percent; all shoulders and elbows inside the image. Both keep hands on hips with elbows bent back toward their own bodies, not splayed outward. Never cut any elbow, arm or fingers. Their faces can be smaller in the frame to achieve this. Mother's head stays higher, boy remains child-sized.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-family-hero-db8bbd1a3896.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-84768eb9-33cc-48f8-aa74-2a36731b3831.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "db8bbd1a389671489953ceb043ef40aa34d27848be421723f41b242b505623c9",
+  "coverSha256": "b73417cafec868d6afcede5e9137fe38680e3c42c9dab69f0bccde42d7421a42",
+  "promptSha256": "66ee397bf8d09995684635b4bfccb84a84471587311ec17fb1ec02f269da3363",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 99692,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-family-hero.webp"
+}

@@ -1,0 +1,15 @@
+Edit the supplied image with the precise change below. All unmentioned visual elements must stay unchanged.
+Remove the unrequested pink teddy bear and the entire tulip bouquet including wrapping and ribbon. Replace only those areas with the women's own clothing and natural relaxed empty hands at the lower edge. Keep exactly these two different adult women, their faces, short-versus-long hairstyles, head leaning, cheek-support gesture on the left, victory hand gesture on the right, pink backdrop, directional rim light and warm closed-mouth smiles. No new props.
+
+Preserve the original scene requirements:
+Use case: photorealistic-natural
+Asset type: 独立竖版3:4照相馆主题封面
+生成一张完整的真实商业摄影写真，恰好包含下述人物：两位约24岁的虚构东亚成年女性好友：左侧短黑色波波头、宽方脸、细长单眼皮；右侧长波浪棕黑发、长椭圆脸、宽鼻梁、圆眼。两人面貌不相同。
+本张是全新的角色设计。五官严格依照上面的独特骨相、年龄与发型，不复用本对话已生成的人脸，不像明星或网红。
+
+场景、光影、动作与神态（所有动作和道具必须出现）：桃粉色棚拍的默契合照：淡桃粉背景，正面柔光加细细的发丝轮廓光，清透甜美的日系杂志色调。动作：多人肩并肩挤在一起，各自比出不同的手势，有人轻歪头靠在旁人肩上，脸都朝向镜头；单人则双手托腮、手肘贴近身体，轻歪头看镜头。神态：俏皮默契，眉眼带笑，每个人的笑容各不相同。
+服装：为每个人选择不同款式的柔和桃粉、灰米或奶油白上衣，色彩相互呼应，不使用完全相同的成套服装。
+
+构图：竖版3:4，腰部以上的半身构图，所有人的头顶完整并留安全空间，脸是视觉中心；动作涉及的手、道具、相握的手或栏杆须保留在画面内，膝前动作可取到上膝而不拍成全身。多人面孔不可遮挡、相同或融合，按实际人数放宽构图。看向镜头，保留本主题神态，表情有情绪而克制。笑意如有只从眉眼和嘴角微微流露，不露齿。
+有方向的主光、轮廓光和光影层次遵照主题，不改成平淡证件照。自然毛孔、皮肤纹理、普通人的真实骨相与体态、真实衣物织纹；不要过度磨皮、塑料皮肤或AI网红脸。
+任何位置均无文字、数字、品牌、logo、水印、边框、九宫格或拼图；书本、招牌、卷轴、蛋糕均无可读文字，蛋糕只用细蜡烛而不使用数字蜡烛。双手符合人体，手指清楚自然，不遮脸，不张嘴大笑、不瞪眼、不嘟嘴。单张独立成片。

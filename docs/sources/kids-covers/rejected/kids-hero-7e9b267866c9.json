@@ -1,0 +1,21 @@
+{
+  "id": "kids-hero",
+  "themeId": "kids-hero",
+  "subject": "one fictional East Asian girl about 6 years old, high dark ponytail",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: City rooftop at dusk with distant illuminated towers, warm orange sky and golden rim light, original hero-film atmosphere.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 6 years old, high dark ponytail, wearing Original dark blue and bright red hero suit, small plain star-shaped geometric chest patch, short red cape, belt and wrist guards; original tailoring with no familiar franchise design.\nPose: Both hands visibly on hips, standing confidently, cape flowing behind, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\nCritical original-costume direction: soft navy fabric jumpsuit with narrow bright-red vertical side panels and plain red wrist bands, tiny flat eight-point star patch on upper chest, small plain fabric belt and short red cape. No metallic armor, no red chest chevron, no large gold central star, no familiar superhero costume silhouette. Use an ordinary child's handmade costume feeling.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-hero-7e9b267866c9.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-9431954f-2ed3-4a3b-83d7-3564d7fe183a.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "7e9b267866c92107f4c261d2f60f32fff53b9081e67d053e7441777b8c0ff840",
+  "coverSha256": "f094451ad399508c344f0ca5554aa721358975de68ec93a544cee0920444c67c",
+  "promptSha256": "967233bfe4522f2f729ddd7042e46c75b67e702894b97228651883497a973e26",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 94644,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-hero.webp"
+}

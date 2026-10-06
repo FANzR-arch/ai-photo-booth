@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-05",
+  "method": "Individually opened all 41 final 720x960 WebP covers, plus regenerated replacements",
+  "reviewed": [
+    "kids-dino",
+    "kids-space",
+    "kids-pirate",
+    "kids-hero",
+    "kids-knight",
+    "kids-castle-a",
+    "kids-castle-b",
+    "kids-fairy-a",
+    "kids-fairy-b",
+    "kids-unicorn",
+    "kids-ocean",
+    "kids-magic",
+    "kids-circus",
+    "kids-snow",
+    "kids-candy",
+    "kids-camping",
+    "kids-mecha",
+    "kids-panda",
+    "kids-picturebook",
+    "kids-toyfigure",
+    "kids-crayon",
+    "kids-bricks",
+    "kids-family-space",
+    "kids-family-hero",
+    "kids-family-bake",
+    "kids-firefighter",
+    "kids-pilot",
+    "kids-train",
+    "kids-racer",
+    "kids-scientist",
+    "kids-doctor",
+    "kids-vet",
+    "kids-bakery",
+    "kids-builder",
+    "kids-detective",
+    "kids-football",
+    "kids-ballet-a",
+    "kids-ballet-b",
+    "kids-painter",
+    "kids-rockstar",
+    "kids-graduate"
+  ],
+  "rejected": [
+    {
+      "id": "kids-hero",
+      "reason": "Red-blue chevron and gold star costume too close to an existing franchise silhouette."
+    },
+    {
+      "id": "kids-knight",
+      "reason": "Faint signature-like mark at bottom right; shield hand too close to border."
+    },
+    {
+      "id": "kids-ocean",
+      "reason": "Tiny lettering generated on dive harness and regulator label; replaced with plain equipment."
+    },
+    {
+      "id": "kids-circus",
+      "reason": "Welcoming hand cropped at the right edge."
+    },
+    {
+      "id": "kids-toyfigure",
+      "reason": "Hoodie looked like fleece fabric rather than molded vinyl; toy medium insufficiently clear."
+    },
+    {
+      "id": "kids-family-space",
+      "reason": "Father's outer shoulder too close to/cropped at left edge; tiny writing-like equipment markings."
+    },
+    {
+      "id": "kids-family-hero",
+      "reason": "Mother's and child's outer elbows cropped at image borders."
+    },
+    {
+      "id": "kids-racer",
+      "reason": "Zoomed inspection confirmed a tiny black text-like label on the white shoulder panel."
+    },
+    {
+      "id": "kids-builder",
+      "reason": "Helmet-side elbow cropped at the left image edge."
+    },
+    {
+      "id": "kids-ballet-a",
+      "reason": "Slightly parted lips with visible tooth-like highlights, rather than a sealed closed-lip smile."
+    },
+    {
+      "id": "kids-hero",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-circus",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-family-hero",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-pilot",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-train",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-racer",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-ballet-a",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-ballet-b",
+      "reason": "Final cover review: framing extended to thighs or knees; tightened to waist-up."
+    },
+    {
+      "id": "kids-racer",
+      "reason": "Waist-up edit brought both elbows onto/cropped at side borders; adjusted arm placement inward."
+    },
+    {
+      "id": "kids-toyfigure",
+      "reason": "User rejected the former waist-up figurine appearance; redesigned face/proportions, removed acrylic base and showed full-body."
+    }
+  ],
+  "toolFailures": [
+    {
+      "id": "kids-ocean",
+      "status": "input rejected",
+      "requestId": "57ecc6ed-9b2e-445d-9ea2-2806231359ab",
+      "reason": "Tool safety filter categorized the benign diving portrait as sexual; clarified full-coverage costume."
+    },
+    {
+      "id": "kids-rockstar",
+      "status": "input rejected",
+      "requestId": "8901e0fd-6839-4d46-96eb-eff292ba22b0",
+      "reason": "Tool safety filter categorized the benign music portrait as sexual; clarified wholesome fully clothed music performance."
+    }
+  ],
+  "pendingFraming": [],
+  "result": "passed",
+  "visualAcceptance": "Technical visual review by Codex; client aesthetic approval and Seedream output validation remain separate.",
+  "revisions": [
+    {
+      "date": "2026-10-05",
+      "id": "kids-toyfigure",
+      "record": "docs/sources/kids-covers/revision-toyfigure-2026-10-05.json",
+      "status": "passed",
+      "framing": "full-body, user-requested exception"
+    }
+  ]
+}

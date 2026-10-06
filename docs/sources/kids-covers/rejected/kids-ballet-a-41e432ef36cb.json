@@ -1,0 +1,21 @@
+{
+  "id": "kids-ballet-a",
+  "themeId": "kids-ballet",
+  "subject": "one fictional East Asian girl about 6 years old, dark hair in small ballet bun",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Bright ballet rehearsal room, wood floor, barre and large windows, soft backlight and airy atmosphere, elegant realistic dance photography.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 6 years old, dark hair in small ballet bun, wearing Pale pink ballet practice leotard and fluffy short tulle skirt, child-appropriate fit.\nPose: Both arms form first-position ballet oval at chest, both hands and all fingers visible with gentle natural curvature, slightly turned, face toward camera with relaxed neck.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-ballet-a-41e432ef36cb.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-a5c665a2-ff7e-463d-b6c0-0258d35633c5.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "41e432ef36cb5d3d3183fffea6ad0416bd651294a964ef6b63f179bd73b42f59",
+  "coverSha256": "7d8c9e03f51b4d6d320caf1947ac86d0554baf74ed995f0da847063d3e84f2de",
+  "promptSha256": "3b569756fdab2210d603d0d9332a0236dd477c1cd707d2f33bc13d5ad367a44f",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 50542,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-ballet-a.webp"
+}

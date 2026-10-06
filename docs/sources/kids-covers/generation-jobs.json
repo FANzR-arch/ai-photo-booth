@@ -1,0 +1,303 @@
+[
+  {
+    "id": "kids-dino",
+    "subject": "one fictional East Asian boy about 6 years old, short tousled dark hair",
+    "scene": "Dense prehistoric jungle and giant ferns; a gentle long-necked dinosaur in the distance looks down toward the child, morning sun through foliage",
+    "outfit": "Fitted khaki short-sleeve explorer shirt, small multipocket vest, olive-green crossbody water canteen, light khaki explorer hat whose brim does not cover eyes",
+    "pose": "Body slightly turned, face toward camera, one hand holds binoculars at chest, the other rests near waist with fingers visible",
+    "medium": "High-quality commercial children's photography, realistic adventure-film texture"
+  },
+  {
+    "id": "kids-space",
+    "subject": "one fictional East Asian girl about 7 years old, ear-length dark bob",
+    "scene": "Space-station interior with blue Earth and stars clearly visible through a circular porthole, soft white cabin lighting and a few blue indicator lights",
+    "outfit": "Fitted white astronaut suit, original abstract wordless mission patch and colored buttons, metal neck ring, no space-agency insignia",
+    "pose": "Both hands hold an astronaut helmet in front at waist, body slightly turned, face toward camera with quiet pride"
+  },
+  {
+    "id": "kids-pirate",
+    "subject": "one fictional East Asian boy about 5 years old, slightly curly short dark hair",
+    "scene": "Wooden sailing-ship deck with billowing white sails, ropes and deep blue ocean, bright sunshine, realistic maritime adventure-film atmosphere",
+    "outfit": "Red-and-white striped shirt, dark blue short captain coat with gold buttons, original black tricorne captain hat and wide leather belt, fitted lightweight clothes",
+    "pose": "One hand raises a brass telescope beside chest, the other rests visibly on a wooden ship wheel, body slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-hero",
+    "subject": "one fictional East Asian girl about 6 years old, high dark ponytail",
+    "scene": "City rooftop at dusk with distant illuminated towers, warm orange sky and golden rim light, original hero-film atmosphere",
+    "outfit": "Original dark blue and bright red hero suit, small plain star-shaped geometric chest patch, short red cape, belt and wrist guards; original tailoring with no familiar franchise design",
+    "pose": "Both hands visibly on hips, standing confidently, cape flowing behind, face toward camera"
+  },
+  {
+    "id": "kids-knight",
+    "subject": "one fictional East Asian boy about 7 years old, short dark hair",
+    "scene": "Sunlit stone castle courtyard, colorful plain flags fluttering and softly blurred background, realistic fairy-tale adventure-film atmosphere",
+    "outfit": "Silver-gray lightweight fabric knight tabard with original star crest, light gray long sleeves and light shoulder armor panels, no helmet",
+    "pose": "One hand holds a natural wooden toy sword upright in front, the other holds the rim of a round shield with an original simple wordless crest, both hands visible, slightly turned toward camera"
+  },
+  {
+    "id": "kids-castle-a",
+    "themeId": "kids-castle",
+    "subject": "one fictional East Asian girl about 5 years old, long dark hair",
+    "scene": "Pink and lavender fairy-tale castle garden, rose arch and tiny sparkling light points, soft dreamy backlight, realistic fairy-tale film photography",
+    "outfit": "Pale pink puff-sleeve princess dress with a full skirt and a small original crystal crown; original dress and crown shapes",
+    "pose": "Body slightly turned, one hand gently on chest and the other relaxed just in front of waist with all fingers visible, face toward camera"
+  },
+  {
+    "id": "kids-castle-b",
+    "themeId": "kids-castle",
+    "subject": "one fictional East Asian boy about 6 years old, short dark hair",
+    "scene": "Pink and lavender fairy-tale castle garden, rose arch and tiny sparkling light points, soft dreamy backlight, realistic fairy-tale film photography",
+    "outfit": "White standing-collar prince dress coat, gold epaulettes and short dark blue cape, fully original costume design",
+    "pose": "Body slightly turned, one hand gently on chest and the other relaxed just in front of waist with fingers visible, face toward camera"
+  },
+  {
+    "id": "kids-fairy-a",
+    "themeId": "kids-fairy",
+    "subject": "one fictional East Asian girl about 6 years old, shoulder-length dark hair",
+    "scene": "Morning woodland flower patch with giant wildflowers, small mushrooms, butterflies and warm floating light points, soft backlight and shallow depth of field, realistic fantasy-film photography",
+    "outfit": "Fresh green and pale pink petal tulle dress, small floral wreath and translucent delicate wings, original design",
+    "pose": "Slightly turned, both open hands gently cup one small glowing butterfly at chest, face toward camera"
+  },
+  {
+    "id": "kids-fairy-b",
+    "themeId": "kids-fairy",
+    "subject": "one fictional East Asian boy about 5 years old, short dark hair",
+    "scene": "Morning woodland flower patch with giant wildflowers, small mushrooms, butterflies and warm floating light points, soft backlight and shallow depth of field, realistic fantasy-film photography",
+    "outfit": "Moss-green short jacket with leaf pattern and brown suspenders, original forest-sprite design",
+    "pose": "Slightly turned, both open hands gently cup one small glowing butterfly at chest, face toward camera"
+  },
+  {
+    "id": "kids-unicorn",
+    "subject": "one fictional East Asian girl about 5 years old, dark hair in two buns",
+    "scene": "Soft pink and blue clouds beneath a rainbow, one white unicorn lowering its head beside the child, candy-colored soft light, realistic dreamy fairy-tale photography",
+    "outfit": "Pale lavender fluffy hooded jacket with small unicorn horn and rainbow mane details on hood; hood lowered behind head leaving hair visible",
+    "pose": "One hand gently strokes the unicorn mane, the other relaxed visibly in front of waist, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-ocean",
+    "subject": "one fictional East Asian boy about 8 years old, short dark hair",
+    "scene": "Clear blue underwater scene with colorful coral, schools of small fish, sunlight beams from the surface and one sea turtle swimming behind, realistic underwater photography, face clear with no bubbles in front",
+    "outfit": "Fitted bright blue and yellow diving suit, dive mask pushed onto forehead clear of eyes, small dive lamp on chest",
+    "pose": "One hand makes an anatomically correct OK sign beside chest, the other relaxed near waist with fingers visible, body slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-magic",
+    "subject": "one fictional East Asian girl about 9 years old, round eyeglasses, shoulder-length dark hair",
+    "scene": "Old magical library with tall bookshelves, floating closed books with blank spines and candles, warm golden candlelight and rim light, completely original fantasy-film atmosphere",
+    "outfit": "Original dark navy academy robe over white shirt and burgundy knitted vest, small golden star motif near collar, no familiar school crest or uniform design",
+    "pose": "One hand raises a wooden wand with a small star-like light at the tip, other hand relaxed visibly near waist, slightly turned, face toward camera, quiet curiosity"
+  },
+  {
+    "id": "kids-circus",
+    "subject": "one fictional East Asian boy about 6 years old, short dark hair",
+    "scene": "Inside a red and white striped circus big top, string lights, colorful triangular flags, warm stage spotlight, softly blurred small stage and balloons, cheerful vintage realistic photography",
+    "outfit": "Bright red ringmaster tailcoat with gold buttons and shoulder details, white shirt and small black bow tie",
+    "pose": "One hand lifts a small black top hat in greeting while other opens welcoming at chest height, both hands within frame and away from face, slightly turned toward camera"
+  },
+  {
+    "id": "kids-snow",
+    "subject": "one fictional East Asian girl about 7 years old, long straight dark hair",
+    "scene": "In front of an ice-blue crystal castle with gently falling snow and glinting ice crystals, cool blue and pale silver soft light while face stays warmly lit, original winter fairy-tale photography",
+    "outfit": "Cream-white little cape with fluffy collar over pale silver-blue knitted top, tiny snowflake embroidery, warm and soft; no famous princess costume",
+    "pose": "Both hands cup a small cluster of glittering snowflakes at chest, slightly turned, face toward camera with bright gentle eyes"
+  },
+  {
+    "id": "kids-candy",
+    "subject": "one fictional East Asian girl about 4 years old, short dark hair with small hair clip",
+    "scene": "Candy-kingdom street, colorful lollipop trees, gingerbread cottages and creamy clouds, pastel pink yellow and mint palette, bright soft light, realistic playful children's photography",
+    "outfit": "Pink candy-striped top with cream suspenders and a tiny simple strawberry motif",
+    "pose": "One hand holds a large rainbow lollipop beside shoulder, other hand relaxed visibly near waist, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-camping",
+    "subject": "one fictional East Asian boy about 9 years old, short dark hair",
+    "scene": "Nighttime grassy campsite with a triangular tent glowing warm behind, string lights, deep blue starry sky and Milky Way, warm yellow lantern light on face, cozy realistic film photography",
+    "outfit": "Olive-green fleece jacket over red-and-black plaid shirt, small knitted scarf around neck",
+    "pose": "Both hands hold a glowing small camping lantern in front of chest, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-mecha",
+    "subject": "one fictional East Asian boy about 8 years old, short dark hair",
+    "scene": "Futuristic robot hangar with an original giant white-and-blue industrial mech in background, blue indicator lights and metallic reflections, realistic science-fiction film texture, bright face lighting; rounded utilitarian robot without horned head or franchise silhouette",
+    "outfit": "Fitted original white and bright blue pilot jumpsuit with simple chest and arm armor panels and colored indicator strips, no anime symbols",
+    "pose": "One hand holds a pilot helmet at waist, other hand gives an anatomically correct thumbs-up near chest, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-panda",
+    "subject": "one fictional East Asian girl about 6 years old, dark hair in two low ponytails",
+    "scene": "Green bamboo grove with dappled sunlight and one round baby giant panda close beside the child's shoulder, warm natural realistic photography",
+    "outfit": "Bamboo-green outdoor vest over pale short-sleeved top, small original panda embroidery",
+    "pose": "One arm gently hugs the baby panda with hand visible on its side, other hand relaxed in front of waist, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-picturebook",
+    "subject": "one fictional East Asian girl about 5 years old, short dark bob with straight bangs",
+    "scene": "A flower-covered hillside with a small house and windmill in the distance, warm sun and pale blue sky",
+    "outfit": "Bright yellow small raincoat-style jacket depicted with colored-pencil strokes",
+    "pose": "Waist-up, slightly turned toward camera, both arms and hands relaxed visibly in front of waist",
+    "medium": "Original children's picture-book illustration, mixed colored-pencil and watercolor marks, warm paper fibers, soft rounded shapes, clearly illustrated rather than photographic"
+  },
+  {
+    "id": "kids-toyfigure",
+    "subject": "one original toy sculpture representing a fictional East Asian boy about 6 years old with short dark hair",
+    "scene": "Warm cream studio background and plain floor, soft contact shadow beneath the shoes, no pedestal or display platform",
+    "outfit": "Original cream, cobalt-blue and coral color-block vinyl hoodie with a golden-yellow pocket, navy shorts and plain cream sneakers",
+    "pose": "Complete standing figurine from head to shoes, arms naturally at the sides, face toward camera",
+    "medium": "Original premium designer collectible with softly rounded child-like sculpting, smooth vinyl and satin matte resin, realistic studio product photography"
+  },
+  {
+    "id": "kids-crayon",
+    "subject": "one fictional East Asian boy about 4 years old, close-cropped dark hair",
+    "scene": "White drawing paper with childlike scribbles of a smiling sun, clouds and grass",
+    "outfit": "Simple red crew-neck shirt, flat crayon color and textured marks",
+    "pose": "Waist-up, face toward camera, both arms and open hands visible near waist",
+    "medium": "Original children's wax-crayon and oil-pastel portrait, chunky rough strokes, obvious wax grains, vivid primary colors, slightly wobbly contour lines, innocent age-appropriate face, closed-mouth smile; not a polished digital painting"
+  },
+  {
+    "id": "kids-bricks",
+    "subject": "one original brick-built sculpture representing a fictional East Asian girl about 7 years old with dark ponytail",
+    "scene": "A colorful brick-built castle and green base plate behind, bright studio lighting",
+    "outfit": "Simple yellow red and sky-blue top entirely assembled from small shiny plastic bricks",
+    "pose": "Waist-up centered sculpture, both brick-built arms and articulated five-digit hands visible near waist, face toward camera",
+    "medium": "Original plastic construction-brick portrait; character and environment assembled from glossy colorful small studded pieces with visible seams; face and hair are sculpted from many tiny bricks, original human-like child proportions, never a cylindrical-headed branded minifigure or claw-handed toy"
+  },
+  {
+    "id": "kids-family-space",
+    "subject": "exactly two fictional East Asian people: a father in his thirties with short dark hair and his daughter about 6 years old with shoulder-length dark hair",
+    "scene": "Lunar-base viewing window showing gray-white lunar terrain and blue Earth suspended in dark space, soft white light, realistic science-fiction photography",
+    "outfit": "Each person wears a fitted white astronaut suit with an original abstract wordless mission patch, no agency insignia",
+    "pose": "Father and child stand closely side by side retaining credible adult-child height difference; father places one hand visibly on child's shoulder and other near own waist; child holds a helmet with both hands; both faces toward camera",
+    "people": 2
+  },
+  {
+    "id": "kids-family-hero",
+    "subject": "exactly two fictional East Asian people: a mother in her thirties with shoulder-length dark hair and her son about 5 years old with short dark hair",
+    "scene": "City rooftop at dusk, warm orange sky and city lights, original realistic family hero-film atmosphere",
+    "outfit": "Matching fitted original dark blue and bright red hero suits with small plain geometric star chest patches and short red capes; completely original tailoring",
+    "pose": "Mother and child stand side by side with credible standing adult-child height difference, each has both hands visibly on hips, capes flowing backward, both faces toward camera; frame from mother's head to child's waist, do not enlarge child to adult height",
+    "people": 2
+  },
+  {
+    "id": "kids-family-bake",
+    "subject": "exactly two fictional East Asian people: a father in his thirties with short dark hair and his son about 6 years old with short dark hair",
+    "scene": "Warm home kitchen, wooden table with flour, rolling pin and freshly baked star-shaped cookies, soft window light, cozy realistic lifestyle photography",
+    "outfit": "Each wears a cream apron and matching small chef hat over pale top, individually fitted",
+    "pose": "Father and child close side by side retaining believable size difference; child holds a plate of star-shaped cookies with both hands, father helps with one visible hand on plate edge and other resting visibly on table; both faces toward camera",
+    "people": 2
+  },
+  {
+    "id": "kids-firefighter",
+    "subject": "one fictional East Asian boy about 6 years old, short dark hair",
+    "scene": "Shiny red fire engine parked in front of fire station, softly blurred background and bright daylight, realistic documentary children's photography; completely blank vehicle without numbers or labels",
+    "outfit": "Fitted dark navy firefighter uniform with fluorescent yellow reflective stripes and original abstract wordless fire-service patch",
+    "pose": "One hand cradles fire helmet at waist, other gives an anatomically correct thumbs-up at chest, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-pilot",
+    "subject": "one fictional East Asian girl about 7 years old, low dark ponytail",
+    "scene": "Airport apron with a white passenger airplane and blue sky, bright daylight, realistic aviation photography, plane without airline logos or lettering",
+    "outfit": "Dark navy pilot uniform, gold sleeve stripes and epaulettes, white shirt, dark necktie, pilot cap clear of hairline and eyes, small original wordless gold flight patch",
+    "pose": "Right hand salutes at hat brim without hiding face, left hand relaxed in front of waist visible, upright posture, face toward camera"
+  },
+  {
+    "id": "kids-train",
+    "subject": "one fictional East Asian boy about 5 years old, short dark hair",
+    "scene": "Bright modern high-speed train platform, white streamlined train behind, airy daylight and platform lights, realistic documentary photography, train and station free of signage or lettering",
+    "outfit": "Dark navy train-conductor uniform, gold buttons and original wordless patch, white shirt, dark tie, matching cap clear of hairline",
+    "pose": "One hand raises a small plain green signal flag, other relaxed visibly near waist, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-racer",
+    "subject": "one fictional East Asian girl about 8 years old, short dark hair",
+    "scene": "Racing pit area with an original bright red open-wheel race car, colored confetti ribbons descending, bright sunshine, realistic sports photography, blank car body without brand names or numbers",
+    "outfit": "Fitted red-and-white racing jumpsuit with simple color panels on chest and sleeves and no sponsors",
+    "pose": "One hand raises a small plain gold trophy within top frame beside head, other holds racing helmet at waist, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-scientist",
+    "subject": "one fictional East Asian boy about 7 years old, short dark hair, eyeglasses",
+    "scene": "Bright clean laboratory, colorful test tubes with gentle bubbles on table, planet model and microscope behind, clean white light, realistic science photography",
+    "outfit": "Fitted white lab coat over pale blue top, transparent safety goggles pushed onto forehead leaving prescription eyeglasses and eyes clear, colored pens in chest pocket",
+    "pose": "One hand holds a colored test tube at chest for inspection, other visibly rests on table edge, slightly turned with face toward camera"
+  },
+  {
+    "id": "kids-doctor",
+    "subject": "one fictional East Asian girl about 6 years old, dark hair in twin ponytails",
+    "scene": "Bright pediatric consultation room, colorful simple animal wall stickers with no lettering, soft white light, realistic lifestyle photography",
+    "outfit": "White doctor coat with colored pens and small star sticker on chest pocket, light blue shirt, stethoscope around neck",
+    "pose": "Both hands raise the stethoscope chestpiece in front of chest, fingers carefully separated and clearly anatomically correct, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-vet",
+    "subject": "one fictional East Asian boy about 5 years old, short dark hair, gently holding one small puppy",
+    "scene": "Cozy pet clinic with light wood and mint-green background, soft window light, realistic lifestyle photography",
+    "outfit": "Mint-green short-sleeved clinical scrubs, tiny paw embroidery and stethoscope around neck",
+    "pose": "Both arms gently cradle the small puppy at chest with both hands visible supporting it naturally, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-bakery",
+    "subject": "one fictional East Asian girl about 5 years old, short dark hair",
+    "scene": "Candy-colored bakery counter with colorful macarons and cupcakes in glass case, pink and cream decorations, bright soft light, realistic lifestyle photography",
+    "outfit": "White small chef coat, pink checked apron and white chef hat with front hair visible",
+    "pose": "Both hands gently support one strawberry-topped cupcake at chest, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-builder",
+    "subject": "one fictional East Asian boy about 4 years old, short dark hair",
+    "scene": "Sunny building site with a bright yellow excavator working behind, blue sky and distant crane, realistic documentary children's photography; excavator without lettering or brand insignia",
+    "outfit": "Bright orange reflective vest over blue work shirt, yellow safety helmet exposing hairline, small tape measure and radio on chest",
+    "pose": "One hand rests on helmet brim clear of face, other hand points toward excavator with anatomically correct index finger, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-detective",
+    "subject": "one fictional East Asian girl about 8 years old, shoulder-length dark hair",
+    "scene": "Vintage detective office, wooden desk, old map made only of unlabeled land shapes and desk lamp, warm yellow light and soft shadows, classic realistic detective-film photography",
+    "outfit": "Camel plaid detective cape coat over white shirt and dark bow tie, matching deerstalker hat exposing hairline",
+    "pose": "One hand holds brass magnifying glass beside face without obscuring eyes, other holds a completely blank clue card at chest, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-football",
+    "subject": "one fictional East Asian boy about 9 years old, short dark hair",
+    "scene": "Night stadium, green football pitch, bright floodlights and stands blurred to colorful bokeh, realistic sports-magazine photographic quality without magazine graphics",
+    "outfit": "Original blue-and-white sports jersey with simple color panels, no club emblems, numbers or brands",
+    "pose": "One hand holds football at waist side, other raises an anatomically correct fist in modest celebration near shoulder, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-ballet-a",
+    "themeId": "kids-ballet",
+    "subject": "one fictional East Asian girl about 6 years old, dark hair in small ballet bun",
+    "scene": "Bright ballet rehearsal room, wood floor, barre and large windows, soft backlight and airy atmosphere, elegant realistic dance photography",
+    "outfit": "Pale pink ballet practice leotard and fluffy short tulle skirt, child-appropriate fit",
+    "pose": "Both arms form first-position ballet oval at chest, both hands and all fingers visible with gentle natural curvature, slightly turned, face toward camera with relaxed neck"
+  },
+  {
+    "id": "kids-ballet-b",
+    "themeId": "kids-ballet",
+    "subject": "one fictional East Asian boy about 7 years old, short dark hair",
+    "scene": "Bright ballet rehearsal room, wood floor, barre and large windows, soft backlight and airy atmosphere, elegant realistic dance photography",
+    "outfit": "White fitted ballet practice T-shirt and dark practice trousers, child-appropriate fit",
+    "pose": "Both arms form first-position ballet oval at chest, both hands and all fingers visible with gentle natural curvature, slightly turned, face toward camera with relaxed neck"
+  },
+  {
+    "id": "kids-painter",
+    "subject": "one fictional East Asian girl about 6 years old, shoulder-length dark hair under a beret",
+    "scene": "Sunlit painting studio with a colorful canvas on easel and playful children's drawings on walls, warm natural light, realistic lifestyle photography",
+    "outfit": "Cream painter smock with colored paint spots, red beret exposing hairline",
+    "pose": "One hand holds paint palette at waist, other raises a paint-loaded brush beside chest, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-rockstar",
+    "subject": "one fictional East Asian boy about 8 years old, short dark hair",
+    "scene": "Concert stage with colored stage lights and beams, audience abstractly blurred to light points, lively realistic concert photography",
+    "outfit": "Small black leather jacket with silver studs, original abstract graphic T-shirt with no text or brand symbols",
+    "pose": "One hand supports a bright red electric guitar slung across front, other raises anatomically correct rock-horns hand gesture beside shoulder, slightly turned, face toward camera"
+  },
+  {
+    "id": "kids-graduate",
+    "subject": "one fictional East Asian girl about 6 years old, shoulder-length dark hair",
+    "scene": "Bright campus lawn and blue sky, softly blurred colorful balloons and plain small flags, soft sunshine, realistic commemorative children's photography, no written banners",
+    "outfit": "Dark blue graduation gown with pale yellow collar edge and matching mortarboard cap, tassel to one side clear of face",
+    "pose": "One hand holds a plain rolled certificate tied with red ribbon at chest, other makes anatomically correct two-finger victory sign beside shoulder, slightly turned, face toward camera"
+  }
+]

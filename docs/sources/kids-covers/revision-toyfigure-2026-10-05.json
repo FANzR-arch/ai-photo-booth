@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-05",
+  "id": "kids-toyfigure",
+  "userRequest": "半身像的人物太丑，去掉底座，改成更完整的",
+  "changes": [
+    "Removed acrylic pedestal",
+    "Redesigned the face and proportions",
+    "Complete standing figure including shoes",
+    "Full-body framing exception requested by the user"
+  ],
+  "previousOriginal": "docs/sources/kids-covers/rejected/kids-toyfigure-e870815aa50d.png",
+  "previousSha256": "e870815aa50d0669a32c419951e5bf1d16ff1fb0abc225dcc203ad0c585b01ea",
+  "oldThemePrompt": "转绘为原创潮玩手办公仔肖像：光滑搪胶与哑光树脂质感，造型圆润简洁，比例适度简化但保留本人发型与五官特征。站在透明亚克力展示台上，奶油色背景，柔和棚灯。",
+  "newThemePrompt": "转绘为原创潮玩手办公仔肖像：光滑搪胶与哑光树脂质感，造型圆润简洁，比例适度简化但保留本人发型与五官特征。人物自然站立，无底座，奶油色背景，柔和棚灯。",
+  "original": "docs/sources/kids-covers/kids-toyfigure.png",
+  "cover": "assets/examples/kids-toyfigure.webp",
+  "review": "Final 720x960 WebP opened and visually inspected; no pedestal, whole head and both shoes visible, original child-like toy, closed-lip smile, no visible lettering or logo."
+}

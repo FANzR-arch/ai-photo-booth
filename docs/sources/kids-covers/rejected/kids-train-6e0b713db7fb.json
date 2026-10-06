@@ -1,0 +1,21 @@
+{
+  "id": "kids-train",
+  "themeId": "kids-train",
+  "subject": "one fictional East Asian boy about 5 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Bright modern high-speed train platform, white streamlined train behind, airy daylight and platform lights, realistic documentary photography, train and station free of signage or lettering.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian boy about 5 years old, short dark hair, wearing Dark navy train-conductor uniform, gold buttons and original wordless patch, white shirt, dark tie, matching cap clear of hairline.\nPose: One hand raises a small plain green signal flag, other relaxed visibly near waist, slightly turned, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-train-6e0b713db7fb.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-637e8ca4-8eeb-480d-8350-026c2654866b.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "6e0b713db7fb0a38a41ed19a31d541ac429b6f5d1f14fd76253cec61c4e8c422",
+  "coverSha256": "20dcbc60c1b90312632a73c6c8ce00c54c606854314b0ca0cada058dbdd63092",
+  "promptSha256": "dae9af95f732a9cc105c79297a0a8186972b427fc46926a9857711873b39637c",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 68494,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-train.webp"
+}

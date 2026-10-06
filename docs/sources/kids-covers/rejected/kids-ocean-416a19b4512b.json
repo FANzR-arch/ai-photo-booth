@@ -1,0 +1,21 @@
+{
+  "id": "kids-ocean",
+  "themeId": "kids-ocean",
+  "subject": "one fictional East Asian boy about 8 years old, short dark hair",
+  "prompt": "Create a wholesome fictional children's photo-booth portrait for an underwater explorer theme. Exactly one fictional East Asian boy around 8 years old with short dark hair. He is fully clothed in a bright-blue and yellow full-coverage long-sleeved diving outfit. His diving mask is pushed onto his forehead, clear of his eyes, and a small dive light is attached to the front of the outfit. Clear blue water, colorful coral and a school of small fish surround him, with sunbeams from the surface and a sea turtle swimming in the background. Clear face without bubbles obscuring it. His body is slightly turned and he looks toward the camera with a quiet closed-mouth smile and bright curious eyes. One hand makes a natural OK gesture at chest height, with thumb and index finger making a circle and the other three fingers distinct. The other hand rests open near waist. Natural youthful proportions. High-quality realistic family-friendly commercial photography, vertical 3:4 waist-up framing, whole head with headroom and both shoulders, arms and hands within frame. Each hand has five anatomically correct fingers. All characters and equipment original. No text, letters, numbers, logos, real brands, signatures, watermark, border, or collage.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-ocean-416a19b4512b.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-1aa8364f-8a0d-4c94-b171-26082ca1f340.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "416a19b4512ba078598e3d7cb85cb07135617e97b27e218f759356145490733f",
+  "coverSha256": "b16a26e731c260d922c15f68338a3bdf8d97002cdf5ab8da3cf41eb687f33035",
+  "promptSha256": "70670f4a4743ab01f5f9e111537a10d017d53c75dc47b3da7dd1eb1d2a023857",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 147534,
+  "quality": 86,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-ocean.webp"
+}

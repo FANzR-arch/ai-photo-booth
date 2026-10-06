@@ -1,0 +1,21 @@
+{
+  "id": "kids-racer",
+  "themeId": "kids-racer",
+  "subject": "one fictional East Asian girl about 8 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Racing pit area with an original bright red open-wheel race car, colored confetti ribbons descending, bright sunshine, realistic sports photography, blank car body without brand names or numbers.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 8 years old, short dark hair, wearing Fitted red-and-white racing jumpsuit with simple color panels on chest and sleeves and no sponsors.\nPose: One hand raises a small plain gold trophy within top frame beside head, other holds racing helmet at waist, slightly turned, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\nCritical correction: racing suit has only immaculate red and white fabric panels and plain stitching; completely no patches, black fabric tags, tiny shoulder writing, embroidered sponsor lettering, sleeve labels or any printed marks. The helmet and trophy are equally blank. Keep both elbows and helmet hand generously inside image borders.\nEDIT TARGET: the attached previously generated fictional portrait. Preserve its original fictional person, apparent age, hairstyle, costume colors and design, closed-lip expression, scene, lighting and material. Change only the framing and the minimum arm placement needed for a true waist-up portrait. Recompose into a tight waist-up child portrait whose lower image boundary sits just below the helmet-holding fingers and suit waistband. Raise the helmet slightly to upper waist/lower chest so no thighs, hip line or legs are shown. Keep entire trophy and trophy hand, entire head, both shoulders and both elbows inside with comfortable margins. Final image remains vertical 3:4 and completely without text, letters, numbers, logos, signature, watermark, border or collage. This framing instruction takes priority over any broader shot wording above.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-racer-74f7442847a6.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-5ed8336f-86b0-407d-9a1f-54bb0b142026.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "74f7442847a6bf6588fd54e839e1b3d40299b3a8776e8817ccf4a71ee99963ee",
+  "coverSha256": "1035d172c571f98e4f4e1e1d4cefd39a19fce6e84b631805e1ee237ce2fed922",
+  "promptSha256": "344d2ee278d26767635fcffc2083db66fa9bb6ab37f8a2ce2de4c0d7fe7f73e2",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 117972,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-racer.webp"
+}

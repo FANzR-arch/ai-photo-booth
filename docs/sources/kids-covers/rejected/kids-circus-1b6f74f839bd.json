@@ -1,0 +1,21 @@
+{
+  "id": "kids-circus",
+  "themeId": "kids-circus",
+  "subject": "one fictional East Asian boy about 6 years old, short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Inside a red and white striped circus big top, string lights, colorful triangular flags, warm stage spotlight, softly blurred small stage and balloons, cheerful vintage realistic photography.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian boy about 6 years old, short dark hair, wearing Bright red ringmaster tailcoat with gold buttons and shoulder details, white shirt and small black bow tie.\nPose: One hand lifts a small black top hat in greeting while other opens welcoming at chest height, both hands within frame and away from face, slightly turned toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-circus-1b6f74f839bd.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-5043a21e-fc55-4de6-b909-b3f13dc2cfa0.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "1b6f74f839bde70a595a39588ae2777ce51a8a92bfdf7f872bb2e19e4fc51c09",
+  "coverSha256": "75dba436acef90f70f5ec5a2266d7c1c2aba3d3373f004c5a90c2e4dbd42e5b6",
+  "promptSha256": "16d8fee136807805f630738a47e455b37c03d5b74a7825e8f803c4862e3eb4d8",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 105702,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-circus.webp"
+}

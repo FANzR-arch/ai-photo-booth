@@ -1,3 +1,4 @@
+import { wifiQrText } from '../packages/shared/wifi';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync, existsSync } from 'node:fs';
@@ -305,7 +306,7 @@ test('quality upgrade reaches new generations while preserving settings, custom 
         assert.equal(received.length, 2);
         assert.ok(received[1].prompt.includes(bundled.prompt));
         assert.match(received[1].prompt, /店内藏蓝夹克/);
-        assert.match(received[1].prompt, /克制的电影色调/);
+        assert.match(received[1].prompt, /青橙电影调色/);
         assert.match(received[1].prompt, /腰部以上半身构图/);
         assert.doesNotMatch(received[1].prompt, /3:4/);
         assert.equal(received[1].size, '2048x1536');
@@ -373,6 +374,41 @@ test('scene quality upgrades preserve custom fields and past snapshots, and run 
     } finally {await f.close();}
 });
 
+test('cover migrations sync alternate images once and preserve manually selected covers', async () => {
+    for (const hasAlternates of [false, true]) {
+    for (const customized of [false, true]) {
+        const f = await fixture();
+        try {
+            const old = (await f.req('GET', '/api/admin')).json().styles[0];
+            const oldCover = hasAlternates ? '/examples/self-01-a.webp' : '/examples/kids-castle.svg';
+            const oldAlternates = hasAlternates ? ['/examples/self-01-a.webp', '/examples/self-01-b.webp'] : old.exampleUrls;
+            const manualCover = '/admin-examples/own.jpg';
+            await f.req('PUT', '/api/admin/styles/cinema', {
+                ...old, exampleUrl: customized ? manualCover : oldCover, exampleUrls: oldAlternates, enabled: false,
+            });
+            const before = (await f.req('GET', '/api/admin')).json().styles[0];
+            const covers = hasAlternates ? ['/examples/self-01-v2-a.webp', '/examples/self-01-v2-b.webp'] : ['/examples/kids-castle-a.webp', '/examples/kids-castle-b.webp'];
+            writeFileSync(path.join(f.root, 'config/styles/scene-quality-migration.json'), JSON.stringify({
+                cinema: { exampleUrl: createHash('sha256').update(JSON.stringify(oldCover)).digest('hex') },
+            }));
+            writeFileSync(path.join(f.root, 'config/styles/styles.json'), JSON.stringify([
+                { ...old, exampleUrl: covers[0], exampleUrls: covers },
+            ]));
+            await f.restart();
+            const saved = (await f.req('GET', '/api/admin')).json().styles[0];
+            assert.equal(saved.exampleUrl, customized ? manualCover : covers[0]);
+            assert.deepEqual(saved.exampleUrls, customized ? before.exampleUrls : covers);
+            assert.equal(saved.enabled, false);
+            assert.equal(saved.version, customized ? before.version : before.version + 1);
+            await f.restart();
+            const restarted = (await f.req('GET', '/api/admin')).json().styles[0];
+            assert.equal(restarted.version, saved.version);
+            assert.deepEqual(restarted.exampleUrls, saved.exampleUrls);
+        } finally { await f.close(); }
+    }
+    }
+});
+
 test('directed scenes enforce each ratio, keep clothing choice, and send the complete scene to the provider', async () => {
     const received: {prompt:string;size:string}[]=[];
     const f=await fixture({mode:'seedream',provider:async input=>{received.push(input);return {images:[input.photo]};}});
@@ -390,7 +426,7 @@ test('directed scenes enforce each ratio, keep clothing choice, and send the com
             const sent=received.at(-1)!;assert.ok(sent.prompt.includes(scene.prompt));assert.match(sent.prompt,/覆盖上文的换装描述/);
             assert.doesNotMatch(sent.prompt,/不新增文字、商标或道具/);
         }
-        assert.equal(received.length,11);
+        assert.equal(received.length,31);
     } finally {await f.close();}
 });
 
@@ -891,4 +927,20 @@ test('a demo launch keeps test mode locked on', async () => {
         assert.equal((await f.req('PUT', '/api/admin/test-mode', { testEntries: false, simulatedGeneration: false })).statusCode, 409);
         assert.equal((await f.req('GET', '/api/health')).json().testMode, true);
     } finally { await f.close(); }
+});
+test('venue Wi-Fi defaults off, validates input and is readable only by the local kiosk', async () => {
+    const f = await fixture();
+    try {
+        assert.equal((await f.req('GET', '/api/wifi')).json(), null);
+        assert.equal((await f.req('PUT', '/api/admin/wifi', { ssid: 'Snap', password: 'short', security: 'WPA' })).statusCode, 400);
+        assert.equal((await f.app.inject({ method: 'PUT', url: '/api/admin/wifi', payload: { ssid: 'Snap', password: '12345678', security: 'WPA' }, headers: { host: 'localhost:4377' } })).statusCode, 401);
+        assert.deepEqual((await f.req('PUT', '/api/admin/wifi', { ssid: ' Snap Club ', password: '12345678', security: 'WPA' })).json(), { ssid: 'Snap Club', password: '12345678', security: 'WPA' });
+        assert.deepEqual((await f.req('GET', '/api/wifi')).json(), { ssid: 'Snap Club', password: '12345678', security: 'WPA' });
+        assert.equal((await f.app.inject({ method: 'GET', url: '/api/wifi', remoteAddress: '192.168.1.20', headers: { host: '192.168.1.5:4377' } })).statusCode, 403);
+        assert.equal((await f.req('PUT', '/api/admin/wifi', { ssid: 'Open', password: 'ignored', security: 'nopass' })).json().password, '');
+    } finally { await f.close(); }
+});
+test('Wi-Fi join QR escapes reserved characters', () => {
+    assert.equal(wifiQrText({ ssid: 'Snap;Club', password: String.raw`a:b"c\d,e`, security: 'WPA' }), String.raw`WIFI:T:WPA;S:Snap\;Club;P:a\:b\"c\\d\,e;;`);
+    assert.equal(wifiQrText({ ssid: 'Open', password: '', security: 'nopass' }), 'WIFI:T:nopass;S:Open;;');
 });

@@ -1,26 +1,31 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
-import { importedScenes, adaptScenePrompt } from '../packages/shared/imported-scenes';
+import { importedScenes, adaptScenePrompt, scenePromptDirectory } from '../packages/shared/imported-scenes';
 import type { Style } from '../packages/shared/types';
 const file='config/styles/styles.json';
 const styles: Style[]=JSON.parse(readFileSync(file,'utf8'));
 const migrationFile='config/styles/scene-quality-migration.json';
 const migration:Record<string,Record<string,string|string[]>>=existsSync(migrationFile)?JSON.parse(readFileSync(migrationFile,'utf8')):{};
-const sourceDir='docs/sources/prompt-import-2026-09-29/单张照片提示词';
+const batch=process.argv.slice(2).find(arg=>arg.startsWith('--batch='))?.slice(8);
+if(batch&&!['2026-09-29','2026-10-06'].includes(batch))throw Error('Unknown scene source batch');
 const hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const remember=(id:string,key:string,value:unknown)=>{
  migration[id]??={};
  const previous=migration[id][key];
  migration[id][key]=[...new Set([...(Array.isArray(previous)?previous:previous?[previous]:[]),hash(value)])];
 };
-for (const scene of importedScenes) {
+for (const scene of importedScenes.filter(scene=>!batch||(scene.batch??'2026-09-29')===batch)) {
+ const sourceDir=scenePromptDirectory(scene);
  const original=styles.find(s=>s.id===scene.id);
  const name=readdirSync(sourceDir).find(f=>f.startsWith(scene.code+'｜'))!;
+ if(!name)throw Error('Missing source prompt for '+scene.code);
+ const source=readFileSync(path.join(sourceDir,name),'utf8');
+ const outfit=scene.batch?source.split(/\r?\n\s*\r?\n/).find(p=>/^【(?:服装|双人服装)/.test(p)):undefined;
  const update:Style={id:scene.id,name:scene.name,description:scene.description,
-  prompt:adaptScenePrompt(readFileSync(path.join(sourceDir,name),'utf8'),scene.people,scene.code),
+  prompt:adaptScenePrompt(source,scene.people,scene.code),...(outfit?{outfitPrompt:outfit}:{}),
   generationPreset:scene.code==='01'?'coming-of-age':'directed-portrait',sceneOrientation:scene.orientation,subjectCount:scene.people,sourceCode:scene.code,
-  version:original?.version??1,enabled:scene.people===1,exampleUrl:`/examples/scene-${scene.code.toLowerCase()}.webp`,size:'HQ',color:scene.color};
+  version:original?.version??1,enabled:scene.batch==='2026-10-06'||scene.people===1,exampleUrl:`/examples/scene-${scene.code.toLowerCase()}.webp`,size:'HQ',color:scene.color};
  if (original) {
   for (const key of ['name','prompt','description','exampleUrl','size'] as const) {
    if(original[key]!==update[key] && original[key]!==undefined) remember(scene.id,key,original[key]);

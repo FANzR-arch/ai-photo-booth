@@ -16,6 +16,7 @@ import { isClothingMode } from '../../packages/shared/clothing.js';
 import { generationPrompt } from './generation-prompt.js';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
 import { frameReference, detectFaces } from './reference-framing.js';
+import { defaultWifiSettings, validWifi, type WifiSettings } from '../../packages/shared/wifi.js';
 import { defaultPortraitSettings, isBeautyLevel, type PortraitSettings, type DistanceHint } from '../../packages/shared/portrait-settings.js';
 import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
@@ -92,6 +93,10 @@ export async function createApp(options: AppOptions = {}) {
         const saved = get<Partial<PortraitSettings> & { id: string }>('setting', 'portrait');
         return { beauty: isBeautyLevel(saved?.beauty) ? saved.beauty : defaultPortraitSettings.beauty, reframe: typeof saved?.reframe === 'boolean' ? saved.reframe : defaultPortraitSettings.reframe };
     };
+    const wifiSettings = (): WifiSettings => {
+        const saved = get<WifiSettings & { id: string }>('setting', 'wifi');
+        return saved && validWifi(saved) ? { ssid: saved.ssid, password: saved.password, security: saved.security } : defaultWifiSettings;
+    };
     const providerReady = (generation: Mode) => generation === 'demo' || !!options.provider || config.status().activeConfigured;
     const health = (): Health => ({ service: 'snap-club', mode, generation: generationMode(), testMode: testSettings().testEntries, configured: providerReady(generationMode()), model: config.credentials().model, imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
     mkdirSync(data, { recursive: true });
@@ -146,6 +151,8 @@ export async function createApp(options: AppOptions = {}) {
                         if (replacePrompt) upgraded.prompt = style.prompt;
                         if (addOutfit || replaceOutfit) upgraded.outfitPrompt = style.outfitPrompt;
                         for (const key of sceneKeys) (upgraded as any)[key] = style[key];
+                        // Alternate bundled covers belong to the primary cover migration; custom covers keep their own set.
+                        if (sceneKeys.includes('exampleUrl') && style.exampleUrls) upgraded.exampleUrls = style.exampleUrls;
                         if (addSceneMetadata) {
                             upgraded.sourceCode = style.sourceCode;
                             upgraded.sceneOrientation = style.sceneOrientation;
@@ -467,6 +474,16 @@ export async function createApp(options: AppOptions = {}) {
         const setting = { id: 'test-mode', testEntries: body.testEntries, simulatedGeneration: body.simulatedGeneration };
         put('setting', setting);
         return testSettings();
+    });
+    // Kiosk-only (local) read for the delivery screen's join QR; the phone pickup page never receives it.
+    app.get('/api/wifi', async () => { const wifi = wifiSettings(); return wifi.ssid.trim() ? wifi : null; });
+    app.get('/api/admin/wifi', async () => wifiSettings());
+    app.put('/api/admin/wifi', { bodyLimit: 1024 }, async req => {
+        const body = object(req.body);
+        if (!validWifi(body)) throw fail('Wi-Fi 设置无效：名称最多 32 字，WPA 密码至少 8 位。');
+        const setting = { id: 'wifi', ssid: body.ssid.trim(), password: body.security === 'nopass' ? '' : body.password, security: body.security };
+        put('setting', setting);
+        return wifiSettings();
     });
     app.get('/api/admin/portrait', async () => portraitSettings());
     app.put('/api/admin/portrait', { bodyLimit: 1024 }, async req => {

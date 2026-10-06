@@ -1,7 +1,9 @@
 import {readFileSync,writeFileSync,mkdirSync,existsSync,copyFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import sharp from 'sharp';
-const base='docs/sources/prompt-import-2026-09-29';
+const batch=process.argv[2]??'2026-09-29';
+if(!['2026-09-29','2026-10-06'].includes(batch))throw Error('Unknown scene cover batch');
+const base='docs/sources/prompt-import-'+batch;
 const jobs=JSON.parse(readFileSync(base+'/cover-jobs.json','utf8'));
 mkdirSync(base+'/covers',{recursive:true});
 const hash=b=>createHash('sha256').update(b).digest('hex');

@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-05",
+  "npmTest": {
+    "passed": 166,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "imageReview": {
+    "passed": 41
+  },
+  "coverBytes": 4562128,
+  "overrides": "Build and full tests rerun after Windows sandbox EPERM and loopback EACCES",
+  "deployment": "not performed",
+  "latestAssetRevision": {
+    "date": "2026-10-05",
+    "id": "kids-toyfigure",
+    "visualReview": "passed",
+    "relatedTests": {
+      "command": "npx tsx --test tests/portrait-collection.test.ts tests/prompt-quality.test.ts",
+      "passed": 8,
+      "failed": 0
+    },
+    "coverBytes": 31568,
+    "framing": "full-body, user-requested exception"
+  }
+}

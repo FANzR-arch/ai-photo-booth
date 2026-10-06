@@ -6,7 +6,7 @@ import type { Style } from '../packages/shared/types';
 
 test('every bundled theme has distinct clothing guidance, without hardcoded preserve/change conflicts', () => {
     const styles: Style[] = JSON.parse(readFileSync('config/styles/styles.json', 'utf8'));
-    assert.equal(styles.length, 63);
+    assert.equal(styles.length, 121);
     for (const style of styles) {
         if (style.sourceCode) continue; // Imported scenes carry complete wardrobe and composition directions.
         assert.ok(style.outfitPrompt && style.outfitPrompt.length > 20, style.id);

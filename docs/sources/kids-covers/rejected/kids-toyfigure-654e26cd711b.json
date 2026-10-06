@@ -1,0 +1,21 @@
+{
+  "id": "kids-toyfigure",
+  "themeId": "kids-toyfigure",
+  "subject": "one original toy sculpture representing a fictional East Asian boy about 6 years old with short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Cream studio background, softly lit clear acrylic display pedestal visible as a ledge below the waist-up toy portrait.\nStyle: Original designer-toy portrait photographed in studio, smooth vinyl and matte resin surfaces, rounded simplified age-appropriate proportions, recognizable dark hairstyle and facial features, gentle closed-mouth smile, five sculpted fingers per hand; no existing toy character.\nSubject: one original toy sculpture representing a fictional East Asian boy about 6 years old with short dark hair, wearing Original bright color-block hooded sweatshirt rendered in smooth vinyl.\nPose: Both toy arms and hands visibly relaxed at waist, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-toyfigure-654e26cd711b.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-74590d1c-4a56-4cb9-9e59-1859776c196f.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "654e26cd711bc09bb23c81ef85f9247f39e4199d667946db134f2e122beda0f4",
+  "coverSha256": "a1c6f20d85084688695e76579b1ba12a103a0c13b7558742f23ca69e9c1a70c1",
+  "promptSha256": "ef1c66503741b2672e7f01aa71144c62296e4916fec4390d7798b44738530a3e",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 53398,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-toyfigure.webp"
+}

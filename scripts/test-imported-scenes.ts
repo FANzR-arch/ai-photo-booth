@@ -16,6 +16,8 @@ const source = args.find(a => a.startsWith('--source='))?.slice(9);
 if (!source || !args.includes('--live')) throw Error('Required: --live --source=<authorized portrait> [--run=<slug>] [--code=01] [--baseline]');
 const baseline = args.includes('--baseline');
 const code = args.find(a => a.startsWith('--code='))?.slice(7);
+const batch = args.find(a => a.startsWith('--batch='))?.slice(8);
+if (batch && !['2026-09-29','2026-10-06'].includes(batch)) throw Error('Unknown source batch');
 const revision = args.find(a => a.startsWith('--revision='))?.slice(11);
 if (revision && !/^[a-z0-9-]{1,20}$/.test(revision)) throw Error('Invalid revision');
 const run = args.find(a => a.startsWith('--run='))?.slice(6) ?? 'seedream-scenes-2026-09-29';
@@ -35,7 +37,10 @@ try {
  writeFileSync(inputFile, photo);
  const m = await sharp(photo).metadata();
  writeFileSync(path.join(dir, 'input.json'), JSON.stringify({ source, sourceSha256: sha(input), normalizedSha256: sha(photo), width:m.width,height:m.height, model:process.env.SEEDREAM_MODEL },null,2));
- for (const scene of importedScenes.filter(s => s.people === 1 && (!code || code.split(',').includes(s.code)))) {
+ // Preserve the established 12-scene default; new live calls need an explicit batch or code.
+ for (const scene of importedScenes.filter(s => s.people === 1 && (code
+  ? code.split(',').includes(s.code)
+  : (s.batch ?? '2026-09-29') === (batch ?? '2026-09-29')))) {
   const id = scene.code + (baseline ? '-baseline' : '-hq') + (revision ? '-'+revision : '');
   const record = path.join(dir, `${id}.json`);
   const previous = existsSync(record) ? JSON.parse(readFileSync(record,'utf8')) : undefined;

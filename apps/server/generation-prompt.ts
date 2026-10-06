@@ -3,6 +3,7 @@ import type { ClothingMode } from '../../packages/shared/clothing.js';
 import { orientationLabel, orientationRatio, type PhotoOrientation } from '../../packages/shared/photo-orientation.js';
 import { automaticStyling, automaticStylingDetailed } from '../../packages/shared/appearance-styling.js';
 import type { BeautyLevel } from '../../packages/shared/portrait-settings.js';
+import { isKidsTheme } from '../../packages/shared/kids-collection.js';
 
 /**
  * Seedream follows short, positive prompts best (official guidance: about 300 Chinese characters; long prompts lose details).
@@ -11,6 +12,8 @@ import type { BeautyLevel } from '../../packages/shared/portrait-settings.js';
  * reference unless told up front to rebuild proportions.
  */
 const bodyProportion = '真实头身比例：肩宽约为头宽的2到2.5倍，85mm人像镜头透视，不照搬原照的近距离透视。';
+/** The adult ratio would age children up; kids' themes keep each child's own age proportions instead. */
+const kidsProportion = '真实头身比例：儿童保持本人年龄的稚气头身比例，不拉长身形、不显成熟；成人肩宽约为头宽的2到2.5倍。85mm人像镜头透视，不照搬原照的近距离透视。';
 
 const beautyPrompt: Record<BeautyLevel, string> = {
     off: '',
@@ -21,6 +24,12 @@ const beautyPrompt: Record<BeautyLevel, string> = {
 export interface PromptOptions { beauty?: BeautyLevel }
 
 const naturalExpression = '表情放松自然，嘴唇轻合带微笑，眼睛保持本人的形状。';
+/**
+ * A theme that writes its own “神态：” gets a mood rather than the uniform polite smile; only the amplitude stays capped
+ * (the client rejected open-mouth laughs, wide eyes and pouting). Image-to-image otherwise copies the selfie's expression.
+ */
+const expressionCap = '表情幅度克制，不张嘴大笑、不瞪眼、不嘟嘴，眼睛保持本人的形状；神态按上文重新表现，不照搬原照表情。';
+const expressionRule = (style: Style) => /神态：/.test(style.prompt ?? '') ? expressionCap : naturalExpression;
 const bodyIntegrity = '两条手臂两只手，五指清晰，关节方向自然。';
 
 /** The image API accepts one prompt. Theme-specific rendering stays editable with each style. */
@@ -32,19 +41,19 @@ export function generationPrompt(style: Style, clothing: ClothingMode, orientati
             clothing === 'keep'
                 ? '用户选择：保留原服装，覆盖上文的换装描述，保留原衣服款式、图案与主色，随新动作自然变形；仍执行场景道具、动作与指定文字。'
                 : `用户选择：按主题换装。${style.outfitPrompt || '只采用上文适合本人的那一种服装与配饰方案；不要将男女两套衣物混合到同一个人。'}服装合体，保持本人的身体比例。`,
-            naturalExpression, beauty, bodyIntegrity,
+            expressionRule(style), beauty, bodyIntegrity,
             `只输出一张${orientationLabel(orientation)}照片，严格${orientationRatio(orientation)}，不拼图；仅出现主题指定的文字、道具和配饰。`,
         ].filter(Boolean).join('\n');
     }
     // This opt-in preset carries the user's complete poster art direction, including pose, clothing and lettering.
     if (style.generationPreset === 'coming-of-age') {
         return [`参考照片是唯一人物身份依据，保留本人的五官、脸型、年龄感、眼镜与原有发长。${bodyProportion}`, automaticStylingDetailed, style.prompt ?? '',
-            naturalExpression, beauty, bodyIntegrity,
+            expressionRule(style), beauty, bodyIntegrity,
             '深蓝针织的剪裁按本人适配，不把长发改短或短发改长。18岁是海报主题文字，不据此改变参考人物的真实年龄感。只生成一张完整的竖版2:3海报，仅生成上述指定文字。',
         ].filter(Boolean).join('\n');
     }
     const ratio = orientation === 'portrait' ? '3:4' : '4:3';
-    const subject = `参考照片中的人物形象，按实际人数逐人保留本人的五官、脸型、发型、年龄感、肤色与眼镜，一眼可辨，不换脸、不改变体型、不增减人物。${bodyProportion}`;
+    const subject = `参考照片中的人物形象，按实际人数逐人保留本人的五官、脸型、发型、年龄感、肤色与眼镜，一眼可辨，不换脸、不改变体型、不增减人物。${isKidsTheme(style.id) ? kidsProportion : bodyProportion}`;
     const clothingRule = clothing === 'keep'
         ? '用户选择：保留原服装，保留原照衣服的款式、图案与配色，随新姿势自然变形；黑白或艺术媒介主题可统一转换色彩与材质表现。'
         : `用户选择：按主题换装。${style.outfitPrompt?.trim() || `搭配符合“${style.name}”主题的简洁日常服装。`}服装合体，逐人适配，不改变身体比例。`;
@@ -53,7 +62,7 @@ export function generationPrompt(style: Style, clothing: ClothingMode, orientati
         automaticStyling,
         style.prompt ?? '',
         clothingRule,
-        naturalExpression,
+        expressionRule(style),
         beauty,
         bodyIntegrity,
         `只输出一张${orientation === 'portrait' ? '竖版' : '横版'}照片，画面比例严格为${ratio}，腰部以上半身构图，头顶完整，人物居中，无文字、水印或边框。`,

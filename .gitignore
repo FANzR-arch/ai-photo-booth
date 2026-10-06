@@ -12,3 +12,5 @@ releases/
 runtime/
 .mac-ready*
 diagnostics/
+# User-supplied reference samples are internal material; generated covers remain versioned.
+docs/sources/prompt-import-2026-10-06/参考样片/

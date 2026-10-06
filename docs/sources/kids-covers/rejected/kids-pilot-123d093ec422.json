@@ -1,0 +1,21 @@
+{
+  "id": "kids-pilot",
+  "themeId": "kids-pilot",
+  "subject": "one fictional East Asian girl about 7 years old, low dark ponytail",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Airport apron with a white passenger airplane and blue sky, bright daylight, realistic aviation photography, plane without airline logos or lettering.\nStyle: High-quality realistic commercial children's photography with believable cinematic light and material texture.\nSubject: one fictional East Asian girl about 7 years old, low dark ponytail, wearing Dark navy pilot uniform, gold sleeve stripes and epaulettes, white shirt, dark necktie, pilot cap clear of hairline and eyes, small original wordless gold flight patch.\nPose: Right hand salutes at hat brim without hiding face, left hand relaxed in front of waist visible, upright posture, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-pilot-123d093ec422.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-6e7a3c57-2965-4479-b82c-99b347c976b3.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "123d093ec4220b018f6524ca85c949cbbba70f09346e179f099fd4295e42c997",
+  "coverSha256": "972e535d295c6cfa61d64d6e04dc150fbf565dfc9230e97b54dc7e66e7ef812c",
+  "promptSha256": "24ce25ad1787e7c4f5618f53e4c2f9a152e555246cf8c7cb1bb4f944788e58de",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 70436,
+  "quality": 88,
+  "review": {
+    "status": "pending"
+  },
+  "supersededCover": "assets/examples/kids-pilot.webp"
+}

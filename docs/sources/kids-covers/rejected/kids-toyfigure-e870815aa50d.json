@@ -1,0 +1,36 @@
+{
+  "id": "kids-toyfigure",
+  "themeId": "kids-toyfigure",
+  "subject": "one original toy sculpture representing a fictional East Asian boy about 6 years old with short dark hair",
+  "prompt": "Create one original image for a children's photo booth theme gallery.\nScene: Cream studio background, softly lit clear acrylic display pedestal visible as a ledge below the waist-up toy portrait.\nStyle: Original designer-toy portrait photographed in studio, smooth vinyl and matte resin surfaces, rounded simplified age-appropriate proportions, recognizable dark hairstyle and facial features, gentle closed-mouth smile, five sculpted fingers per hand; no existing toy character.\nSubject: one original toy sculpture representing a fictional East Asian boy about 6 years old with short dark hair, wearing Original bright color-block hooded sweatshirt rendered in smooth vinyl.\nPose: Both toy arms and hands visibly relaxed at waist, face toward camera.\nAge-appropriate child head-to-body proportions with an unmistakably young face, no mature or elongated build. Natural skin texture for photographic subjects. Gentle closed-lip smile, no visible teeth, bright eyes, relaxed expression. Centered vertical 3:4 waist-up composition, whole head and any hat with clear headroom, both shoulders, both arms and both hands entirely within frame. Anatomically correct hands with five fingers on each, natural grips and no hand hiding a face. All designs and people fictional and fully original, no resemblance to existing franchise characters, no real brands or institution insignia. No text, letters, numbers, signatures, watermarks, logos, border, or collage anywhere, including props and background. Exactly one fictional child, no other people.\nCritical material correction: this is a physical collectible vinyl/resin toy, not a digital animated human. All hoodie surfaces are rigid molded smooth vinyl with clean uniform solid colors, completely no fabric weave, fleece, textile fibers or fuzzy texture. Matte cast-resin face with subtly visible mold seams near neck, molded hair chunks, smooth sculpted five-finger hands. Studio product photo of the physical figurine cropped waist-up on a clear acrylic display block.\n",
+  "original": "docs/sources/kids-covers/rejected/kids-toyfigure-e870815aa50d.png",
+  "source": "E:\\CodexHome\\generated_images\\01a10b7b-db7b-7cb0-af95-ce3d09750520\\exec-e8a9af1d-0109-432f-a4b7-a66b65982f5c.png",
+  "width": 1086,
+  "height": 1448,
+  "sha256": "e870815aa50d0669a32c419951e5bf1d16ff1fb0abc225dcc203ad0c585b01ea",
+  "coverSha256": "84086ac162a4f90d4ea30373bb9ebcf9019aa8bcdb07f2c0f5221aba59a684ca",
+  "promptSha256": "ebda93c5431249ca532dcbc49491934ff763cafbab6233f67107022da375deb9",
+  "coverWidth": 720,
+  "coverHeight": 960,
+  "coverBytes": 39478,
+  "quality": 88,
+  "review": {
+    "status": "passed",
+    "date": "2026-10-05",
+    "method": "Opened and visually inspected the final 720x960 WebP individually",
+    "checks": [
+      "text and logos",
+      "hand anatomy and object grip",
+      "apparent age and proportions",
+      "closed-lip expression",
+      "head and shoulder framing",
+      "original costume design",
+      "theme scene and outfit",
+      "subject count and parent-child scale"
+    ]
+  },
+  "sourceThemePrompt": "转绘为原创潮玩手办公仔肖像：光滑搪胶与哑光树脂质感，造型圆润简洁，比例适度简化但保留本人发型与五官特征。站在透明亚克力展示台上，奶油色背景，柔和棚灯。",
+  "sourceOutfitPrompt": "原创撞色连帽卫衣或背带裤，用光滑搪胶材质表现，颜色鲜明。",
+  "operation": "generate",
+  "supersededCover": "assets/examples/kids-toyfigure.webp"
+}

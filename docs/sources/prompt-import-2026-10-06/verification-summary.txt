@@ -1,0 +1,10 @@
+2026-10-06
+176 tests passed; 0 failed.
+TypeScript noEmit passed.
+Production build passed.
+121 enabled themes and 134 cover variants exist in source and build.
+All 20 new scenes enabled, including 6 duos.
+Scene import is idempotent.
+Read-only browser preview verified the complete 2:3 poster.
+Raw reference samples remain local.
+No real Seedream generation was performed.

@@ -1,0 +1,24 @@
+旧主题封面重做交付 · 2026-10-06
+
+已完成 36 个主题、46 张正式封面：cinema、business、editorial、film、festival、cartoon，together-01～10、memory-01～10、self-01～10。self 每个主题有女性 a、男性 b 两版。
+使用 Codex 内置 image_gen，共 51 次生成/修订调用，最终采用 46 张。人物均为虚构普通东亚人物；家庭主题按人物表保留约 6 岁女儿。未调用项目 Seedream 接口。
+
+重做原因与结果：旧 SVG、四人拼版和缺少动作的重复人物封面，改为独立 3:4 场景样片；按当前 prompt/outfitPrompt 保留动作、道具、光影和神态。指定离镜头视线的 8 个主题已逐项检查，self-03 男女版均仰脸看窗外阳光；冷感主题保持不笑。
+逐张检查原图，并检查最终 720×960 WebP 总览。修订了卡通媒介、节庆窗花字形、桃粉双人的无关道具、黑白好友重复面貌和冬日热气。被替换的初稿与原因在 rejected/ 保留。
+
+查看交付物：
+- index.html：46 张逐张浏览，点击可打开 PNG 原图及实际提示词。
+- overview.png：每行 8 张，总览下方标 ID 和名称。
+- before-after.png：每组左旧、右新。
+- manifest.json：原图、提示词、来源、SHA-256、WebP 参数和逐张检查记录。
+- validation.json：文件、画幅、字节数、构建资源和验收结果。
+
+接入与升级：
+assets/examples/ 的正式封面使用新的 -v2.webp / -v2-a.webp / -v2-b.webp 文件名。全部为 720×960，合计 3,920,502 字节，单张小于 160,000 字节。
+styles.json 只修改这 36 个主题的 exampleUrl，以及 self 的 exampleUrls；提示词、换装段、名称、版本、启用状态和其他主题不变。
+旧主封面地址的 sha256(JSON.stringify(旧地址)) 已追加到 scene-quality-migration.json，历史哈希未覆盖。已有男女双图可随主封面一起升级；手动封面与其原有图组保留，重复启动不会再次更新版本。
+15 个不再被运行代码引用的旧公开 SVG/拼版素材已复制到 before/ 并核对哈希后移除；旧 portrait-covers 原图保持。anime 的原图和拼版轮播保留。
+测试照片入口使用新的 film-v2.webp；人脸构图测试继续读取 before/ 中保存的旧胶片测试夹具。
+
+验收：npm test 174/174；npx tsc --noEmit 通过；npm run build 通过。首次沙箱内测试/构建遇到临时文件重命名、localhost 连接和 realpath 权限拒绝；相同命令经适当权限重跑后全部通过，日志保留。
+这些封面是原创虚构人物的风格样片，不是经过 Seedream 真人生成验证的实际成片。

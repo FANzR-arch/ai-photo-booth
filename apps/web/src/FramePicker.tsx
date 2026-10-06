@@ -11,8 +11,11 @@ export function FramePicker({value,onChange,recommended,caption=defaultCaption,o
    <span className="frame-name">{f.name}</span>{f.id===recommended && <small>推荐</small>}<span className="frame-check" aria-hidden="true">{value===f.id?'✓':''}</span>
   </button>)}</div>
   <div className="caption-editor">
-   <div className="caption-heading"><label htmlFor="photo-caption">留念文字（选填）</label><span>{caption.text.length}/80</span></div>
-   <textarea id="photo-caption" maxLength={80} rows={2} placeholder="写点什么…" value={caption.text} onChange={e=>update({text:e.target.value.split('\n').slice(0,4).join('\n')})}/>
+   <div className="caption-heading"><span>留念文字（选填）</span><span>{caption.text.length}/80</span></div>
+   <div className="caption-presets" role="group" aria-label="常用留念文字">{captionPresets().map(text=><button type="button" key={text||'none'} aria-pressed={caption.text===text} onClick={()=>update({text})}>{text||'不加文字'}</button>)}</div>
+   <details className="caption-custom"><summary>自己输入文字</summary>
+   <textarea id="photo-caption" aria-label="留念文字" maxLength={80} rows={2} placeholder="写点什么…" value={caption.text} onChange={e=>update({text:e.target.value.split('\n').slice(0,4).join('\n')})}/>
+   </details>
    <details className="caption-more"><summary>字体与排版</summary><div className="caption-controls">
     <label>字体<select aria-label="文字字体" value={caption.font} onChange={e=>update({font:e.target.value as Caption['font']})}>{fonts.map(f=><option key={f.id} value={f.id}>{f.name}</option>)}</select></label>
     <label>字号<select aria-label="文字字号" value={caption.size} onChange={e=>update({size:e.target.value as Caption['size']})}><option value="small">小</option><option value="medium">中</option><option value="large">大</option></select></label>
@@ -23,4 +26,10 @@ export function FramePicker({value,onChange,recommended,caption=defaultCaption,o
   {(error || saving) && <p className="frame-status" role="status">{error || '正在保存…'}</p>}
   {error&&<button className="text-button" onClick={()=>onChange(value)}>重试保存边框</button>}
  </section>;
+}
+
+/** Tap-to-fill phrases: the kiosk has no keyboard, so free text stays behind "自己输入文字". */
+function captionPresets() {
+ const d=new Date();
+ return ['', `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`, '今天也很好看', '生日快乐', '我们的合照', '咔嚓照相馆 · 留念'];
 }

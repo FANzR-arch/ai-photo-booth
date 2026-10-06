@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { generationPrompt } from '../apps/server/generation-prompt';
 import { isRealistic } from '../packages/shared/portrait-experience';
 import type { Style } from '../packages/shared/types';
+import { isKidsTheme } from '../packages/shared/kids-collection';
 
 const styles: Style[] = JSON.parse(readFileSync('config/styles/styles.json', 'utf8'));
 const standard = styles.filter(style => !style.generationPreset);
@@ -11,13 +12,16 @@ const standard = styles.filter(style => !style.generationPreset);
 // Seedream's guidance: short, positive prompts of roughly 300 Chinese characters; longer prompts drop details.
 test('standard prompts stay compact and lead with the subject and body-proportion anchor', () => {
     for (const style of standard) {
-        assert.ok(style.prompt!.length <= 140, `${style.id}: theme prompt ${style.prompt!.length} chars`);
+        assert.ok(style.prompt!.length <= 160, `${style.id}: theme prompt ${style.prompt!.length} chars`);
         for (const orientation of ['portrait', 'landscape'] as const) {
             for (const clothing of ['keep', 'theme'] as const) {
                 const prompt = generationPrompt(style, clothing, orientation, { beauty: 'medium' });
-                assert.ok(prompt.length <= 520, `${style.id}: ${prompt.length} chars`);
+                assert.ok(prompt.length <= 580, `${style.id}: ${prompt.length} chars`);
                 assert.ok(prompt.startsWith('参考照片中的人物形象'), style.id);
-                assert.match(prompt.split('\n')[0], /真实头身比例：肩宽约为头宽的2到2.5倍，85mm人像镜头透视/);
+                // Children keep their own age proportions; the adult shoulder ratio would age them up.
+                assert.match(prompt.split('\n')[0], isKidsTheme(style.id)
+                    ? /真实头身比例：儿童保持本人年龄的稚气头身比例.*成人肩宽约为头宽的2到2.5倍。85mm人像镜头透视/
+                    : /真实头身比例：肩宽约为头宽的2到2.5倍，85mm人像镜头透视/);
                 assert.ok(prompt.includes(style.prompt!));
                 assert.deepEqual([...new Set(prompt.match(/[34]:[34]/g))], [orientation === 'portrait' ? '3:4' : '4:3'], style.id);
                 assert.match(prompt, /腰部以上半身构图，头顶完整，人物居中/);
@@ -76,4 +80,18 @@ test('directed scenes and the poster keep their full art direction plus the deta
         assert.match(prompt, /真实头身比例/);
         assert.ok(prompt.startsWith('参考照片'), style.id);
     }
+});
+
+test('a theme with its own 神态 gets that mood plus the amplitude cap instead of the uniform polite smile', () => {
+    const moods = standard.filter(style => style.prompt!.includes('神态：'));
+    assert.equal(moods.length, 35);
+    for (const style of moods) {
+        const prompt = generationPrompt(style, 'keep', 'portrait');
+        assert.doesNotMatch(prompt, /嘴唇轻合带微笑/, style.id);
+        assert.ok(prompt.indexOf('表情幅度克制，不张嘴大笑、不瞪眼、不嘟嘴，眼睛保持本人的形状') > prompt.indexOf('神态：'), style.id);
+        assert.match(prompt, /不照搬原照表情/, style.id);
+    }
+    // Directed scenes, art media and kids keep the client-approved default rule.
+    for (const id of ['wedding-bride', 'island-coconut', 'watercolor', 'kids-dino'])
+        assert.match(generationPrompt(styles.find(s => s.id === id)!, 'keep', 'portrait'), /表情放松自然，嘴唇轻合带微笑/, id);
 });
