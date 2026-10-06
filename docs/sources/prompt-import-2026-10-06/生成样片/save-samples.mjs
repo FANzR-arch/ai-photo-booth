@@ -17,7 +17,7 @@ for(const job of jobs){
   if(existsSync(target)&&hash(readFileSync(target))!==sha256)throw Error('Refusing to replace '+target);
   if(!existsSync(target))copyFileSync(source,target);
   const metadata=await sharp(raw).metadata();
-  writeFileSync(join(dir,'scene-'+job.code+'-prompt.txt'),job.generationPrompt+'\n','utf8');
+  writeFileSync(join(dir,'scene-'+job.code+'-prompt.txt'),job.generationPrompt,'utf8');
   images.push({code:job.code,title:job.name,provider:'codex-imagegen',source,file:filename,
     width:metadata.width,height:metadata.height,bytes:raw.length,sha256,
     promptFile:'scene-'+job.code+'-prompt.txt',promptSha256:hash(job.generationPrompt),
@@ -36,4 +36,3 @@ for(let n=0;n<images.length;n++){
 }
 await sharp({create:{width:cols*cellW+margin*2,height:rows*cellH+margin*2,channels:3,background:'#f1ede6'}}).composite(layers).png().toFile(join(dir,'overview.png'));
 console.log(JSON.stringify({saved:images.length,codes:images.map(i=>i.code),dimensions:images.map(i=>[i.code,i.width,i.height])}));
-
