@@ -1,0 +1,61 @@
+/* Loaded last: layout fixes found by the 1920x1080 kiosk audit (clipped shadows, overlapping controls, native scrollbars). */
+
+/* Page containers clip for transitions; give soft shadows of edge buttons and cards room to show. */
+.kiosk-shell main{overflow:clip;overflow-clip-margin:28px}
+
+/* Touch scroll areas: no desktop scrollbar arrows, and inner padding so card shadows are not cut at the edges. */
+.kiosk-shell .theme-scroll,.kiosk-shell .result-scroll,.kiosk-shell .capture-copy{scrollbar-width:none}
+.kiosk-shell .theme-scroll::-webkit-scrollbar,.kiosk-shell .result-scroll::-webkit-scrollbar,.kiosk-shell .capture-copy::-webkit-scrollbar{display:none}
+.kiosk-shell .theme-scroll{padding:12px 16px 32px;margin:-12px -16px 0}
+
+/* Confirm: one column width for every control, with room below for the start button's shadow. */
+.kiosk-shell .capture-copy{padding:16px 20px 22px;margin:-16px -20px -22px}
+.kiosk-shell .capture-copy .consent,.kiosk-shell .capture-copy .confirm-buttons{max-width:none}
+
+/* Results: the options scroll above a fixed "next" button instead of sliding under it. */
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell .result-side{max-height:calc(100dvh - 250px);overflow:visible;padding:0;gap:16px;min-height:0}
+  .kiosk-shell .result-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:18px;padding:14px 18px 34px;margin:-14px -18px 0;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14px,#000 calc(100% - 40px),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 14px,#000 calc(100% - 40px),transparent 100%)}
+  .kiosk-shell .result-next{position:static;box-shadow:var(--sr-shadow-accent)}
+}
+
+/* Wait page: games clip themselves, so the stage can let card shadows and overlays breathe. */
+.kiosk-shell .wait-stage{overflow:visible;isolation:isolate}
+.kiosk-shell .wait-stage>.wait-game{border-radius:inherit}
+.kiosk-shell .wait-stage>.bubble-game,.kiosk-shell .wait-stage>.snap-game{overflow:hidden}
+.kiosk-shell .wait-experience .generation-photo{overflow:visible}
+/* A soft diagonal light passes over the photo; it moves its background, so nothing spills outside the frame. */
+.kiosk-shell .wait-experience .generation-sweep{transform:none;background:linear-gradient(110deg,transparent 38%,#fff6e000 40%,#fff6e04d 47%,#ffffff6b 50%,#fff6e04d 53%,#fff6e000 60%) 0 0/260% 100% no-repeat;animation:wait-sweep 4.2s ease-in-out infinite}
+@keyframes wait-sweep{0%{background-position:120% 0;opacity:0}12%,80%{opacity:1}100%{background-position:-20% 0;opacity:0}}
+/* While stickers are placed the status badge would sit under them; the stage caption below already says what is happening. */
+.kiosk-shell .generation-photo:has(.sticker-overlay) .generation-badge{display:none}
+
+/* Frame offer: a full overlay on its own layer, so 3D-flipped cards never paint over it. */
+.kiosk-shell .frame-offer{inset:0;z-index:30;align-content:center;gap:22px;padding:32px;border-radius:inherit;background:#fffaf6f2;box-shadow:none;will-change:transform}
+.kiosk-shell .frame-offer strong{font-size:30px}
+.kiosk-shell .frame-offer-options{max-width:900px;gap:20px}
+.kiosk-shell .frame-offer-options button{padding:14px;font-size:19px;box-shadow:0 2px 0 var(--sr-line-strong)}
+.kiosk-shell .frame-offer-options .photo-frame{height:200px}
+.kiosk-shell .fortune-overlay{z-index:25;will-change:transform}
+
+/* Finale: one centred banner over whichever game is showing. */
+.kiosk-shell .wait-experience .game-finale{left:50%;right:auto;top:50%;max-width:none;width:max-content;margin:0;padding:14px 38px;border-radius:999px;background:#fffffff2;box-shadow:var(--sr-shadow-2);text-shadow:none;translate:-50% -50%;z-index:12}
+/* Snap finale: every friend stands up and waves (no re-entry animation that could leave them below the sill). */
+.kiosk-shell .snap-game.is-finale .snap-friend{animation:snap-wave .5s ease-in-out 4 alternate}
+@keyframes snap-wave{from{transform:translateX(-50%) rotate(-7deg)}to{transform:translateX(-50%) rotate(7deg)}}
+
+/* Failure: centred message and actions instead of a half-empty card. */
+.kiosk-shell .wait-stopped{justify-items:center;text-align:center;align-content:center;gap:18px}
+.kiosk-shell .waiting .wait-stopped p{max-width:30em}
+.kiosk-shell .wait-stopped .primary,.kiosk-shell .wait-stopped .secondary{min-width:320px}
+
+/* Test-mode sample photo entry lines up with the rest of the column. */
+.kiosk-shell .demo-photo-entry{display:grid;justify-items:center;text-align:center}
+
+@media (prefers-reduced-motion:reduce){.kiosk-shell .wait-experience .generation-sweep{animation:none;opacity:0}}
+
+/* Theme wall: 2:3 scene covers fill their 3:4 tile (cropped around the faces) instead of showing side bands; the preview still shows them whole. */
+.kiosk-shell .theme-card .scene-art .style-image img{object-fit:cover;object-position:50% 28%}
+/* The last visible row fades out, hinting that the wall scrolls. */
+.kiosk-shell .theme-scroll{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent)}

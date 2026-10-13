@@ -41,7 +41,7 @@ export function ThemePicker({ styles, loading, busy, error, onBack, onChoose }: 
     }, [reduced, hidden, touching, focused, busy]);
     return <section className="theme-screen theme-library">
         <div className="theme-heading"><button className="secondary" onClick={onBack}>← 返回</button><h1>选择主题</h1></div>
-        <nav className="purpose-tabs" aria-label="照片分类">{available.map(group => <button key={group.id} aria-label={group.name} aria-pressed={category.id === group.id} onClick={() => setCategory(group.id)}>{group.name}<span className="category-count" aria-hidden="true">{group.items.length}</span></button>)}</nav><p className="purpose-note">样片仅供风格参考</p>
+        <nav className="purpose-tabs" aria-label="照片分类">{available.map(group => <button key={group.id} aria-label={group.name} aria-pressed={category.id === group.id} onClick={() => setCategory(group.id)}>{group.name}</button>)}</nav>
         <div key={category.id} className="theme-scroll" role="region" aria-label="上下滑动选择主题" tabIndex={0}>
             <div className="theme-grid" onPointerDown={e => { gesture.current = { x: e.clientX, y: e.clientY, moved: false }; setTouching(true); }}
                 onPointerMove={e => { if (Math.hypot(e.clientX - gesture.current.x, e.clientY - gesture.current.y) > 12) gesture.current.moved = true; }}

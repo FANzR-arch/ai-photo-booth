@@ -18,6 +18,7 @@ export function Pickup() {
     const expired = !!data && now >= data.expiresAt;
     useEffect(() => { if (expired) { setData(undefined); setSelected(undefined); setError('照片已到期并自动删除，已下载的照片不受影响。'); } }, [expired]);
     const photos = data ? [
+        ...(data.decorated ? [{ id: 'decorated', downloadUrl: data.decorated.downloadUrl, title: '贴纸原片', original: true }] : []),
         ...(data.original ? [{ id: 'original', downloadUrl: data.original.downloadUrl, title: '拍摄原片', original: true }] : []),
         ...data.images.map((item, index) => ({ ...item, title: data.images.length > 1 ? `AI 成片 ${index + 1}` : 'AI 成片', original: false }))
     ] : [];
@@ -27,6 +28,7 @@ export function Pickup() {
         <h1>{selected ? images[0]?.title || '查看照片' : '你的照片'}</h1>
         {error ? <div role="alert" className="error">{error}</div> : !data || expired ? <p role="status">正在打开你的相册…</p> : <>
             <p className="photo-expiry">{timeLeft(data.expiresAt, now)} 后自动删除，请及时保存</p>
+            {data.fortune && !selected && <p className="result-fortune pickup-fortune"><small>你的上镜签</small><b>{data.fortune.level}</b>{data.fortune.text}</p>}
             <div className="results-grid">{images.map(item => <article className={`photo-print${item.original ? ' pickup-original' : ''}`} key={item.id}>
                 <div className="pickup-section-heading"><h2>{item.title}</h2></div>
                 {selected ? <img src={item.downloadUrl} alt={item.title} /> : <button className="pickup-photo" onClick={() => setSelected(item.id)} aria-label={`查看${item.title}`}><img src={item.downloadUrl} alt={item.title} /></button>}

@@ -55,6 +55,11 @@ html.kiosk-touch,html.kiosk-touch body{overscroll-behavior:none}
 .kiosk-dialog-card .text-button{min-height:56px;font-size:17px}
 .kiosk-dialog-card .display-controls{display:flex;flex-direction:column;gap:8px}
 .kiosk-dialog-card .display-controls span{font-size:14px;color:var(--sr-muted,#7a6d63)}
+/* Staff menu: per-device skin choice */
+.kiosk-dialog-card .skin-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.kiosk-dialog-card .skin-options .secondary{min-height:56px;font-size:17px}
+.kiosk-dialog-card .skin-options>span{grid-column:1/-1;font-size:14px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .kiosk-dialog-card .skin-options [aria-pressed=true]:is(*,:hover){background:var(--sr-ink);color:#fff}
 
 /* ---------- Landscape kiosk layout (target device: landscape touch screen) ---------- */
 @media (orientation:landscape) and (min-width:1200px){
@@ -95,7 +100,7 @@ html.kiosk-touch,html.kiosk-touch body{overscroll-behavior:none}
 .theme-preview-copy{display:flex;flex-direction:column;gap:14px}
 .theme-preview-copy h2{margin:0;font-size:44px;font-family:var(--sr-display);font-weight:600}
 .theme-preview-copy p{margin:0;font-size:18px;line-height:1.6;color:var(--sr-muted,#7a6d63)}
-.theme-preview-category{align-self:flex-start;padding:6px 14px;border-radius:999px;background:var(--sr-accent-soft,#fdeee6);color:var(--sr-accent,#c9472f);font-size:16px}
+.theme-preview-category{align-self:flex-start;padding:6px 14px;border-radius:999px;background:var(--sr-accent-soft);color:var(--sr-accent);font-size:16px}
 .theme-preview-copy .primary{margin-top:14px;min-height:84px;font-size:26px}
 .theme-preview-copy .secondary{min-height:68px;font-size:20px}
 @media (orientation:portrait),(max-width:1199px){.theme-preview-card{grid-template-columns:1fr;overflow-y:auto}.theme-preview-images img{height:min(50dvh,640px)}}
@@ -111,7 +116,7 @@ html.kiosk-touch,html.kiosk-touch body{overscroll-behavior:none}
 }
 .kiosk-shell .result-thumbs{display:flex;gap:12px}
 .kiosk-shell .result-thumbs button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px;border-radius:12px;border:2px solid transparent;background:var(--sr-surface,#fffdfa);font-size:15px;min-width:96px}
-.kiosk-shell .result-thumbs button.selected{border-color:var(--sr-accent,#c9472f)}
+.kiosk-shell .result-thumbs button.selected{border-color:var(--sr-accent)}
 .kiosk-shell .result-thumbs img{height:84px;width:auto;border-radius:8px}
 .kiosk-shell .results-heading{display:flex;align-items:baseline;gap:14px;margin:0}
 .kiosk-shell .result-original{display:flex;align-items:center;gap:16px;padding:12px;border-radius:var(--sr-r-sm,12px);background:var(--sr-sunken,#f5eee6)}
@@ -139,6 +144,112 @@ html.kiosk-touch,html.kiosk-touch body{overscroll-behavior:none}
 .kiosk-shell .delivery .qr-ticket strong{font-size:24px}
 .kiosk-shell .delivery .qr-ticket img{width:min(260px,100%);height:auto}
 .kiosk-shell .delivery .qr-ticket small{font-size:16px;color:var(--sr-muted,#7a6d63)}
-.kiosk-shell .qr-step{position:absolute;top:-16px;left:50%;transform:translateX(-50%);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--sr-accent,#c9472f);color:#fff;font-weight:700;font-size:18px}
+.kiosk-shell .qr-step{position:absolute;top:-16px;left:50%;transform:translateX(-50%);display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--sr-accent);color:#fff;font-weight:700;font-size:18px}
 .kiosk-shell .delivery .photo-print-action{margin:0}
 .kiosk-shell .delivery-done{min-height:68px;font-size:20px}
+
+/* ---------- Flow clarity: say what happens next, keep the next action in view ---------- */
+/* Attract: the whole visit in four words, and a paused state before staff take payment. */
+.kiosk-shell .attract-copy h1{margin-bottom:28px}
+.kiosk-shell .attract-steps{display:flex;flex-wrap:wrap;gap:12px 26px;margin:0 0 40px;padding:0;list-style:none;font-size:21px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .attract-steps li{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.kiosk-shell .attract-steps b{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--sr-accent-soft);color:var(--sr-accent-ink);font-size:17px}
+.kiosk-shell .service-paused{max-width:460px;padding:24px 28px;border-left:6px solid var(--sr-accent);border-radius:var(--sr-r-sm,12px);background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-1)}
+.kiosk-shell .service-paused strong{display:block;font-size:30px;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .service-paused p{margin:8px 0 0;font-size:19px;color:var(--sr-muted,#7a6d63)}
+
+/* Step bar keeps its three columns when a step has no way back. */
+.step-back-spacer{justify-self:start}
+
+/* Camera: three scannable tips instead of a paragraph. */
+.kiosk-shell .capture-tips{display:flex;flex-direction:column;gap:10px;width:100%;max-width:440px;margin:4px 0 22px;padding:0;list-style:none}
+.kiosk-shell .capture-tips li{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;background:var(--sr-accent-soft);color:#4a3b31;font-size:19px;line-height:1.4}
+.kiosk-shell .capture-tips b{flex:none;padding:4px 12px;border-radius:999px;background:var(--sr-surface,#fffdfa);color:var(--sr-accent-ink);font-size:15px}
+.kiosk-shell .capture-copy>.capture-countdown-note{max-width:440px;margin:12px 0 0;text-align:center;font-size:16px;color:var(--sr-muted,#7a6d63)}
+
+/* Confirm: retake and generate sit together in the sticky dock; consent is the one thing still to do. */
+.kiosk-shell .confirm-buttons{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:12px;width:100%;max-width:440px}
+.kiosk-shell .confirm-buttons>button{width:100%;min-height:76px;margin:0;padding-inline:12px;font-size:21px;white-space:nowrap}
+.kiosk-shell .capture-copy .consent.needs-consent{border-color:var(--sr-accent);box-shadow:0 0 0 4px var(--sr-accent-soft);animation:consent-pulse 2.4s ease-in-out infinite}
+@keyframes consent-pulse{50%{box-shadow:0 0 0 8px var(--sr-accent-soft)}}
+@media (prefers-reduced-motion:reduce){.kiosk-shell .capture-copy .consent.needs-consent{animation:none}}
+
+/* Generating: the original photo on the left, a status line and a tap game on the right. */
+.kiosk-shell .waiting-play{display:flex;flex-direction:column;gap:16px;min-height:0}
+.kiosk-shell .waiting .waiting-status{padding:20px 24px;border-radius:var(--sr-r-md);background:var(--sr-surface);box-shadow:var(--sr-shadow-1);text-align:left}
+.kiosk-shell .waiting .waiting-status strong{display:block;font-size:30px;font-weight:800;color:var(--sr-ink)}
+.kiosk-shell .waiting .waiting-status p{max-width:none;margin:6px 0 0;font-size:19px;color:var(--sr-muted)}
+.kiosk-shell .waiting .waiting-status:after{content:'';display:block;height:8px;margin-top:16px;border-radius:999px;background:linear-gradient(90deg,var(--sr-sunken) 0 30%,var(--sr-accent) 45%,var(--sr-sun) 55%,var(--sr-sunken) 70% 100%) 0 0/300% 100%;animation:waiting-shimmer 1.8s linear infinite}
+@keyframes waiting-shimmer{to{background-position:-150% 0}}
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell .waiting:has(.waiting-play){display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);column-gap:clamp(28px,3vw,56px);width:100%;max-width:none;height:calc(100dvh - 200px);margin:0;padding:0;align-items:stretch}
+  .kiosk-shell .waiting:has(.waiting-play) .generation-preview:has(.photo-frame){grid-row:1;position:static;align-self:center;justify-self:center;width:100%;margin:0;max-width:calc((100dvh - 300px)*.75)}
+  .kiosk-shell .waiting[data-orientation="poster"]:has(.waiting-play) .generation-preview:has(.photo-frame){max-width:calc((100dvh - 300px)*.667)}
+  .kiosk-shell .waiting[data-orientation="portrait4x5"]:has(.waiting-play) .generation-preview:has(.photo-frame){max-width:calc((100dvh - 300px)*.8)}
+  .kiosk-shell .waiting:is([data-orientation="landscape"],[data-orientation="landscape3x2"]):has(.waiting-play) .generation-preview:has(.photo-frame){max-width:100%}
+  .kiosk-shell .waiting .waiting-play{grid-column:2;grid-row:1}
+}
+
+/* Bubble game: no rules, no losing; tap anything that floats. */
+.bubble-game{position:relative;flex:1;min-height:420px;overflow:hidden;border-radius:var(--sr-r-lg);background:linear-gradient(180deg,#e6f3ff 0%,#fff6dd 100%);box-shadow:var(--sr-shadow-1);touch-action:none;-webkit-user-select:none;user-select:none}
+.bubble-score{position:absolute;left:24px;top:20px;z-index:2;display:flex;align-items:baseline;gap:12px;padding:10px 22px;border-radius:999px;background:#ffffffe0;box-shadow:var(--sr-shadow-1);pointer-events:none}
+.bubble-score span{font-size:20px;font-weight:700;color:var(--sr-ink)}
+.bubble-score b{min-width:1.2em;font-size:34px;font-weight:800;color:var(--sr-accent-ink);font-variant-numeric:tabular-nums}
+.bubble-hint{position:absolute;left:0;right:0;bottom:28px;z-index:1;margin:0;text-align:center;font-size:22px;font-weight:600;color:#5f6f82;pointer-events:none}
+.bubble-lane{position:absolute;top:0;height:100%;pointer-events:none;transform:translate3d(0,100%,0);animation:bubble-rise var(--rise) linear forwards}
+@keyframes bubble-rise{to{transform:translate3d(var(--drift),calc(var(--size) * -1),0)}}
+.bubble{width:var(--size);height:var(--size);border-radius:50%;pointer-events:auto;cursor:pointer;
+  background:radial-gradient(circle at 30% 26%,#ffffffee 0 9%,#fff0 10%),radial-gradient(circle at 50% 55%,color-mix(in srgb,var(--bubble) 20%,#fff0) 0 52%,color-mix(in srgb,var(--bubble) 80%,#fff) 100%);
+  box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--bubble) 70%,#fff),0 12px 26px -14px var(--bubble);animation:bubble-wobble 2.4s ease-in-out infinite alternate}
+@keyframes bubble-wobble{to{transform:scale(1.05,.96)}}
+.bubble.is-popped{pointer-events:none;animation:bubble-pop .28s ease-out forwards}
+@keyframes bubble-pop{to{transform:scale(1.5);opacity:0}}
+@media (prefers-reduced-motion:reduce){.bubble-lane,.bubble,.kiosk-shell .waiting .waiting-status:after{animation:none}}
+
+/* Results arrive mid-game: ignore taps for a moment so a pop never lands on a results control. */
+.kiosk-shell[data-step="results"] main{animation:tap-guard .7s step-end}
+@keyframes tap-guard{from{pointer-events:none}}
+
+/* Delivery: finish is the main action, another photo the quiet one. */
+.kiosk-shell .delivery-actions{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px}
+.kiosk-shell .delivery-actions>button{width:100%;min-height:72px;margin:0;font-size:21px}
+
+/* Attract: the gallery is a start target too. */
+
+
+/* Confirm: two-option pickers without footnotes. */
+.kiosk-shell .orientation-options button{min-height:76px}
+
+/* Paper swatches show the visitor's own photo in each frame. */
+.kiosk-shell .frame-swatch:has(.photo-frame){height:104px}
+.kiosk-shell .frame-swatch .photo-frame{height:100%;width:auto;max-width:100%;box-shadow:0 2px 8px #4a250f1f}
+.kiosk-shell :is(.results-heading,.delivery-side,.capture-copy) h1{font-weight:800;letter-spacing:-.02em}
+.kiosk-shell .start-button{min-height:96px;padding-inline:44px 20px;font-size:30px}
+.kiosk-shell .purpose-tabs button{min-height:60px;padding:0 24px;font-size:19px}
+
+/* Attract photo wall: three lanes of real theme samples drifting at different speeds, uncropped.
+   Each track holds two copies of its lane and moves exactly one copy (half the track plus half a gap) for a seamless loop. */
+.kiosk-shell .attract-wall{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;min-height:0;height:100%;overflow:hidden;cursor:pointer;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
+.kiosk-shell .wall-lane{min-width:0}
+.kiosk-shell .wall-track{display:flex;flex-direction:column;gap:18px;animation:wall-up 120s linear infinite;will-change:transform}
+.kiosk-shell .wall-lane-1 .wall-track{animation-name:wall-down;animation-duration:140s}
+.kiosk-shell .wall-lane-2 .wall-track{animation-duration:100s}
+@keyframes wall-up{to{transform:translate3d(0,calc(-50% - 9px),0)}}
+@keyframes wall-down{from{transform:translate3d(0,calc(-50% - 9px),0)}to{transform:translate3d(0,0,0)}}
+.kiosk-shell .wall-card{position:relative;margin:0;overflow:hidden;border-radius:var(--sr-r-md);background:var(--sr-sunken);box-shadow:var(--sr-shadow-1)}
+.kiosk-shell .wall-card img{display:block;width:100%;height:auto}
+.kiosk-shell .wall-card figcaption{position:absolute;left:12px;bottom:12px;padding:5px 12px;border-radius:999px;background:#ffffffd9;color:var(--sr-ink);font-size:15px;font-weight:600;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+@media (orientation:portrait){.kiosk-shell .attract-wall{height:auto;min-height:0}}
+@media (prefers-reduced-motion:reduce){.kiosk-shell .wall-track{animation:none}}
+
+/* Attract on the landscape kiosk: the copy fills its column so neither side looks empty. */
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell .attract-copy{padding-left:clamp(8px,1.5vw,32px)}
+  .kiosk-shell .attract-copy h1{font-size:min(170px,16.5cqi);line-height:1.12;margin-bottom:40px}
+  .kiosk-shell .attract-steps{gap:16px 34px;margin-bottom:64px;font-size:28px}
+  .kiosk-shell .attract-steps b{width:46px;height:46px;font-size:21px}
+  .kiosk-shell .start-button{width:min(100%,600px);min-height:132px;padding-inline:60px 28px;font-size:42px}
+  .kiosk-shell .start-button span{width:76px;height:76px;font-size:34px}
+  .kiosk-shell .service-paused{width:min(100%,600px);max-width:none;padding:32px 36px}
+}

@@ -1,0 +1,273 @@
+<title>拍照机等待体验设计</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: one reading column; a storyboard of kiosk-screen frames (sketch left, notes right on wide screens), then tables for paths, audiences and open decisions. */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#1d2230; --muted:#5b6274; --line:#d8dbe2;
+  --coral:#ec4a22; --mint:#1f9e86; --sun:#f2b92c; --sunsoft:#fde9b8; --mintsoft:#cdeee6; --coralsoft:#fbd9cf;
+  --photo:#e3e6ec; --skin:#c9ced8; --fog:#eef1f5; --dark:#3b4152;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13161d; --surface:#1b1f2a; --ink:#eaecf1; --muted:#a2a8b7; --line:#323949;
+  --coral:#ff6b47; --mint:#3cc6aa; --sun:#f5c64f; --sunsoft:#4a3d1a; --mintsoft:#173d36; --coralsoft:#4a2219;
+  --photo:#2a3040; --skin:#4a5266; --fog:#3a4252; --dark:#0c0e13; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13161d; --surface:#1b1f2a; --ink:#eaecf1; --muted:#a2a8b7; --line:#323949;
+  --coral:#ff6b47; --mint:#3cc6aa; --sun:#f5c64f; --sunsoft:#4a3d1a; --mintsoft:#173d36; --coralsoft:#4a2219;
+  --photo:#2a3040; --skin:#4a5266; --fog:#3a4252; --dark:#0c0e13; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+h1{font-size:clamp(30px,4.6vw,44px);font-weight:900;line-height:1.2;margin:6px 0 14px;text-wrap:balance}
+h2{font-size:24px;font-weight:900;margin:0;text-wrap:balance}
+h3{font-size:17px;font-weight:700;margin:0}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--coral);font-weight:700}
+.lede{color:var(--muted);max-width:68ch}
+.lede b,.note b{color:var(--ink)}
+section{margin-top:56px;display:grid;gap:18px}
+.sec-head{display:grid;gap:6px;border-top:2px solid var(--ink);padding-top:14px}
+.sec-head p{color:var(--muted);max-width:70ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.facts{grid-template-columns:1fr}}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:4px;min-width:0}
+.fact b{font-size:22px;font-weight:900;font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;color:var(--muted)}
+.frame{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;align-items:start}
+@media (max-width:760px){.frame{grid-template-columns:1fr}}
+.frame svg{display:block;width:100%;height:auto;max-width:100%;background:var(--bg);border-radius:8px}
+.frame .txt{display:grid;gap:10px;min-width:0}
+.time{font-size:13px;font-weight:700;color:var(--surface);background:var(--ink);border-radius:5px;padding:2px 8px;justify-self:start;font-variant-numeric:tabular-nums}
+.frame dl{margin:0;display:grid;gap:8px}
+.frame dt{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--muted)}
+.frame dd{margin:0;font-size:14px;line-height:1.7}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:0 8px;color:var(--muted);margin-right:4px}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:14px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:1px;color:var(--muted);font-weight:700}
+tr:last-child td{border-bottom:0}
+td b{font-weight:700}
+.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.games{grid-template-columns:1fr}}
+.game{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:8px;min-width:0}
+.game ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:4px}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--mint);border-radius:8px;padding:14px 18px;font-size:14px;color:var(--muted)}
+.changed{border-left-color:var(--coral)}
+.q{display:grid;gap:12px;counter-reset:q}
+.q article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:6px}
+.q h3::before{counter-increment:q;content:counter(q) "．";color:var(--coral)}
+.q .rec{font-size:14px}
+.q .rec b{color:var(--mint)}
+/* sketch strokes */
+svg .scr{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+svg .ln{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+svg .thin{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+svg .zone{fill:none;stroke:var(--coral);stroke-width:1.2;stroke-dasharray:4 3}
+svg .ph{fill:var(--photo);stroke:var(--ink);stroke-width:1.2}
+svg .skin{fill:var(--skin)} svg .ai{fill:var(--sunsoft);stroke:var(--ink);stroke-width:1.2}
+svg .coral{fill:var(--coral)} svg .mint{fill:var(--mint)} svg .sun{fill:var(--sun)}
+svg .coralsoft{fill:var(--coralsoft)} svg .mintsoft{fill:var(--mintsoft)} svg .sunsoft{fill:var(--sunsoft)}
+svg .surface{fill:var(--surface)} svg .inkf{fill:var(--ink)} svg .fog{fill:var(--fog)} svg .dark{fill:var(--dark)}
+svg .bubble{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
+svg text{font-family:var(--sans);fill:var(--ink)}
+svg .t-muted{fill:var(--muted)} svg .t-coral{fill:var(--coral)} svg .t-surface{fill:var(--surface)}
+</style>
+
+<div class="wrap">
+  <span class="eyebrow">等待体验 · 第三步：整体体验设计</span>
+  <h1>从点下“开始生成”到看见成片</h1>
+  <p class="lede">你选了 A1、A3、A5、A6、B1、B2、C1、D2、D3、E1、E2。这一页把它们串成顾客实际经历的一段，按秒写清楚屏幕上发生什么。<b>还没有写代码。</b>结尾有 6 个需要你拍板的问题。</p>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">先看真实数据</span><h2>后台 16 次真实生成，实际等了多久</h2><p>来自本机数据库里 Seedream 模式的会话记录（去掉了 0 秒的无效记录）。样本不多，但足够定节奏。</p></div>
+    <div class="facts">
+      <div class="fact"><b>29 秒</b><span>中位数。16 次里有 13 次在 22–38 秒之间</span></div>
+      <div class="fact"><b>72–99 秒</b><span>另外 3 次，约五分之一，属于“慢的时候”</span></div>
+      <div class="fact"><b>180 秒</b><span>Seedream 请求的超时上限，超过就判为失败或结果未知</span></div>
+    </div>
+    <p class="note changed"><b>据此改了两处。</b>①大多数人只玩 20 秒左右，所以开场和揭晓比游戏深度更重要，游戏要在头几秒就好玩。②页面上的预期从“通常 30–60 秒”改为“大约 1 分钟”：多数人 30 秒就拿到，会觉得比预期快；慢的那五分之一也只是略超出。</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">屏幕怎么分</span><h2>等待页布局（横屏 1920×1080）</h2><p>左边始终是“你的照片 + AI 在做什么”，右边是“你可以玩的”。顾客无论看哪边，都能确定照片在处理。</p></div>
+    <div class="frame"><div id="f-layout"></div><div class="txt"><dl>
+      <div><dt>左 · 约 40%</dt><dd>原照片，笔触在上面慢慢划过（C1）。下面一行：主题名、阶段字幕、“已等待 N 秒”。</dd></div>
+      <div><dt>右 · 约 60%</dt><dd>游戏区。顶部一条细栏：左边是抽到的签（缩成小纸条，点开可再看），右边是“换个玩法”。</dd></div>
+      <div><dt>顶部</dt><dd>现有的流程进度条不变。照片好了以后，这里出现“照片画好了！”。</dd></div>
+      <div><dt>贴纸玩法（A3）例外</dt><dd>原照片本身就是画布，贴纸托盘放在右边，阶段字幕移到照片上方。</dd></div>
+    </dl></div></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">正常情况 · 约 30 秒</span><h2>分镜：每一刻屏幕上发生什么</h2><p>下面是一位成年顾客、选了“人像写真”主题、30 秒出图的完整经过。小孩和情侣的差别见后面的表。</p></div>
+    <div id="story" style="display:grid;gap:16px"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">收尾的关键改动</span><h2>照片好了，游戏自己“谢幕”</h2><p>第二步写的是“让这一局玩完再走”。细想后改成更好的做法：照片一好，游戏立刻自己演一个约 1 秒的圆满结尾，顾客不会有“差一点就完成”的遗憾，也不用等。</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>玩法</th><th>照片好了的那 1 秒</th><th>然后</th></tr></thead>
+      <tbody>
+        <tr><td><b>A1 戳泡泡</b></td><td>所有泡泡一起炸开，攒的星星飞向照片</td><td>进入揭晓</td></tr>
+        <tr><td><b>A3 贴贴纸</b></td><td>托盘收起，贴好的原片轻轻“盖章”定格</td><td>进入揭晓；装饰好的原片留着，扫码时一起带走</td></tr>
+        <tr><td><b>A5 翻牌</b></td><td>剩下的牌全部自动翻开，配对连线，“全部配齐！”</td><td>进入揭晓</td></tr>
+        <tr><td><b>A6 抓拍</b></td><td>六个窗口里的角色同时探头挥手，“咔嚓”最后一张，拍到的小照片堆飞向成片</td><td>进入揭晓</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">慢的时候 · 约五分之一的人</span><h2>超过 45 秒以后</h2><p>每一档只出现一个新东西，屏幕不会越堆越乱。时间都按“已等待”算。</p></div>
+    <div id="slow" style="display:grid;gap:16px"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">出问题的时候</span><h2>失败、结果未知、其他特殊情况</h2></div>
+    <div class="tbl"><table>
+      <thead><tr><th>情况</th><th>屏幕上</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>生成失败</b></td><td>游戏安静地停下（不放谢幕庆祝），左边照片换成：“这次没画成功，不是你的问题。”主按钮“重新画一张”，次按钮“先把原片存到手机”</td><td>重试要不要顾客再付钱，见问题 4。抽到的签、装饰过的原片都保留</td></tr>
+        <tr><td><b>结果未知</b></td><td>“结果还没确定，请找工作人员帮你看一下。”加上“先把原片存到手机”</td><td>沿用现在的规则：不提供自动重试，避免重复扣费</td></tr>
+        <tr><td><b>只成功一部分</b></td><td>正常揭晓已有的照片</td><td>和现在一样，结果页说明数量</td></tr>
+        <tr><td><b>特别快（6 秒内）</b></td><td>开场动画播完后直接揭晓，不出现签和游戏</td><td>不为了展示游戏而拖时间</td></tr>
+        <tr><td><b>页面刷新后恢复</b></td><td>跳过开场，直接进入游戏；阶段字幕按真实已等待时间接上</td><td>例如断电重启后找回生成中的任务</td></tr>
+        <tr><td><b>没人碰屏幕</b></td><td>示范手出现两次后停下；照片好了照常自动揭晓，结果页照常倒计时</td><td>顾客走开也不会卡在等待页</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">不同人群</span><h2>按主题分类自动选玩法</h2><p>机器不知道站在前面的是谁，但知道选了什么主题。分类和人群基本对得上，所以按分类决定默认玩法和签文。所有玩法都满足同一套底线：目标至少 120 像素、没有时间压力、没有失败、两人可同时点。</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>主题分类</th><th>大概是谁</th><th>开场签</th><th>默认玩法</th><th>60 秒后换成</th></tr></thead>
+      <tbody>
+        <tr><td><b>童趣奇遇、小小职业</b></td><td>小孩，常有家长陪</td><td>不抽签：小孩不识字</td><td>A6 抓拍：恐龙、宇航员；消防车、小飞机</td><td>A1 戳泡泡（恐龙蛋）</td></tr>
+        <tr><td><b>亲友合照、婚礼写真</b></td><td>情侣、闺蜜、一家人</td><td>双人签：“你们俩今天很上镜”这类</td><td>A3 贴贴纸，两个人可以一起贴</td><td>A5 翻牌</td></tr>
+        <tr><td><b>生日纪念</b></td><td>寿星和朋友、家人</td><td>生日签</td><td>A3 贴贴纸：蛋糕、气球、数字</td><td>A1 戳泡泡（气球）</td></tr>
+        <tr><td><b>人像写真、旅行日常、职业形象、创意艺术、其他</b></td><td>各年龄的个人，含老人</td><td>上镜签</td><td>A5 翻牌：安静、节奏慢</td><td>A1 戳泡泡（按主题换皮）</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note"><b>关于老人。</b>老人没有专门的主题分类，所以不单独区分，而是把底线定在老人也能用：默认用最安静的翻牌；示范手先演示一遍；不用拖、不用抢时间；如果真不想玩，不玩也完全没关系，照片照样出来。</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">四个玩法在这段体验里的细节</span><h2>玩法细则</h2></div>
+    <div class="games">
+      <div class="game"><h3>A1 戳泡泡·主题版</h3><ul>
+        <li>每类主题一套皮：人像是光斑星星，生日是气球，婚礼是花瓣爱心，旅行是椰子贝壳，儿童是恐龙蛋（戳破孵出小恐龙），创意艺术是颜料滴。</li>
+        <li>约每 8 秒飘来一个金色大泡泡；连续戳中显示 ×2、×3。</li>
+        <li>戳破的星星飞到照片角上攒起来，最后跟着谢幕飞向成片。</li>
+        <li>没有“一局”，随时结束都不可惜。</li></ul></div>
+      <div class="game"><h3>A3 给原片贴贴纸</h3><ul>
+        <li>托盘里 8–10 个主题贴纸。点一下，贴纸飞到原照片上预设的好位置（头顶、脸两侧、肩膀、四角），不会盖住脸。</li>
+        <li>点已贴上的贴纸就拿掉，最多贴 8 个。</li>
+        <li>照片上方一行小字：“装饰的是原片，会和成片一起送到你手机”。这是唯一的说明，避免误会贴纸会出现在 AI 成片上。</li>
+        <li>两个人可以同时从托盘里点。</li></ul></div>
+      <div class="game"><h3>A5 翻牌配对</h3><ul>
+        <li>8 张牌、4 对：一对是自己的原照片，另外三对是同一分类里其他主题的封面。</li>
+        <li>翻错 1 秒后自动盖回；全部配齐后洗牌换一组主题，再来一局。</li>
+        <li>翻开的主题牌带名字，顺便让顾客看到“还能拍什么”。</li></ul></div>
+      <div class="game"><h3>A6 抓拍（打地鼠）</h3><ul>
+        <li>六个窗口，同时最多冒出两个角色，每个停留约 2.5 秒，速度始终不变。</li>
+        <li>点中就闪光“咔嚓”，一张小照片落到右上角的照片堆里，显示“抓拍 N 张”。没点中什么也不发生，不扣分。</li>
+        <li>两个孩子可以一起抢着点。</li></ul></div>
+    </div>
+    <p class="note"><b>所有玩法共用：</b>开局先出现一只示范手，演示一次就消失；10 秒没人碰，再演示一次，之后不再打扰。系统开了“减少动态效果”时，揭晓改成淡入，泡泡不飘动。不加声音。</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">需要你拍板</span><h2>6 个问题</h2><p>每个问题我都写了建议。你回复编号和选择即可，例如“1 同意，4 免费”。</p></div>
+    <div class="q">
+      <article><h3>右上角要不要“换个玩法”按钮？</h3><p>按分类自动选的玩法不一定适合每个人，比如爷爷陪孙子拍儿童主题。但每多一个按钮，屏幕就多一点干扰。</p><p class="rec"><b>建议：要。</b>做成一个小图标按钮，在 4 个玩法之间轮换。</p></article>
+      <article><h3>装饰过的原片（A3）只扫码带走，还是也能打印？</h3><p>能打印更吸引人，但会动到打印和计费流程。</p><p class="rec"><b>建议：</b>这一版只扫码带走，作为免费彩蛋；打印以后再说。</p></article>
+      <article><h3>抽到的签放在哪里？</h3><p>屏幕上一定会显示。问题是要不要也出现在手机取图页上，方便截图分享。</p><p class="rec"><b>建议：</b>结果页显示一张小签条，手机取图页也显示。不印在照片上。</p></article>
+      <article><h3>生成失败后，重新生成要不要顾客再付钱？</h3><p>现在的按钮写的是“重新生成（再次使用生成额度）”。顾客看到“额度”会以为要再付钱。</p><p class="rec"><b>建议：</b>失败是机器的问题，对顾客应该免费，按钮写“重新画一张”。不过这涉及甲方的计费规则，需要你确认。</p></article>
+      <article><h3>等到 120 秒时，提前给取图二维码？</h3><p>让赶时间的人可以先扫码离开，照片画好后在手机上能看到。需要确认手机取图页会自动刷新，第四步我会先查这一点。</p><p class="rec"><b>建议：要。</b>只在 120 秒以后出现，平时不打扰。</p></article>
+      <article><h3>签文和安心提示的文案谁来定？</h3><p>签文大约要 60 条（每类主题 8 条左右），全部是好签；再加上 45、60、90、120 秒的几句提示。</p><p class="rec"><b>建议：</b>第四步我先起草一份，你或甲方改完我再放进去。</p></article>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">下一步</span><h2>第四步会做什么</h2></div>
+    <div class="note"><b>前端：</b>新的等待页（开场动画、签、阶段字幕、四个玩法、谢幕、慢等待的各档提示）；揭晓动画，并平滑过渡到结果页；结果页显示签。<br><b>后端：</b>上传并保存装饰过的原片，手机取图页显示它和签；边框接口已经允许在生成中保存，不用改。<br><b>验证：</b>npm test 全部通过；在浏览器里用测试模式分别跑一遍 30 秒、慢等待、失败三种情况，截图给你。<br><b>需要真机确认：</b>多点触控是否支持两人同时点；老人和小孩的点中率；连续运行几小时是否流畅。</div>
+  </section>
+</div>
+
+<script>
+const S = (inner, label) => `<svg viewBox="0 0 320 180" role="img" aria-label="${label}"><rect class="scr" x="1" y="1" width="318" height="178" rx="10"/>${inner}</svg>`;
+function person(x,y,w,h,ai=false){
+  const cx=x+w/2, r=w*.17, hy=y+h*.4;
+  let s=`<rect class="${ai?'ai':'ph'}" x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>`;
+  if(ai) s+=`<circle class="coralsoft" cx="${x+w*.8}" cy="${y+h*.18}" r="${w*.12}"/>`;
+  s+=`<path class="${ai?'coral':'skin'}" d="M${x+w*.14},${y+h} Q${cx},${y+h*.56} ${x+w*.86},${y+h} Z"/>`;
+  s+=`<circle class="skin" cx="${cx}" cy="${hy}" r="${r}"/>`;
+  if(ai) s+=`<path class="sun" d="M${cx-r},${hy-r*.7} l${r*.4},${-r*.9} l${r*.6},${r*.5} l${r*.6},${-r*.5} l${r*.4},${r*.9} Z"/>`;
+  return s;
+}
+const nested=(x,y,w,h,ai)=>`<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 100 130" preserveAspectRatio="none">${person(0,0,100,130,ai)}</svg>`;
+const finger = (x,y) => `<g transform="translate(${x},${y})"><path class="surface" d="M0,0 c0,-6 6,-6 6,0 v10 c2,-3 7,-2 7,2 v8 c0,6 -4,10 -10,10 h-2 c-5,0 -8,-4 -9,-8 l-3,-9 c-1,-3 3,-5 5,-2 l2,3 Z"/><path class="ln" d="M0,0 c0,-6 6,-6 6,0 v10 c2,-3 7,-2 7,2 v8 c0,6 -4,10 -10,10 h-2 c-5,0 -8,-4 -9,-8 l-3,-9 c-1,-3 3,-5 5,-2 l2,3 Z"/></g>`;
+const star = (x,y,r,c='sun') => { let p=''; for(let i=0;i<10;i++){const a=Math.PI/5*i-Math.PI/2, rr=i%2?r*.45:r; p+=`${i?'L':'M'}${(x+rr*Math.cos(a)).toFixed(1)},${(y+rr*Math.sin(a)).toFixed(1)}`;} return `<path class="${c}" d="${p}Z"/>`; };
+const banner = (t,c='inkf') => `<rect class="${c}" x="90" y="6" width="140" height="16" rx="8"/><text x="160" y="17.5" font-size="8.5" text-anchor="middle" class="t-surface" font-weight="700">${t}</text>`;
+// Shared wait screen: photo panel on the left with stage caption, game area on the right.
+function waitScreen(game, {stage='布光、上色…', sec=18, strip=true}={}){
+  return person(14,28,108,118)+`<g class="ln" style="stroke:var(--coral);stroke-width:2.5;opacity:.75"><path d="M24,60 q26,-16 52,0 t40,4"/></g>
+  <text x="14" y="158" font-size="8" font-weight="700">人像写真 · ${stage}</text><text x="14" y="170" font-size="7.5" class="t-muted">已等待 ${sec} 秒 · 大约 1 分钟</text>`
+  +(strip?`<rect x="136" y="28" width="22" height="13" rx="2" class="sunsoft" stroke="var(--ink)" stroke-width=".8"/><text x="147" y="37.5" font-size="7" text-anchor="middle" font-weight="700">大吉</text><circle cx="300" cy="34" r="8" class="surface" stroke="var(--ink)" stroke-width=".8"/><path class="ln" d="M296,32 h8 l-2,-2 M304,36 h-8 l2,2" style="stroke-width:1"/>`:'')+game;
+}
+function memoryGame(open=[3,4], x0=142, y0=48){ let s=''; for(let i=0;i<8;i++){ const x=x0+(i%4)*42, y=y0+Math.floor(i/4)*60;
+  if(open.includes(i)) s+=nested(x,y,36,52)+`<rect x="${x}" y="${y}" width="36" height="52" rx="4" fill="none" stroke="var(--mint)" stroke-width="2.5"/>`;
+  else s+=`<rect x="${x}" y="${y}" width="36" height="52" rx="4" class="coral" stroke="var(--ink)" stroke-width=".8"/><text x="${x+18}" y="${y+31}" font-size="12" text-anchor="middle" class="t-surface" font-weight="900">?</text>`; } return s; }
+
+const layout = S(person(14,28,108,118)+`<rect class="zone" x="8" y="24" width="120" height="152" rx="4"/><rect class="zone" x="132" y="24" width="180" height="152" rx="4"/>
+  <rect class="zone" x="8" y="5" width="304" height="15" rx="3"/><text x="160" y="15.5" font-size="7.5" text-anchor="middle" class="t-coral">流程进度条 / “照片画好了！”</text>
+  <text x="14" y="158" font-size="8" font-weight="700">主题名 · 阶段字幕</text><text x="14" y="170" font-size="7.5" class="t-muted">已等待 N 秒</text>
+  <rect x="136" y="28" width="22" height="13" rx="2" class="sunsoft" stroke="var(--ink)" stroke-width=".8"/><text x="147" y="37.5" font-size="7" text-anchor="middle">签</text>
+  <text x="300" y="37" font-size="7" text-anchor="end" class="t-muted">换个玩法 ⇄</text>
+  <text x="222" y="104" font-size="12" text-anchor="middle" class="t-coral" font-weight="700">游戏区</text>`, '等待页布局示意');
+document.getElementById('f-layout').innerHTML = layout;
+
+const story = [
+ {t:'0 秒', title:'点下“开始生成”', svg:S(`<rect x="14" y="28" width="140" height="140" rx="4" class="ph"/>${nested(30,36,108,124)}<rect x="176" y="120" width="128" height="30" rx="4" class="coral"/><text x="240" y="139" font-size="11" text-anchor="middle" class="t-surface" font-weight="700">开始生成 →</text><text x="176" y="60" font-size="10" font-weight="700">确认照片</text>`+finger(250,138),'确认页'),
+  screen:'按钮按下立刻有反馈（按下变深、轻微缩放），不等网络返回。', who:'顾客刚付完钱，最担心“成功了没有”。', rule:'按下后马上进入开场动画；如果请求失败，在动画结束处显示错误，而不是让人在确认页干等。'},
+ {t:'0–1.5 秒', title:'B1 照片送进画室', svg:S(`<rect x="200" y="40" width="96" height="112" rx="4" class="sunsoft" stroke="var(--ink)" stroke-width="1.2"/><path class="ln" d="M206,160 l42,-120 l42,120 M248,152 v14"/><g transform="translate(118,62) rotate(-12)">${person(0,0,56,70)}</g><path class="thin" d="M40,140 Q90,40 200,70"/>${star(214,56,6)}<text x="20" y="36" font-size="15" font-weight="900">收到！</text><text x="20" y="54" font-size="10" class="t-muted">照片已送进 AI 画室</text>`,'照片送进画室'),
+  screen:'原照片从确认页的位置飞进右边的画架，画架亮一下，出现“收到！照片已送进 AI 画室”。', who:'看到自己的照片“被收下了”，确定已经开始。', rule:'动画固定 1.5 秒，结束后照片落到左侧照片区，成为等待页的一部分，画面是连续的。'},
+ {t:'1.5–6 秒', title:'B2 抽一支上镜签', svg:S(person(14,28,108,118)+`<text x="14" y="158" font-size="8" font-weight="700">人像写真 · 认出五官</text><text x="14" y="170" font-size="7.5" class="t-muted">已等待 3 秒</text><rect x="186" y="70" width="36" height="84" rx="6" class="coral" stroke="var(--ink)" stroke-width="1.2"/><g class="ln"><path d="M193,70 l-4,-24 M202,70 l2,-28 M211,70 l6,-22"/></g><g transform="translate(236,40) rotate(6)"><rect width="62" height="104" rx="3" class="surface" stroke="var(--ink)" stroke-width="1.2"/><text x="31" y="20" font-size="8" text-anchor="middle" class="t-coral" font-weight="900">上镜签</text><text x="31" y="50" font-size="20" text-anchor="middle" font-weight="900">大吉</text><text x="31" y="72" font-size="6.5" text-anchor="middle" class="t-muted">今天的光</text><text x="31" y="83" font-size="6.5" text-anchor="middle" class="t-muted">特别偏爱你</text></g><text x="204" y="168" font-size="8" text-anchor="middle" class="t-muted">点一下，抽支签</text>`+finger(212,140),'抽签'),
+  screen:'右边出现签筒，轻轻晃动，写着“点一下，抽支签”。点了以后，一支签滑出来展开，停 3 秒，然后缩成小纸条，停在游戏区左上角。', who:'有仪式感、好拍照；情侣常会一起点。', rule:'4 秒内没点，签筒自己缩到左上角，游戏照常开始，之后点小纸条仍可抽。儿童主题不出现签。'},
+ {t:'约 6 秒', title:'游戏出现，示范手演示一次', svg:S(waitScreen(memoryGame([3])+finger(230,70),{stage:'设计造型',sec:6}),'游戏出现'),
+  screen:'签缩走后，游戏区淡入（这位顾客选的是人像，所以是 A5 翻牌）。一只示范手点一张牌，牌翻开，然后示范手消失。', who:'看一眼就知道“点牌”，不需要读字。', rule:'不显示规则文字。10 秒没人碰，示范手再出现一次，之后不再打扰。'},
+ {t:'6–30 秒', title:'边玩边看 AI 画（C1）', svg:S(waitScreen(memoryGame([0,5,3,4]),{stage:'布光、上色…',sec:18}),'边玩边看'),
+  screen:'左边照片上，笔触在慢慢划过；下面的字幕依次变化：认出五官（0–4 秒）→ 设计造型（4–12 秒）→ 布光、上色（12–22 秒）→ 细节精修（22 秒以后一直停在这一步）。“已等待”每秒加一。', who:'手上在翻牌，余光看到照片在“被画”，不会担心。', rule:'不显示百分比，不倒计时。字幕是通俗说明，不是真实进度，所以最后一步一直停着，直到照片真的好了。'},
+ {t:'照片好了', title:'游戏谢幕（约 1 秒）', svg:S(banner('照片画好了！')+waitScreen(memoryGame([0,1,2,3,4,5,6,7])+`<text x="226" y="172" font-size="10" text-anchor="middle" class="t-coral" font-weight="900">全部配齐！</text>`,{stage:'完成',sec:29,strip:true}).replace('<rect class="inkf" x="90"','<rect class="inkf" x="90"'),'游戏谢幕'),
+  screen:'顶部出现“照片画好了！”；剩下的牌全部自动翻开、配对，显示“全部配齐！”。', who:'不会被打断：游戏是“完成了”，而不是“被关掉了”。', rule:'谢幕和顾客玩到哪一步无关，固定约 1 秒。其他玩法的谢幕方式见下面的表。'},
+ {t:'+1 → +4 秒', title:'D3 翻转 → D2 显影', svg:S(banner('照片画好了！')+`<g transform="translate(70,34) skewY(-6)">${person(0,0,64,84)}</g><path class="ln" d="M146,80 h22 m-5,-5 l5,5 l-5,5"/>
+  <rect x="180" y="30" width="104" height="138" class="surface" stroke="var(--ink)" stroke-width="1.2"/>${nested(188,38,88,98,true)}<rect x="188" y="38" width="88" height="98" class="dark" opacity=".5"/><text x="232" y="156" font-size="8" text-anchor="middle" class="t-muted">人像写真 · 10.13</text>`,'翻转并显影'),
+  screen:'游戏区淡出；左边的原照片移到中间、放大，像卡片一样翻过来（D3）。背面是一张拍立得，成片从暗到亮慢慢显影，约 2.5 秒（D2）。', who:'看着自己的照片“冲洗出来”，这是整段最期待的一刻。', rule:'点任意位置立刻显影完。如果之前选了边框（E2），显影出来的就是带边框的样子。'},
+ {t:'+4 → +6 秒', title:'前后对比，平滑进入结果页', svg:S(`<g transform="translate(40,60) rotate(-8)">${person(0,0,50,64)}</g><text x="64" y="146" font-size="7.5" text-anchor="middle" class="t-muted">原照片</text>
+  <rect x="110" y="20" width="104" height="138" class="surface" stroke="var(--ink)" stroke-width="1.2"/>${nested(118,28,88,98,true)}<text x="162" y="146" font-size="8" text-anchor="middle" class="t-muted">人像写真 · 10.13</text>
+  <rect x="236" y="30" width="22" height="13" rx="2" class="sunsoft" stroke="var(--ink)" stroke-width=".8"/><text x="247" y="39.5" font-size="7" text-anchor="middle" font-weight="700">大吉</text>
+  <rect x="234" y="120" width="72" height="20" rx="3" class="coral"/><text x="270" y="133.5" font-size="8" text-anchor="middle" class="t-surface" font-weight="700">选相纸 / 取图</text><rect x="234" y="146" width="72" height="16" rx="3" fill="none" stroke="var(--ink)"/><text x="270" y="157" font-size="7" text-anchor="middle">边框</text>`,'进入结果页'),
+  screen:'原照片缩成一张小卡，斜放在成片左边，停 1.5 秒，前后对比一目了然。随后结果页的按钮、边框选择从旁边滑入，成片不动，就成了结果页上的那张照片。', who:'不会觉得“页面跳了一下”，而是照片冲洗好了，接着去取。', rule:'对比只停 1.5 秒，原片很小，尽量不让人觉得原片难看。抽到的签以小纸条形式留在结果页，手机取图页也有（见问题 3）。'},
+];
+const slow = [
+ {t:'45 秒', title:'E2 趁等待先选边框', svg:S(waitScreen(`<rect x="138" y="46" width="170" height="122" rx="8" class="surface" stroke="var(--ink)" stroke-width="1.2"/><text x="223" y="64" font-size="9" text-anchor="middle" font-weight="700">照片快画好了，先挑个边框？</text>
+  ${[0,1,2,3].map(i=>{const x=148+i*40;const c=['surface','coralsoft','mintsoft','sunsoft'][i];return `<rect x="${x}" y="74" width="34" height="46" rx="3" class="${c}" stroke="${i===1?'var(--coral)':'var(--ink)'}" stroke-width="${i===1?2:.8}"/>`+nested(x+5,79,24,32);}).join('')}
+  <text x="168" y="132" font-size="6.5" text-anchor="middle">无边框</text><text x="208" y="132" font-size="6.5" text-anchor="middle">节日红</text><text x="248" y="132" font-size="6.5" text-anchor="middle">薄荷</text><text x="288" y="132" font-size="6.5" text-anchor="middle">胶片</text>
+  <text x="223" y="156" font-size="8" text-anchor="middle" class="t-muted">继续玩 →</text>`,{stage:'细节精修',sec:45}),'选边框'),
+  screen:'游戏区上方浮起一张卡片：“照片快画好了，先挑个边框？”，四个边框用原照片预览。点一个就选好，卡片收起，游戏继续。', who:'有事可做，也省掉结果页的一步。', rule:'只出现一次。点“继续玩”或 8 秒不理，卡片自动收起，结果页照样能选边框。这时照片如果好了，卡片随游戏一起谢幕。'},
+ {t:'60 秒', title:'E1 换个玩法 + 安心提示', svg:S(waitScreen(`<rect x="140" y="46" width="166" height="34" rx="6" class="mintsoft" stroke="var(--ink)" stroke-width=".8"/><text x="223" y="60" font-size="8.5" text-anchor="middle" font-weight="700">今天画得慢一点，</text><text x="223" y="73" font-size="8.5" text-anchor="middle" font-weight="700">照片不会丢</text>
+  <circle class="bubble" cx="170" cy="120" r="16"/>${star(170,120,6)}<circle class="bubble" cx="226" cy="140" r="20"/>${star(226,140,8,'mint')}<circle class="bubble" cx="282" cy="112" r="13"/>`,{stage:'细节精修',sec:60}),'换玩法'),
+  screen:'当前游戏谢幕，换成第二个玩法（翻牌换成戳泡泡）；同时左边字幕下方出现一句：“今天画得慢一点，照片不会丢”。', who:'有新鲜感，也有安心感。等得越久越焦虑，这时最需要这两样。', rule:'如果正翻到一半，等这一对翻完再换（最多 2 秒）。贴贴纸（A3）不换，因为装饰会丢，只出提示。'},
+ {t:'90 秒', title:'换一句提示', svg:null,
+  screen:'提示换成：“还在精修，再等一下下。”', who:'说明还在进行，没有卡死。', rule:'只换文字，不加新东西。'},
+ {t:'120 秒', title:'提前给取图二维码', svg:S(waitScreen(`<circle class="bubble" cx="176" cy="80" r="16"/><circle class="bubble" cx="230" cy="62" r="12"/><rect x="214" y="98" width="88" height="70" rx="6" class="surface" stroke="var(--ink)" stroke-width="1"/><rect x="222" y="106" width="30" height="30" class="inkf"/><rect x="226" y="110" width="22" height="22" class="surface"/><rect x="231" y="115" width="12" height="12" class="inkf"/><text x="258" y="116" font-size="6.5">赶时间？</text><text x="258" y="126" font-size="6.5">扫码先走</text><text x="258" y="136" font-size="6.5">画好会出现</text><text x="258" y="146" font-size="6.5">在手机上</text>`,{stage:'细节精修',sec:120}),'提前给二维码'),
+  screen:'游戏区右下角出现一张小卡：“赶时间？扫码先走，画好会出现在手机上”，带二维码。', who:'给赶时间的人一条退路，不被困在机器前。', rule:'只在 120 秒以后出现（见问题 5）。手机页要能自动刷新，第四步先确认。'},
+ {t:'180 秒', title:'超时', svg:null,
+  screen:'Seedream 请求到上限，状态变为“失败”或“结果未知”，按上面“出问题的时候”那张表处理。', who:'—', rule:'不再新增任何等待内容。'},
+];
+const render = (list, host) => document.getElementById(host).innerHTML = list.map(f=>`<div class="frame">${f.svg?`<div>${f.svg}</div>`:''}<div class="txt" ${f.svg?'':'style="grid-column:1/-1"'}><span class="time">${f.t}</span><h3>${f.title}</h3><dl>
+  <div><dt>屏幕上</dt><dd>${f.screen}</dd></div><div><dt>顾客的感受</dt><dd>${f.who}</dd></div><div><dt>规则</dt><dd>${f.rule}</dd></div></dl></div></div>`).join('');
+render(story,'story'); render(slow,'slow');
+</script>

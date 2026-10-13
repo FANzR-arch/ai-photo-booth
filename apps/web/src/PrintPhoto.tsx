@@ -4,7 +4,7 @@ import { api } from './api';
 import type { PrintJob } from '../../../packages/shared/printing';
 
 /** `hideWhenUnavailable` keeps printer setup notes off the visitor screen when no printer is configured. */
-export function PrintPhoto({ sessionId, imageId, disabled, hideWhenUnavailable = false }: { sessionId: string; imageId?: string; disabled: boolean; hideWhenUnavailable?: boolean }) {
+export function PrintPhoto({ sessionId, imageId, disabled, hideWhenUnavailable = false, label = '打印照片' }: { sessionId: string; imageId?: string; disabled: boolean; hideWhenUnavailable?: boolean; label?: string }) {
     const [config, setConfig] = useState<{ supported: boolean; configured: boolean }>();
     const [job, setJob] = useState<PrintJob | null>(null);
     const [error, setError] = useState(''), [busy, setBusy] = useState(false), [uncertain, setUncertain] = useState(false);
@@ -41,7 +41,7 @@ export function PrintPhoto({ sessionId, imageId, disabled, hideWhenUnavailable =
                 setError(rejected ? failure.message : '连接中断，请查询打印状态，确认前不要重复打印。');
             } }
             finally { if (current === version.current) { pending.current = false; setBusy(false); } }
-        }}>{unknown ? '请确认打印状态' : printing ? '正在打印' : job?.status === 'failed' ? '重试打印' : '打印照片'}</button>
+        }}>{unknown ? '请确认打印状态' : printing ? '正在打印' : job?.status === 'failed' ? '重试打印' : label}</button>
         {config && !config.configured && <p className="muted">{config.supported ? '请先设置打印机和相纸。' : '请在连接打印机的 Mac 上打印。'}</p>}
         {printing && job?.status === 'submitted' && <p className="print-status" role="status">{`已提交${job.copies ? ` ${job.copies} 张` : ''}，请等待出纸。`}</p>}
         {unknown && !error && !job?.error && <p className="print-status" role="status">请查询状态并检查打印机，勿重复打印。</p>}

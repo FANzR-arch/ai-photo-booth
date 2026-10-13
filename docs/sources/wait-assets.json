@@ -1,0 +1,3298 @@
+{
+  "tool": "built-in imagegen",
+  "date": "2026-10-13",
+  "task": "docs/Codex-等待页素材生图任务.md",
+  "status": "52 final images and 3 contact sheets verified; requested manifest path blocked by filesystem permissions",
+  "prompts": [
+    [
+      "heart",
+      "Create one square production sticker asset: a single plump coral-pink heart, no face, graceful clean silhouette. Refined soft painterly illustration with gentle rubber-like volume, subtle top-left cream highlight, warm coral #f04e23 and blossom pink. Centered, entire object visible, 8% empty padding. Thick even white die-cut border about 3% of image width around the silhouette, faint warm gray shadow attached to border only. Perfectly flat solid white background, no texture, no floor, no other objects. White border must be distinguishable from white background by a thin pale warm-gray outer contour. Original design. No text, letters, numbers, logo, signature or watermark. Output one image only."
+    ],
+    [
+      "hearts",
+      "Square die-cut sticker, one composition of exactly two overlapping plump hearts, one large coral pink heart and one small rose pink heart. Soft painterly illustration midway between flat art and soft rubber 3D, rounded clean shapes, subtle upper-left cream highlights, warm refined adult-friendly palette, no face. Even thick white silhouette border about 3% width and very faint attached warm-gray shadow. Entire composition centered with 8% clear padding, perfectly flat white background and thin pale warm-gray outer contour to distinguish border. No floor or extra decoration. Original, no existing character IP. No text, letters, numbers, logo, signature, watermark."
+    ],
+    [
+      "rose",
+      "Square die-cut sticker of one elegant red rose on a short curved green stem with exactly two leaves, complete flower and stem. Refined soft painterly rounded illustration midway between flat art and rubber 3D, coral red #f04e23 petals, mint #0f8466 foliage, gentle upper-left highlights. Clean silhouette, even thick white sticker border about 3% width with faint attached warm-gray shadow. Center with generous 8% margin. Flat pure white background, thin pale gray outer border contour. No other objects, no face, no floor. Original design; no text, letters, numbers, brand, signature or watermark."
+    ],
+    [
+      "ring",
+      "One square isolated die-cut sticker of a small elegant gold diamond ring, tilted three-quarter view, cream-blue faceted diamond with one tiny sparkle. Soft painterly vector-like illustration with subtle volume, rounded forms, warm yellow #ffc531 gold, top-left highlights. Thick even WHITE STICKER OUTLINE following only the object's silhouette, about 3% image width, tiny soft attached shadow. Centered, fully visible with 10% margin. Background MUST be perfectly uniform solid #ff00ff magenta for chroma key extraction. No frame around the canvas, no floor, no checkerboard, no background texture. Original. No text, letters, numbers, logos or watermark."
+    ],
+    [
+      "sparkle",
+      "One square die-cut sticker: a cluster of exactly three warm gold four-point sparkle stars of different sizes, one large and two small, no face. Refined soft painterly illustration, rounded points, gentle volume, warm yellow #ffc531, upper-left cream highlights. Thick uniform white border following star silhouettes, subtle attached shadow. Centered fully visible with 10% margin on plain white background. No canvas frame, no extra objects, no text, letters, numbers, logo or watermark. Original artwork."
+    ],
+    [
+      "bow",
+      "One square sticker asset: a single elegant coral-red satin bow, two rounded loops and two short hanging ribbon tails. Refined soft painterly illustration between flat art and soft rubber 3D; clean rounded silhouette, subtle upper-left highlights, warm coral #f04e23 and pink shading. Thick even white die-cut silhouette border about 3% width, tiny soft shadow attached. Centered complete with 10% padding on plain white background. No canvas frame, no extra objects, no text, letters, numbers, logos, watermark. Original."
+    ],
+    [
+      "toast",
+      "Square die-cut sticker of exactly two elegant champagne flutes clinking together, pale golden champagne and a few tiny bubbles, stylized opaque cream and pale blue glass highlights rather than photoreal glass. Soft painterly illustration with gentle volume, rounded forms, upper-left lighting, warm yellow #ffc531 and cream palette. Thick even white silhouette sticker border, faint attached shadow. Whole composition centered with 10% empty margin on plain white. Original refined adult-friendly design. No frame, no floor, no text, letters, numbers, logo, watermark."
+    ],
+    [
+      "blossom",
+      "Square original die-cut sticker of one cherry blossom flower viewed face on, exactly five rounded notched petals with pink-to-cream gradient and delicate golden stamens. Soft painterly illustration, gentle rubber-like volume, small top-left highlights, refined clean shapes. Thick even white silhouette border about 3% width with very faint shadow. Centered, complete, 10% padding, plain white background. No branch or other objects, no square frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "crown",
+      "Square original die-cut sticker of one small golden crown with rounded tips, inset coral red and mint green gemstones, no face. Soft painterly rounded illustration between flat art and soft rubber 3D, warm yellow #ffc531, upper-left highlights, refined finish. Thick even white border following crown silhouette, tiny attached shadow. Centered with 10% empty margin, entire object visible, flat white background. No canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "loveletter",
+      "Square die-cut sticker of a single closed cream envelope with a small coral pink heart sealing its flap, no writing or stamp. Soft painterly rounded illustration with gentle soft rubber volume, subtle top-left highlights, cream #fffaf6 and coral #f04e23. Thick even white silhouette border and very faint attached shadow. Entire envelope centered with 10% padding on flat white background. No canvas frame, extra objects, text, letters, numbers, logo, signature or watermark. Original refined design."
+    ],
+    [
+      "cake",
+      "Square original sticker of one refined TWO-TIER birthday cake, cream frosting with coral pink trim, exactly THREE small lit candles. Soft painterly rounded illustration midway between flat and soft rubber 3D, gentle top-left highlights, warm coral #f04e23, yellow #ffc531, mint accents. Thick even white die-cut silhouette outline with faint attached shadow. Entire cake centered with 10% margin on plain white background. No canvas frame, no face, no words on cake. No text, letters, numbers, logos or watermark."
+    ],
+    [
+      "balloons",
+      "Square original die-cut sticker of exactly three balloons tied together with gently curving strings, one coral orange #f04e23, one warm yellow #ffc531, one mint green. Soft painterly rounded illustration with gentle rubber volume and top-left highlights. Thick even white silhouette sticker outline and faint attached shadow. Entire bunch and strings centered with 10% margin, plain white background. No face, no frame, no extra objects, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "popper",
+      "Square original die-cut sticker of one party popper cone spraying a compact celebratory burst of curled ribbons and little confetti pieces. Warm coral #f04e23, yellow #ffc531, mint #0f8466, pink, cream. Refined soft painterly rounded illustration with gentle volume and upper-left highlights. Thick even white silhouette border, faint attached shadow. Complete composition centered within 10% margin, flat white background. No face or frame. No text, letters, numbers, logos or watermark."
+    ],
+    [
+      "partyhat",
+      "Square original die-cut sticker of one striped cone party hat with a round soft pompom on its tip. Coral orange #f04e23 and cream stripes, warm yellow pompom, mint trim. Soft painterly illustration, clean rounded shapes with subtle rubber-like volume, top-left highlights. Thick even white silhouette outline and faint attached shadow. Centered complete with 10% margin on flat white. No person, no face, no canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "gift",
+      "Square original die-cut sticker of one gift box tied with a satin ribbon bow. Warm yellow box #ffc531, coral ribbon #f04e23, refined soft painterly illustration with rounded corners, gentle rubber-like volume and top-left highlights. Thick even white silhouette border with faint attached shadow. Complete single object centered, 10% margin, plain white background. No wrapping text, no tag, no canvas frame, no letters, numbers, logos or watermark."
+    ],
+    [
+      "star",
+      "Square original die-cut sticker of one plump softly rounded FIVE-point star, warm sunny yellow #ffc531, cheerful shape but absolutely NO FACE. Soft painterly illustration with gentle volume and small upper-left cream highlight. Thick even white silhouette border about 3% width and very faint shadow. Entire star centered, 10% empty margin, plain white background. No other objects, no canvas frame, no text, letters, numbers, logo or watermark."
+    ],
+    [
+      "cupcake",
+      "Square original die-cut sticker of one cupcake in a coral pleated paper cup, swirl of cream frosting topped with one small red cherry. Refined soft painterly illustration with rounded shapes and gentle rubber-like volume, upper-left highlights, warm coral #f04e23, cream, golden yellow. Thick even white silhouette outline, tiny attached shadow. Full object centered within 10% margin on plain white. No face, no canvas frame, no text, letters, numbers, logo or watermark."
+    ],
+    [
+      "confetti",
+      "Square original die-cut sticker of one compact floating cluster of curled celebration ribbons and confetti, no container. Three broad flowing curls surrounded by a few little paper discs and diamonds. Warm coral #f04e23, yellow #ffc531, mint #0f8466, blossom pink. Soft painterly rounded illustration, gentle volume, upper-left highlights. Uniform white silhouette border and faint shadow. Entire cluster centered inside 10% margin on plain white. No canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "sunglasses",
+      "Square original die-cut sticker of a single pair of heart-shaped sunglasses, coral pink frames, smoky warm plum lenses with cream upper-left reflections, slightly tilted. Soft painterly rounded illustration with gentle volume, refined playful fashion accessory. Thick even white silhouette border, faint attached shadow. Entire object centered with 10% margin, flat white background. No face, no canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "butterfly",
+      "Square original die-cut sticker of one blue and lavender butterfly, symmetrical open rounded wings, simple cream spots, short curled antennae, no face. Refined soft painterly illustration with gentle rubber-like volume and top-left highlights, pastel blue-purple harmonious with coral, mint and warm yellow. Thick even white silhouette border and faint attached shadow. Complete butterfly centered with 10% margin on flat white. No canvas frame, no extra objects, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "rainbow",
+      "Square original die-cut sticker: a rounded rainbow arch with exactly one small cream cloud at each end. Warm coral orange, yellow, mint, powder blue and lavender bands. Soft painterly illustration with subtle rubber-like volume and upper-left highlights. Thick uniform white silhouette border and faint attached shadow. Complete centered composition with 10% margin on flat white background. No faces, no frame, no extra motifs, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "shootingstar",
+      "Square original die-cut sticker of one rounded golden five-point shooting star with a curved flowing coral-and-yellow comet tail. Soft painterly illustration with gentle volume, warm yellow #ffc531 and coral #f04e23, small top-left highlights. Thick even white silhouette border and faint attached shadow. Entire star and tail centered with 10% margin on flat white. No face, no extra stars, no canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "clover",
+      "Square original die-cut sticker of one four-leaf clover, exactly four plump heart-shaped green leaflets and a short curved stem. Mint #0f8466 and soft sage greens, soft painterly rounded illustration, gentle rubber-like volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Complete centered object with 10% margin on plain white. No face, no canvas frame, no extra objects, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "dino",
+      "Square original die-cut sticker of a round little mint-green dinosaur, full body standing on two short legs, small arms and curved tail, cream belly, small rounded orange back plates, restrained pleasant expression. Not resembling any existing character. Soft painterly rounded illustration with gentle rubber-like volume and top-left highlights. Thick even white silhouette border and faint attached shadow. Entire dinosaur centered with 10% margin, flat white background. No frame, no props, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "rocket",
+      "Square original die-cut sticker of one small cartoon rocket angled upward, rounded cream body, coral nose and fins, circular mint porthole, warm yellow-orange flame at its tail. Soft painterly illustration with gentle rubber-like volume, clean rounded shapes, upper-left highlights. Thick even white silhouette border and faint attached shadow. Entire rocket and flame centered with 10% margin on plain white background. No flags, no face, no canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "unicorn",
+      "Square original die-cut sticker of one cream-white unicorn head in three-quarter profile with a short golden horn and flowing pastel coral-pink, mint and lavender mane. Calm sweet expression, unique original proportions, no resemblance to franchise characters. Soft painterly rounded illustration with gentle volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Head and mane fully visible, centered with 10% margin on plain white. No canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "whale",
+      "Square original die-cut sticker of one plump small blue whale with cream belly and a little three-droplet water spout above its head, whole body including curled tail, tiny friendly eyes. Soft painterly rounded illustration with gentle rubber-like volume, warm powder blue, top-left cream highlights. Thick even white silhouette border and faint attached shadow. Entire composition centered with 10% margin on plain white. No ocean, no frame, no text, letters, numbers, logos or watermark, no known character resemblance."
+    ],
+    [
+      "lollipop",
+      "Square original die-cut sticker of one round rainbow spiral lollipop on a short cream stick. Spiral bands in coral pink, warm yellow, mint, pale blue and lavender. Refined soft painterly rounded illustration with gentle rubber-like volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Complete lollipop centered with 10% padding on plain white. No bow, no face, no canvas frame, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "adventure-dino",
+      "Square game character sprite: ORIGINAL little mint-green dinosaur with cream chest and small coral rounded head plates, FRONT VIEW, big warm brown eyes, happy gentle smile, round face, ONE short paw raised beside its head waving. UPPER BODY ONLY, chest cut straight horizontally near bottom, no legs, head occupies upper two thirds. Soft painterly rounded illustration between flat art and soft rubber 3D, subtle top-left highlight, crisp dark green outline, NO white sticker border. Isolated on perfectly flat #ff00ff magenta background for keying, no floor, shadows or extra objects. Keep head and hand fully inside 8% side/top margin. No existing IP, text, letters, numbers, logos, watermark."
+    ],
+    [
+      "adventure-astronaut",
+      "Square game sprite, original cute small bear astronaut, NOT a human: round tan face, large warm brown eyes and gentle happy smile inside a clear bubble helmet with simple pale blue reflection, cream spacesuit with coral and mint accents, one gloved paw raised waving. FRONT VIEW upper body only, chest cut horizontally at bottom, head in upper two thirds, no legs. Soft painterly rounded illustration, gentle rubber-like volume, top-left light, crisp warm brown contour, NO white sticker border. Complete helmet and hand inside 8% margin on perfectly flat #ff00ff magenta background. No real agency insignia, no flags, no text, letters, numbers, logos, watermark or existing IP."
+    ],
+    [
+      "adventure-dragon",
+      "Square game sprite: original little coral-red dragon with tiny rounded horns and two little wings, cream chest, round face, big brown eyes, happy gentle smile, one paw raised waving. FRONT VIEW, upper body chest-up only, bottom cut horizontally, head fills upper two thirds, no legs. Soft painterly rounded illustration, subtle rubber volume, top-left lighting, clear dark warm contour, no white sticker border. Whole head, wings and waving hand visible with 8% side/top padding on perfectly flat #ff00ff magenta. No scenery, no existing character IP, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "adventure-unicorn",
+      "Square game sprite of an ORIGINAL small cream-white unicorn, front-facing round face, large warm brown eyes, gentle happy smile, pastel coral, mint and lavender mane and short golden horn, ONE forehoof raised waving. Chest-up upper body only, horizontal crop through chest at bottom, no legs or hindquarters; head upper two thirds. Soft painterly rounded illustration with subtle rubber volume, top-left light, clear warm brown contour, NO white border. Keep horn, ears and hoof fully in frame with 8% margin. Flat solid #ff00ff magenta background, no scenery. No existing IP resemblance, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "adventure-whale",
+      "Square game sprite: original small blue whale facing directly forward, round broad face and big warm brown eyes, gentle happy smile, little water spout on top, cream chest, ONE side flipper raised waving. Upper body only, horizontally cut through chest at bottom, no tail, head occupies upper two thirds. Soft painterly rounded illustration, subtle rubber-like volume, upper-left highlight, clear dark blue outline, NO white border. All upper features and flipper visible within 8% margin. Perfect flat #ff00ff magenta background for removal. No ocean or props, no existing IP, no text, letters, numbers, logo or watermark."
+    ],
+    [
+      "adventure-fairy",
+      "Square game sprite: original little cream rabbit fairy wearing a small coral-and-yellow flower wreath, delicate pale mint translucent-looking wings rendered with solid pale colors, big brown eyes, round face, happy smile, one paw waving. Front view, upper body only, chest cut straight at bottom, head upper two thirds, no legs. Soft painterly rounded illustration with gentle rubber volume, upper-left highlight, clear warm brown contour, NO white sticker border. Ears, wings and paw fully visible with 8% side/top margin on flat #ff00ff magenta. No wand or scenery, no existing IP, no text, letters, numbers, logos or watermark."
+    ],
+    [
+      "career-firetruck",
+      "Square game sprite: ORIGINAL anthropomorphic small coral-red fire engine, FRONT VIEW rounded cab with big friendly brown eyes in windshield and gentle smiling grille, short ladder visible behind roof, one simple mechanical mitten arm raised waving. Upper front cab only, lower body cropped horizontally at bottom, no road. Soft painterly rounded illustration with gentle rubber volume, cream and warm yellow details, upper-left light, crisp warm dark contour, NO white border. Centered complete roof and hand with 8% side/top margin on perfectly flat #ff00ff magenta. No badges, text, letters, numbers, logos, watermark or resemblance to movie vehicles."
+    ],
+    [
+      "career-plane",
+      "Square original game sprite of a friendly white anthropomorphic airplane viewed exactly head-on, big warm brown eyes and happy smile, one wing lifted waving. Chest-up equivalent with lower fuselage cut horizontally at bottom, face upper two thirds, complete wings within 8 percent margins. Soft rounded painterly illustration with subtle rubber volume, warm coral and mint accents, upper-left lighting, crisp colored contour, no white sticker border. Flat magenta #ff00ff background. No text, letters, digits, logos, watermark, scenery or existing character IP."
+    ],
+    [
+      "career-scientist",
+      "Square original game character sprite, cute raccoon scientist in white lab coat and transparent safety goggles, front facing round head, big happy brown eyes, gently smiling, ONE raised paw holding an unmarked test tube of mint liquid as greeting. Chest-up portrait, torso cut straight horizontally at bottom, no legs, complete head and hand inside 8 percent margins. Warm rounded soft painterly illustration between flat and soft rubber 3D, top left light, fine colored contour, no white sticker outline. Perfect solid magenta #ff00ff background. No text, letters, numbers, logos, watermark, scenery or existing IP."
+    ],
+    [
+      "career-police",
+      "Square original cute anthropomorphic blue-and-cream police car game sprite, front view, large kind brown eyes on windshield and happy smile on hood, one little mechanical mitten raised waving. Plain blue roof lamps, absolutely no badge or insignia. Upper half of car only, lower body cut horizontally at bottom. Soft rounded painterly illustration with gentle rubber volume and top-left highlight, clean blue contour, warm cream details, no white sticker border. Complete silhouette with 8 percent side/top margins, solid flat magenta background. No text, letters, digits, brands, watermark or existing IP."
+    ],
+    [
+      "career-doctor",
+      "Square original game sprite of a warm honey-brown little bear doctor wearing a cream coat and mint stethoscope, front facing happy round face and large brown eyes, ONE paw raised waving. Chest up only, torso cut horizontally at bottom, no legs. Rounded soft painterly illustration, subtle soft rubber volume not realistic fur, top left light, crisp colored contours, NO white outline. Head and paw fully inside 8 percent margins, flat #ff00ff magenta backdrop. No medical cross, badges, text, letters, numbers, logo, watermark or existing IP."
+    ],
+    [
+      "career-train",
+      "Square original cute green anthropomorphic steam locomotive game sprite, exactly head-on, rounded mint-green engine with brass trim, large friendly brown eyes integrated into green front, happy gentle smile, small chimney, ONE little mitten arm waving. Upper half only, base cut straight horizontally for hiding behind a window, no rails or scene. Soft painterly rounded illustration, gentle rubber volume and top-left highlights, clear darker green contour, no white border. Entire silhouette within 8 percent margins on plain magenta #ff00ff. No text, digits, letters, logos, watermark, or resemblance to any existing train character."
+    ],
+    [
+      "animal-cat",
+      "Square original cute orange tabby cat game sprite, front facing, round face and big warm brown eyes, happy gentle smile, ONE paw raised waving. Chest up only, torso cut in a perfectly horizontal line at lower edge, no legs, head occupying upper two thirds. Soft painterly rounded illustration with subtle soft rubber volume, simplified fur, warm cream muzzle and coral cheeks, top-left highlights, fine orange contour, no white sticker border. Complete ears and paw with 8 percent side/top margins. Solid flat magenta #ff00ff background, no text, letters, digits, logos, watermark or existing IP."
+    ],
+    [
+      "animal-dog",
+      "Square original game sprite, cheerful Shiba-like small dog with warm tan and cream coat, front facing round face, big brown eyes and gentle smile, ONE paw raised waving. Chest-up only, torso horizontally truncated, no legs, face upper two thirds. Simplified rounded painterly illustration with subtle rubber-like volume, top-left light, crisp brown contour, no white sticker outline. Whole ears and paw within 8 percent margins on solid flat #ff00ff magenta. No text, letters, digits, logos, watermark, clothing or existing IP."
+    ],
+    [
+      "animal-rabbit",
+      "Square original game sprite, happy ivory-white rabbit with pink inner ears, round face big warm brown eyes, ONE paw raised waving. Front-facing chest-up portrait, straight horizontal cut across lower chest, no legs. Whole ears and paw inside 8 percent top/side margins. Soft rounded painterly illustration with subtle rubber-like volume, gentle top-left highlights and warm gray clear contour, no white sticker border. Perfectly flat magenta #ff00ff background. No clothing, text, letters, digits, logos, watermark, scenery or recognizable existing IP."
+    ],
+    [
+      "animal-panda",
+      "Square original game sprite, cheerful round panda with cream and charcoal-gray fur NOT pure black, front view, large kind brown eyes, happy gentle smile, ONE paw raised waving. Chest-up only, lower torso cut horizontally, no legs. Whole ears and paw with 8 percent side/top margins. Warm soft painterly rounded illustration between flat and soft rubber volume, top-left light, clear colored contour, NO white sticker border. Perfect solid magenta #ff00ff background. No clothing, text, letters, numbers, logos, watermark or existing character IP."
+    ],
+    [
+      "animal-fox",
+      "Square original game sprite of a small coral-orange fox with cream cheeks and chest, front facing round face, big kind brown eyes and happy smile, ONE paw raised waving. Chest-up portrait only, lower chest cut straight horizontally, no legs. Complete ears and paw inside 8 percent margins. Soft rounded painterly illustration, subtle rubber-like volume and top-left highlights, clean colored contour NO white sticker border. Flat solid magenta #ff00ff background. No clothing, text, letters, numbers, logos, watermark or existing character IP."
+    ],
+    [
+      "animal-penguin",
+      "Square original game sprite of a cheerful little penguin with charcoal-blue back and cream face/chest, small warm orange beak, big brown eyes and gentle smile, front facing, ONE flipper lifted waving. Chest-up only, torso cut straight horizontally at bottom, no legs. Rounded soft painterly illustration with gentle rubber volume, top-left highlights, crisp blue contour, NO white sticker border. Entire head and flipper within 8 percent margins on perfectly solid #ff00ff magenta background. No clothing, text, letters, digits, logos, watermark or existing character IP."
+    ],
+    [
+      "studio",
+      "Square isolated original illustration for an AI photo studio waiting screen: one small warm wooden easel holding a cream canvas with ONLY three fresh loose daubs of coral, yellow and mint paint, mostly blank. One floating paintbrush diagonally beside it and three small warm gold four-point sparkles. No room or floor. Entire composition centered with generous 10 percent margins. Soft painterly rounded shapes, gentle rubber-like volume, clean contour, upper-left light, bright refined warm palette. Transparent background, no white sticker border. No text, letters, numbers, signatures, watermark, logos or existing IP."
+    ],
+    [
+      "fortune-tube",
+      "A clean isolated original game illustration, portrait 2:3. Red lacquer cylindrical fortune-stick holder with simple gold rim and foot. Exactly seven bamboo sticks with red painted tips fanning from opening. Center entire object with 8 percent margins. Soft rounded painterly illustration with restrained warm top-left light. Background is PERFECTLY FLAT PURE MAGENTA #ff00ff edge to edge for chroma key, with NO glow, NO bloom, NO shadow, NO vignette, NO aura around object. Hard clean silhouette edge, no white border. Cylinder and sticks have absolutely no writing, symbols, letters, numbers, logos or watermark."
+    ],
+    [
+      "card-back",
+      "Portrait 3:4 full-bleed opaque playing-card back, coral orange #f04e23 background evenly filled with a refined tiny cream four-point-star and dot pattern. In the exact center a warm cream circular medallion holding a simple mint-and-coral camera icon with one round lens, no branding. Rounded soft painterly illustration with subtle volume and gentle top-left highlight, clean and sophisticated playful photo-booth visual identity. Flat straight-on graphic, no perspective, no mockup, no outer white margin, no drop shadow, background fills every corner. No text, letters, numbers, signatures, logos or watermark."
+    ],
+    [
+      "fortune-general",
+      "Portrait 3:4 opaque blank fortune paper template, full bleed warm-white #fffaf6 rice-paper surface with very subtle fine natural fibers. Elegant thin VERMILION DOUBLE-LINE rectangular border inset 4 percent. A SMALL round auspicious stylized cloud medallion centered at top inside top 14 percent, pale golden cloud wisps restricted to bottom 10 percent. The whole CENTRAL SIXTY PERCENT must be completely empty clean paper reserved for overlay content. Restrained refined warm painterly illustration, gentle top-left highlights only on ornaments. Straight-on flat graphic, no perspective, no mockup, no page shadow. Absolutely no text, Chinese characters, calligraphy, letters, numbers, stamps, logos, signature or watermark."
+    ],
+    [
+      "fortune-together",
+      "Portrait 3:4 full-bleed opaque blank fortune paper template for couples, warm-white #fffaf6 rice paper subtle fibers. Fine DOUBLE rectangular border, outer rose pink and inner warm gold, inset 4 percent. At top center TWO SMALL interlocking golden circular rings, confined to top 14 percent. Small restrained pink cherry blossoms only at four extreme corners. CENTRAL SIXTY PERCENT entirely empty clean warm-white paper for frontend text overlay. Elegant delicate soft painterly style with subtle rounded volume and top-left highlights on ornaments. Straight-on flat graphic, no perspective or mockup. No words, Chinese characters, letters, digits, stamps, logos, signatures or watermark."
+    ],
+    [
+      "fortune-celebration",
+      "Portrait 3:4 full-bleed opaque blank celebratory fortune paper template, warm-white #fffaf6 rice paper with fine subtle fibers. Elegant thin GOLD DOUBLE-LINE rectangular border inset 4 percent. One SMALL warm golden firework ornament centered in top 14 percent. Sparse small coral, mint and warm yellow confetti curls and dots confined to extreme corners. CENTRAL SIXTY PERCENT completely empty clean paper reserved for text overlay. Refined soft painterly graphic with slight rounded volume and top-left highlights, warm cheerful palette. Flat straight-on no perspective or mockup. No text, Chinese characters, letters, digits, logos, signatures, stamps or watermark."
+    ]
+  ],
+  "assets": [
+    {
+      "id": "heart",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Create one square production sticker asset: a single plump coral-pink heart, no face, graceful clean silhouette. Refined soft painterly illustration with gentle rubber-like volume, subtle top-left cream highlight, warm coral #f04e23 and blossom pink. Centered, entire object visible, 8% empty padding. Thick even white die-cut border about 3% of image width around the silhouette, faint warm gray shadow attached to border only. Perfectly flat solid white background, no texture, no floor, no other objects. White border must be distinguishable from white background by a thin pale warm-gray outer contour. Original design. No text, letters, numbers, logo, signature or watermark. Output one image only.",
+          "callId": "call_KJtOo69UUtW0op7l93X3K4hl",
+          "source": "assets/wait-source-originals/heart-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "6c83b791fed087170c2f08c47743875ae153b050fafdad949d44ecf3b4c848b2",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/heart.png",
+      "prompt": "Create one square production sticker asset: a single plump coral-pink heart, no face, graceful clean silhouette. Refined soft painterly illustration with gentle rubber-like volume, subtle top-left cream highlight, warm coral #f04e23 and blossom pink. Centered, entire object visible, 8% empty padding. Thick even white die-cut border about 3% of image width around the silhouette, faint warm gray shadow attached to border only. Perfectly flat solid white background, no texture, no floor, no other objects. White border must be distinguishable from white background by a thin pale warm-gray outer contour. Original design. No text, letters, numbers, logo, signature or watermark. Output one image only.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 45,
+          "top": 127,
+          "width": 1161,
+          "height": 1018
+        },
+        "placement": {
+          "left": 41,
+          "top": 67,
+          "width": 430,
+          "height": 377
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "2af0dabb8462e381eaa0c72920d89169fc29bfc674229955ada03a30e8cf7636",
+      "bytes": 224311,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5089225769042969,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "hearts",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square die-cut sticker, one composition of exactly two overlapping plump hearts, one large coral pink heart and one small rose pink heart. Soft painterly illustration midway between flat art and soft rubber 3D, rounded clean shapes, subtle upper-left cream highlights, warm refined adult-friendly palette, no face. Even thick white silhouette border about 3% width and very faint attached warm-gray shadow. Entire composition centered with 8% clear padding, perfectly flat white background and thin pale warm-gray outer contour to distinguish border. No floor or extra decoration. Original, no existing character IP. No text, letters, numbers, logo, signature, watermark.",
+          "callId": "call_nsilDzToeWQ5QHrEdFZ2S8IU",
+          "source": "assets/wait-source-originals/hearts-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "e68cf82fd89b9c02606d7963bf5cd5d401c79b00d4412f9dee73f4c7bffc0c63",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/hearts.png",
+      "prompt": "Square die-cut sticker, one composition of exactly two overlapping plump hearts, one large coral pink heart and one small rose pink heart. Soft painterly illustration midway between flat art and soft rubber 3D, rounded clean shapes, subtle upper-left cream highlights, warm refined adult-friendly palette, no face. Even thick white silhouette border about 3% width and very faint attached warm-gray shadow. Entire composition centered with 8% clear padding, perfectly flat white background and thin pale warm-gray outer contour to distinguish border. No floor or extra decoration. Original, no existing character IP. No text, letters, numbers, logo, signature, watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 49,
+          "top": 169,
+          "width": 1173,
+          "height": 923
+        },
+        "placement": {
+          "left": 41,
+          "top": 87,
+          "width": 430,
+          "height": 338
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "9c4d1e7e30cd2a407e274711abee228564cbc0d66f2ee715e9197c54512a850c",
+      "bytes": 218724,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.48488616943359375,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "rose",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square die-cut sticker of one elegant red rose on a short curved green stem with exactly two leaves, complete flower and stem. Refined soft painterly rounded illustration midway between flat art and rubber 3D, coral red #f04e23 petals, mint #0f8466 foliage, gentle upper-left highlights. Clean silhouette, even thick white sticker border about 3% width with faint attached warm-gray shadow. Center with generous 8% margin. Flat pure white background, thin pale gray outer border contour. No other objects, no face, no floor. Original design; no text, letters, numbers, brand, signature or watermark.",
+          "callId": "call_Ani0hKDPksiN6lB99XWR5u1K",
+          "source": "assets/wait-source-originals/rose-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "2940e67f3fad1fed24a365ce36aa498c43785d453bea704b53dd66797ed45b74",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/rose.png",
+      "prompt": "Square die-cut sticker of one elegant red rose on a short curved green stem with exactly two leaves, complete flower and stem. Refined soft painterly rounded illustration midway between flat art and rubber 3D, coral red #f04e23 petals, mint #0f8466 foliage, gentle upper-left highlights. Clean silhouette, even thick white sticker border about 3% width with faint attached warm-gray shadow. Center with generous 8% margin. Flat pure white background, thin pale gray outer border contour. No other objects, no face, no floor. Original design; no text, letters, numbers, brand, signature or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 247,
+          "top": 112,
+          "width": 766,
+          "height": 1045
+        },
+        "placement": {
+          "left": 98,
+          "top": 41,
+          "width": 315,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "a1949620a136e0620939076cafd4fb1436d897cf6d29983dd0da28004693fb27",
+      "bytes": 255904,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.401153564453125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "ring",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "One square isolated die-cut sticker of a small elegant gold diamond ring, tilted three-quarter view, cream-blue faceted diamond with one tiny sparkle. Soft painterly vector-like illustration with subtle volume, rounded forms, warm yellow #ffc531 gold, top-left highlights. Thick even WHITE STICKER OUTLINE following only the object's silhouette, about 3% image width, tiny soft attached shadow. Centered, fully visible with 10% margin. Background MUST be perfectly uniform solid #ff00ff magenta for chroma key extraction. No frame around the canvas, no floor, no checkerboard, no background texture. Original. No text, letters, numbers, logos or watermark.",
+          "callId": "call_49iI5JBLhaq6uPK6o5pwJ70e",
+          "source": "assets/wait-source-originals/ring-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "1cec7533afc520bcf5e77c31fb217b8a556a95d778d8f816654312d74d02ba9f",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/ring.png",
+      "prompt": "One square isolated die-cut sticker of a small elegant gold diamond ring, tilted three-quarter view, cream-blue faceted diamond with one tiny sparkle. Soft painterly vector-like illustration with subtle volume, rounded forms, warm yellow #ffc531 gold, top-left highlights. Thick even WHITE STICKER OUTLINE following only the object's silhouette, about 3% image width, tiny soft attached shadow. Centered, fully visible with 10% margin. Background MUST be perfectly uniform solid #ff00ff magenta for chroma key extraction. No frame around the canvas, no floor, no checkerboard, no background texture. Original. No text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 278,
+          "top": 177,
+          "width": 705,
+          "height": 878
+        },
+        "placement": {
+          "left": 83,
+          "top": 41,
+          "width": 345,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "2554704608e70c2b2028bf75d9ea3c2d1419482c053e0a50d2e98f9af1c5d8db",
+      "bytes": 224413,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.35919189453125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "sparkle",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "One square die-cut sticker: a cluster of exactly three warm gold four-point sparkle stars of different sizes, one large and two small, no face. Refined soft painterly illustration, rounded points, gentle volume, warm yellow #ffc531, upper-left cream highlights. Thick uniform white border following star silhouettes, subtle attached shadow. Centered fully visible with 10% margin on plain white background. No canvas frame, no extra objects, no text, letters, numbers, logo or watermark. Original artwork.",
+          "callId": "call_pJQENpRREcx6oXiGl7wVQFAQ",
+          "source": "assets/wait-source-originals/sparkle-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "d52b17b4c2b8a08e6a0a53a313f39298135b21b9acfbc77613a649db6dfac559",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/sparkle.png",
+      "prompt": "One square die-cut sticker: a cluster of exactly three warm gold four-point sparkle stars of different sizes, one large and two small, no face. Refined soft painterly illustration, rounded points, gentle volume, warm yellow #ffc531, upper-left cream highlights. Thick uniform white border following star silhouettes, subtle attached shadow. Centered fully visible with 10% margin on plain white background. No canvas frame, no extra objects, no text, letters, numbers, logo or watermark. Original artwork.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 115,
+          "top": 145,
+          "width": 998,
+          "height": 959
+        },
+        "placement": {
+          "left": 41,
+          "top": 49,
+          "width": 430,
+          "height": 413
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "cdd0414892065f27b85c9df03b2f46b9ea92a58b5a7b0d8fce0f5a3d4eb9240c",
+      "bytes": 204318,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4107666015625,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "bow",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "One square sticker asset: a single elegant coral-red satin bow, two rounded loops and two short hanging ribbon tails. Refined soft painterly illustration between flat art and soft rubber 3D; clean rounded silhouette, subtle upper-left highlights, warm coral #f04e23 and pink shading. Thick even white die-cut silhouette border about 3% width, tiny soft shadow attached. Centered complete with 10% padding on plain white background. No canvas frame, no extra objects, no text, letters, numbers, logos, watermark. Original.",
+          "callId": "call_JTCHMUu03VKmmUNnnIoXDxXq",
+          "source": "assets/wait-source-originals/bow-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "033fc5a132aefe0c3b2f5fcaa7a93cb77205d41043a840d8c5d0577df5ed61f6",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/bow.png",
+      "prompt": "One square sticker asset: a single elegant coral-red satin bow, two rounded loops and two short hanging ribbon tails. Refined soft painterly illustration between flat art and soft rubber 3D; clean rounded silhouette, subtle upper-left highlights, warm coral #f04e23 and pink shading. Thick even white die-cut silhouette border about 3% width, tiny soft shadow attached. Centered complete with 10% padding on plain white background. No canvas frame, no extra objects, no text, letters, numbers, logos, watermark. Original.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 82,
+          "top": 159,
+          "width": 1091,
+          "height": 933
+        },
+        "placement": {
+          "left": 41,
+          "top": 72,
+          "width": 430,
+          "height": 368
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "ca750da76416040216e07168a227ce0e52473f8ca9554ad7a6fa441da7ce122f",
+      "bytes": 249343,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.47573089599609375,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "toast",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square die-cut sticker of exactly two elegant champagne flutes clinking together, pale golden champagne and a few tiny bubbles, stylized opaque cream and pale blue glass highlights rather than photoreal glass. Soft painterly illustration with gentle volume, rounded forms, upper-left lighting, warm yellow #ffc531 and cream palette. Thick even white silhouette sticker border, faint attached shadow. Whole composition centered with 10% empty margin on plain white. Original refined adult-friendly design. No frame, no floor, no text, letters, numbers, logo, watermark.",
+          "callId": "call_QAH8y1RqGjmFSgl90ur7lDRo",
+          "source": "assets/wait-source-originals/toast-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "b4194218e4f1a252ef1551693d1167a38d62d3e05957f0d873c1672d042abca8",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/toast.png",
+      "prompt": "Square die-cut sticker of exactly two elegant champagne flutes clinking together, pale golden champagne and a few tiny bubbles, stylized opaque cream and pale blue glass highlights rather than photoreal glass. Soft painterly illustration with gentle volume, rounded forms, upper-left lighting, warm yellow #ffc531 and cream palette. Thick even white silhouette sticker border, faint attached shadow. Whole composition centered with 10% empty margin on plain white. Original refined adult-friendly design. No frame, no floor, no text, letters, numbers, logo, watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 146,
+          "top": 55,
+          "width": 967,
+          "height": 1109
+        },
+        "placement": {
+          "left": 68,
+          "top": 41,
+          "width": 375,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "dec362e9a7474f002102d99eee6183d7ee9055e6c66598da9cea5b4c860034b8",
+      "bytes": 202890,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3548736572265625,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "blossom",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one cherry blossom flower viewed face on, exactly five rounded notched petals with pink-to-cream gradient and delicate golden stamens. Soft painterly illustration, gentle rubber-like volume, small top-left highlights, refined clean shapes. Thick even white silhouette border about 3% width with very faint shadow. Centered, complete, 10% padding, plain white background. No branch or other objects, no square frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_47Nfu2G96md1ZeQOYRwpGgFd",
+          "source": "assets/wait-source-originals/blossom-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "dfeba8523c72a53171003c9fb6d55815375deb2421f14a8ead7d04cb2a713f15",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/blossom.png",
+      "prompt": "Square original die-cut sticker of one cherry blossom flower viewed face on, exactly five rounded notched petals with pink-to-cream gradient and delicate golden stamens. Soft painterly illustration, gentle rubber-like volume, small top-left highlights, refined clean shapes. Thick even white silhouette border about 3% width with very faint shadow. Centered, complete, 10% padding, plain white background. No branch or other objects, no square frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 57,
+          "top": 89,
+          "width": 1138,
+          "height": 1062
+        },
+        "placement": {
+          "left": 41,
+          "top": 55,
+          "width": 430,
+          "height": 401
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "261aceaf4c50921f4d4726ec8bf9dfad8f77e74d6db683bfd3bbfa1451f51730",
+      "bytes": 272129,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5117301940917969,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "crown",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one small golden crown with rounded tips, inset coral red and mint green gemstones, no face. Soft painterly rounded illustration between flat art and soft rubber 3D, warm yellow #ffc531, upper-left highlights, refined finish. Thick even white border following crown silhouette, tiny attached shadow. Centered with 10% empty margin, entire object visible, flat white background. No canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_usbHNO7R0N5VuRsLMu2XUEfk",
+          "source": "assets/wait-source-originals/crown-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "9c987d89bb44f8d2bffecafc1e03d0e402c9169726508b27743da51317f58bfc",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/crown.png",
+      "prompt": "Square original die-cut sticker of one small golden crown with rounded tips, inset coral red and mint green gemstones, no face. Soft painterly rounded illustration between flat art and soft rubber 3D, warm yellow #ffc531, upper-left highlights, refined finish. Thick even white border following crown silhouette, tiny attached shadow. Centered with 10% empty margin, entire object visible, flat white background. No canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 63,
+          "top": 195,
+          "width": 1128,
+          "height": 811
+        },
+        "placement": {
+          "left": 41,
+          "top": 101,
+          "width": 430,
+          "height": 309
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "01a4116ca6d21c46a0a9a21ebbb8c13bc650bb51d18819e0c9616e7485ed22d6",
+      "bytes": 235523,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.40915679931640625,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "loveletter",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square die-cut sticker of a single closed cream envelope with a small coral pink heart sealing its flap, no writing or stamp. Soft painterly rounded illustration with gentle soft rubber volume, subtle top-left highlights, cream #fffaf6 and coral #f04e23. Thick even white silhouette border and very faint attached shadow. Entire envelope centered with 10% padding on flat white background. No canvas frame, extra objects, text, letters, numbers, logo, signature or watermark. Original refined design.",
+          "callId": "call_9ZuUi8yMWw6MvanSyMkIIjB8",
+          "source": "assets/wait-source-originals/loveletter-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "aba097160f0a1cbfe9c5508ba47b87c01648abca762b46ca1499d3cb99cb8911",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/loveletter.png",
+      "prompt": "Square die-cut sticker of a single closed cream envelope with a small coral pink heart sealing its flap, no writing or stamp. Soft painterly rounded illustration with gentle soft rubber volume, subtle top-left highlights, cream #fffaf6 and coral #f04e23. Thick even white silhouette border and very faint attached shadow. Entire envelope centered with 10% padding on flat white background. No canvas frame, extra objects, text, letters, numbers, logo, signature or watermark. Original refined design.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 95,
+          "top": 209,
+          "width": 1067,
+          "height": 843
+        },
+        "placement": {
+          "left": 41,
+          "top": 86,
+          "width": 430,
+          "height": 340
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "6867d698cd0a022622757d9dd0c6ce76b1fe5eb567841df46724962c05c9f36d",
+      "bytes": 198738,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5830307006835938,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "cake",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original sticker of one refined TWO-TIER birthday cake, cream frosting with coral pink trim, exactly THREE small lit candles. Soft painterly rounded illustration midway between flat and soft rubber 3D, gentle top-left highlights, warm coral #f04e23, yellow #ffc531, mint accents. Thick even white die-cut silhouette outline with faint attached shadow. Entire cake centered with 10% margin on plain white background. No canvas frame, no face, no words on cake. No text, letters, numbers, logos or watermark.",
+          "callId": "call_p0fRukb9m9liLmCRIy2R24CD",
+          "source": "assets/wait-source-originals/cake-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "9b051b462f2f6a8b9c39efb26a049636f757b468c685ee63f17726afb8bfd5d0",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/cake.png",
+      "prompt": "Square original sticker of one refined TWO-TIER birthday cake, cream frosting with coral pink trim, exactly THREE small lit candles. Soft painterly rounded illustration midway between flat and soft rubber 3D, gentle top-left highlights, warm coral #f04e23, yellow #ffc531, mint accents. Thick even white die-cut silhouette outline with faint attached shadow. Entire cake centered with 10% margin on plain white background. No canvas frame, no face, no words on cake. No text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "edge-connected white flood fill",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 138,
+          "top": 57,
+          "width": 981,
+          "height": 1138
+        },
+        "placement": {
+          "left": 70,
+          "top": 41,
+          "width": 371,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 14,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "15bbbb682b94b845f491559be886a49de559fdea1922f5af24eea72f9c42467f",
+      "bytes": 289603,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.53173828125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "balloons",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of exactly three balloons tied together with gently curving strings, one coral orange #f04e23, one warm yellow #ffc531, one mint green. Soft painterly rounded illustration with gentle rubber volume and top-left highlights. Thick even white silhouette sticker outline and faint attached shadow. Entire bunch and strings centered with 10% margin, plain white background. No face, no frame, no extra objects, no text, letters, numbers, logos or watermark.",
+          "callId": "call_0yO9OY13UtUzGJeW1DQb05ML",
+          "source": "assets/wait-source-originals/balloons-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "cdfdbe8b525544e922ec4414805f4eb7b8c75a05075f6acb592d99facde3b97e",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/balloons.png",
+      "prompt": "Square original die-cut sticker of exactly three balloons tied together with gently curving strings, one coral orange #f04e23, one warm yellow #ffc531, one mint green. Soft painterly rounded illustration with gentle rubber volume and top-left highlights. Thick even white silhouette sticker outline and faint attached shadow. Entire bunch and strings centered with 10% margin, plain white background. No face, no frame, no extra objects, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 190,
+          "top": 45,
+          "width": 871,
+          "height": 1140
+        },
+        "placement": {
+          "left": 91,
+          "top": 41,
+          "width": 329,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "a34da98b3b1f1204c68d2e528d349174e430f970ca6017975aa65c07adae9bfd",
+      "bytes": 187728,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3302268981933594,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "popper",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one party popper cone spraying a compact celebratory burst of curled ribbons and little confetti pieces. Warm coral #f04e23, yellow #ffc531, mint #0f8466, pink, cream. Refined soft painterly rounded illustration with gentle volume and upper-left highlights. Thick even white silhouette border, faint attached shadow. Complete composition centered within 10% margin, flat white background. No face or frame. No text, letters, numbers, logos or watermark.",
+          "callId": "call_zcZfNvHcsSLqZqVvj06cDzNB",
+          "source": "assets/wait-source-originals/popper-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "239462a94d09d6687bbe89148d71e51b2d7ec4b228fe6c83a4dcffadb294f271",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/popper.png",
+      "prompt": "Square original die-cut sticker of one party popper cone spraying a compact celebratory burst of curled ribbons and little confetti pieces. Warm coral #f04e23, yellow #ffc531, mint #0f8466, pink, cream. Refined soft painterly rounded illustration with gentle volume and upper-left highlights. Thick even white silhouette border, faint attached shadow. Complete composition centered within 10% margin, flat white background. No face or frame. No text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 174,
+          "top": 57,
+          "width": 959,
+          "height": 1120
+        },
+        "placement": {
+          "left": 72,
+          "top": 41,
+          "width": 368,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "b7f2491356b7adef8e64d3fe93cc4bd9c699f29d6a7629f462956e23ff10cd21",
+      "bytes": 226611,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.38837432861328125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "partyhat",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one striped cone party hat with a round soft pompom on its tip. Coral orange #f04e23 and cream stripes, warm yellow pompom, mint trim. Soft painterly illustration, clean rounded shapes with subtle rubber-like volume, top-left highlights. Thick even white silhouette outline and faint attached shadow. Centered complete with 10% margin on flat white. No person, no face, no canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_0CZK5U8ft2kejM9MbumiBRsH",
+          "source": "assets/wait-source-originals/partyhat-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "af053eef60009de926cc03b5d1097f84f1b119b41eb472d86605d90596baea74",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/partyhat.png",
+      "prompt": "Square original die-cut sticker of one striped cone party hat with a round soft pompom on its tip. Coral orange #f04e23 and cream stripes, warm yellow pompom, mint trim. Soft painterly illustration, clean rounded shapes with subtle rubber-like volume, top-left highlights. Thick even white silhouette outline and faint attached shadow. Centered complete with 10% margin on flat white. No person, no face, no canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 192,
+          "top": 48,
+          "width": 857,
+          "height": 1157
+        },
+        "placement": {
+          "left": 96,
+          "top": 41,
+          "width": 319,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "7fce0bffb870db7f43315d4b5f1f6fbeccb4c26d3cace354796ca408dd1707fe",
+      "bytes": 211248,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3521842956542969,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "gift",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one gift box tied with a satin ribbon bow. Warm yellow box #ffc531, coral ribbon #f04e23, refined soft painterly illustration with rounded corners, gentle rubber-like volume and top-left highlights. Thick even white silhouette border with faint attached shadow. Complete single object centered, 10% margin, plain white background. No wrapping text, no tag, no canvas frame, no letters, numbers, logos or watermark.",
+          "callId": "call_orPhPv4N4SZhkAmOoBH9zXy5",
+          "source": "assets/wait-source-originals/gift-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "33353cb867a0378ee55b288ceb8b3377bad194b72a25f22bcf7b9e5f79b66977",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/gift.png",
+      "prompt": "Square original die-cut sticker of one gift box tied with a satin ribbon bow. Warm yellow box #ffc531, coral ribbon #f04e23, refined soft painterly illustration with rounded corners, gentle rubber-like volume and top-left highlights. Thick even white silhouette border with faint attached shadow. Complete single object centered, 10% margin, plain white background. No wrapping text, no tag, no canvas frame, no letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 97,
+          "top": 102,
+          "width": 1061,
+          "height": 1057
+        },
+        "placement": {
+          "left": 41,
+          "top": 42,
+          "width": 430,
+          "height": 428
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "80279b3915845880c81d937147353445bbac32f289bda5df91359c3e35803ca3",
+      "bytes": 331290,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5977249145507812,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "star",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one plump softly rounded FIVE-point star, warm sunny yellow #ffc531, cheerful shape but absolutely NO FACE. Soft painterly illustration with gentle volume and small upper-left cream highlight. Thick even white silhouette border about 3% width and very faint shadow. Entire star centered, 10% empty margin, plain white background. No other objects, no canvas frame, no text, letters, numbers, logo or watermark.",
+          "callId": "call_I4KUN6G416ZjZ9KJ36nCPECV",
+          "source": "assets/wait-source-originals/star-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "52b82383210163e83bc6e434e378cc39ad1b3a2f759ec3fd85343c992deab968",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/star.png",
+      "prompt": "Square original die-cut sticker of one plump softly rounded FIVE-point star, warm sunny yellow #ffc531, cheerful shape but absolutely NO FACE. Soft painterly illustration with gentle volume and small upper-left cream highlight. Thick even white silhouette border about 3% width and very faint shadow. Entire star centered, 10% empty margin, plain white background. No other objects, no canvas frame, no text, letters, numbers, logo or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 93,
+          "top": 109,
+          "width": 1070,
+          "height": 1018
+        },
+        "placement": {
+          "left": 41,
+          "top": 51,
+          "width": 430,
+          "height": 409
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "2c12253e473f77acd34c0cea6362dba6b10f8160c94c7e6b65e9ecd938d5379f",
+      "bytes": 209108,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4857749938964844,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "cupcake",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one cupcake in a coral pleated paper cup, swirl of cream frosting topped with one small red cherry. Refined soft painterly illustration with rounded shapes and gentle rubber-like volume, upper-left highlights, warm coral #f04e23, cream, golden yellow. Thick even white silhouette outline, tiny attached shadow. Full object centered within 10% margin on plain white. No face, no canvas frame, no text, letters, numbers, logo or watermark.",
+          "callId": "call_kXSRBKtjLRSdYWGohaf1X0LT",
+          "source": "assets/wait-source-originals/cupcake-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "41fcdeab4635d5e2c3e3582f1656c84d6420fc4a74230766cfcbb49c5f268f15",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/cupcake.png",
+      "prompt": "Square original die-cut sticker of one cupcake in a coral pleated paper cup, swirl of cream frosting topped with one small red cherry. Refined soft painterly illustration with rounded shapes and gentle rubber-like volume, upper-left highlights, warm coral #f04e23, cream, golden yellow. Thick even white silhouette outline, tiny attached shadow. Full object centered within 10% margin on plain white. No face, no canvas frame, no text, letters, numbers, logo or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 140,
+          "top": 12,
+          "width": 975,
+          "height": 1194
+        },
+        "placement": {
+          "left": 80,
+          "top": 41,
+          "width": 351,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "84bfe965e219b170006b06c3df2d00857aead78c96850386706f727441ec4939",
+      "bytes": 278948,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4358482360839844,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "confetti",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one compact floating cluster of curled celebration ribbons and confetti, no container. Three broad flowing curls surrounded by a few little paper discs and diamonds. Warm coral #f04e23, yellow #ffc531, mint #0f8466, blossom pink. Soft painterly rounded illustration, gentle volume, upper-left highlights. Uniform white silhouette border and faint shadow. Entire cluster centered inside 10% margin on plain white. No canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_EqxVWs9NLQ4TanMiQPZhAMmr",
+          "source": "assets/wait-source-originals/confetti-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "c8e95e1ebc6466492ce5c100acd9857f0ad72a834f1141f5de9fc4babcb02836",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/confetti.png",
+      "prompt": "Square original die-cut sticker of one compact floating cluster of curled celebration ribbons and confetti, no container. Three broad flowing curls surrounded by a few little paper discs and diamonds. Warm coral #f04e23, yellow #ffc531, mint #0f8466, blossom pink. Soft painterly rounded illustration, gentle volume, upper-left highlights. Uniform white silhouette border and faint shadow. Entire cluster centered inside 10% margin on plain white. No canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 163,
+          "top": 96,
+          "width": 935,
+          "height": 1015
+        },
+        "placement": {
+          "left": 58,
+          "top": 41,
+          "width": 396,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "122e71b8c932ebc4995bced6b3e81cb7f14310cc79e8313a9d23c2d8a4daaede",
+      "bytes": 332882,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5658531188964844,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "sunglasses",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of a single pair of heart-shaped sunglasses, coral pink frames, smoky warm plum lenses with cream upper-left reflections, slightly tilted. Soft painterly rounded illustration with gentle volume, refined playful fashion accessory. Thick even white silhouette border, faint attached shadow. Entire object centered with 10% margin, flat white background. No face, no canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_fwU3TuuChnllIBzuBaSS4LKS",
+          "source": "assets/wait-source-originals/sunglasses-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "8770027a832aeedc0d7da7e158a75f3b77e5c2d72fc533a24a579dafd37a7d9c",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/sunglasses.png",
+      "prompt": "Square original die-cut sticker of a single pair of heart-shaped sunglasses, coral pink frames, smoky warm plum lenses with cream upper-left reflections, slightly tilted. Soft painterly rounded illustration with gentle volume, refined playful fashion accessory. Thick even white silhouette border, faint attached shadow. Entire object centered with 10% margin, flat white background. No face, no canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 49,
+          "top": 265,
+          "width": 1158,
+          "height": 710
+        },
+        "placement": {
+          "left": 41,
+          "top": 124,
+          "width": 430,
+          "height": 264
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "dd4b6546bc59929b6d01c6d262d64692c0a7d6d6601cc1ab4ff38a162916a175",
+      "bytes": 152816,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.2827110290527344,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "butterfly",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one blue and lavender butterfly, symmetrical open rounded wings, simple cream spots, short curled antennae, no face. Refined soft painterly illustration with gentle rubber-like volume and top-left highlights, pastel blue-purple harmonious with coral, mint and warm yellow. Thick even white silhouette border and faint attached shadow. Complete butterfly centered with 10% margin on flat white. No canvas frame, no extra objects, no text, letters, numbers, logos or watermark.",
+          "callId": "call_QRMeMZplowwFz07XlmNlKxmj",
+          "source": "assets/wait-source-originals/butterfly-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "96f47a3731b98faf380182bdf6d63e00ab2edc1edaf759b16271906bc67d8b2e",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/butterfly.png",
+      "prompt": "Square original die-cut sticker of one blue and lavender butterfly, symmetrical open rounded wings, simple cream spots, short curled antennae, no face. Refined soft painterly illustration with gentle rubber-like volume and top-left highlights, pastel blue-purple harmonious with coral, mint and warm yellow. Thick even white silhouette border and faint attached shadow. Complete butterfly centered with 10% margin on flat white. No canvas frame, no extra objects, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 40,
+          "top": 135,
+          "width": 1172,
+          "height": 973
+        },
+        "placement": {
+          "left": 41,
+          "top": 77,
+          "width": 430,
+          "height": 357
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "a60bea439d2938c624c7d31e293ddf9230e35d60162caee54a53940f974b1fdb",
+      "bytes": 310305,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4950599670410156,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "rainbow",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker: a rounded rainbow arch with exactly one small cream cloud at each end. Warm coral orange, yellow, mint, powder blue and lavender bands. Soft painterly illustration with subtle rubber-like volume and upper-left highlights. Thick uniform white silhouette border and faint attached shadow. Complete centered composition with 10% margin on flat white background. No faces, no frame, no extra motifs, no text, letters, numbers, logos or watermark.",
+          "callId": "call_wLtcAyxVJb4XoJoRm6BmajMI",
+          "source": "assets/wait-source-originals/rainbow-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "c42c6ba77b0d8ed5a58e81cc1cbb0845c619caac6686418a68741e59bfccb083",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/rainbow.png",
+      "prompt": "Square original die-cut sticker: a rounded rainbow arch with exactly one small cream cloud at each end. Warm coral orange, yellow, mint, powder blue and lavender bands. Soft painterly illustration with subtle rubber-like volume and upper-left highlights. Thick uniform white silhouette border and faint attached shadow. Complete centered composition with 10% margin on flat white background. No faces, no frame, no extra motifs, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 29,
+          "top": 190,
+          "width": 1202,
+          "height": 866
+        },
+        "placement": {
+          "left": 41,
+          "top": 101,
+          "width": 430,
+          "height": 310
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "a7b1ebe5a269ee557a8b0631d4ad9e9890321d632b2e260a223b58b15dff044c",
+      "bytes": 214358,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4252662658691406,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "shootingstar",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one rounded golden five-point shooting star with a curved flowing coral-and-yellow comet tail. Soft painterly illustration with gentle volume, warm yellow #ffc531 and coral #f04e23, small top-left highlights. Thick even white silhouette border and faint attached shadow. Entire star and tail centered with 10% margin on flat white. No face, no extra stars, no canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_FaqDnVXBuZpqGR19mwQtlsbV",
+          "source": "assets/wait-source-originals/shootingstar-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "8791af4bfc5d09789b85fa6325b6b838a9154756dbab71ee7287235236f47680",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/shootingstar.png",
+      "prompt": "Square original die-cut sticker of one rounded golden five-point shooting star with a curved flowing coral-and-yellow comet tail. Soft painterly illustration with gentle volume, warm yellow #ffc531 and coral #f04e23, small top-left highlights. Thick even white silhouette border and faint attached shadow. Entire star and tail centered with 10% margin on flat white. No face, no extra stars, no canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 48,
+          "top": 115,
+          "width": 1173,
+          "height": 1026
+        },
+        "placement": {
+          "left": 41,
+          "top": 68,
+          "width": 430,
+          "height": 376
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "6eedf214aa77c2f39fbb4c013257a79920d83fd95e337dc4ab2a866eca53aad4",
+      "bytes": 187079,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3517570495605469,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "clover",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one four-leaf clover, exactly four plump heart-shaped green leaflets and a short curved stem. Mint #0f8466 and soft sage greens, soft painterly rounded illustration, gentle rubber-like volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Complete centered object with 10% margin on plain white. No face, no canvas frame, no extra objects, no text, letters, numbers, logos or watermark.",
+          "callId": "call_LoebbOHlWc2MEwoX4uJNCr4Z",
+          "source": "assets/wait-source-originals/clover-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "eafd7ab94c464337b2e97b42ca3c8fc081e0fb6b537d1904a6eac91197c0b9b3",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/clover.png",
+      "prompt": "Square original die-cut sticker of one four-leaf clover, exactly four plump heart-shaped green leaflets and a short curved stem. Mint #0f8466 and soft sage greens, soft painterly rounded illustration, gentle rubber-like volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Complete centered object with 10% margin on plain white. No face, no canvas frame, no extra objects, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 120,
+          "top": 65,
+          "width": 1000,
+          "height": 1108
+        },
+        "placement": {
+          "left": 62,
+          "top": 41,
+          "width": 388,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "a0c14344c71d3df9a59c95949780c156eacb5ebf8622a918bb7333ae3fbc0318",
+      "bytes": 335094,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.515167236328125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "dino",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of a round little mint-green dinosaur, full body standing on two short legs, small arms and curved tail, cream belly, small rounded orange back plates, restrained pleasant expression. Not resembling any existing character. Soft painterly rounded illustration with gentle rubber-like volume and top-left highlights. Thick even white silhouette border and faint attached shadow. Entire dinosaur centered with 10% margin, flat white background. No frame, no props, no text, letters, numbers, logos or watermark.",
+          "callId": "call_DV7On5WuJa14XmdOp1HaHLEh",
+          "source": "assets/wait-source-originals/dino-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "072116a132e71a19730b65061e851cb3dcc6e41853865c9e781c04973dd54637",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/dino.png",
+      "prompt": "Square original die-cut sticker of a round little mint-green dinosaur, full body standing on two short legs, small arms and curved tail, cream belly, small rounded orange back plates, restrained pleasant expression. Not resembling any existing character. Soft painterly rounded illustration with gentle rubber-like volume and top-left highlights. Thick even white silhouette border and faint attached shadow. Entire dinosaur centered with 10% margin, flat white background. No frame, no props, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 181,
+          "top": 56,
+          "width": 928,
+          "height": 1134
+        },
+        "placement": {
+          "left": 80,
+          "top": 41,
+          "width": 352,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "977a54bb258203eadec4624941189684710037ee15beda80cdfa8ed217875365",
+      "bytes": 242442,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4177589416503906,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "rocket",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one small cartoon rocket angled upward, rounded cream body, coral nose and fins, circular mint porthole, warm yellow-orange flame at its tail. Soft painterly illustration with gentle rubber-like volume, clean rounded shapes, upper-left highlights. Thick even white silhouette border and faint attached shadow. Entire rocket and flame centered with 10% margin on plain white background. No flags, no face, no canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_KX2HAtEoQ89IE2KblaFU7HAY",
+          "source": "assets/wait-source-originals/rocket-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "446cc9b6eb7557ede1622f7fa759bdf9fc14ac7f7de08711986337f1a0823273",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/rocket.png",
+      "prompt": "Square original die-cut sticker of one small cartoon rocket angled upward, rounded cream body, coral nose and fins, circular mint porthole, warm yellow-orange flame at its tail. Soft painterly illustration with gentle rubber-like volume, clean rounded shapes, upper-left highlights. Thick even white silhouette border and faint attached shadow. Entire rocket and flame centered with 10% margin on plain white background. No flags, no face, no canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 258,
+          "top": 129,
+          "width": 751,
+          "height": 980
+        },
+        "placement": {
+          "left": 91,
+          "top": 41,
+          "width": 330,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "c3027c7f9cab3b46fc2ed9d1558789f4c34e101ed23e998ec2940b25f368f5e4",
+      "bytes": 215001,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3762397766113281,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "unicorn",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one cream-white unicorn head in three-quarter profile with a short golden horn and flowing pastel coral-pink, mint and lavender mane. Calm sweet expression, unique original proportions, no resemblance to franchise characters. Soft painterly rounded illustration with gentle volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Head and mane fully visible, centered with 10% margin on plain white. No canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_qsF9mntMScyHW9J95gCPeG7w",
+          "source": "assets/wait-source-originals/unicorn-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "6b71ccd9a617ad1278885e6a75a497af1f39d4457544d352af4688d2f256b0f4",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/unicorn.png",
+      "prompt": "Square original die-cut sticker of one cream-white unicorn head in three-quarter profile with a short golden horn and flowing pastel coral-pink, mint and lavender mane. Calm sweet expression, unique original proportions, no resemblance to franchise characters. Soft painterly rounded illustration with gentle volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Head and mane fully visible, centered with 10% margin on plain white. No canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 155,
+          "top": 31,
+          "width": 939,
+          "height": 1208
+        },
+        "placement": {
+          "left": 89,
+          "top": 41,
+          "width": 334,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "d2c142e65ac51653a30464f5af1dc031a4cfc32191d557604ce2bf6535443d78",
+      "bytes": 287550,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4401359558105469,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "whale",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one plump small blue whale with cream belly and a little three-droplet water spout above its head, whole body including curled tail, tiny friendly eyes. Soft painterly rounded illustration with gentle rubber-like volume, warm powder blue, top-left cream highlights. Thick even white silhouette border and faint attached shadow. Entire composition centered with 10% margin on plain white. No ocean, no frame, no text, letters, numbers, logos or watermark, no known character resemblance.",
+          "callId": "call_jd4zFuyMWb438bqG3b6W9ZsC",
+          "source": "assets/wait-source-originals/whale-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "38628a35d6d9c7afcd85b2ba71bb7ed4bd528ad5620284bac4659fdf651bf6d2",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/whale.png",
+      "prompt": "Square original die-cut sticker of one plump small blue whale with cream belly and a little three-droplet water spout above its head, whole body including curled tail, tiny friendly eyes. Soft painterly rounded illustration with gentle rubber-like volume, warm powder blue, top-left cream highlights. Thick even white silhouette border and faint attached shadow. Entire composition centered with 10% margin on plain white. No ocean, no frame, no text, letters, numbers, logos or watermark, no known character resemblance.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 53,
+          "top": 146,
+          "width": 1160,
+          "height": 921
+        },
+        "placement": {
+          "left": 41,
+          "top": 85,
+          "width": 430,
+          "height": 341
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "d6d71f5148949943c4821441451c52e0d5938e2456fba5b736d5ec8fe0c5174d",
+      "bytes": 206727,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3890876770019531,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "lollipop",
+      "category": "stickers",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original die-cut sticker of one round rainbow spiral lollipop on a short cream stick. Spiral bands in coral pink, warm yellow, mint, pale blue and lavender. Refined soft painterly rounded illustration with gentle rubber-like volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Complete lollipop centered with 10% padding on plain white. No bow, no face, no canvas frame, no text, letters, numbers, logos or watermark.",
+          "callId": "call_S4m6SUt97TpfOQuupM6EQTVJ",
+          "source": "assets/wait-source-originals/lollipop-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "0726318c47f4420c140ff8844702dc9272fcd4b7f45ccba920254eafbfc29909",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/stickers/lollipop.png",
+      "prompt": "Square original die-cut sticker of one round rainbow spiral lollipop on a short cream stick. Spiral bands in coral pink, warm yellow, mint, pale blue and lavender. Refined soft painterly rounded illustration with gentle rubber-like volume, upper-left highlights. Thick even white silhouette border and faint attached shadow. Complete lollipop centered with 10% padding on plain white. No bow, no face, no canvas frame, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 193,
+          "top": 52,
+          "width": 869,
+          "height": 1161
+        },
+        "placement": {
+          "left": 95,
+          "top": 41,
+          "width": 322,
+          "height": 430
+        },
+        "outlineFinish": {
+          "addedWhiteRadius": 7,
+          "shadowOpacity": 0.14,
+          "shadowBlur": 3
+        }
+      },
+      "sha256": "850f68a405c947c29b3e70849965c75ebadc0d418c541f89c229492010e20a7a",
+      "bytes": 233871,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3769111633300781,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已在珊瑚橙及暖白底检查描边与主体完整性。"
+    },
+    {
+      "id": "adventure-dino",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game character sprite: ORIGINAL little mint-green dinosaur with cream chest and small coral rounded head plates, FRONT VIEW, big warm brown eyes, happy gentle smile, round face, ONE short paw raised beside its head waving. UPPER BODY ONLY, chest cut straight horizontally near bottom, no legs, head occupies upper two thirds. Soft painterly rounded illustration between flat art and soft rubber 3D, subtle top-left highlight, crisp dark green outline, NO white sticker border. Isolated on perfectly flat #ff00ff magenta background for keying, no floor, shadows or extra objects. Keep head and hand fully inside 8% side/top margin. No existing IP, text, letters, numbers, logos, watermark.",
+          "callId": "call_O2ZZgcdPbBoFpLeFxQSTArmR",
+          "source": "assets/wait-source-originals/adventure-dino-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "42ef8b295f7bfe1e0a017eb471fbc7372877ba26df4a8340f199bd96f13bbe93",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/adventure-dino.png",
+      "prompt": "Square game character sprite: ORIGINAL little mint-green dinosaur with cream chest and small coral rounded head plates, FRONT VIEW, big warm brown eyes, happy gentle smile, round face, ONE short paw raised beside its head waving. UPPER BODY ONLY, chest cut straight horizontally near bottom, no legs, head occupies upper two thirds. Soft painterly rounded illustration between flat art and soft rubber 3D, subtle top-left highlight, crisp dark green outline, NO white sticker border. Isolated on perfectly flat #ff00ff magenta background for keying, no floor, shadows or extra objects. Keep head and hand fully inside 8% side/top margin. No existing IP, text, letters, numbers, logos, watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 132,
+          "top": 56,
+          "width": 891,
+          "height": 1076
+        },
+        "placement": {
+          "left": 57,
+          "top": 31,
+          "width": 398,
+          "height": 481
+        }
+      },
+      "sha256": "546697c3a5376a047229b584e02c275f8bc82622a8f53e2a738311ab20d6c725",
+      "bytes": 347039,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5206985473632812,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "adventure-astronaut",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game sprite, original cute small bear astronaut, NOT a human: round tan face, large warm brown eyes and gentle happy smile inside a clear bubble helmet with simple pale blue reflection, cream spacesuit with coral and mint accents, one gloved paw raised waving. FRONT VIEW upper body only, chest cut horizontally at bottom, head in upper two thirds, no legs. Soft painterly rounded illustration, gentle rubber-like volume, top-left light, crisp warm brown contour, NO white sticker border. Complete helmet and hand inside 8% margin on perfectly flat #ff00ff magenta background. No real agency insignia, no flags, no text, letters, numbers, logos, watermark or existing IP.",
+          "callId": "call_CI4950unTOD8ltqlYV3lR7iX",
+          "source": "assets/wait-source-originals/adventure-astronaut-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "273aa157538d17112c641bb51c0949e781c1ca9ec35addda702f6d0f04776dec",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/adventure-astronaut.png",
+      "prompt": "Square game sprite, original cute small bear astronaut, NOT a human: round tan face, large warm brown eyes and gentle happy smile inside a clear bubble helmet with simple pale blue reflection, cream spacesuit with coral and mint accents, one gloved paw raised waving. FRONT VIEW upper body only, chest cut horizontally at bottom, head in upper two thirds, no legs. Soft painterly rounded illustration, gentle rubber-like volume, top-left light, crisp warm brown contour, NO white sticker border. Complete helmet and hand inside 8% margin on perfectly flat #ff00ff magenta background. No real agency insignia, no flags, no text, letters, numbers, logos, watermark or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 32,
+          "top": 60,
+          "width": 1146,
+          "height": 1105
+        },
+        "placement": {
+          "left": 30,
+          "top": 77,
+          "width": 451,
+          "height": 435
+        }
+      },
+      "sha256": "2e8a5ce390ee991c47a6d3a76ef7c2489f00f12f2230c221c719c89054ff6e3c",
+      "bytes": 400682,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5669479370117188,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "adventure-dragon",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game sprite: original little coral-red dragon with tiny rounded horns and two little wings, cream chest, round face, big brown eyes, happy gentle smile, one paw raised waving. FRONT VIEW, upper body chest-up only, bottom cut horizontally, head fills upper two thirds, no legs. Soft painterly rounded illustration, subtle rubber volume, top-left lighting, clear dark warm contour, no white sticker border. Whole head, wings and waving hand visible with 8% side/top padding on perfectly flat #ff00ff magenta. No scenery, no existing character IP, no text, letters, numbers, logos or watermark.",
+          "callId": "call_qCmakF9MQmHUViqtPPrVy9rp",
+          "source": "assets/wait-source-originals/adventure-dragon-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "f797cd2b1bb6a7775b5fc15326a222d8abe475437c6c3c1a5da316f1c6c64b32",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/adventure-dragon.png",
+      "prompt": "Square game sprite: original little coral-red dragon with tiny rounded horns and two little wings, cream chest, round face, big brown eyes, happy gentle smile, one paw raised waving. FRONT VIEW, upper body chest-up only, bottom cut horizontally, head fills upper two thirds, no legs. Soft painterly rounded illustration, subtle rubber volume, top-left lighting, clear dark warm contour, no white sticker border. Whole head, wings and waving hand visible with 8% side/top padding on perfectly flat #ff00ff magenta. No scenery, no existing character IP, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 81,
+          "top": 75,
+          "width": 1098,
+          "height": 1073
+        },
+        "placement": {
+          "left": 30,
+          "top": 71,
+          "width": 451,
+          "height": 441
+        }
+      },
+      "sha256": "74dbd228b45c63530d77034173bd131d15e09f46095f5bb2736cf0e31e959378",
+      "bytes": 366046,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4968299865722656,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "adventure-unicorn",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game sprite of an ORIGINAL small cream-white unicorn, front-facing round face, large warm brown eyes, gentle happy smile, pastel coral, mint and lavender mane and short golden horn, ONE forehoof raised waving. Chest-up upper body only, horizontal crop through chest at bottom, no legs or hindquarters; head upper two thirds. Soft painterly rounded illustration with subtle rubber volume, top-left light, clear warm brown contour, NO white border. Keep horn, ears and hoof fully in frame with 8% margin. Flat solid #ff00ff magenta background, no scenery. No existing IP resemblance, no text, letters, numbers, logos or watermark.",
+          "callId": "call_vMu0VJxx1JdGUlAAD15gbkyn",
+          "source": "assets/wait-source-originals/adventure-unicorn-v1.png",
+          "width": 1368,
+          "height": 1149,
+          "sha256": "ad271a9a5f79b8bd90cbbbd9c8739dabd4eb151a0a3d3b9341c804db064155b9",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/adventure-unicorn.png",
+      "prompt": "Square game sprite of an ORIGINAL small cream-white unicorn, front-facing round face, large warm brown eyes, gentle happy smile, pastel coral, mint and lavender mane and short golden horn, ONE forehoof raised waving. Chest-up upper body only, horizontal crop through chest at bottom, no legs or hindquarters; head upper two thirds. Soft painterly rounded illustration with subtle rubber volume, top-left light, clear warm brown contour, NO white border. Keep horn, ears and hoof fully in frame with 8% margin. Flat solid #ff00ff magenta background, no scenery. No existing IP resemblance, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 145,
+          "top": 24,
+          "width": 1076,
+          "height": 1097
+        },
+        "placement": {
+          "left": 30,
+          "top": 52,
+          "width": 451,
+          "height": 460
+        }
+      },
+      "sha256": "8bee87df15fc12edbecaeed5d0ab1126dbf33d0373ed10af5f618da3870b9475",
+      "bytes": 428460,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.560394287109375,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "adventure-whale",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game sprite: original small blue whale facing directly forward, round broad face and big warm brown eyes, gentle happy smile, little water spout on top, cream chest, ONE side flipper raised waving. Upper body only, horizontally cut through chest at bottom, no tail, head occupies upper two thirds. Soft painterly rounded illustration, subtle rubber-like volume, upper-left highlight, clear dark blue outline, NO white border. All upper features and flipper visible within 8% margin. Perfect flat #ff00ff magenta background for removal. No ocean or props, no existing IP, no text, letters, numbers, logo or watermark.",
+          "callId": "call_WJP4lwLz5b9dDJ4OPxwxRNvC",
+          "source": "assets/wait-source-originals/adventure-whale-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "a27343e3d2d86fca547717cdcf463082cf298c5d28572980d91ba51967cf0b04",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/adventure-whale.png",
+      "prompt": "Square game sprite: original small blue whale facing directly forward, round broad face and big warm brown eyes, gentle happy smile, little water spout on top, cream chest, ONE side flipper raised waving. Upper body only, horizontally cut through chest at bottom, no tail, head occupies upper two thirds. Soft painterly rounded illustration, subtle rubber-like volume, upper-left highlight, clear dark blue outline, NO white border. All upper features and flipper visible within 8% margin. Perfect flat #ff00ff magenta background for removal. No ocean or props, no existing IP, no text, letters, numbers, logo or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 51,
+          "top": 36,
+          "width": 1186,
+          "height": 1160
+        },
+        "placement": {
+          "left": 30,
+          "top": 71,
+          "width": 451,
+          "height": 441
+        }
+      },
+      "sha256": "e7a6330fa60fafd0912e95751d1374dd99b507ef5d19ed69d7a2a1704a6c0802",
+      "bytes": 310626,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4853324890136719,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "adventure-fairy",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game sprite: original little cream rabbit fairy wearing a small coral-and-yellow flower wreath, delicate pale mint translucent-looking wings rendered with solid pale colors, big brown eyes, round face, happy smile, one paw waving. Front view, upper body only, chest cut straight at bottom, head upper two thirds, no legs. Soft painterly rounded illustration with gentle rubber volume, upper-left highlight, clear warm brown contour, NO white sticker border. Ears, wings and paw fully visible with 8% side/top margin on flat #ff00ff magenta. No wand or scenery, no existing IP, no text, letters, numbers, logos or watermark.",
+          "callId": "call_mkKS75KfcgQRHLLwIPiIZe0K",
+          "source": "assets/wait-source-originals/adventure-fairy-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "105ab9189394a95c3b9171e41da1f96a3081990cb81603f26c3c0eb23ea46105",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/adventure-fairy.png",
+      "prompt": "Square game sprite: original little cream rabbit fairy wearing a small coral-and-yellow flower wreath, delicate pale mint translucent-looking wings rendered with solid pale colors, big brown eyes, round face, happy smile, one paw waving. Front view, upper body only, chest cut straight at bottom, head upper two thirds, no legs. Soft painterly rounded illustration with gentle rubber volume, upper-left highlight, clear warm brown contour, NO white sticker border. Ears, wings and paw fully visible with 8% side/top margin on flat #ff00ff magenta. No wand or scenery, no existing IP, no text, letters, numbers, logos or watermark.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 46,
+          "top": 46,
+          "width": 1163,
+          "height": 1121
+        },
+        "placement": {
+          "left": 30,
+          "top": 77,
+          "width": 451,
+          "height": 435
+        }
+      },
+      "sha256": "3f4ba722c8eadeafe1e926243f62b6e77d30fcbd2c4ed01ac9547756ec8ff6bb",
+      "bytes": 340045,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5048789978027344,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "career-firetruck",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square game sprite: ORIGINAL anthropomorphic small coral-red fire engine, FRONT VIEW rounded cab with big friendly brown eyes in windshield and gentle smiling grille, short ladder visible behind roof, one simple mechanical mitten arm raised waving. Upper front cab only, lower body cropped horizontally at bottom, no road. Soft painterly rounded illustration with gentle rubber volume, cream and warm yellow details, upper-left light, crisp warm dark contour, NO white border. Centered complete roof and hand with 8% side/top margin on perfectly flat #ff00ff magenta. No badges, text, letters, numbers, logos, watermark or resemblance to movie vehicles.",
+          "callId": "call_GUX709ISGbg6F4uMpp4I09qI",
+          "source": "assets/wait-source-originals/career-firetruck-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "92d94c6f710a7475e8f0fe47f5593aabf7fbb8a60c70b1765543c9f0ef9d616e",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/career-firetruck.png",
+      "prompt": "Square game sprite: ORIGINAL anthropomorphic small coral-red fire engine, FRONT VIEW rounded cab with big friendly brown eyes in windshield and gentle smiling grille, short ladder visible behind roof, one simple mechanical mitten arm raised waving. Upper front cab only, lower body cropped horizontally at bottom, no road. Soft painterly rounded illustration with gentle rubber volume, cream and warm yellow details, upper-left light, crisp warm dark contour, NO white border. Centered complete roof and hand with 8% side/top margin on perfectly flat #ff00ff magenta. No badges, text, letters, numbers, logos, watermark or resemblance to movie vehicles.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 40,
+          "top": 67,
+          "width": 1130,
+          "height": 1043
+        },
+        "placement": {
+          "left": 30,
+          "top": 96,
+          "width": 451,
+          "height": 416
+        }
+      },
+      "sha256": "7760bf8cbd89c89f9f2c5df441377e27693a0fedf3d77b35640637bbc0e42454",
+      "bytes": 352132,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4846649169921875,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "career-plane",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite of a friendly white anthropomorphic airplane viewed exactly head-on, big warm brown eyes and happy smile, one wing lifted waving. Chest-up equivalent with lower fuselage cut horizontally at bottom, face upper two thirds, complete wings within 8 percent margins. Soft rounded painterly illustration with subtle rubber volume, warm coral and mint accents, upper-left lighting, crisp colored contour, no white sticker border. Flat magenta #ff00ff background. No text, letters, digits, logos, watermark, scenery or existing character IP.",
+          "callId": "call_0ow5RmD5xu02Hko4aD8Dz0kA",
+          "source": "assets/wait-source-originals/career-plane-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "f999f8ff68c3274fbfd7b6eef2813050e7dee751b1f5f1ec44be59adb4a4279e",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/career-plane.png",
+      "prompt": "Square original game sprite of a friendly white anthropomorphic airplane viewed exactly head-on, big warm brown eyes and happy smile, one wing lifted waving. Chest-up equivalent with lower fuselage cut horizontally at bottom, face upper two thirds, complete wings within 8 percent margins. Soft rounded painterly illustration with subtle rubber volume, warm coral and mint accents, upper-left lighting, crisp colored contour, no white sticker border. Flat magenta #ff00ff background. No text, letters, digits, logos, watermark, scenery or existing character IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 16,
+          "top": 98,
+          "width": 1221,
+          "height": 938
+        },
+        "placement": {
+          "left": 30,
+          "top": 166,
+          "width": 451,
+          "height": 346
+        }
+      },
+      "sha256": "3674f025e63169ffdd53cba1b9b4b2edebe7933cb8cbdef6d1828e3146f54c71",
+      "bytes": 205276,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.29863739013671875,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "career-scientist",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game character sprite, cute raccoon scientist in white lab coat and transparent safety goggles, front facing round head, big happy brown eyes, gently smiling, ONE raised paw holding an unmarked test tube of mint liquid as greeting. Chest-up portrait, torso cut straight horizontally at bottom, no legs, complete head and hand inside 8 percent margins. Warm rounded soft painterly illustration between flat and soft rubber 3D, top left light, fine colored contour, no white sticker outline. Perfect solid magenta #ff00ff background. No text, letters, numbers, logos, watermark, scenery or existing IP.",
+          "callId": "call_yuBavWfUuT36IkVmt1jW3cr6",
+          "source": "assets/wait-source-originals/career-scientist-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "07fd6d0ad4849b05a0fa7f7a3ff4bbf32242487e18dc49197c297115185994cd",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/career-scientist.png",
+      "prompt": "Square original game character sprite, cute raccoon scientist in white lab coat and transparent safety goggles, front facing round head, big happy brown eyes, gently smiling, ONE raised paw holding an unmarked test tube of mint liquid as greeting. Chest-up portrait, torso cut straight horizontally at bottom, no legs, complete head and hand inside 8 percent margins. Warm rounded soft painterly illustration between flat and soft rubber 3D, top left light, fine colored contour, no white sticker outline. Perfect solid magenta #ff00ff background. No text, letters, numbers, logos, watermark, scenery or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 82,
+          "top": 82,
+          "width": 1045,
+          "height": 1050
+        },
+        "placement": {
+          "left": 30,
+          "top": 59,
+          "width": 451,
+          "height": 453
+        }
+      },
+      "sha256": "7485d6059dc90bdeb1c9f041a96163211e8236d1c0cb7090ff4a25f9bbcc78df",
+      "bytes": 429450,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5658378601074219,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "career-police",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original cute anthropomorphic blue-and-cream police car game sprite, front view, large kind brown eyes on windshield and happy smile on hood, one little mechanical mitten raised waving. Plain blue roof lamps, absolutely no badge or insignia. Upper half of car only, lower body cut horizontally at bottom. Soft rounded painterly illustration with gentle rubber volume and top-left highlight, clean blue contour, warm cream details, no white sticker border. Complete silhouette with 8 percent side/top margins, solid flat magenta background. No text, letters, digits, brands, watermark or existing IP.",
+          "callId": "call_P5FE7ebnuByjur8UuIeMdo9I",
+          "source": "assets/wait-source-originals/career-police-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "243d322b1dee4110f60cbe21142b0879fed565019fcf71f9ac980074df8f623d",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/career-police.png",
+      "prompt": "Square original cute anthropomorphic blue-and-cream police car game sprite, front view, large kind brown eyes on windshield and happy smile on hood, one little mechanical mitten raised waving. Plain blue roof lamps, absolutely no badge or insignia. Upper half of car only, lower body cut horizontally at bottom. Soft rounded painterly illustration with gentle rubber volume and top-left highlight, clean blue contour, warm cream details, no white sticker border. Complete silhouette with 8 percent side/top margins, solid flat magenta background. No text, letters, digits, brands, watermark or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 42,
+          "top": 158,
+          "width": 1135,
+          "height": 901
+        },
+        "placement": {
+          "left": 30,
+          "top": 154,
+          "width": 451,
+          "height": 358
+        }
+      },
+      "sha256": "3d9175fa5de6100117bd8224510e71c2f1dfad8961579334fb56a6a255b401da",
+      "bytes": 288791,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.44475555419921875,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "career-doctor",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite of a warm honey-brown little bear doctor wearing a cream coat and mint stethoscope, front facing happy round face and large brown eyes, ONE paw raised waving. Chest up only, torso cut horizontally at bottom, no legs. Rounded soft painterly illustration, subtle soft rubber volume not realistic fur, top left light, crisp colored contours, NO white outline. Head and paw fully inside 8 percent margins, flat #ff00ff magenta backdrop. No medical cross, badges, text, letters, numbers, logo, watermark or existing IP.",
+          "callId": "call_WVfwOeFNmR21BVPRVAHpOmCy",
+          "source": "assets/wait-source-originals/career-doctor-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "c90d238a40a09a62b0950d2b9fbe458d218725ab14e3061df0d442746f8af65f",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/career-doctor.png",
+      "prompt": "Square original game sprite of a warm honey-brown little bear doctor wearing a cream coat and mint stethoscope, front facing happy round face and large brown eyes, ONE paw raised waving. Chest up only, torso cut horizontally at bottom, no legs. Rounded soft painterly illustration, subtle soft rubber volume not realistic fur, top left light, crisp colored contours, NO white outline. Head and paw fully inside 8 percent margins, flat #ff00ff magenta backdrop. No medical cross, badges, text, letters, numbers, logo, watermark or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 64,
+          "top": 75,
+          "width": 1053,
+          "height": 1069
+        },
+        "placement": {
+          "left": 30,
+          "top": 54,
+          "width": 451,
+          "height": 458
+        }
+      },
+      "sha256": "8c6ed0e8a63d807e804dc41187294a40dadd0309afab0cf7ec43ae51a6a8b078",
+      "bytes": 387652,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5765953063964844,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "career-train",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original cute green anthropomorphic steam locomotive game sprite, exactly head-on, rounded mint-green engine with brass trim, large friendly brown eyes integrated into green front, happy gentle smile, small chimney, ONE little mitten arm waving. Upper half only, base cut straight horizontally for hiding behind a window, no rails or scene. Soft painterly rounded illustration, gentle rubber volume and top-left highlights, clear darker green contour, no white border. Entire silhouette within 8 percent margins on plain magenta #ff00ff. No text, digits, letters, logos, watermark, or resemblance to any existing train character.",
+          "callId": "call_FXrU1ucdROb4TMQJMP3zlW0e",
+          "source": "assets/wait-source-originals/career-train-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "31071b6440a06c2052d2bca0c47c5fde74eafb7c83f784706da1e38f648fbc08",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/career-train.png",
+      "prompt": "Square original cute green anthropomorphic steam locomotive game sprite, exactly head-on, rounded mint-green engine with brass trim, large friendly brown eyes integrated into green front, happy gentle smile, small chimney, ONE little mitten arm waving. Upper half only, base cut straight horizontally for hiding behind a window, no rails or scene. Soft painterly rounded illustration, gentle rubber volume and top-left highlights, clear darker green contour, no white border. Entire silhouette within 8 percent margins on plain magenta #ff00ff. No text, digits, letters, logos, watermark, or resemblance to any existing train character.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 77,
+          "top": 70,
+          "width": 1062,
+          "height": 914
+        },
+        "placement": {
+          "left": 30,
+          "top": 124,
+          "width": 451,
+          "height": 388
+        }
+      },
+      "sha256": "e47f84a8ce5c975955bbf92a5867cdf352cbaa727b77d4ff055a7879cedb0c4d",
+      "bytes": 346084,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.4664764404296875,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "animal-cat",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original cute orange tabby cat game sprite, front facing, round face and big warm brown eyes, happy gentle smile, ONE paw raised waving. Chest up only, torso cut in a perfectly horizontal line at lower edge, no legs, head occupying upper two thirds. Soft painterly rounded illustration with subtle soft rubber volume, simplified fur, warm cream muzzle and coral cheeks, top-left highlights, fine orange contour, no white sticker border. Complete ears and paw with 8 percent side/top margins. Solid flat magenta #ff00ff background, no text, letters, digits, logos, watermark or existing IP.",
+          "callId": "call_J6qxN6gJuIilUe8RJ0nNX07D",
+          "source": "assets/wait-source-originals/animal-cat-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "86d5aed07011d9e1fc763d2199969c96bdce590998a433a6fed09df4dd4586f0",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/animal-cat.png",
+      "prompt": "Square original cute orange tabby cat game sprite, front facing, round face and big warm brown eyes, happy gentle smile, ONE paw raised waving. Chest up only, torso cut in a perfectly horizontal line at lower edge, no legs, head occupying upper two thirds. Soft painterly rounded illustration with subtle soft rubber volume, simplified fur, warm cream muzzle and coral cheeks, top-left highlights, fine orange contour, no white sticker border. Complete ears and paw with 8 percent side/top margins. Solid flat magenta #ff00ff background, no text, letters, digits, logos, watermark or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 70,
+          "top": 77,
+          "width": 1047,
+          "height": 1044
+        },
+        "placement": {
+          "left": 30,
+          "top": 62,
+          "width": 451,
+          "height": 450
+        }
+      },
+      "sha256": "9b52ac570dacada93facfb59c61736f01496f5b0ba9e9a36652c33b977c152fc",
+      "bytes": 413306,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5591239929199219,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "animal-dog",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite, cheerful Shiba-like small dog with warm tan and cream coat, front facing round face, big brown eyes and gentle smile, ONE paw raised waving. Chest-up only, torso horizontally truncated, no legs, face upper two thirds. Simplified rounded painterly illustration with subtle rubber-like volume, top-left light, crisp brown contour, no white sticker outline. Whole ears and paw within 8 percent margins on solid flat #ff00ff magenta. No text, letters, digits, logos, watermark, clothing or existing IP.",
+          "callId": "call_7OlqAzFb27nHir51hUCs8W4G",
+          "source": "assets/wait-source-originals/animal-dog-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "fb605e5edf5789ef84d68191a441a75c145fe667b44a0b1b2c4a0f6ab0cbc422",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/animal-dog.png",
+      "prompt": "Square original game sprite, cheerful Shiba-like small dog with warm tan and cream coat, front facing round face, big brown eyes and gentle smile, ONE paw raised waving. Chest-up only, torso horizontally truncated, no legs, face upper two thirds. Simplified rounded painterly illustration with subtle rubber-like volume, top-left light, crisp brown contour, no white sticker outline. Whole ears and paw within 8 percent margins on solid flat #ff00ff magenta. No text, letters, digits, logos, watermark, clothing or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 59,
+          "top": 51,
+          "width": 1044,
+          "height": 1109
+        },
+        "placement": {
+          "left": 30,
+          "top": 33,
+          "width": 451,
+          "height": 479
+        }
+      },
+      "sha256": "4e29263121e7e649c1385a8f4e82af0c8352686da55a08b7ff8862dc4b712a09",
+      "bytes": 402783,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.6078643798828125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "animal-rabbit",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite, happy ivory-white rabbit with pink inner ears, round face big warm brown eyes, ONE paw raised waving. Front-facing chest-up portrait, straight horizontal cut across lower chest, no legs. Whole ears and paw inside 8 percent top/side margins. Soft rounded painterly illustration with subtle rubber-like volume, gentle top-left highlights and warm gray clear contour, no white sticker border. Perfectly flat magenta #ff00ff background. No clothing, text, letters, digits, logos, watermark, scenery or recognizable existing IP.",
+          "callId": "call_noDmH76Uh6z7UO69Vi3aFeoA",
+          "source": "assets/wait-source-originals/animal-rabbit-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "e774235f9e54c7c4b71bc52e2e8dfc8c9a507eaa4f1e9780a4bf9eca2ffa7cd2",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/animal-rabbit.png",
+      "prompt": "Square original game sprite, happy ivory-white rabbit with pink inner ears, round face big warm brown eyes, ONE paw raised waving. Front-facing chest-up portrait, straight horizontal cut across lower chest, no legs. Whole ears and paw inside 8 percent top/side margins. Soft rounded painterly illustration with subtle rubber-like volume, gentle top-left highlights and warm gray clear contour, no white sticker border. Perfectly flat magenta #ff00ff background. No clothing, text, letters, digits, logos, watermark, scenery or recognizable existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 137,
+          "top": 45,
+          "width": 896,
+          "height": 1113
+        },
+        "placement": {
+          "left": 62,
+          "top": 31,
+          "width": 387,
+          "height": 481
+        }
+      },
+      "sha256": "fede8cd43be4294c84e7e3ffa12ab74d349139e8cc13ccff5e79918c84351df8",
+      "bytes": 288448,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.45200347900390625,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "animal-panda",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite, cheerful round panda with cream and charcoal-gray fur NOT pure black, front view, large kind brown eyes, happy gentle smile, ONE paw raised waving. Chest-up only, lower torso cut horizontally, no legs. Whole ears and paw with 8 percent side/top margins. Warm soft painterly rounded illustration between flat and soft rubber volume, top-left light, clear colored contour, NO white sticker border. Perfect solid magenta #ff00ff background. No clothing, text, letters, numbers, logos, watermark or existing character IP.",
+          "callId": "call_rpGW470ifa0S7ZqjTEKdfdRj",
+          "source": "assets/wait-source-originals/animal-panda-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "fb326009b50b33c5c8e91203e84242fa1d498ea9dadad80b5162b706b048e3a9",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/animal-panda.png",
+      "prompt": "Square original game sprite, cheerful round panda with cream and charcoal-gray fur NOT pure black, front view, large kind brown eyes, happy gentle smile, ONE paw raised waving. Chest-up only, lower torso cut horizontally, no legs. Whole ears and paw with 8 percent side/top margins. Warm soft painterly rounded illustration between flat and soft rubber volume, top-left light, clear colored contour, NO white sticker border. Perfect solid magenta #ff00ff background. No clothing, text, letters, numbers, logos, watermark or existing character IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 50,
+          "top": 88,
+          "width": 1125,
+          "height": 1038
+        },
+        "placement": {
+          "left": 30,
+          "top": 96,
+          "width": 451,
+          "height": 416
+        }
+      },
+      "sha256": "9cf5585075a9f0b787ec3413c705ccf54e7000708c0bab7e5d7e5dd457ba6c95",
+      "bytes": 350505,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.5249671936035156,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "animal-fox",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite of a small coral-orange fox with cream cheeks and chest, front facing round face, big kind brown eyes and happy smile, ONE paw raised waving. Chest-up portrait only, lower chest cut straight horizontally, no legs. Complete ears and paw inside 8 percent margins. Soft rounded painterly illustration, subtle rubber-like volume and top-left highlights, clean colored contour NO white sticker border. Flat solid magenta #ff00ff background. No clothing, text, letters, numbers, logos, watermark or existing character IP.",
+          "callId": "call_8h3HCa3H7IooElLMsguKOt4y",
+          "source": "assets/wait-source-originals/animal-fox-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "64da93bf3ee69c5c0ddf06d93b193ede4f7368029928d01f32569ae29302e8e2",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/animal-fox.png",
+      "prompt": "Square original game sprite of a small coral-orange fox with cream cheeks and chest, front facing round face, big kind brown eyes and happy smile, ONE paw raised waving. Chest-up portrait only, lower chest cut straight horizontally, no legs. Complete ears and paw inside 8 percent margins. Soft rounded painterly illustration, subtle rubber-like volume and top-left highlights, clean colored contour NO white sticker border. Flat solid magenta #ff00ff background. No clothing, text, letters, numbers, logos, watermark or existing character IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 108,
+          "top": 30,
+          "width": 1037,
+          "height": 1111
+        },
+        "placement": {
+          "left": 31,
+          "top": 31,
+          "width": 449,
+          "height": 481
+        }
+      },
+      "sha256": "2084d95fe0121a299d68eb9d850be087b7c0028b0c1bafeeea4c5ab7ca2dff53",
+      "bytes": 399393,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.581329345703125,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "animal-penguin",
+      "category": "friends",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square original game sprite of a cheerful little penguin with charcoal-blue back and cream face/chest, small warm orange beak, big brown eyes and gentle smile, front facing, ONE flipper lifted waving. Chest-up only, torso cut straight horizontally at bottom, no legs. Rounded soft painterly illustration with gentle rubber volume, top-left highlights, crisp blue contour, NO white sticker border. Entire head and flipper within 8 percent margins on perfectly solid #ff00ff magenta background. No clothing, text, letters, digits, logos, watermark or existing character IP.",
+          "callId": "call_DBOrBCH2s8k2f8f0wMiL7txR",
+          "source": "assets/wait-source-originals/animal-penguin-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "b78c75a12bd4069bd96e4e790f40f1a3ef4e05859d3904f7ae1a051854678d22",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/friends/animal-penguin.png",
+      "prompt": "Square original game sprite of a cheerful little penguin with charcoal-blue back and cream face/chest, small warm orange beak, big brown eyes and gentle smile, front facing, ONE flipper lifted waving. Chest-up only, torso cut straight horizontally at bottom, no legs. Rounded soft painterly illustration with gentle rubber volume, top-left highlights, crisp blue contour, NO white sticker border. Entire head and flipper within 8 percent margins on perfectly solid #ff00ff magenta background. No clothing, text, letters, digits, logos, watermark or existing character IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "magenta keyed",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 3,
+        "sourceCrop": {
+          "left": 88,
+          "top": 97,
+          "width": 1021,
+          "height": 1011
+        },
+        "placement": {
+          "left": 30,
+          "top": 65,
+          "width": 451,
+          "height": 447
+        }
+      },
+      "sha256": "1bd2059ff8ad557bb30ed0b00de1098275556254c2b11f7a829fb2a5c033603b",
+      "bytes": 374086,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.552947998046875,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "正面胸像，单手或翼招呼，底部横向裁切；已在暖黄底检查。"
+    },
+    {
+      "id": "studio",
+      "category": "scenes",
+      "width": 768,
+      "height": 768,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Square isolated original illustration for an AI photo studio waiting screen: one small warm wooden easel holding a cream canvas with ONLY three fresh loose daubs of coral, yellow and mint paint, mostly blank. One floating paintbrush diagonally beside it and three small warm gold four-point sparkles. No room or floor. Entire composition centered with generous 10 percent margins. Soft painterly rounded shapes, gentle rubber-like volume, clean contour, upper-left light, bright refined warm palette. Transparent background, no white sticker border. No text, letters, numbers, signatures, watermark, logos or existing IP.",
+          "callId": "call_PIVsqRDx1CrDFTSqLnrnRm1p",
+          "source": "assets/wait-source-originals/studio-v1.png",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "73e9bd7812236367874027452cff775f3b74de70d903b16ee5372d624a80916c",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/studio.png",
+      "prompt": "Square isolated original illustration for an AI photo studio waiting screen: one small warm wooden easel holding a cream canvas with ONLY three fresh loose daubs of coral, yellow and mint paint, mostly blank. One floating paintbrush diagonally beside it and three small warm gold four-point sparkles. No room or floor. Entire composition centered with generous 10 percent margins. Soft painterly rounded shapes, gentle rubber-like volume, clean contour, upper-left light, bright refined warm palette. Transparent background, no white sticker border. No text, letters, numbers, signatures, watermark, logos or existing IP.",
+      "generationCount": 1,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 175,
+          "top": 111,
+          "width": 987,
+          "height": 1033
+        },
+        "placement": {
+          "left": 61,
+          "top": 46,
+          "width": 646,
+          "height": 676
+        }
+      },
+      "sha256": "b8289eae3ec033b188b1b36e468424401b4ae7c786ab7c49e4660853a3700d3d",
+      "bytes": 515981,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3302171495225694,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已检查场景构图、留白与背景透明度。"
+    },
+    {
+      "id": "fortune-tube",
+      "category": "scenes",
+      "width": 512,
+      "height": 768,
+      "transparent": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Portrait 2:3 isolated original fortune-stick cylinder illustration, one elegant coral-red lacquer cylindrical tube with simple thin golden rim and foot trim, no emblems, opening visible from slightly above. Exactly SEVEN separate bamboo divination sticks fanning gently from the top, seven visible red painted tips, natural bamboo below, no markings. Soft painterly rounded design with gentle rubber-like volume and top-left highlights, warm refined palette, complete object centered with 8 percent clear margins. Transparent background, no scenery, no floor shadow, no white sticker outline. Absolutely no writing, Chinese characters, letters, numbers, logos, signatures or watermark.",
+          "callId": "call_zhfuJ7x6ZIRpHLuGmknC9ZUL",
+          "source": "assets/wait-source-originals/fortune-tube-v1.png",
+          "width": 1024,
+          "height": 1536,
+          "sha256": "7e572cff28b6001875c7db9014918a67347e317d8dfbceec06b5f9395f64dda3",
+          "archivedHashVerified": true
+        },
+        {
+          "attempt": 2,
+          "prompt": "A clean isolated original game illustration, portrait 2:3. Red lacquer cylindrical fortune-stick holder with simple gold rim and foot. Exactly seven bamboo sticks with red painted tips fanning from opening. Center entire object with 8 percent margins. Soft rounded painterly illustration with restrained warm top-left light. Background is PERFECTLY FLAT PURE MAGENTA #ff00ff edge to edge for chroma key, with NO glow, NO bloom, NO shadow, NO vignette, NO aura around object. Hard clean silhouette edge, no white border. Cylinder and sticks have absolutely no writing, symbols, letters, numbers, logos or watermark.",
+          "callId": "call_ZXHh5Am6Zt3OnrrafKuyQp2l",
+          "source": "assets/wait-source-originals/fortune-tube-v2.png",
+          "width": 1024,
+          "height": 1536,
+          "sha256": "9f0091a25e353d962cba2d93c311177689d0be267e2e16ef6c004ddc8cc2669f",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/fortune-tube.png",
+      "prompt": "A clean isolated original game illustration, portrait 2:3. Red lacquer cylindrical fortune-stick holder with simple gold rim and foot. Exactly seven bamboo sticks with red painted tips fanning from opening. Center entire object with 8 percent margins. Soft rounded painterly illustration with restrained warm top-left light. Background is PERFECTLY FLAT PURE MAGENTA #ff00ff edge to edge for chroma key, with NO glow, NO bloom, NO shadow, NO vignette, NO aura around object. Hard clean silhouette edge, no white border. Cylinder and sticks have absolutely no writing, symbols, letters, numbers, logos or watermark.",
+      "generationCount": 2,
+      "processing": {
+        "sourceBackground": "native alpha",
+        "alphaThreshold": 232,
+        "median": 3,
+        "erosion": 1,
+        "sourceCrop": {
+          "left": 165,
+          "top": 56,
+          "width": 694,
+          "height": 1392
+        },
+        "placement": {
+          "left": 87,
+          "top": 46,
+          "width": 337,
+          "height": 676
+        }
+      },
+      "sha256": "a0107242171d60924dcd5c57ec0ff9d5bd50e2ed523eea96b2c22ff3391051b1",
+      "bytes": 379769,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 0.3407999674479167,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已检查场景构图、留白与背景透明度。"
+    },
+    {
+      "id": "card-back",
+      "category": "scenes",
+      "width": 600,
+      "height": 800,
+      "transparent": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Portrait 3:4 full-bleed opaque playing-card back, coral orange #f04e23 background evenly filled with a refined tiny cream four-point-star and dot pattern. In the exact center a warm cream circular medallion holding a simple mint-and-coral camera icon with one round lens, no branding. Rounded soft painterly illustration with subtle volume and gentle top-left highlight, clean and sophisticated playful photo-booth visual identity. Flat straight-on graphic, no perspective, no mockup, no outer white margin, no drop shadow, background fills every corner. No text, letters, numbers, signatures, logos or watermark.",
+          "callId": "call_ssn0QKh7jnRigWIPzPA6nkiI",
+          "source": "assets/wait-source-originals/card-back-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "14e566a568771db87f81b6b5d72a2542e89514b870a4c8268b1b6d24cf9c7101",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/card-back.png",
+      "prompt": "Portrait 3:4 full-bleed opaque playing-card back, coral orange #f04e23 background evenly filled with a refined tiny cream four-point-star and dot pattern. In the exact center a warm cream circular medallion holding a simple mint-and-coral camera icon with one round lens, no branding. Rounded soft painterly illustration with subtle volume and gentle top-left highlight, clean and sophisticated playful photo-booth visual identity. Flat straight-on graphic, no perspective, no mockup, no outer white margin, no drop shadow, background fills every corner. No text, letters, numbers, signatures, logos or watermark.",
+      "generationCount": 1,
+      "processing": "Resized full-bleed, flattened opaque",
+      "sha256": "22970cda18870e88ff55e1df5fb36f8b5625c274c8c757afb61bebed6c75e42e",
+      "bytes": 524394,
+      "cornerAlpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 1,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已检查场景构图、留白与背景透明度。"
+    },
+    {
+      "id": "fortune-general",
+      "category": "scenes",
+      "width": 720,
+      "height": 960,
+      "transparent": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Portrait 3:4 opaque blank fortune paper template, full bleed warm-white #fffaf6 rice-paper surface with very subtle fine natural fibers. Elegant thin VERMILION DOUBLE-LINE rectangular border inset 4 percent. A SMALL round auspicious stylized cloud medallion centered at top inside top 14 percent, pale golden cloud wisps restricted to bottom 10 percent. The whole CENTRAL SIXTY PERCENT must be completely empty clean paper reserved for overlay content. Restrained refined warm painterly illustration, gentle top-left highlights only on ornaments. Straight-on flat graphic, no perspective, no mockup, no page shadow. Absolutely no text, Chinese characters, calligraphy, letters, numbers, stamps, logos, signature or watermark.",
+          "callId": "call_qRfNAWUNmnbZXfZ5IGIOyhBx",
+          "source": "assets/wait-source-originals/fortune-general-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "70aa4c2fcf0dfe1c8d44d636e51a7a847f7e1c2b62619d3bca76ebfd66d8e350",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/fortune-general.png",
+      "prompt": "Portrait 3:4 opaque blank fortune paper template, full bleed warm-white #fffaf6 rice-paper surface with very subtle fine natural fibers. Elegant thin VERMILION DOUBLE-LINE rectangular border inset 4 percent. A SMALL round auspicious stylized cloud medallion centered at top inside top 14 percent, pale golden cloud wisps restricted to bottom 10 percent. The whole CENTRAL SIXTY PERCENT must be completely empty clean paper reserved for overlay content. Restrained refined warm painterly illustration, gentle top-left highlights only on ornaments. Straight-on flat graphic, no perspective, no mockup, no page shadow. Absolutely no text, Chinese characters, calligraphy, letters, numbers, stamps, logos, signature or watermark.",
+      "generationCount": 1,
+      "processing": "Resized full-bleed, flattened opaque",
+      "sha256": "f8d2c49b085b718b67c8e6a8bf209f36e0ffdbe86a7909606f1aa77d7e496ed8",
+      "bytes": 791926,
+      "cornerAlpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 1,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已检查场景构图、留白与背景透明度。"
+    },
+    {
+      "id": "fortune-together",
+      "category": "scenes",
+      "width": 720,
+      "height": 960,
+      "transparent": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Portrait 3:4 full-bleed opaque blank fortune paper template for couples, warm-white #fffaf6 rice paper subtle fibers. Fine DOUBLE rectangular border, outer rose pink and inner warm gold, inset 4 percent. At top center TWO SMALL interlocking golden circular rings, confined to top 14 percent. Small restrained pink cherry blossoms only at four extreme corners. CENTRAL SIXTY PERCENT entirely empty clean warm-white paper for frontend text overlay. Elegant delicate soft painterly style with subtle rounded volume and top-left highlights on ornaments. Straight-on flat graphic, no perspective or mockup. No words, Chinese characters, letters, digits, stamps, logos, signatures or watermark.",
+          "callId": "call_0wEbfdUalPNdPYnS1tmLtGmO",
+          "source": "assets/wait-source-originals/fortune-together-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "5225dffbcff59adb0246d5463b104a85bc700ebda5094f779498e02cfab0dcc4",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/fortune-together.png",
+      "prompt": "Portrait 3:4 full-bleed opaque blank fortune paper template for couples, warm-white #fffaf6 rice paper subtle fibers. Fine DOUBLE rectangular border, outer rose pink and inner warm gold, inset 4 percent. At top center TWO SMALL interlocking golden circular rings, confined to top 14 percent. Small restrained pink cherry blossoms only at four extreme corners. CENTRAL SIXTY PERCENT entirely empty clean warm-white paper for frontend text overlay. Elegant delicate soft painterly style with subtle rounded volume and top-left highlights on ornaments. Straight-on flat graphic, no perspective or mockup. No words, Chinese characters, letters, digits, stamps, logos, signatures or watermark.",
+      "generationCount": 1,
+      "processing": "Resized full-bleed, flattened opaque",
+      "sha256": "0b9c62d04a79b1bcd466108f0ea2d44fbabc67a324096778a4b744f3e2e45b12",
+      "bytes": 873476,
+      "cornerAlpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 1,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已检查场景构图、留白与背景透明度。"
+    },
+    {
+      "id": "fortune-celebration",
+      "category": "scenes",
+      "width": 720,
+      "height": 960,
+      "transparent": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt": "Portrait 3:4 full-bleed opaque blank celebratory fortune paper template, warm-white #fffaf6 rice paper with fine subtle fibers. Elegant thin GOLD DOUBLE-LINE rectangular border inset 4 percent. One SMALL warm golden firework ornament centered in top 14 percent. Sparse small coral, mint and warm yellow confetti curls and dots confined to extreme corners. CENTRAL SIXTY PERCENT completely empty clean paper reserved for text overlay. Refined soft painterly graphic with slight rounded volume and top-left highlights, warm cheerful palette. Flat straight-on no perspective or mockup. No text, Chinese characters, letters, digits, logos, signatures, stamps or watermark.",
+          "callId": "call_f69B23D6F7ijsMYwMSjNB3bi",
+          "source": "assets/wait-source-originals/fortune-celebration-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "be0739a2d88195da1814de581578888ad3b4fd97be91ae52b4d1d1f4089fd160",
+          "archivedHashVerified": true
+        }
+      ],
+      "path": "assets/wait/fortune-celebration.png",
+      "prompt": "Portrait 3:4 full-bleed opaque blank celebratory fortune paper template, warm-white #fffaf6 rice paper with fine subtle fibers. Elegant thin GOLD DOUBLE-LINE rectangular border inset 4 percent. One SMALL warm golden firework ornament centered in top 14 percent. Sparse small coral, mint and warm yellow confetti curls and dots confined to extreme corners. CENTRAL SIXTY PERCENT completely empty clean paper reserved for text overlay. Refined soft painterly graphic with slight rounded volume and top-left highlights, warm cheerful palette. Flat straight-on no perspective or mockup. No text, Chinese characters, letters, digits, logos, signatures, stamps or watermark.",
+      "generationCount": 1,
+      "processing": "Resized full-bleed, flattened opaque",
+      "sha256": "04eabac31cf13c3c1f1c3aae639f1e5334ceb62ce429b3e07115eeb043c147af",
+      "bytes": 875891,
+      "cornerAlpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "dimensionsVerified": true,
+      "qa": {
+        "dimensions": true,
+        "alphaMode": true,
+        "visibleFraction": 1,
+        "strongMagentaPixels": 0,
+        "groupVisuallyReviewed": true
+      },
+      "visualNotes": "已检查场景构图、留白与背景透明度。"
+    }
+  ],
+  "generationCount": 53,
+  "redraws": [
+    {
+      "id": "fortune-tube",
+      "generationCount": 2,
+      "selectedAttempt": 2,
+      "reason": "第一版预览呈现大范围光晕，重画后结合实际 alpha 清理，保留七支红头竹签。"
+    }
+  ],
+  "validation": {
+    "assetCount": 52,
+    "expectedPathsMatch": true,
+    "failures": [],
+    "protectedFilesChecked": 106,
+    "protectedFilesChanged": [],
+    "protectedFilesAdded": [],
+    "contactSheetsOpened": [
+      "docs/previews/wait-stickers-contact.png",
+      "docs/previews/wait-friends-contact.png",
+      "docs/previews/wait-scenes-contact.png"
+    ],
+    "nativeApplicationTested": false
+  },
+  "deliveryException": {
+    "requestedPath": "docs/sources/wait-assets.json",
+    "actualPath": "docs/previews/wait-assets-record.json",
+    "error": "EPERM: operation not permitted, open 'D:\\00_Formula\\03_Coding\\pictureAI\\ai-photo-booth\\docs\\sources\\wait-assets.json'",
+    "action": "No ACL changes or permission bypass attempted; retained complete manifest at writable preview path."
+  },
+  "remainingNotes": [
+    "独角兽鬃毛及浣熊、部分动物的毛发细节比车辆更细腻，柴犬轮廓更深；分组检查未见明显画风断裂，但尚未获用户审美确认。",
+    "白色贴纸描边已补齐，厚度接近目标，不保证每处精确等宽。",
+    "未运行拍照机页面或实际打印；本次仅验证静态素材，不代表产品体验或商业验收。"
+  ]
+}

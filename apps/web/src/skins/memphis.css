@@ -1,0 +1,152 @@
+/* Skin "memphis" (UI concept 05 孟菲斯波普): sunshine yellow, ink outlines, hard offset shadows, pink / blue / mint accents.
+   Loaded last; every rule is scoped to html[data-skin="memphis"] so the default studio look is untouched.
+   Tokens first (they recolour every page), then the components that need the outline-and-shadow treatment. */
+:root[data-skin="memphis"]{
+  --mp-yellow:#ffd21f;
+  --mp-pink:#ff3d9a;
+  --mp-blue:#2c4bff;
+  --mp-mint:#2fd6a0;
+  --mp-ink:#111;
+  /* Line weights: thin for chips and cards, a step up for the main action. Kept light so the screen reads crisp, not heavy. */
+  --mp-line:2px solid var(--mp-ink);
+  --mp-line-lg:3px solid var(--mp-ink);
+  --mp-drop:3px 3px 0 var(--mp-ink);
+  --mp-drop-lg:5px 5px 0 var(--mp-ink);
+  --sr-bg:var(--mp-yellow);
+  --sr-surface:#fff;
+  --sr-sunken:#fff6cc;
+  --sr-line:#111;
+  --sr-line-strong:#111;
+  --sr-ink:#111;
+  --sr-muted:#3d3522;
+  --sr-accent:var(--mp-blue);
+  --sr-accent-strong:#1a35d9;
+  --sr-accent-ink:#1a35d9;
+  --sr-accent-soft:#dfe5ff;
+  --sr-sage:#0b8a60;
+  --sr-sage-soft:#c8f5e3;
+  --sr-sun:var(--mp-pink);
+  --sr-r-sm:12px;
+  --sr-r-md:16px;
+  --sr-r-lg:22px;
+  /* Shadow tokens carry an ink ring as well, so every floating surface of the base layers gets an outline without a border rule each. */
+  --sr-shadow-1:0 0 0 2px var(--mp-ink),3px 3px 0 2px var(--mp-ink);
+  --sr-shadow-2:0 0 0 2px var(--mp-ink),5px 5px 0 2px var(--mp-ink);
+  --sr-shadow-accent:var(--mp-drop);
+  --sr-display:'Microsoft YaHei UI','PingFang SC','Noto Sans SC',sans-serif;
+  --sr-text:'Microsoft YaHei UI','PingFang SC','Noto Sans SC',sans-serif;
+}
+
+/* Backdrop: the full shape set on the idle screen, a quiet dot texture on working pages so content stays readable. */
+[data-skin="memphis"] body:has(.kiosk-shell){background:radial-gradient(circle,#ffffff38 2.5px,transparent 3px) 0 0/26px 26px,var(--mp-yellow);background-attachment:fixed}
+[data-skin="memphis"] body:has(.kiosk-shell.is-idle){background:url('./memphis-decor.svg') center/cover no-repeat,var(--mp-yellow);background-attachment:fixed}
+
+/* Header: ink wordmark, no hairline. */
+[data-skin="memphis"] .kiosk-shell>header:after{display:none}
+[data-skin="memphis"] .kiosk-shell .brand{color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .brand-mark{color:var(--mp-ink)}
+
+/* ---------- Idle screen ---------- */
+/* Title: solid ink letters lifted by a hard white offset; the key phrase in pink with an ink offset.
+   No text strokes: on CJK glyphs a stroke plus a shadow fills the counters and the strokes run together. */
+[data-skin="memphis"] .kiosk-shell .attract-copy h1{font-weight:700;letter-spacing:.01em;color:var(--mp-ink);text-shadow:.05em .05em 0 #fff}
+[data-skin="memphis"] .kiosk-shell .attract-copy h1 em{color:var(--mp-pink);font-weight:700;text-shadow:.05em .05em 0 var(--mp-ink)}
+
+/* Steps: coloured number discs over white label pills, joined by dotted ink lines. */
+[data-skin="memphis"] .kiosk-shell .attract-steps{flex-wrap:nowrap;gap:0;width:100%;max-width:680px;color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .attract-steps li{position:relative;flex:1 1 0;flex-direction:column;gap:14px;font-weight:700}
+[data-skin="memphis"] .kiosk-shell .attract-steps li:not(:last-child):after{content:'';position:absolute;top:calc(var(--mp-disc) / 2 - 2px);left:calc(50% + var(--mp-disc) / 2 + 10px);right:calc(-50% + var(--mp-disc) / 2 + 10px);border-top:4px dotted var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .attract-steps{--mp-disc:64px}
+[data-skin="memphis"] .kiosk-shell .attract-steps b{width:var(--mp-disc);height:var(--mp-disc);border:var(--mp-line-lg);background:var(--mp-pink);color:#fff;font-size:30px;font-weight:700}
+[data-skin="memphis"] .kiosk-shell .attract-steps li:nth-child(2) b{background:var(--mp-blue)}
+[data-skin="memphis"] .kiosk-shell .attract-steps li:nth-child(3) b{background:var(--mp-mint);color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .attract-steps span{padding:4px 16px;border:var(--mp-line);border-radius:999px;background:#fff;box-shadow:2px 2px 0 var(--mp-ink);line-height:1.3}
+
+/* Start: a fat blue capsule that presses down into its shadow. */
+[data-skin="memphis"] .kiosk-shell .start-button{border:var(--mp-line-lg);background:var(--mp-blue);color:#fff;font-weight:700;letter-spacing:.06em;box-shadow:6px 6px 0 var(--mp-ink);transition:transform .12s ease,box-shadow .12s ease}
+[data-skin="memphis"] .kiosk-shell .start-button:hover:not(:disabled){background:var(--mp-blue)}
+[data-skin="memphis"] .kiosk-shell .start-button:active:not(:disabled){transform:translate(4px,4px);box-shadow:2px 2px 0 var(--mp-ink)}
+/* Chevron instead of the default arrow glyph, drawn so it matches the button's weight. */
+[data-skin="memphis"] .kiosk-shell .start-button span{background:none;font-size:0}
+[data-skin="memphis"] .kiosk-shell .start-button span:before{content:'';width:26px;height:26px;margin-left:-10px;border:solid #fff;border-width:7px 7px 0 0;border-radius:2px;transform:rotate(45deg)}
+[data-skin="memphis"] .kiosk-shell .service-paused{border-left-color:var(--mp-pink)}
+
+/* Photo wall: instant-print cards with a white mat, ink outlines, a slight tilt and coloured name tags.
+   Vertical margins keep both copies of a lane equal, so the seamless loop in kiosk-touch.css still holds;
+   side padding leaves room for the tilt, shadow and tag, which the wall would otherwise clip on the outer lanes. */
+[data-skin="memphis"] .kiosk-shell .attract-wall{column-gap:28px;padding-inline:14px 26px}
+[data-skin="memphis"] .kiosk-shell .wall-card{margin:12px 0;padding:8px;overflow:visible;border:var(--mp-line);border-radius:6px;background:#fff;box-shadow:var(--mp-drop-lg);transform:rotate(-2deg)}
+[data-skin="memphis"] .kiosk-shell .wall-card:nth-child(even){transform:rotate(2.2deg)}
+[data-skin="memphis"] .kiosk-shell .wall-card:nth-child(3n){transform:rotate(-.8deg)}
+[data-skin="memphis"] .kiosk-shell .wall-card img{border:var(--mp-line)}
+[data-skin="memphis"] .kiosk-shell .wall-card figcaption{left:auto;right:-6px;bottom:20px;padding:3px 12px;border:var(--mp-line);border-radius:4px;background:var(--mp-mint);color:var(--mp-ink);font-weight:700;box-shadow:2px 2px 0 var(--mp-ink);-webkit-backdrop-filter:none;backdrop-filter:none;transform:rotate(-3deg)}
+[data-skin="memphis"] .kiosk-shell .wall-card:nth-child(4n+2) figcaption{background:var(--mp-pink);color:#fff}
+[data-skin="memphis"] .kiosk-shell .wall-card:nth-child(4n+3) figcaption{background:var(--mp-blue);color:#fff}
+[data-skin="memphis"] .kiosk-shell .wall-card:nth-child(4n) figcaption{background:var(--mp-yellow)}
+
+/* Landscape kiosk: the copy column scales with the screen height too, so a short window (1536x730 at 125%) never pushes the button past the fold. */
+@media (orientation:landscape) and (min-width:1200px){
+  [data-skin="memphis"] .kiosk-shell .attract-copy h1{font-size:min(160px,16cqi,12.5vh);margin-bottom:clamp(18px,3.4vh,40px)}
+  [data-skin="memphis"] .kiosk-shell .attract-steps{--mp-disc:clamp(52px,7.4vh,80px);font-size:clamp(19px,2.5vh,27px);margin-bottom:clamp(26px,5.6vh,64px)}
+  [data-skin="memphis"] .kiosk-shell .attract-steps li{gap:clamp(8px,1.2vh,14px)}
+  [data-skin="memphis"] .kiosk-shell .attract-steps b{font-size:calc(var(--mp-disc) * .46)}
+  [data-skin="memphis"] .kiosk-shell .start-button{min-height:clamp(88px,11.5vh,124px);font-size:clamp(34px,4.4vh,48px)}
+  [data-skin="memphis"] .kiosk-shell .start-button span{width:clamp(56px,7vh,76px);height:clamp(56px,7vh,76px)}
+  [data-skin="memphis"] .kiosk-shell .wall-card figcaption{font-size:19px}
+}
+
+/* ---------- Every other page: same palette, outlined controls ---------- */
+[data-skin="memphis"] .kiosk-shell .primary{border:var(--mp-line-lg);background:var(--mp-blue);color:#fff;font-weight:700;box-shadow:var(--mp-drop-lg)}
+[data-skin="memphis"] .kiosk-shell .primary:hover:not(:disabled){background:var(--sr-accent-strong)}
+[data-skin="memphis"] .kiosk-shell .primary:active:not(:disabled){transform:translate(3px,3px);box-shadow:2px 2px 0 var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .primary:disabled{border-color:#b9ae8a;background:#f3ecd2;color:#8b8165;box-shadow:none}
+[data-skin="memphis"] .kiosk-shell .secondary{border:var(--mp-line);background:#fff;color:var(--mp-ink);font-weight:700;box-shadow:var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .secondary:hover:not(:disabled){border-color:var(--mp-ink);background:#fff6cc}
+[data-skin="memphis"] .kiosk-shell .secondary:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .secondary[aria-pressed=true]:is(*,:hover){background:var(--mp-ink);color:#fff}
+[data-skin="memphis"] .kiosk-shell .visit-actions .text-button{font-weight:700}
+[data-skin="memphis"] .kiosk-shell .mode{border:var(--mp-line)}
+
+/* Progress capsule */
+[data-skin="memphis"] .kiosk-shell .step-bar .progress>span{color:#6b6146;font-weight:700}
+[data-skin="memphis"] .kiosk-shell .step-bar .progress b{border:1.5px solid var(--mp-ink);background:#fff;color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .step-bar .progress .complete b{background:var(--mp-mint);color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .step-bar .progress .current{background:var(--mp-pink);color:#fff}
+[data-skin="memphis"] .kiosk-shell .step-bar .progress .current b{background:#fff;color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .step-bar .photo-expiry{border:var(--mp-line);background:#fff}
+
+/* Theme library */
+/* Tabs and cards already get their outline from the shadow token ring; no extra border, or the edge doubles. */
+[data-skin="memphis"] .kiosk-shell .purpose-tabs button{font-weight:700}
+[data-skin="memphis"] .kiosk-shell .purpose-tabs button[aria-pressed=true]{background:var(--mp-pink);color:#fff;box-shadow:var(--sr-shadow-1)}
+[data-skin="memphis"] .kiosk-shell .purpose-tabs button[aria-pressed=true] .category-count{background:#fff;color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .theme-library .theme-card:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:var(--sr-shadow-2)}
+
+/* Panels without a shadow token */
+[data-skin="memphis"] .kiosk-shell :is(.qr-ticket,.capture-copy .consent){border:var(--mp-line)}
+[data-skin="memphis"] .kiosk-shell .capture-tips li{border:var(--mp-line);background:#fff}
+
+
+/* ---------- Generation wait (apps/web/src/wait): the same outline-and-drop treatment for the games ---------- */
+[data-skin="memphis"] .kiosk-shell :is(.fortune-chip,.game-switch){border:var(--mp-line);box-shadow:var(--mp-drop);font-weight:700}
+[data-skin="memphis"] .kiosk-shell .fortune-chip{background:#fff;color:var(--mp-pink)}
+[data-skin="memphis"] .kiosk-shell .game-switch{background:var(--mp-mint);color:var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .game-switch:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--mp-ink)}
+/* Cards, sticker keys and windows: ink edges so they read against the white stage. */
+[data-skin="memphis"] .kiosk-shell :is(.memory-back,.memory-face){border:var(--mp-line);box-shadow:var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .memory-card.is-matched .memory-face{box-shadow:0 0 0 3px var(--mp-mint),var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .sticker-options button{border:var(--mp-line);box-shadow:var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .sticker-options button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--mp-ink)}
+[data-skin="memphis"] .kiosk-shell .snap-game{background:#dff3ff}
+[data-skin="memphis"] .kiosk-shell .snap-window{border:var(--mp-line);background:#fff;box-shadow:inset 0 -16px 0 var(--mp-pink),var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .snap-pile i{border:var(--mp-line)}
+[data-skin="memphis"] .kiosk-shell .bubble-game{background:#dff3ff}
+[data-skin="memphis"] .kiosk-shell .wait-experience .game-finale{border:var(--mp-line-lg);box-shadow:var(--mp-drop-lg);color:var(--mp-pink)}
+[data-skin="memphis"] .kiosk-shell .frame-offer-options button{border:var(--mp-line);background:#fff;box-shadow:var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .frame-offer-options button[aria-pressed=true]{background:var(--mp-yellow)}
+[data-skin="memphis"] .kiosk-shell .wait-experience .generation-note{color:var(--mp-ink)!important}
+/* Results: the fortune slip as an outlined tag. */
+[data-skin="memphis"] .kiosk-shell .result-fortune{border:var(--mp-line);background:#fff;box-shadow:var(--mp-drop)}
+[data-skin="memphis"] .kiosk-shell .result-fortune b{color:var(--mp-pink)}
+/* Reveal: the polaroid and the original get ink edges like the photo wall. */
+[data-skin="memphis"] .kiosk-shell :is(.reveal-polaroid,.reveal-original){border:var(--mp-line);box-shadow:var(--mp-drop-lg)}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <!-- Memphis idle backdrop (concept 05). Shapes sit in the margins and between the copy and the photo wall. -->
+  <defs>
+    <pattern id="dots-pink" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="5" fill="#ff3d9a"/></pattern>
+    <pattern id="dots-blue" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="5" fill="#2c4bff"/></pattern>
+    <pattern id="dots-ink" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="3.2" fill="#111"/></pattern>
+  </defs>
+  <!-- top: mint zigzag, blue dot strip, pink triangle -->
+  <path d="M540 92 l34 -34 l34 34 l34 -34 l34 34 l34 -34 l34 34" fill="none" stroke="#2fd6a0" stroke-width="16" stroke-linejoin="miter" stroke-linecap="square"/>
+  <rect x="1360" y="34" width="150" height="62" fill="url(#dots-blue)"/>
+  <path d="M790 70 L950 150 L800 250 Z" fill="#ff3d9a"/>
+  <!-- top right: blue circle and pink dot grid -->
+  <circle cx="1880" cy="36" r="150" fill="#2c4bff"/>
+  <rect x="1800" y="180" width="110" height="130" fill="url(#dots-pink)"/>
+  <!-- right edge: mint triangle -->
+  <path d="M1920 360 L1840 430 L1920 500 Z" fill="#2fd6a0"/>
+  <!-- middle: blue triangle tucked behind the wall -->
+  <path d="M900 470 L1010 420 L990 560 Z" fill="#2c4bff"/>
+  <!-- left: ink burst lines beside the start button -->
+  <g stroke="#111" stroke-width="9" stroke-linecap="round">
+    <path d="M40 700 L78 726"/><path d="M28 748 L74 752"/><path d="M52 664 L84 702"/>
+  </g>
+  <g stroke="#111" stroke-width="9" stroke-linecap="round">
+    <path d="M250 32 L282 52"/><path d="M262 76 L298 76"/>
+  </g>
+  <!-- bottom: pink half disc, blue dots, pink squiggle, ink dots, pink wave -->
+  <circle cx="40" cy="1090" r="190" fill="#ff3d9a"/>
+  <rect x="590" y="970" width="180" height="88" fill="url(#dots-blue)"/>
+  <path d="M880 1010 q40 -60 80 0 t80 0 t80 0" fill="none" stroke="#ff3d9a" stroke-width="20" stroke-linecap="round"/>
+  <rect x="1180" y="1020" width="90" height="50" fill="url(#dots-ink)"/>
+  <path d="M1700 1080 C1760 1000 1840 1060 1920 980 L1920 1080 Z" fill="#ff3d9a"/>
+</svg>

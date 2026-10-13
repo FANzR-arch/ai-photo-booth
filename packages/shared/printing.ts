@@ -1,3 +1,5 @@
+/** Print/delivery id for the sticker-decorated original, alongside the AI image ids. */
+export const decoratedPrintId = 'decorated';
 export interface PrinterOption {
     name: string;
     label: string;

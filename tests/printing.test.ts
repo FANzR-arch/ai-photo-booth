@@ -88,6 +88,17 @@ test('a paid package click submits final framed full image once and survives res
         assert.equal(f.printed.length, 1);
     } finally { await f.close(); }
 });
+test('the sticker-decorated original prints without a frame and only once it exists', async () => {
+    const f = await fixture();
+    try {
+        await f.printer.save(defaults); const s = await f.ready();
+        assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId: 'decorated' })).statusCode, 404);
+        const decorated = await sharp({ create: { width: 60, height: 80, channels: 3, background: 'blue' } }).png().toBuffer();
+        assert.equal((await f.req(`/api/sessions/${s.id}/decorated`, { dataUrl: `data:image/png;base64,${decorated.toString('base64')}` })).statusCode, 200);
+        assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId: 'decorated' })).json().status, 'submitted');
+        assert.equal(f.printed.length, 1);
+    } finally { await f.close(); }
+});
 test('printing needs a ready photo that belongs to the session', async () => {
     const f = await fixture();
     try {

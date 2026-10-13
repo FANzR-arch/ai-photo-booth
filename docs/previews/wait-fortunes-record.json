@@ -1,0 +1,1444 @@
+{
+  "status": "completed_with_layout_variation_noted",
+  "generator": "built-in image_gen",
+  "session": "E:/CodexHome/sessions/2026/10/13/rollout-2026-10-13T13-34-49-01a133c1-908e-7433-8894-0eb966b7936f.jsonl",
+  "assets": [
+    {
+      "id": "g1",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "今天的光",
+        "特别偏爱你"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final production asset g1: a full-bleed opaque portrait Chinese fortune paper, aspect ratio 3:4, intended 720x960. Modern elegant Chinese aesthetic, NOT aged or religious. Warm white subtle xuan paper, fine vermilion double border inset 4%, delicate pale gold auspicious clouds only near bottom corners. Lots of clean space. Top 30% contains large vermilion upright regular-calligraphy heading EXACTLY 大吉 arranged horizontally. Below, dark ink Chinese regular script in TWO vertical columns read from right to left; each column top to bottom. RIGHT column exactly 今天的光 (今 天 的 光). LEFT column exactly 特别偏爱你 (特 别 偏 爱 你). Text region y=36%-76%, centered, generous spacing, all strokes crisp and accurate Simplified Chinese, not cursive. Small blank vermilion square seal at bottom left above clouds. No characters in seal. No other writing, punctuation, Latin letters, digits, logo, watermark, signature. Flat straight-on artwork, no object mockup, no outer background. Original refined illustration. Typography is primary, decorations never overlap letters.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final production asset g1: a full-bleed opaque portrait Chinese fortune paper, aspect ratio 3:4, intended 720x960. Modern elegant Chinese aesthetic, NOT aged or religious. Warm white subtle xuan paper, fine vermilion double border inset 4%, delicate pale gold auspicious clouds only near bottom corners. Lots of clean space. Top 30% contains large vermilion upright regular-calligraphy heading EXACTLY 大吉 arranged horizontally. Below, dark ink Chinese regular script in TWO vertical columns read from right to left; each column top to bottom. RIGHT column exactly 今天的光 (今 天 的 光). LEFT column exactly 特别偏爱你 (特 别 偏 爱 你). Text region y=36%-76%, centered, generous spacing, all strokes crisp and accurate Simplified Chinese, not cursive. Small blank vermilion square seal at bottom left above clouds. No characters in seal. No other writing, punctuation, Latin letters, digits, logo, watermark, signature. Flat straight-on artwork, no object mockup, no outer background. Original refined illustration. Typography is primary, decorations never overlap letters.",
+          "callId": "call_qDoylehYsjtx9XCWKRIGpw8a",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_qDoylehYsjtx9XCWKRIGpw8a.png",
+          "original": "tmp/wait-fortunes-originals/g1-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "9bc756c2fa7c147b6d69c30e69578c9f92044856439f7692a16dfed5c5d6719a"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g1.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "f61cdbf7e111918c6272087b8864b8c4c4bd9216033078f1f012537254437244"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g2",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "镜头很懂你",
+        "放心交给它"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g2, portrait 3:4 full-bleed opaque Chinese fortune paper for 720x960. Match this precise general-series design: warm white subtle xuan paper; fine vermilion double rectangular border inset 4%; pale gold outlined auspicious clouds confined to bottom corners; small blank outlined vermilion square seal bottom left above clouds. Clean bright modern Chinese, not aged, not religious. Top 30% large vermilion regular calligraphy heading EXACTLY 上上签 horizontal. Center dark ink upright legible regular calligraphy in TWO vertical columns read right to left, top to bottom. RIGHT: 镜头很懂你 . LEFT: 放心交给它 . Text region y=36%-78%, align column tops, consistent large clear characters. Exact Simplified Chinese strokes, no cursive. No punctuation or any other text, letters, numbers, signatures, watermark, logos. No writing in seal. Flat artwork, no mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g2, portrait 3:4 full-bleed opaque Chinese fortune paper for 720x960. Match this precise general-series design: warm white subtle xuan paper; fine vermilion double rectangular border inset 4%; pale gold outlined auspicious clouds confined to bottom corners; small blank outlined vermilion square seal bottom left above clouds. Clean bright modern Chinese, not aged, not religious. Top 30% large vermilion regular calligraphy heading EXACTLY 上上签 horizontal. Center dark ink upright legible regular calligraphy in TWO vertical columns read right to left, top to bottom. RIGHT: 镜头很懂你 . LEFT: 放心交给它 . Text region y=36%-78%, align column tops, consistent large clear characters. Exact Simplified Chinese strokes, no cursive. No punctuation or any other text, letters, numbers, signatures, watermark, logos. No writing in seal. Flat artwork, no mockup.",
+          "callId": "call_pb1EOskswyQ0tJRW8ilK6ZJn",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_pb1EOskswyQ0tJRW8ilK6ZJn.png",
+          "original": "tmp/wait-fortunes-originals/g2-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "64a3d41249e471653c9bc985aed700b0938169ec03f5d837bc52c90819b2b96f"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g2.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "36a52cfdc47c8bebfca7d3ac28ec8591cbf83a7b48b8ad81bfd4c4b0989a9c05"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g3",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [
+        "你笑起来的样子",
+        "值得多拍几张"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g3, portrait 3:4 full-bleed opaque Chinese fortune paper for 720x960. General-series design: warm white subtle xuan paper; fine vermilion double rectangular border inset 4%; delicate pale gold outlined auspicious clouds only at bottom corners; small blank outlined vermilion square seal bottom left above clouds. Clean bright modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 中吉 horizontal. Center dark ink upright legible regular calligraphy in TWO vertical columns read right to left, each top to bottom. RIGHT column EXACTLY 你笑起来的样子 (7 characters). LEFT column EXACTLY 值得多拍几张 (6 characters). Text region y=36%-80%, align column tops, uniformly sized clear characters with generous spacing. Exact Simplified Chinese strokes, no cursive. No punctuation or any other text, letters, numbers, signatures, watermark, logos. No writing in seal. Flat artwork, no mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g3, portrait 3:4 full-bleed opaque Chinese fortune paper for 720x960. General-series design: warm white subtle xuan paper; fine vermilion double rectangular border inset 4%; delicate pale gold outlined auspicious clouds only at bottom corners; small blank outlined vermilion square seal bottom left above clouds. Clean bright modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 中吉 horizontal. Center dark ink upright legible regular calligraphy in TWO vertical columns read right to left, each top to bottom. RIGHT column EXACTLY 你笑起来的样子 (7 characters). LEFT column EXACTLY 值得多拍几张 (6 characters). Text region y=36%-80%, align column tops, uniformly sized clear characters with generous spacing. Exact Simplified Chinese strokes, no cursive. No punctuation or any other text, letters, numbers, signatures, watermark, logos. No writing in seal. Flat artwork, no mockup.",
+          "callId": "call_jyadNu2juKiizD8hOTnjwvwV",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_jyadNu2juKiizD8hOTnjwvwV.png",
+          "original": "tmp/wait-fortunes-originals/g3-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "f56b75474e406c9b2930851f77e463d9421bd592422f3884dec995d294e2548a"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g3.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "27dd93fd7268b955800af5660e6004c923275a839012553e013c03dbf7cc98b2"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g4",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "吉",
+      "expectedColumnsRightToLeft": [
+        "今日宜",
+        "拍照 出门",
+        "被夸好看"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g4, portrait 3:4 full-bleed opaque Chinese fortune paper for 720x960. General-series: warm white subtle xuan paper, fine vermilion double rectangular border inset 4%, pale gold outlined auspicious clouds only at bottom corners, small EMPTY vermilion outlined square seal lower left. Bright clean modern Chinese, not aged/religious. Heading 吉 is huge vermilion regular calligraphy centered in top 30%. Body dark ink legible regular calligraphy in THREE vertical columns, ordered RIGHT to LEFT, each top to bottom: right column 今日宜; middle column 拍照 出门 (拍 照 then a modest blank gap then 出 门 within the SAME column); left column 被夸好看. Align tops at 37% height, generous spacing. Typography primary. Exact Simplified Chinese strokes. No punctuation, no extra text, no labels, no digits, no logo, no watermark or signature. No seal writing. Flat artwork only.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g4, portrait 3:4 full-bleed opaque Chinese fortune paper for 720x960. General-series: warm white subtle xuan paper, fine vermilion double rectangular border inset 4%, pale gold outlined auspicious clouds only at bottom corners, small EMPTY vermilion outlined square seal lower left. Bright clean modern Chinese, not aged/religious. Heading 吉 is huge vermilion regular calligraphy centered in top 30%. Body dark ink legible regular calligraphy in THREE vertical columns, ordered RIGHT to LEFT, each top to bottom: right column 今日宜; middle column 拍照 出门 (拍 照 then a modest blank gap then 出 门 within the SAME column); left column 被夸好看. Align tops at 37% height, generous spacing. Typography primary. Exact Simplified Chinese strokes. No punctuation, no extra text, no labels, no digits, no logo, no watermark or signature. No seal writing. Flat artwork only.",
+          "callId": "call_yCFtDK55vl3Fikz4OU5GHbIx",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_yCFtDK55vl3Fikz4OU5GHbIx.png",
+          "original": "tmp/wait-fortunes-originals/g4-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "62978b2a8bd6997114b2f125c7b9aeaeab63251cddb49cf92f90f6bcb31dda62"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g4.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "2db555a1744122d24857dfd24f935d4458d5b706787429d9c13202f075006a07"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g5",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "好看的人",
+        "连等待都很上镜"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g5: full-bleed opaque portrait 3:4 fortune paper for 720x960. Consistent general-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, pale gold fine outlined auspicious clouds at bottom corners only, empty outlined vermilion square seal lower left. Clean bright elegant modern Chinese, no aging or religion. Top 30% heading EXACTLY 上上签 horizontal, large vermilion upright regular-calligraphy. Dark ink body TWO vertical columns top-to-bottom and right-to-left: RIGHT 好看的人; LEFT 连等待都很上镜. Align tops y=36%, uniform body glyph size small enough for seven characters ending by y=82%. Exact Simplified Chinese strokes, clearly readable regular script rather than cursive. Only those text strings. No punctuation, Latin, digits, extra marks, watermark, logo, signature. No text in seal. Flat artwork, not a photograph of paper.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g5: full-bleed opaque portrait 3:4 fortune paper for 720x960. Consistent general-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, pale gold fine outlined auspicious clouds at bottom corners only, empty outlined vermilion square seal lower left. Clean bright elegant modern Chinese, no aging or religion. Top 30% heading EXACTLY 上上签 horizontal, large vermilion upright regular-calligraphy. Dark ink body TWO vertical columns top-to-bottom and right-to-left: RIGHT 好看的人; LEFT 连等待都很上镜. Align tops y=36%, uniform body glyph size small enough for seven characters ending by y=82%. Exact Simplified Chinese strokes, clearly readable regular script rather than cursive. Only those text strings. No punctuation, Latin, digits, extra marks, watermark, logo, signature. No text in seal. Flat artwork, not a photograph of paper.",
+          "callId": "call_jocxUXdzeyIkA1ICHwkyykvN",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_jocxUXdzeyIkA1ICHwkyykvN.png",
+          "original": "tmp/wait-fortunes-originals/g5-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "d85bbf47b20de0d220906f902e7fb598a6085a7d2ba3e9a508aeed6341e8098e"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g5.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "4239dad59539b04f6efc4214868b2f2e5899019158adf55eea406424d1bd71e9"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g6",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "这张照片",
+        "会被你存很久"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g6: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper; thin vermilion double rectangular border inset 4%; delicate pale gold outlined auspicious clouds only at bottom corners; small empty outlined vermilion square seal lower left. Bright elegant modern Chinese, not aged or religious. Top 30% heading EXACTLY 大吉 horizontal, large vermilion regular calligraphy. Below dark ink upright regular calligraphy TWO vertical columns, each top-to-bottom, columns read right-to-left. RIGHT exactly 这张照片. LEFT exactly 会被你存很久. Align tops at 36% height and fit until 80%. Uniform body characters with generous spacing, crisp accurate Simplified Chinese strokes, no cursive. No other text or punctuation, letters, numbers, watermark, signature, logos. Seal has no characters. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g6: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper; thin vermilion double rectangular border inset 4%; delicate pale gold outlined auspicious clouds only at bottom corners; small empty outlined vermilion square seal lower left. Bright elegant modern Chinese, not aged or religious. Top 30% heading EXACTLY 大吉 horizontal, large vermilion regular calligraphy. Below dark ink upright regular calligraphy TWO vertical columns, each top-to-bottom, columns read right-to-left. RIGHT exactly 这张照片. LEFT exactly 会被你存很久. Align tops at 36% height and fit until 80%. Uniform body characters with generous spacing, crisp accurate Simplified Chinese strokes, no cursive. No other text or punctuation, letters, numbers, watermark, signature, logos. Seal has no characters. Flat artwork.",
+          "callId": "call_XTeM3LW21YQOXbDBVMBad9Ys",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_XTeM3LW21YQOXbDBVMBad9Ys.png",
+          "original": "tmp/wait-fortunes-originals/g6-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "c37d6cdbe91051ecab4c86c607871f7c37e94817f14a62200857cf4e66e1da42"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g6.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "e923974603d5feb2d6ff76acc7e14340931b37789c75e1b2aae04c8e57fabc7c"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g7",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "小吉",
+      "expectedColumnsRightToLeft": [
+        "今天的你",
+        "比昨天更自在"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g7: full-bleed opaque portrait 3:4 fortune paper for 720x960. Consistent general-series: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 小吉 horizontal. Below dark ink upright regular script TWO vertical columns, read right-to-left, each top-to-bottom: RIGHT 今天的你; LEFT 比昨天更自在. Align tops at 36%, uniformly sized clear body glyphs, fit until 80%. Carefully render every Simplified Chinese stroke; not cursive. No additional text, punctuation, letters, numbers, logos, watermark, signature; no seal writing. Flat artwork not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g7: full-bleed opaque portrait 3:4 fortune paper for 720x960. Consistent general-series: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 小吉 horizontal. Below dark ink upright regular script TWO vertical columns, read right-to-left, each top-to-bottom: RIGHT 今天的你; LEFT 比昨天更自在. Align tops at 36%, uniformly sized clear body glyphs, fit until 80%. Carefully render every Simplified Chinese stroke; not cursive. No additional text, punctuation, letters, numbers, logos, watermark, signature; no seal writing. Flat artwork not mockup.",
+          "callId": "call_FN0iCc5EIjGmYyQrpUTDz1u4",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_FN0iCc5EIjGmYyQrpUTDz1u4.png",
+          "original": "tmp/wait-fortunes-originals/g7-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "a6c9a8caa500067a5d80d5aaabba90adaa040ac8b4428837625400416a788a61"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g7.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "5d889a95cbf320b47763860d796bd2a6ea0402688aff53e47ec01b9a68b27724"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g8",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [
+        "今日上镜指数",
+        "五颗星"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g8: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 中吉 horizontally. Body dark ink upright regular script in TWO vertical columns, right-to-left and top-to-bottom: RIGHT exactly 今日上镜指数 (今 日 上 镜 指 数); LEFT exactly 五颗星 (五 颗 星). Align column tops y=36%, uniform glyph size, end before y=82%. Text accuracy critical, use Simplified Chinese regular script, no cursive. Do not draw stars instead of characters. No extra writing, punctuation, Latin, digits, signature, watermark, logos. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g8: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 中吉 horizontally. Body dark ink upright regular script in TWO vertical columns, right-to-left and top-to-bottom: RIGHT exactly 今日上镜指数 (今 日 上 镜 指 数); LEFT exactly 五颗星 (五 颗 星). Align column tops y=36%, uniform glyph size, end before y=82%. Text accuracy critical, use Simplified Chinese regular script, no cursive. Do not draw stars instead of characters. No extra writing, punctuation, Latin, digits, signature, watermark, logos. Flat artwork.",
+          "callId": "call_x3fn0iSNRxaIWrKWTicVduKn",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_x3fn0iSNRxaIWrKWTicVduKn.png",
+          "original": "tmp/wait-fortunes-originals/g8-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "fa114dfca58c11f1ea065ab09b63db37e73e34582bef2c44da59b8d2ffde64d8"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g8.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "1328be0349dfbb5153da9df268649bb1ff8a530f0ffadc0c7fa1429d81bf682f"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g9",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "有些好看",
+        "是不用修的"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g9: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 大吉 horizontally. Body dark ink upright regular script TWO vertical columns, each top-to-bottom, ordered right-to-left: RIGHT exactly 有些好看; LEFT exactly 是不用修的. Align tops at 36%, uniform glyph size, fit until 80%. Exact Simplified Chinese, crisp strokes, no cursive. No additional text, punctuation, Latin, digits, watermark, signature or logos. No writing in seal. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g9: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 大吉 horizontally. Body dark ink upright regular script TWO vertical columns, each top-to-bottom, ordered right-to-left: RIGHT exactly 有些好看; LEFT exactly 是不用修的. Align tops at 36%, uniform glyph size, fit until 80%. Exact Simplified Chinese, crisp strokes, no cursive. No additional text, punctuation, Latin, digits, watermark, signature or logos. No writing in seal. Flat artwork.",
+          "callId": "call_1QqFf8200ycuSn9D1TmoeTu0",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_1QqFf8200ycuSn9D1TmoeTu0.png",
+          "original": "tmp/wait-fortunes-originals/g9-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "a164545b5730982e0610d58a38e82453eda4c6ccab323b6dbbe34e9b024c4c72"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g9.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "5f15ea8e510244bd9e987e492e725452db61bd568fc086830364602a8560b106"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "g10",
+      "kind": "fortune",
+      "group": "general",
+      "expectedHeading": "吉",
+      "expectedColumnsRightToLeft": [
+        "今日宜",
+        "发朋友圈"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset g10: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 吉 centered. Body dark ink upright regular script TWO vertical columns, each top-to-bottom, ordered right-to-left: RIGHT exactly 今日宜; LEFT exactly 发朋友圈. Align tops at 37%, uniform glyph size, generous spacing, end before 80%. Exact Simplified Chinese, crisp strokes, no cursive. No additional text, punctuation, Latin, digits, watermark, signature or logos. No writing in seal. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset g10: full-bleed opaque portrait 3:4 fortune paper for 720x960. General-series design: warm white subtle xuan paper, thin vermilion double rectangular border inset 4%, delicate pale gold outlined auspicious clouds at bottom corners only, small EMPTY outlined vermilion square seal lower left. Clean bright elegant modern Chinese, not aged or religious. Top 30% large vermilion regular calligraphy heading EXACTLY 吉 centered. Body dark ink upright regular script TWO vertical columns, each top-to-bottom, ordered right-to-left: RIGHT exactly 今日宜; LEFT exactly 发朋友圈. Align tops at 37%, uniform glyph size, generous spacing, end before 80%. Exact Simplified Chinese, crisp strokes, no cursive. No additional text, punctuation, Latin, digits, watermark, signature or logos. No writing in seal. Flat artwork.",
+          "callId": "call_pLiTJVdsrbRBATGnkY3swl7V",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_pLiTJVdsrbRBATGnkY3swl7V.png",
+          "original": "tmp/wait-fortunes-originals/g10-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "1dadb7726e064930814e03be0df6cc5126c704ddc98ddaa99aceff662ce6eec5"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/g10.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "003dac85e8e851bd7381f3e8ab631a460ff213dcf3d1a5462a054c0199b4d0f1"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t1",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "你们俩",
+        "今天很上镜"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t1: full-bleed opaque portrait 3:4 Chinese fortune paper for 720x960. TOGETHER-series design: pale cherry-blossom pink xuan paper, thin elegant rose-gold double rectangular border inset 4%, small paired flowering twigs at the four corners (pink blossoms, restrained sage leaves), keep center clear. Small empty outlined vermilion square seal bottom left above lower flowers. Refined bright modern Chinese, not aged, not religious, no rings. Top 30% heading EXACTLY 大吉 horizontal, large vermilion upright regular calligraphy. Body dark ink upright legible regular script TWO vertical columns, ordered RIGHT to LEFT, each top-to-bottom. RIGHT exactly 你们俩; LEFT exactly 今天很上镜. Align tops at y=36%, generous spacing and uniform glyph size, end before y=80%. Correct Simplified Chinese strokes. No punctuation or extra text, Latin, numbers, signature, logos, watermark. No text inside seal. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t1: full-bleed opaque portrait 3:4 Chinese fortune paper for 720x960. TOGETHER-series design: pale cherry-blossom pink xuan paper, thin elegant rose-gold double rectangular border inset 4%, small paired flowering twigs at the four corners (pink blossoms, restrained sage leaves), keep center clear. Small empty outlined vermilion square seal bottom left above lower flowers. Refined bright modern Chinese, not aged, not religious, no rings. Top 30% heading EXACTLY 大吉 horizontal, large vermilion upright regular calligraphy. Body dark ink upright legible regular script TWO vertical columns, ordered RIGHT to LEFT, each top-to-bottom. RIGHT exactly 你们俩; LEFT exactly 今天很上镜. Align tops at y=36%, generous spacing and uniform glyph size, end before y=80%. Correct Simplified Chinese strokes. No punctuation or extra text, Latin, numbers, signature, logos, watermark. No text inside seal. Flat artwork.",
+          "callId": "call_HkKeht2dBm5vHoVMfa5aqpF1",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_HkKeht2dBm5vHoVMfa5aqpF1.png",
+          "original": "tmp/wait-fortunes-originals/t1-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "9d14bb37d2bf53bcc063d9ae15a02ea16d6ad0225fa2e0deb8313f403d9723b6"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t1.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "44fa24dc3d33e910d81009b94e8689666bfbe68f4b6a60228a96d03740334dae"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t2",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "合照里笑得最开心的",
+        "是你们"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t2: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, thin rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Empty outlined vermilion square seal lower left. Bright modern elegant Chinese, not aged or religious. Heading EXACTLY 上上签 horizontal in top 30%, large vermilion upright regular calligraphy. Body dark ink regular script in TWO vertical columns read right-to-left. RIGHT column is exactly 合照里笑得最开心的, nine characters, one per line from top to bottom: 合 照 里 笑 得 最 开 心 的. LEFT column exactly 是你们, three characters: 是 你 们. Align column tops at y=36%; use same modest glyph size for both columns, all NINE characters fit by y=83%, no wrapping into extra columns. Crisp perfectly accurate Simplified Chinese, readable not cursive. No punctuation or any additional writing, Latin, digits, signatures, logos, watermark, seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t2: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, thin rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Empty outlined vermilion square seal lower left. Bright modern elegant Chinese, not aged or religious. Heading EXACTLY 上上签 horizontal in top 30%, large vermilion upright regular calligraphy. Body dark ink regular script in TWO vertical columns read right-to-left. RIGHT column is exactly 合照里笑得最开心的, nine characters, one per line from top to bottom: 合 照 里 笑 得 最 开 心 的. LEFT column exactly 是你们, three characters: 是 你 们. Align column tops at y=36%; use same modest glyph size for both columns, all NINE characters fit by y=83%, no wrapping into extra columns. Crisp perfectly accurate Simplified Chinese, readable not cursive. No punctuation or any additional writing, Latin, digits, signatures, logos, watermark, seal text. Flat artwork.",
+          "callId": "call_XnIQiuepn7t9r6rn3z9M2wVR",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_XnIQiuepn7t9r6rn3z9M2wVR.png",
+          "original": "tmp/wait-fortunes-originals/t2-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "4fc95dbf345434f5206929dbc8a7148f8abfa737d17014f9a50e4e6cde155cbf"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t2.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "ae385b19f0050adf855d000433f1d10f5ecd1e8a3d052aa6a7fe0e6afad7e1e0"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": [
+          "最长列“合照里笑得最开心的”共九字；最终 720×960 单图再次核对，字体较其他短签文小。"
+        ]
+      }
+    },
+    {
+      "id": "t3",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [
+        "今日宜",
+        "多拍一张",
+        "留给以后看"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t3: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, thin rose-gold double rectangular border inset 4%, small paired pink flowering twigs with sage leaves in four corners, center clear, no rings. Small EMPTY outlined vermilion square seal bottom left. Bright elegant modern Chinese, no aging or religious symbols. Top 30% large vermilion upright regular-calligraphy heading EXACTLY 中吉 horizontal. Dark ink body THREE vertical columns, each top-to-bottom, ordered right to left: RIGHT 今日宜; MIDDLE 多拍一张; LEFT 留给以后看. Align tops at y=36%, uniform clear glyph size, fit before 80%. Exact Simplified Chinese stroke forms, readable not cursive. No other text, punctuation, Latin, digits, signature, logos, watermark. Blank seal, flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t3: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, thin rose-gold double rectangular border inset 4%, small paired pink flowering twigs with sage leaves in four corners, center clear, no rings. Small EMPTY outlined vermilion square seal bottom left. Bright elegant modern Chinese, no aging or religious symbols. Top 30% large vermilion upright regular-calligraphy heading EXACTLY 中吉 horizontal. Dark ink body THREE vertical columns, each top-to-bottom, ordered right to left: RIGHT 今日宜; MIDDLE 多拍一张; LEFT 留给以后看. Align tops at y=36%, uniform clear glyph size, fit before 80%. Exact Simplified Chinese stroke forms, readable not cursive. No other text, punctuation, Latin, digits, signature, logos, watermark. Blank seal, flat artwork.",
+          "callId": "call_sgZPDKGOIoZZHkCz2jkGsEq3",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_sgZPDKGOIoZZHkCz2jkGsEq3.png",
+          "original": "tmp/wait-fortunes-originals/t3-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "55b3956684e0ed2dfd51c08ec449f42330c1e0710dfc14cb1cfab62fc3100ef6"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t3.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "8001a7adbd319fabe856cb2c03423350c2b8b97e09a775db7c2552523024bbf1"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t4",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "吉",
+      "expectedColumnsRightToLeft": [
+        "两个人一起",
+        "连等待都变短了"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t4: full-bleed opaque portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper; fine rose-gold double rectangular border inset 4%; paired pink flowering twigs with sage leaves at four corners only; small EMPTY outlined vermilion square seal lower left above flowers. Clean elegant modern Chinese, no aging/religion, no rings. Top 30% heading EXACTLY 吉, large centered vermilion regular calligraphy. Body in dark ink upright regular script, TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM. RIGHT exactly 两个人一起. LEFT exactly 连等待都变短了. Align tops y=36%, uniform glyph size, seven characters fit before y=82%. Simplified Chinese text must be exact, clear strokes, not cursive. No other writing, punctuation, letters, digits, logos, watermark, signature or seal characters. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t4: full-bleed opaque portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper; fine rose-gold double rectangular border inset 4%; paired pink flowering twigs with sage leaves at four corners only; small EMPTY outlined vermilion square seal lower left above flowers. Clean elegant modern Chinese, no aging/religion, no rings. Top 30% heading EXACTLY 吉, large centered vermilion regular calligraphy. Body in dark ink upright regular script, TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM. RIGHT exactly 两个人一起. LEFT exactly 连等待都变短了. Align tops y=36%, uniform glyph size, seven characters fit before y=82%. Simplified Chinese text must be exact, clear strokes, not cursive. No other writing, punctuation, letters, digits, logos, watermark, signature or seal characters. Flat artwork.",
+          "callId": "call_hOILmVwGUyHs0UPvQDG7020E",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_hOILmVwGUyHs0UPvQDG7020E.png",
+          "original": "tmp/wait-fortunes-originals/t4-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "16bafdbfae51260a86490fee78a9d9123f9d900b282c58b5e2d4cc0f068954ef"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t4.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "b5dc9b0cbd3a06bc7cf396bce3caeae6c5b45e564f82606e98315e8cbfe43cb3"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t5",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "默契满分",
+        "镜头都看出来了"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t5: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script TWO vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 默契满分; LEFT exactly 镜头都看出来了. Align tops at 36%, uniform legible glyph size, fit seven glyphs before y=82%. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t5: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script TWO vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 默契满分; LEFT exactly 镜头都看出来了. Align tops at 36%, uniform legible glyph size, fit seven glyphs before y=82%. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+          "callId": "call_8E3lBuuS7qazgu5yc0TBTEdv",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_8E3lBuuS7qazgu5yc0TBTEdv.png",
+          "original": "tmp/wait-fortunes-originals/t5-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "dca3f737e1f08c652e902bc4f4feaec606e768ea6e25f374204ffe09caf338f0"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t5.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "60acb68dacbd4b48da89c546345ce63366c690a6adc5570b87a3e7d7075ac6fd"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t6",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "这一刻",
+        "值得被好好收藏"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t6: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 大吉 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script TWO vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 这一刻; LEFT exactly 值得被好好收藏. Align tops at 36%, uniform legible glyph size, fit seven glyphs before y=82%. Preserve BOTH consecutive 好 characters. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t6: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 大吉 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script TWO vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 这一刻; LEFT exactly 值得被好好收藏. Align tops at 36%, uniform legible glyph size, fit seven glyphs before y=82%. Preserve BOTH consecutive 好 characters. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+          "callId": "call_K2iot0Bc60GmtWjTPtuX3cJC",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_K2iot0Bc60GmtWjTPtuX3cJC.png",
+          "original": "tmp/wait-fortunes-originals/t6-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "8db601ae9f0d68495f3123f7998c532be80865ba1efb41aae96f28a98c204ef3"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t6.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "599e737b9e20cf6145f7be64ea25eae3029353d7402cbf839edf815127bc9280"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t7",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [
+        "今日宜",
+        "靠近一点",
+        "再笑一个"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t7: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 中吉 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script THREE vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 今日宜; MIDDLE exactly 靠近一点; LEFT exactly 再笑一个. Align tops at 36%, uniform large legible glyph size, end before 80%. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t7: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 中吉 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script THREE vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 今日宜; MIDDLE exactly 靠近一点; LEFT exactly 再笑一个. Align tops at 36%, uniform large legible glyph size, end before 80%. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+          "callId": "call_RkzgTz8nAt2D8Xgj619pHEke",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_RkzgTz8nAt2D8Xgj619pHEke.png",
+          "original": "tmp/wait-fortunes-originals/t7-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "a401de81777a36e9b7964f40995070829c096b07b33dc160dd41bac84a66213c"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t7.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "c0f6920627af7a8735d53a3be91cb602a60251695af24bcaae050ed211cf46b5"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "t8",
+      "kind": "fortune",
+      "group": "together",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "很配",
+        "不用解释"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset t8: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script TWO vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 很配; LEFT exactly 不用解释. Align tops at 36%, uniform large legible glyph size, fit before 80%. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset t8: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. TOGETHER series: pale cherry-blossom pink xuan paper, fine rose-gold double rectangular border inset 4%, small paired pink flowering twigs and sage leaves confined to four corners, no rings. Small EMPTY outlined vermilion square seal lower left. Clean bright modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion regular calligraphy. Body dark ink upright regular script TWO vertical columns read right-to-left, each top-to-bottom: RIGHT exactly 很配; LEFT exactly 不用解释. Align tops at 36%, uniform large legible glyph size, fit before 80%. Render every Simplified Chinese stroke accurately, no cursive. No other text, punctuation, letters, digits, logos, watermark, signature or seal writing. Flat artwork.",
+          "callId": "call_fZ5ljdwSB2Wo3H3cXw6V6J96",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_fZ5ljdwSB2Wo3H3cXw6V6J96.png",
+          "original": "tmp/wait-fortunes-originals/t8-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "549551a295f458e3d1de70fde0fa7cbdb56a0410ab861a8b78f067126fcc7254"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/t8.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "76ad910707f4a2288af4be3a0ef815050b93a6e3e677456d37cbfc11e22d5146"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": [
+          "单独放大复查“不用解释”；释为简体字，未发现误字。"
+        ]
+      }
+    },
+    {
+      "id": "c1",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "今天值得",
+        "被好好纪念"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c1: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners, painted modern Chinese style, keep center clean. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright, refined, not aged or religious. Top 30% heading EXACTLY 大吉 horizontal, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 今天值得; LEFT exactly 被好好纪念. Align tops y=36%, uniform glyph size, fit before y=80%. Correct Simplified Chinese, preserve both 好 characters, readable regular script not cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c1: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners, painted modern Chinese style, keep center clean. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright, refined, not aged or religious. Top 30% heading EXACTLY 大吉 horizontal, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 今天值得; LEFT exactly 被好好纪念. Align tops y=36%, uniform glyph size, fit before y=80%. Correct Simplified Chinese, preserve both 好 characters, readable regular script not cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_6rSon3oLGVlDzcGRphKCNYU1",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_6rSon3oLGVlDzcGRphKCNYU1.png",
+          "original": "tmp/wait-fortunes-originals/c1-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "f8b104b54f0d48478d26ac488388be2e048268f0fb6212b69b06d00e6a09bcdd"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c1.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "37970fcb31241378c46c65f0886d7f1e186e6edfe080966c018c11eb92b1f544"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c2",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "新的开始",
+        "好运满格"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c2: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners, painted modern Chinese style, keep center clear. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined not aged or religious. Top 30% heading EXACTLY 上上签 horizontal, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 新的开始; LEFT exactly 好运满格. Align tops y=36%, uniform clear glyph size, generous spacing, end before y=80%. Correct Simplified Chinese, readable regular script not cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c2: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners, painted modern Chinese style, keep center clear. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined not aged or religious. Top 30% heading EXACTLY 上上签 horizontal, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 新的开始; LEFT exactly 好运满格. Align tops y=36%, uniform clear glyph size, generous spacing, end before y=80%. Correct Simplified Chinese, readable regular script not cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_1j6pfs46CTp8c5JDuuxgqZ4b",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_1j6pfs46CTp8c5JDuuxgqZ4b.png",
+          "original": "tmp/wait-fortunes-originals/c2-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "a4be3630f5934379b7183174e74fc2540ee2fdd1a2ad4cd08b75014f6e4cec1e"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c2.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "f1f9242594ad2dd9e05308fa60bc3b9b1fd0dd3877581c511b9ee2246c3cac1b"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c3",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [
+        "今日宜",
+        "许愿 庆祝 拍照"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c3: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 中吉 horizontal, large vermilion upright regular calligraphy. Body dark ink TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 今日宜; LEFT exactly 许愿 庆祝 拍照, all six characters in ONE column, top-to-bottom 许 愿 then a small gap 庆 祝 then a small gap 拍 照. Do NOT split left into multiple columns. Align tops y=36%, uniform glyph size, fit by y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c3: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 中吉 horizontal, large vermilion upright regular calligraphy. Body dark ink TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 今日宜; LEFT exactly 许愿 庆祝 拍照, all six characters in ONE column, top-to-bottom 许 愿 then a small gap 庆 祝 then a small gap 拍 照. Do NOT split left into multiple columns. Align tops y=36%, uniform glyph size, fit by y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_aY9i25TfwoSM3DVY0li9DwDN",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_aY9i25TfwoSM3DVY0li9DwDN.png",
+          "original": "tmp/wait-fortunes-originals/c3-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "1e92fdbe4957a87bde683f0e916b29f13a6efa8ae01a6df502c094a2951eeb20"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c3.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "89e184c0fb22d020d44d6fb434a9b6071740caa55df6d6f6bb6abbfdb869d9b4"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c4",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "吉",
+      "expectedColumnsRightToLeft": [
+        "愿望会",
+        "一个一个实现"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c4: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 吉 centered, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 愿望会; LEFT exactly 一个一个实现 (一 个 一 个 实 现). Preserve BOTH occurrences of 一个. Align tops y=36%, uniform clear glyph size, fit before y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c4: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 吉 centered, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 愿望会; LEFT exactly 一个一个实现 (一 个 一 个 实 现). Preserve BOTH occurrences of 一个. Align tops y=36%, uniform clear glyph size, fit before y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_4wRMNWoYppVnbu3dziJFuxgF",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_4wRMNWoYppVnbu3dziJFuxgF.png",
+          "original": "tmp/wait-fortunes-originals/c4-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "0466e11d06ddd963b254351e2d4fe7b9ec1f0ec3c12f7978e81feda2da730d1f"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c4.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "eb9a957af951df38287df2298df1cb5c258e7fc9b6b7a3a16c74998a196d4c1b"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c5",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "往后的日子",
+        "也要闪闪发光"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c5: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 往后的日子; LEFT exactly 也要闪闪发光. Preserve BOTH consecutive 闪 characters. Align tops y=36%, uniform clear glyph size, fit before y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c5: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 往后的日子; LEFT exactly 也要闪闪发光. Preserve BOTH consecutive 闪 characters. Align tops y=36%, uniform clear glyph size, fit before y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_MWIrq5MAAmg11Q04Kk9Pegfu",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_MWIrq5MAAmg11Q04Kk9Pegfu.png",
+          "original": "tmp/wait-fortunes-originals/c5-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "3cf043a17cca23ba0269725f7d6556c49dd5527be39f546dc218a392e6f4c42f"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c5.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "a73a18b3ed649ce127dc4531d481c7b793b1c6c601172565751a4ce2ee0caa84"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c6",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [
+        "今天的主角",
+        "就是你"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c6: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 大吉 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 今天的主角; LEFT exactly 就是你. Align tops y=36%, uniform clear glyph size, generous spacing, fit before y=80%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c6: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 大吉 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 今天的主角; LEFT exactly 就是你. Align tops y=36%, uniform clear glyph size, generous spacing, fit before y=80%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_aHSeqsNa7Za8hO1VU13STwyb",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_aHSeqsNa7Za8hO1VU13STwyb.png",
+          "original": "tmp/wait-fortunes-originals/c6-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "5d91b7dddb627df2ab3377ea354c1a763bcae37b67a895f6884950443c150acb"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c6.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "36e40c5d832e5aa9d4ca125c0b7eabff4ded7fc23c06c387af9831d2b6a78d97"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c7",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [
+        "把今天的笑容",
+        "存进照片里"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c7: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 中吉 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 把今天的笑容; LEFT exactly 存进照片里. Align tops y=36%, uniform clear glyph size, generous spacing, fit before y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c7: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 中吉 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 把今天的笑容; LEFT exactly 存进照片里. Align tops y=36%, uniform clear glyph size, generous spacing, fit before y=82%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_PzENLVDwlV1XEsPznmAiETE6",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_PzENLVDwlV1XEsPznmAiETE6.png",
+          "original": "tmp/wait-fortunes-originals/c7-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "172aee096004f8396bc323e18e8e82bdcf5ffb9a65017871ba26f64d6b851ffc"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c7.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "7f936ea8a105e810a2c5c0afe131a95534eef41d170420960c6e153622d3250a"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "c8",
+      "kind": "fortune",
+      "group": "celebration",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [
+        "收到祝福",
+        "一百条"
+      ],
+      "color": null,
+      "motif": null,
+      "prompt": "Create ONE final asset c8: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 收到祝福; LEFT exactly 一百条. Align tops y=36%, uniform clear glyph size, generous spacing, fit before y=80%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset c8: opaque full-bleed portrait 3:4 Chinese fortune paper for 720x960. CELEBRATION series: warm ivory white xuan paper, fine warm-gold double rectangular border inset 4%, small elegant gold firework bursts at top corners, restrained coral and sage silk-ribbon curves with tiny gold confetti at bottom corners. Small EMPTY outlined vermilion square seal lower left above ribbons. Bright refined modern Chinese, not aged or religious. Top 30% heading EXACTLY 上上签 horizontally, large vermilion upright regular calligraphy. Dark ink body TWO vertical columns read RIGHT to LEFT, each TOP to BOTTOM: RIGHT exactly 收到祝福; LEFT exactly 一百条. Align tops y=36%, uniform clear glyph size, generous spacing, fit before y=80%. Correct Simplified Chinese regular script, no cursive. No other text, punctuation, Latin, digits, logos, watermark, signature or seal text. Flat artwork.",
+          "callId": "call_CZJJeQwqQxHt5Jh4ZWMYyxD2",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_CZJJeQwqQxHt5Jh4ZWMYyxD2.png",
+          "original": "tmp/wait-fortunes-originals/c8-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "a666e498c298475b04d9d9a98ed53509387d35ee0ed5f28aa1c9f34ffedf4859"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/fortunes/c8.png",
+        "width": 720,
+        "height": 960,
+        "hasAlpha": false,
+        "sha256": "49dd7464b4ac797e16c63e1a96d1b9f8567ce936f0473a89a99bdb2164defb5e"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "daji",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "大吉",
+      "expectedColumnsRightToLeft": [],
+      "color": "朱红",
+      "motif": "牡丹",
+      "prompt": "Create ONE final asset daji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color luminous vermilion red across entire background including corners, subtle fine paper grain. Modern refined Chinese illustration, clean bright colors, not aged, not religious. Center upper-middle features EXACTLY 大吉 in very large warm ivory regular calligraphy, vertically arranged 大 above 吉, total text block approximately 40% of card height. Bold highly legible accurate Chinese strokes. Main recognizable motif below text: one large lush cream-and-blush peony flower with restrained dark red leaves and fine gold accents, clear iconic silhouette, sophisticated painterly flat style. Thin warm-gold rectangular double border inset 5%, leave colored corners for later rounding. Generous clear space around letters, motif does not obscure characters. No other text, no small labels, no seal writing, no letters, digits, watermark, logos, signature. Original flat card artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset daji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color luminous vermilion red across entire background including corners, subtle fine paper grain. Modern refined Chinese illustration, clean bright colors, not aged, not religious. Center upper-middle features EXACTLY 大吉 in very large warm ivory regular calligraphy, vertically arranged 大 above 吉, total text block approximately 40% of card height. Bold highly legible accurate Chinese strokes. Main recognizable motif below text: one large lush cream-and-blush peony flower with restrained dark red leaves and fine gold accents, clear iconic silhouette, sophisticated painterly flat style. Thin warm-gold rectangular double border inset 5%, leave colored corners for later rounding. Generous clear space around letters, motif does not obscure characters. No other text, no small labels, no seal writing, no letters, digits, watermark, logos, signature. Original flat card artwork, not mockup.",
+          "callId": "call_OjYXIAAS7CqM191Tbcc9u7nn",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_OjYXIAAS7CqM191Tbcc9u7nn.png",
+          "original": "tmp/wait-fortunes-originals/daji-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "cc7495b8e4965603e9571c291960aaa949dec9ef55d7bac540dfdd2ae2f8302e"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/daji.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "55232ca71818e5a6dbf2d8f6770f271803e4ce25b44da75f2e325ad815373546"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "zhongji",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "中吉",
+      "expectedColumnsRightToLeft": [],
+      "color": "翡翠绿",
+      "motif": "竹枝",
+      "prompt": "Create ONE final asset zhongji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color rich luminous EMERALD GREEN across full background including corners, fine paper grain. Modern refined Chinese illustration, clean lively colors, not aged or religious. Center upper-middle features EXACTLY 中吉 in very large warm ivory upright regular calligraphy, vertically 中 above 吉, text block about 40% card height, crisp accurate strokes legible from a distance. Main recognizable motif below text: graceful bamboo stems with sharply recognizable slender bamboo leaves, pale jade and warm gold, strong simple silhouette, painterly flat illustration. Thin warm-gold double rectangular border inset 5%, colored corners left for rounding. Clear space around letters, bamboo does not obscure text. No other writing, seal text, punctuation, Latin, digits, watermark, logos, signature. Original flat artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset zhongji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color rich luminous EMERALD GREEN across full background including corners, fine paper grain. Modern refined Chinese illustration, clean lively colors, not aged or religious. Center upper-middle features EXACTLY 中吉 in very large warm ivory upright regular calligraphy, vertically 中 above 吉, text block about 40% card height, crisp accurate strokes legible from a distance. Main recognizable motif below text: graceful bamboo stems with sharply recognizable slender bamboo leaves, pale jade and warm gold, strong simple silhouette, painterly flat illustration. Thin warm-gold double rectangular border inset 5%, colored corners left for rounding. Clear space around letters, bamboo does not obscure text. No other writing, seal text, punctuation, Latin, digits, watermark, logos, signature. Original flat artwork, not mockup.",
+          "callId": "call_MIQS9oDKVL2lWG1v8ndo7838",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_MIQS9oDKVL2lWG1v8ndo7838.png",
+          "original": "tmp/wait-fortunes-originals/zhongji-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "ec50935ea9dc0826719ddf1fbe23f827c4d588cbae9dc0402f2303bf4848ae9c"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/zhongji.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "4540c91566d775f7b9871edfcbbe0b8b5e3a8d989c5edb137b2a512629688082"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "xiaoji",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "小吉",
+      "expectedColumnsRightToLeft": [],
+      "color": "樱花粉",
+      "motif": "梅花",
+      "prompt": "Create ONE final asset xiaoji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color soft luminous CHERRY BLOSSOM PINK across entire background including corners, fine paper grain. Modern refined Chinese illustration, clean lively colors, not aged or religious. Center upper-middle features EXACTLY 小吉 in very large DEEP PLUM-RED upright regular calligraphy, vertically 小 above 吉, text block about 40% card height, accurate crisp strokes strongly contrasting and readable from a distance. Main recognizable motif below text: graceful angular plum-blossom branch with several clearly five-petaled white and raspberry pink blossoms and tiny gold stamens, refined painterly flat illustration. Thin rose-gold double rectangular border inset 5%, pink corners reserved for rounding. Keep all characters unobscured. No other writing, seal text, punctuation, Latin, digits, watermark, logos, signature. Original flat artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset xiaoji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color soft luminous CHERRY BLOSSOM PINK across entire background including corners, fine paper grain. Modern refined Chinese illustration, clean lively colors, not aged or religious. Center upper-middle features EXACTLY 小吉 in very large DEEP PLUM-RED upright regular calligraphy, vertically 小 above 吉, text block about 40% card height, accurate crisp strokes strongly contrasting and readable from a distance. Main recognizable motif below text: graceful angular plum-blossom branch with several clearly five-petaled white and raspberry pink blossoms and tiny gold stamens, refined painterly flat illustration. Thin rose-gold double rectangular border inset 5%, pink corners reserved for rounding. Keep all characters unobscured. No other writing, seal text, punctuation, Latin, digits, watermark, logos, signature. Original flat artwork, not mockup.",
+          "callId": "call_vqn5gbV7aYoYX5T5NvRUSEIw",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_vqn5gbV7aYoYX5T5NvRUSEIw.png",
+          "original": "tmp/wait-fortunes-originals/xiaoji-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "fecd33c0089d3c8dce1ecdd4e18995da50a78d073ca5856e01756d7ba1e8a78d"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/xiaoji.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "801dd56602f7086eb34629ce1c949252fd354bffda13191c5d148d7ae6c28e66"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "shangji",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "上吉",
+      "expectedColumnsRightToLeft": [],
+      "color": "靛蓝",
+      "motif": "祥云",
+      "prompt": "Create ONE final asset shangji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color luminous medium INDIGO BLUE across entire background including corners, noticeably lighter and more violet than midnight navy, subtle fine paper grain. Modern refined Chinese illustration, clear rich colors, not aged or religious. Center upper-middle features EXACTLY 上吉 in very large warm ivory upright regular calligraphy, vertically 上 above 吉, text block about 40% card height, crisp accurate strokes legible from a distance. Main recognizable motif below text: large layered auspicious Chinese scrolling CLOUDS, cream and pale blue with flowing gold outlines, classic airy cloud silhouettes, no moon or stars. Thin warm-gold double rectangular border inset 5%, blue corners reserved for rounding. Keep text unobscured. No other writing, punctuation, Latin, digits, seal text, watermark, logos, signature. Original flat artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset shangji: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color luminous medium INDIGO BLUE across entire background including corners, noticeably lighter and more violet than midnight navy, subtle fine paper grain. Modern refined Chinese illustration, clear rich colors, not aged or religious. Center upper-middle features EXACTLY 上吉 in very large warm ivory upright regular calligraphy, vertically 上 above 吉, text block about 40% card height, crisp accurate strokes legible from a distance. Main recognizable motif below text: large layered auspicious Chinese scrolling CLOUDS, cream and pale blue with flowing gold outlines, classic airy cloud silhouettes, no moon or stars. Thin warm-gold double rectangular border inset 5%, blue corners reserved for rounding. Keep text unobscured. No other writing, punctuation, Latin, digits, seal text, watermark, logos, signature. Original flat artwork, not mockup.",
+          "callId": "call_Jt5NhkWvUzRDksc49bXIVsDw",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_Jt5NhkWvUzRDksc49bXIVsDw.png",
+          "original": "tmp/wait-fortunes-originals/shangji-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "8160807cf3c6afdb72c7f60ab3fcdf4ff910120a3f7252fc494783774042e7f5"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/shangji.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "76177973c8465bb955a9a1a9b27ab1b1f67db1e561b5ce42e53da007c58e60b7"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "shangshang",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "上上签",
+      "expectedColumnsRightToLeft": [],
+      "color": "金黄",
+      "motif": "仙鹤",
+      "prompt": "Create ONE final asset shangshang: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color bright warm GOLDEN YELLOW across entire background including corners, subtle fine paper grain. Modern refined Chinese illustration, clean luminous colors, not aged/religious. Center upper-middle EXACTLY 上上签 in very large deep vermilion upright regular calligraphy, THREE characters arranged vertically 上 then 上 then 签, text block about 40% of card height, accurate Simplified Chinese strokes, highly legible. Main iconic motif below and to lower sides of text: elegant white red-crowned crane with black wing tips and flowing spread wings, long neck, graceful clear silhouette, restrained warm-gold cloud curls. Crane does not obscure text. Thin deeper-gold double rectangular border inset 5%, yellow corners reserved for rounding. No other text, seal writing, punctuation, letters, digits, watermark, logos or signature. Original flat card artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset shangshang: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color bright warm GOLDEN YELLOW across entire background including corners, subtle fine paper grain. Modern refined Chinese illustration, clean luminous colors, not aged/religious. Center upper-middle EXACTLY 上上签 in very large deep vermilion upright regular calligraphy, THREE characters arranged vertically 上 then 上 then 签, text block about 40% of card height, accurate Simplified Chinese strokes, highly legible. Main iconic motif below and to lower sides of text: elegant white red-crowned crane with black wing tips and flowing spread wings, long neck, graceful clear silhouette, restrained warm-gold cloud curls. Crane does not obscure text. Thin deeper-gold double rectangular border inset 5%, yellow corners reserved for rounding. No other text, seal writing, punctuation, letters, digits, watermark, logos or signature. Original flat card artwork, not mockup.",
+          "callId": "call_vBKP62oH3bfOH6miDHb8zmE0",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_vBKP62oH3bfOH6miDHb8zmE0.png",
+          "original": "tmp/wait-fortunes-originals/shangshang-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "5b04fcc4f742a087777ceff8be503461ce1fcc96f8ef035d32934654883c068f"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/shangshang.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "289db04698bd377b4cd6f388f0ba1449aa4b7aacc4d9ddf1693ad2491c711d51"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "jixing",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "吉星",
+      "expectedColumnsRightToLeft": [],
+      "color": "夜空深蓝",
+      "motif": "星月",
+      "prompt": "Create ONE final asset jixing: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color deep midnight NAVY BLUE across entire background including corners, clearly darker than medium indigo, subtle fine paper grain. Modern refined Chinese illustration, luminous gold details, not aged or religious. Center upper-middle EXACTLY 吉星 in very large warm ivory upright regular calligraphy, vertically 吉 above 星, text block about 40% card height, crisp accurate strokes highly readable. Main iconic motif below text: one large elegant warm-gold crescent moon surrounded by a few four-point stars and small star dots, tasteful Chinese celestial illustration, clean strong crescent silhouette. Thin warm-gold double rectangular border inset 5%, navy corners reserved for rounding. No clouds covering letters. No other text, seal writing, punctuation, Latin, digits, watermark, logos, signature. Original flat card artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset jixing: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color deep midnight NAVY BLUE across entire background including corners, clearly darker than medium indigo, subtle fine paper grain. Modern refined Chinese illustration, luminous gold details, not aged or religious. Center upper-middle EXACTLY 吉星 in very large warm ivory upright regular calligraphy, vertically 吉 above 星, text block about 40% card height, crisp accurate strokes highly readable. Main iconic motif below text: one large elegant warm-gold crescent moon surrounded by a few four-point stars and small star dots, tasteful Chinese celestial illustration, clean strong crescent silhouette. Thin warm-gold double rectangular border inset 5%, navy corners reserved for rounding. No clouds covering letters. No other text, seal writing, punctuation, Latin, digits, watermark, logos, signature. Original flat card artwork, not mockup.",
+          "callId": "call_OL4MYJJGQJjWut7UAhEyDU2b",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_OL4MYJJGQJjWut7UAhEyDU2b.png",
+          "original": "tmp/wait-fortunes-originals/jixing-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "ae75cf4c87de84258e51823628046430237a316e72356c7fa1c87c3b5c45ab1a"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/jixing.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "984a3dee652f2dbe4552164d90c26b7c3b179e4393af0276aa3fc8c827ce0c55"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "ruyi",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "如意",
+      "expectedColumnsRightToLeft": [],
+      "color": "青绿",
+      "motif": "如意云纹",
+      "prompt": "Create ONE final asset ruyi: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color fresh LIGHT TURQUOISE TEAL green across entire background including corners, considerably lighter and bluer than rich emerald, subtle fine paper grain. Modern refined Chinese illustration, clean luminous colors, not aged or religious. Center upper-middle EXACTLY 如意 in very large DEEP TEAL INK upright regular calligraphy, vertically 如 above 意, text block about 40% card height, highly legible accurate strokes. Main recognizable motif below text: one large symmetrical ornamental RUYI cloud medallion, lobed heart-shaped trefoil cloud crest with elegantly mirrored curling tendrils, ivory and warm-gold accents, refined airy Chinese decorative design; unlike a bank of ordinary clouds, make this a distinct ornamental emblem. Thin warm-gold double rectangular border inset 5%, teal corners for rounding. Keep letters clear. No other writing, seal text, punctuation, Latin, digits, watermark, logos, signature. Original flat artwork, no mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset ruyi: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color fresh LIGHT TURQUOISE TEAL green across entire background including corners, considerably lighter and bluer than rich emerald, subtle fine paper grain. Modern refined Chinese illustration, clean luminous colors, not aged or religious. Center upper-middle EXACTLY 如意 in very large DEEP TEAL INK upright regular calligraphy, vertically 如 above 意, text block about 40% card height, highly legible accurate strokes. Main recognizable motif below text: one large symmetrical ornamental RUYI cloud medallion, lobed heart-shaped trefoil cloud crest with elegantly mirrored curling tendrils, ivory and warm-gold accents, refined airy Chinese decorative design; unlike a bank of ordinary clouds, make this a distinct ornamental emblem. Thin warm-gold double rectangular border inset 5%, teal corners for rounding. Keep letters clear. No other writing, seal text, punctuation, Latin, digits, watermark, logos, signature. Original flat artwork, no mockup.",
+          "callId": "call_yP188qCFSCGyHBlP2x88wfCK",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_yP188qCFSCGyHBlP2x88wfCK.png",
+          "original": "tmp/wait-fortunes-originals/ruyi-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "37d8a5a7ae771a4755e038e69c7aee41ed27309a50b2f8fee2ceb7d4020116b4"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/ruyi.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "4b26bf4a62af3661e554967bebc57a3739d724fd56917325068897236d8d312a"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    },
+    {
+      "id": "shunsui",
+      "kind": "lot",
+      "group": "lots",
+      "expectedHeading": "顺遂",
+      "expectedColumnsRightToLeft": [],
+      "color": "橘橙",
+      "motif": "锦鲤",
+      "prompt": "Create ONE final asset shunsui: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color luminous TANGERINE ORANGE across full background including corners, distinctly orange not vermilion red or yellow, fine paper grain. Modern refined Chinese illustration, clean lively colors, not aged or religious. Center upper-middle EXACTLY 顺遂 in very large DEEP BURNT-UMBER upright regular calligraphy, vertically 顺 above 遂, text block about 40% card height, crisp perfectly accurate SIMPLIFIED Chinese strokes legible from a distance. Main recognizable motif below text: one graceful ivory and coral koi fish, flowing tail, clear fish silhouette curving through restrained gold ripples. Thin warm-gold double rectangular border inset 5%, orange corners for rounding. Fish and ripples do not obscure letters. No other text, seal writing, punctuation, Latin, digits, watermark, logos, signature. Original flat card artwork, not mockup.",
+      "generationCount": 1,
+      "regenerationCount": 0,
+      "attempts": [
+        {
+          "prompt": "Create ONE final asset shunsui: opaque full-bleed portrait 3:4 memory matching game fortune card, intended 600x800. Main color luminous TANGERINE ORANGE across full background including corners, distinctly orange not vermilion red or yellow, fine paper grain. Modern refined Chinese illustration, clean lively colors, not aged or religious. Center upper-middle EXACTLY 顺遂 in very large DEEP BURNT-UMBER upright regular calligraphy, vertically 顺 above 遂, text block about 40% card height, crisp perfectly accurate SIMPLIFIED Chinese strokes legible from a distance. Main recognizable motif below text: one graceful ivory and coral koi fish, flowing tail, clear fish silhouette curving through restrained gold ripples. Thin warm-gold double rectangular border inset 5%, orange corners for rounding. Fish and ripples do not obscure letters. No other text, seal writing, punctuation, Latin, digits, watermark, logos, signature. Original flat card artwork, not mockup.",
+          "callId": "call_6ItZKaTGNi8NQRkiTp1yV7cK",
+          "source": "E:/CodexHome/generated_images/01a133c1-908e-7433-8894-0eb966b7936f/call_6ItZKaTGNi8NQRkiTp1yV7cK.png",
+          "original": "tmp/wait-fortunes-originals/shunsui-v1.png",
+          "width": 1086,
+          "height": 1448,
+          "sha256": "ae3141bbcd687c1426cf318f454b0f4cf0e2614ad18f0a995267aa7bf863a7ab"
+        }
+      ],
+      "final": {
+        "path": "assets/wait/lots/shunsui.png",
+        "width": 600,
+        "height": 800,
+        "hasAlpha": false,
+        "sha256": "aa123aec29c29b0d3e1ccfbbf822d952d4b84443c97e0ecdfa7d5f923bba2ee1"
+      },
+      "textCheck": {
+        "status": "passed_visual_review",
+        "method": "逐张查看生成原图并核对字形、字数、列序；缩放后按组检查图复查。视觉核对，不是自动笔画识别保证。",
+        "headingMatches": true,
+        "columnsMatch": true,
+        "extraTextFound": false,
+        "concerns": [],
+        "notes": []
+      }
+    }
+  ],
+  "completedAt": "2026-10-13T07:02:54.201Z",
+  "summary": {
+    "fortuneCount": 26,
+    "lotCount": 8,
+    "generationCalls": 34,
+    "regenerationCount": 0,
+    "remainingTextConcerns": [],
+    "visualNotes": [
+      "三组配色、标题—正文—印章层级一致；独立生成的边框、装饰位置和字号有轻微差异，不是严格只换字的像素级统一模板。",
+      "八张签牌颜色和纹样在并排检查图中可区分；未在真实机器屏幕一米距离测试。"
+    ],
+    "processing": "原图逐字节保存；sharp 等比例缩放至指定尺寸，扁平化并移除 alpha；没有覆盖或重新排印画内文字。"
+  },
+  "validation": {
+    "pngFiles": 34,
+    "failures": [],
+    "protectedBaselineFiles": 106,
+    "protectedFilesChanged": [],
+    "protectedFilesAdded": [],
+    "originalHashesMatch": true,
+    "dimensionsAndOpacityValid": true
+  },
+  "contacts": [
+    "docs/previews/wait-fortunes-contact.png",
+    "docs/previews/wait-lots-contact.png"
+  ]
+}

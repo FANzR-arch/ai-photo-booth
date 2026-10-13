@@ -1,0 +1,352 @@
+<title>拍照机等待方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: a single reading column; each waiting moment is a section of sketch cards (kiosk screen sketch on top, notes below) in a 2-up grid. */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#1d2230; --muted:#5b6274; --line:#d8dbe2;
+  --coral:#ec4a22; --mint:#1f9e86; --sun:#f2b92c; --sunsoft:#fde9b8; --mintsoft:#cdeee6; --coralsoft:#fbd9cf;
+  --photo:#e3e6ec; --skin:#c9ced8; --fog:#eef1f5;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13161d; --surface:#1b1f2a; --ink:#eaecf1; --muted:#a2a8b7; --line:#323949;
+  --coral:#ff6b47; --mint:#3cc6aa; --sun:#f5c64f; --sunsoft:#4a3d1a; --mintsoft:#173d36; --coralsoft:#4a2219;
+  --photo:#2a3040; --skin:#4a5266; --fog:#3a4252; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13161d; --surface:#1b1f2a; --ink:#eaecf1; --muted:#a2a8b7; --line:#323949;
+  --coral:#ff6b47; --mint:#3cc6aa; --sun:#f5c64f; --sunsoft:#4a3d1a; --mintsoft:#173d36; --coralsoft:#4a2219;
+  --photo:#2a3040; --skin:#4a5266; --fog:#3a4252; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+h1{font-size:clamp(30px,4.6vw,46px);font-weight:900;letter-spacing:-.5px;line-height:1.2;margin:6px 0 14px;text-wrap:balance}
+h2{font-size:24px;font-weight:900;margin:0;text-wrap:balance}
+h3{font-size:18px;font-weight:700;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--coral);font-weight:700}
+.lede{color:var(--muted);max-width:66ch}
+.lede b{color:var(--ink)}
+.timeline{margin:30px 0 8px;overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.timeline svg{display:block;min-width:720px;width:100%;height:auto}
+.legend-note{font-size:13px;color:var(--muted);margin-top:8px}
+section{margin-top:56px;display:grid;gap:18px}
+.sec-head{display:grid;gap:6px;border-top:2px solid var(--ink);padding-top:14px}
+.sec-head p{color:var(--muted);max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.card.pick{outline:3px solid var(--coral);outline-offset:-3px}
+.sketch{background:var(--bg);border-bottom:1px solid var(--line);padding:12px}
+.sketch svg{display:block;width:100%;height:auto;max-width:100%}
+.body{padding:16px 18px 18px;display:grid;gap:10px;min-width:0}
+.code{font-size:12px;font-weight:700;color:var(--surface);background:var(--ink);border-radius:5px;padding:1px 7px;letter-spacing:1px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.tag.good{border-color:var(--mint);color:var(--mint)}
+.tag.warn{border-color:var(--coral);color:var(--coral)}
+dl{margin:0;display:grid;gap:8px}
+dt{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--muted)}
+dd{margin:0;font-size:14px;line-height:1.7}
+.choose{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;user-select:none}
+.choose input{width:20px;height:20px;accent-color:var(--coral)}
+.rule{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--mint);border-radius:8px;padding:14px 18px;font-size:14px}
+.rule b{display:block;margin-bottom:4px}
+.combo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.combo{grid-template-columns:1fr}}
+.combo article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:10px;min-width:0}
+.combo article.rec{border:2px solid var(--coral)}
+.combo ol{margin:0;padding-left:20px;font-size:14px;display:grid;gap:4px}
+.picked{background:var(--ink);color:var(--bg);border-radius:12px;padding:20px 22px;display:grid;gap:12px}
+.picked p{font-size:14px;opacity:.85}
+.picked output{font-size:16px;font-weight:700;min-height:1.6em;overflow-wrap:anywhere}
+.picked button{justify-self:start;background:var(--coral);color:#fff;border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer}
+.picked button:focus-visible,.choose input:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+/* sketch strokes */
+svg .scr{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+svg .ln{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+svg .thin{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+svg .ph{fill:var(--photo);stroke:var(--ink);stroke-width:1.2}
+svg .skin{fill:var(--skin)}
+svg .ai{fill:var(--sunsoft);stroke:var(--ink);stroke-width:1.2}
+svg .coral{fill:var(--coral)} svg .mint{fill:var(--mint)} svg .sun{fill:var(--sun)}
+svg .coralsoft{fill:var(--coralsoft)} svg .mintsoft{fill:var(--mintsoft)} svg .sunsoft{fill:var(--sunsoft)}
+svg .surface{fill:var(--surface)} svg .inkf{fill:var(--ink)} svg .fog{fill:var(--fog)}
+svg .bubble{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
+svg text{font-family:var(--sans);fill:var(--ink)}
+svg .t-muted{fill:var(--muted)} svg .t-coral{fill:var(--coral)} svg .t-surface{fill:var(--surface)}
+@media (prefers-reduced-motion: no-preference){ .card{transition:outline-color .15s} }
+</style>
+
+<div class="wrap">
+  <span class="eyebrow">等待体验 · 第二步：候选方案</span>
+  <h1>从“开始生成”到看见成片，这几十秒可以怎么过</h1>
+  <p class="lede">调研的结论是：只放一个小游戏不够。好的等待分成四个时刻：<b>开场</b>让人确定已经开始，<b>等待中</b>手上有事做、眼睛能看到 AI 在干活，<b>揭晓</b>是整段流程的高潮，<b>等久了</b>要有备用内容。每个时刻我都列了几个候选，草图是横屏触摸屏的示意。<b>每张卡片下面可以勾选</b>，最后一栏会汇总，复制发给我即可。</p>
+
+  <div class="timeline" aria-label="等待时间轴示意"><svg id="timeline" viewBox="0 0 900 190" role="img" aria-label="时间轴：0 秒开场，3 秒后边看边玩，约 30–60 秒照片好了进入揭晓，超过 60 秒切换备用内容"></svg></div>
+  <p class="legend-note">时间轴是示意。真实时长要看后台日志，第三步会按实际分布调整。</p>
+
+  <section id="A">
+    <div class="sec-head"><span class="eyebrow">等待中 · 手上有事做</span><h2>A. 主玩法</h2><p>这是等待的主体。所有玩法都满足：只用“点”或“擦”，没有失败，可以随时停。现在可以用顾客原照片当素材，所以多了几个和“自己”有关的玩法（A2–A5）。每种都可以按主题换皮。</p></div>
+    <div class="grid" data-group="A"></div>
+  </section>
+
+  <section id="B">
+    <div class="sec-head"><span class="eyebrow">开场 · 前 3 秒</span><h2>B. 开场</h2><p>刚付完钱、刚点下“开始生成”，顾客最关心“成功了没有”。开场要在第一秒给出确定的回应。</p></div>
+    <div class="grid" data-group="B"></div>
+  </section>
+
+  <section id="C">
+    <div class="sec-head"><span class="eyebrow">等待中 · 眼睛看得到</span><h2>C. 让人看见 AI 在画</h2><p>和主玩法同时出现，放在原照片那一侧。研究显示，让人看见“正在为你做事”，等待更容易接受，成片也显得更有价值。</p></div>
+    <div class="grid" data-group="C"></div>
+  </section>
+
+  <section id="D">
+    <div class="sec-head"><span class="eyebrow">照片好了 · 高潮</span><h2>D. 揭晓</h2><p>现在是照片一好就直接跳到结果页，没有“看到成片”的那一刻。下面三种揭晓都在几秒内自动完成，不操作也不会卡住。</p></div>
+    <div class="rule"><b>所有玩法共用的收尾规则（第三步细化）</b>照片好了先在顶部出现“照片画好了！”，游戏不立刻消失：这一局还剩几秒就让它玩完，或者点横幅直接去看；5 秒内没操作就自动进入揭晓。这是为了避开调研里那台打印机的问题：差一点配完，画面被强行切走。</div>
+    <div class="grid" data-group="D"></div>
+  </section>
+
+  <section id="E">
+    <div class="sec-head"><span class="eyebrow">超过 60 秒</span><h2>E. 等久了怎么办</h2><p>研究显示，等得越久，玩游戏带来的好处越弱。60 秒后需要换点新东西，并且明确告诉顾客“照片不会丢”。</p></div>
+    <div class="grid" data-group="E"></div>
+  </section>
+
+  <section id="combo">
+    <div class="sec-head"><span class="eyebrow">怎么组合</span><h2>两套参考组合</h2><p>B1 开场和 C1 阶段字幕成本低、对所有人都有用，我建议默认都带上。真正要选的是 A（玩什么）、D（怎么揭晓）和 E（慢了怎么办）。</p></div>
+    <div class="combo">
+      <article class="rec"><h3>推荐：“擦”到底 <span class="tag good">体验最连贯</span></h3>
+        <ol><li>B1 照片送进画室</li><li>C1 阶段字幕</li><li>A2 擦玻璃（默认）+ A6 抓拍（儿童主题）</li><li>D1 擦开揭晓：和等待时同一个动作，最后一擦就是成片</li><li>60 秒后 E2 先选边框，120 秒后 E1 提示</li></ol>
+        <p class="lede">整段只教一个动作“擦”。等待时擦自己的原片，揭晓时擦出成片，两段体验连在一起。开发量中等。</p></article>
+      <article><h3>稳妥：在现有基础上加强 <span class="tag">开发量最小</span></h3>
+        <ol><li>B1 照片送进画室</li><li>C1 阶段字幕</li><li>A1 戳泡泡·主题版</li><li>D2 拍立得显影</li><li>E1 60 秒换内容提示</li></ol>
+        <p class="lede">保留现在的泡泡，补上开场、过程和揭晓。改动集中在等待页，风险低，适合先上线再观察顾客愿不愿意玩。</p></article>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="picked"><h2>你勾选的</h2><p>在上面卡片里勾选；可以多选，比如一个默认玩法再加一个儿童专用玩法。</p><output id="summary" aria-live="polite">还没有勾选</output><button type="button" id="copy">复制我的选择</button></div>
+  </section>
+</div>
+
+<script>
+const S = (inner, label) => `<svg viewBox="0 0 320 180" role="img" aria-label="${label}"><rect class="scr" x="1" y="1" width="318" height="178" rx="10"/>${inner}</svg>`;
+const status = (t='AI 正在绘制 · 已等待 18 秒') => `<text x="14" y="17" font-size="8" class="t-muted">${t}</text>`;
+// A stylised person standing in for the customer's photo. ai=true draws the "finished" look.
+function person(x,y,w,h,ai=false){
+  const cx=x+w/2, r=w*.17, hy=y+h*.4;
+  let s=`<rect class="${ai?'ai':'ph'}" x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>`;
+  if(ai) s+=`<circle class="coralsoft" cx="${x+w*.8}" cy="${y+h*.18}" r="${w*.12}"/>`;
+  s+=`<path class="${ai?'coral':'skin'}" d="M${x+w*.14},${y+h} Q${cx},${y+h*.56} ${x+w*.86},${y+h} Z"/>`;
+  s+=`<circle class="skin" cx="${cx}" cy="${hy}" r="${r}"/>`;
+  if(ai) s+=`<path class="sun" d="M${cx-r},${hy-r*.7} l${r*.4},${-r*.9} l${r*.6},${r*.5} l${r*.6},${-r*.5} l${r*.4},${r*.9} Z"/>`;
+  return s;
+}
+const finger = (x,y) => `<g transform="translate(${x},${y})"><path class="surface" d="M0,0 c0,-6 6,-6 6,0 v10 c2,-3 7,-2 7,2 v8 c0,6 -4,10 -10,10 h-2 c-5,0 -8,-4 -9,-8 l-3,-9 c-1,-3 3,-5 5,-2 l2,3 Z"/><path class="ln" d="M0,0 c0,-6 6,-6 6,0 v10 c2,-3 7,-2 7,2 v8 c0,6 -4,10 -10,10 h-2 c-5,0 -8,-4 -9,-8 l-3,-9 c-1,-3 3,-5 5,-2 l2,3 Z"/></g>`;
+const star = (x,y,r,c='sun') => { let p=''; for(let i=0;i<10;i++){const a=Math.PI/5*i-Math.PI/2, rr=i%2?r*.45:r; p+=`${i?'L':'M'}${(x+rr*Math.cos(a)).toFixed(1)},${(y+rr*Math.sin(a)).toFixed(1)}`;} return `<path class="${c}" d="${p}Z"/>`; };
+const heart = (x,y,s,c='coral') => `<path class="${c}" d="M${x},${y+s*.35} C${x-s*.9},${y-s*.3} ${x-s*.35},${y-s*.9} ${x},${y-s*.35} C${x+s*.35},${y-s*.9} ${x+s*.9},${y-s*.3} ${x},${y+s*.35} Z"/>`;
+const banner = (t) => `<rect class="inkf" x="80" y="8" width="160" height="18" rx="9"/><text x="160" y="20.5" font-size="9" text-anchor="middle" class="t-surface" font-weight="700">${t}</text>`;
+
+const sketches = {
+A1: () => S(status()+person(16,26,92,138)+
+  `<circle class="bubble" cx="160" cy="70" r="20"/>${star(160,70,8)}
+   <circle class="bubble" cx="215" cy="120" r="26"/>${heart(215,122,12)}
+   <circle class="bubble" cx="270" cy="60" r="16"/>${star(270,60,6,'mint')}
+   <circle cx="250" cy="150" r="14" class="sun" stroke="var(--ink)" stroke-width="1.2"/><text x="250" y="154" font-size="9" text-anchor="middle" font-weight="900">×3</text>
+   <g class="ln"><path d="M180,140 l-6,-6 M186,132 l0,-9 M193,140 l7,-6 M180,150 l-9,2 M193,150 l9,2"/></g>
+   ${star(98,40,6)}<path class="thin" d="M178,140 Q130,90 100,44"/>
+   <text x="300" y="20" font-size="9" text-anchor="end" font-weight="700">★ 12</text>`+finger(184,142), '戳泡泡主题版草图'),
+A2: () => S(status()+`<defs><mask id="mA2"><rect x="0" y="0" width="320" height="180" fill="#fff"/><path d="M110,70 C140,40 180,110 210,70 S250,100 230,130" stroke="#000" stroke-width="26" fill="none" stroke-linecap="round"/></mask></defs>`
+  +person(90,24,140,146)+`<rect class="fog" x="90" y="24" width="140" height="146" rx="4" mask="url(#mA2)" opacity=".93"/>
+  <g class="thin"><path d="M100,40 l8,6 M200,150 l10,-4 M120,150 l6,4 M215,40 l-6,6"/></g>
+  <text x="160" y="160" font-size="9" text-anchor="middle" class="t-muted">雾气会慢慢回来，可以一直擦</text>`+finger(232,124), '擦玻璃草图：手指擦开原照片上的雾'),
+A3: () => S(status()+person(70,24,130,146)+
+  `<path class="sun" d="M118,64 l8,-14 l9,9 l9,-9 l8,14 Z" stroke="var(--ink)" stroke-width="1"/>${heart(84,54,10)}${star(186,150,9,'mint')}${star(186,44,7)}
+   <rect x="222" y="30" width="84" height="138" rx="8" class="sunsoft" stroke="var(--ink)" stroke-width="1"/>
+   ${heart(244,56,11)}${star(284,54,10)}<path class="sun" d="M236,86 l7,-12 l8,8 l8,-8 l7,12 Z"/>${star(285,86,10,'mint')}
+   <circle cx="250" cy="120" r="9" class="coralsoft" stroke="var(--ink)" stroke-width="1"/><text x="284" y="124" font-size="14" text-anchor="middle">✿</text>
+   <text x="264" y="158" font-size="8" text-anchor="middle" class="t-muted">点一下贴上去</text>`+finger(252,64), '贴纸装饰原照片草图'),
+A4: () => { const x0=104,y0=26,w=120,h=144,tw=w/3,th=h/3, order=[0,4,2,3,1,5,6,8,7]; let s='';
+  order.forEach((src,i)=>{ const sx=(src%3)*tw, sy=Math.floor(src/3)*th, dx=x0+(i%3)*tw, dy=y0+Math.floor(i/3)*th;
+    s+=`<svg x="${dx}" y="${dy}" width="${tw}" height="${th}" viewBox="${sx} ${sy} ${tw} ${th}">${person(0,0,w,h)}</svg><rect x="${dx}" y="${dy}" width="${tw}" height="${th}" fill="none" stroke="var(--surface)" stroke-width="2"/>`; });
+  s+=`<rect x="${x0+tw}" y="${y0}" width="${tw}" height="${th}" fill="none" stroke="var(--coral)" stroke-width="3"/><rect x="${x0+tw}" y="${y0+th}" width="${tw}" height="${th}" fill="none" stroke="var(--coral)" stroke-width="3"/>
+  <path class="ln" d="M${x0+w+10},${y0+th*.5} q12,${th*.5} 0,${th}" marker-end=""/><path class="ln" d="M${x0+w+6},${y0+th*1.5-4} l4,4 l5,-3"/>
+  <rect x="240" y="40" width="64" height="80" rx="4" class="ph"/><svg x="244" y="44" width="56" height="72" viewBox="0 0 120 144">${person(0,0,120,144)}</svg><text x="272" y="134" font-size="8" text-anchor="middle" class="t-muted">原图提示</text>
+  <text x="40" y="100" font-size="8" text-anchor="middle" class="t-muted">点两块</text><text x="40" y="112" font-size="8" text-anchor="middle" class="t-muted">就会交换</text>`;
+  return S(status()+s+finger(150,92),'原照片拼图草图'); },
+A5: () => { let s=''; const cols=4, cw=58, ch=70, x0=44, y0=28;
+  const face=[ 'back','theme1','back','me', 'me','back','theme1','back' ];
+  face.forEach((f,i)=>{ const x=x0+(i%cols)*(cw+10), y=y0+Math.floor(i/cols)*(ch+10);
+    if(f==='back') s+=`<rect x="${x}" y="${y}" width="${cw}" height="${ch}" rx="6" class="coral" stroke="var(--ink)" stroke-width="1"/><text x="${x+cw/2}" y="${y+ch/2+6}" font-size="16" text-anchor="middle" class="t-surface" font-weight="900">?</text>`;
+    else if(f==='me') s+=`<svg x="${x}" y="${y}" width="${cw}" height="${ch}" viewBox="0 0 58 70">${person(0,0,58,70)}</svg><rect x="${x}" y="${y}" width="${cw}" height="${ch}" rx="6" fill="none" stroke="var(--mint)" stroke-width="3"/>`;
+    else s+=`<rect x="${x}" y="${y}" width="${cw}" height="${ch}" rx="6" class="mintsoft" stroke="var(--ink)" stroke-width="1"/>${star(x+cw/2,y+ch/2-4,12,'mint')}<text x="${x+cw/2}" y="${y+ch-8}" font-size="7" text-anchor="middle">国风</text>`; });
+  return S(status()+s+`<text x="300" y="20" font-size="8" text-anchor="end" class="t-muted">配对 1 / 4</text>`+finger(108,150),'翻牌配对草图'); },
+A6: () => { let s=''; const pos=[[70,70],[160,70],[250,70],[70,140],[160,140],[250,140]];
+  pos.forEach(([x,y],i)=>{ s+=`<rect x="${x-34}" y="${y-30}" width="68" height="46" rx="6" class="sunsoft" stroke="var(--ink)" stroke-width="1"/><rect x="${x-34}" y="${y+10}" width="68" height="6" class="inkf" opacity=".15"/>`;
+    if(i===1||i===5) s+=`<circle cx="${x}" cy="${y-6}" r="15" class="mint"/><circle cx="${x-5}" cy="${y-9}" r="2" class="inkf"/><circle cx="${x+5}" cy="${y-9}" r="2" class="inkf"/><path class="ln" d="M${x-4},${y-2} q4,4 8,0"/>`;
+    if(i===3) s+=`<circle cx="${x}" cy="${y-6}" r="15" class="coral"/><circle cx="${x-5}" cy="${y-9}" r="2" class="inkf"/><circle cx="${x+5}" cy="${y-9}" r="2" class="inkf"/>`; });
+  s+=`<g class="ln"><path d="M160,40 l0,-10 M176,46 l8,-7 M144,46 l-8,-7"/></g><text x="160" y="104" font-size="8" text-anchor="middle" font-weight="700">咔嚓！</text>
+   <g transform="translate(286,24) rotate(10)"><rect width="24" height="28" class="surface" stroke="var(--ink)" stroke-width="1"/><rect x="3" y="3" width="18" height="16" class="mintsoft"/></g>
+   <g transform="translate(282,28) rotate(-6)"><rect width="24" height="28" class="surface" stroke="var(--ink)" stroke-width="1"/><rect x="3" y="3" width="18" height="16" class="coralsoft"/></g>
+   <text x="294" y="68" font-size="8" text-anchor="middle" class="t-muted">抓拍 6 张</text>`;
+  return S(status()+s+finger(168,60),'快门打地鼠草图'); },
+B1: () => S(`<rect x="200" y="40" width="96" height="112" rx="4" class="sunsoft" stroke="var(--ink)" stroke-width="1.2"/><path class="ln" d="M206,160 l42,-120 l42,120 M248,152 v14"/>
+  <g transform="translate(118,62) rotate(-12)">${person(0,0,56,70)}</g><path class="thin" d="M40,140 Q90,40 200,70"/>
+  <g opacity=".35">${person(24,110,30,40)}</g>${star(214,56,6)}${star(288,140,5,'mint')}
+  <text x="20" y="34" font-size="15" font-weight="900">收到！</text><text x="20" y="52" font-size="10" class="t-muted">照片已送进 AI 画室</text>`, '照片送进画室开场草图'),
+B2: () => S(person(16,26,92,138)+`<rect x="168" y="64" width="40" height="92" rx="6" class="coral" stroke="var(--ink)" stroke-width="1.2"/>
+  <g class="ln"><path d="M176,64 l-4,-26 M186,64 l2,-30 M196,64 l6,-24"/></g>
+  <g transform="translate(222,30) rotate(6)"><rect width="72" height="120" rx="3" class="surface" stroke="var(--ink)" stroke-width="1.2"/>
+  <text x="36" y="22" font-size="9" text-anchor="middle" class="t-coral" font-weight="900">上镜签</text><text x="36" y="56" font-size="22" text-anchor="middle" font-weight="900">大吉</text>
+  <text x="36" y="80" font-size="7" text-anchor="middle" class="t-muted">今天的光</text><text x="36" y="92" font-size="7" text-anchor="middle" class="t-muted">特别偏爱你</text></g>`+status('点一下，抽一支签')+finger(196,150), '抽签草图'),
+C1: () => S(status()+person(16,26,140,138)+`<g class="ln" stroke="var(--coral)" style="stroke:var(--coral);stroke-width:3;opacity:.8"><path d="M30,60 q30,-20 60,0 t50,4"/><path d="M40,140 q40,-10 90,6"/></g>
+  <g font-size="10"><circle cx="178" cy="50" r="6" class="mint"/><text x="190" y="54">认出五官</text>
+  <circle cx="178" cy="76" r="6" class="mint"/><text x="190" y="80">设计造型</text>
+  <circle cx="178" cy="102" r="6" class="coral"/><text x="190" y="106" font-weight="700">布光、上色…</text>
+  <circle cx="178" cy="128" r="6" fill="none" stroke="var(--ink)"/><text x="190" y="132" class="t-muted">细节精修</text></g>
+  <path class="thin" d="M178,56 v66"/>`, '阶段字幕草图'),
+C2: () => S(status()+person(16,26,92,138)+`<text x="214" y="36" font-size="10" text-anchor="middle" class="t-muted">你选的主题长这样</text>
+  <rect x="130" y="46" width="60" height="80" rx="4" class="mintsoft" stroke="var(--ink)" opacity=".6"/><rect x="250" y="46" width="60" height="80" rx="4" class="coralsoft" stroke="var(--ink)" opacity=".6"/>
+  <svg x="178" y="40" width="72" height="96" viewBox="0 0 72 96">${person(0,0,72,96,true)}</svg>
+  <g fill="var(--ink)"><circle cx="204" cy="150" r="3"/><circle cx="214" cy="150" r="3" opacity=".3"/><circle cx="224" cy="150" r="3" opacity=".3"/></g>`, '主题样片预告草图'),
+D1: () => S(banner('照片画好了！擦一擦')+`<defs><mask id="mD1"><rect x="0" y="0" width="320" height="180" fill="#fff"/><path d="M100,60 C150,40 140,120 200,90 S220,140 180,150" stroke="#000" stroke-width="34" fill="none" stroke-linecap="round"/></mask></defs>`
+  +person(90,30,140,142,true)+`<rect class="fog" x="90" y="30" width="140" height="142" rx="4" mask="url(#mD1)" opacity=".95"/>
+  <text x="270" y="166" font-size="8" text-anchor="middle" class="t-muted">3 秒不擦</text><text x="270" y="176" font-size="8" text-anchor="middle" class="t-muted">自动揭开</text>`+finger(214,140), '擦开揭晓草图'),
+D2: () => S(banner('照片画好了！')+`<rect x="70" y="34" width="180" height="24" rx="6" class="inkf"/><rect x="84" y="50" width="152" height="5" rx="2" class="surface" opacity=".5"/>
+  <rect x="108" y="54" width="104" height="122" class="surface" stroke="var(--ink)" stroke-width="1.2"/>
+  <svg x="116" y="60" width="88" height="90" viewBox="0 0 88 90">${person(0,0,88,90,true)}<rect x="0" y="0" width="88" height="90" class="inkf" opacity=".45"/></svg>
+  <text x="270" y="110" font-size="8" text-anchor="middle" class="t-muted">像拍立得一样</text><text x="270" y="122" font-size="8" text-anchor="middle" class="t-muted">慢慢显影</text>`, '拍立得显影草图'),
+D3: () => S(banner('照片画好了！')+`<g transform="translate(46,40)">${person(0,0,90,120)}</g>
+  <path class="ln" d="M146,100 h28 m-6,-6 l6,6 l-6,6"/>
+  <g transform="translate(184,40) skewY(-4)">${person(0,0,90,120,true)}</g>
+  <text x="91" y="174" font-size="8" text-anchor="middle" class="t-muted">原照片</text><text x="229" y="174" font-size="8" text-anchor="middle" class="t-muted">翻过来变成片</text>`, '原片翻转成片草图'),
+E1: () => S(status('已等待 72 秒')+person(16,26,92,138)+`<rect x="124" y="40" width="182" height="58" rx="8" class="mintsoft" stroke="var(--ink)" stroke-width="1"/>
+  <text x="215" y="62" font-size="11" text-anchor="middle" font-weight="700">今天排队的人多，</text><text x="215" y="80" font-size="11" text-anchor="middle" font-weight="700">照片还在画，不会丢</text>
+  <text x="215" y="124" font-size="9" text-anchor="middle" class="t-muted">换个玩法 ↓</text>
+  <circle class="bubble" cx="170" cy="150" r="12"/><circle class="bubble" cx="214" cy="146" r="16"/><circle class="bubble" cx="258" cy="152" r="10"/>`, '等待超时提示草图'),
+E2: () => S(status('已等待 64 秒 · 趁现在先选好边框')+`<svg x="24" y="28" width="120" height="144" viewBox="0 0 120 144">${person(0,0,120,144)}</svg>
+  <rect x="18" y="24" width="132" height="152" fill="none" stroke="var(--coral)" stroke-width="6"/>
+  <g font-size="8" text-anchor="middle">
+  <rect x="172" y="34" width="56" height="62" rx="4" class="surface" stroke="var(--ink)"/><rect x="178" y="40" width="44" height="40" class="ph"/><text x="200" y="91">无边框</text>
+  <rect x="240" y="34" width="56" height="62" rx="4" class="coralsoft" stroke="var(--coral)" stroke-width="2.5"/><rect x="248" y="42" width="40" height="38" class="ph"/><text x="268" y="91">节日红</text>
+  <rect x="172" y="106" width="56" height="62" rx="4" class="mintsoft" stroke="var(--ink)"/><rect x="180" y="114" width="40" height="38" class="ph"/><text x="200" y="163">薄荷</text>
+  <rect x="240" y="106" width="56" height="62" rx="4" class="sunsoft" stroke="var(--ink)"/><rect x="248" y="114" width="40" height="38" class="ph"/><text x="268" y="163">胶片</text></g>`+finger(276,70), '等待时选边框草图'),
+};
+
+const cards = {
+A:[
+ {id:'A1',name:'戳泡泡·主题版',tags:[['升级现有','good'],['全年龄'],['可双人'],['开发量低','good']],
+  how:'保留现在的戳泡泡，泡泡里装上主题元素（国风是灯笼、婚礼是爱心、儿童是恐龙蛋）。偶尔飘来一个金色大泡泡，连续戳中有“×3”连击，戳破的小星星飞到原照片角上攒起来。',
+  why:'零学习成本，没有一局的概念，随时被打断都不可惜。两个人可以同时戳。',
+  risk:'30 秒后容易单调，只能靠特殊泡泡和换皮撑；和“自己的照片”关系最弱。'},
+ {id:'A2',name:'擦玻璃',tags:[['用原照片'],['全年龄'],['可双人'],['解压','good'],['开发量中']],
+  how:'原照片上蒙着一层雾气（按主题换成宣纸墨、雪花、彩色糖霜等），手指一擦就露出来，雾气会慢慢重新起来，可以一直擦。点一下也能擦出一小块。',
+  why:'研究里效果最好的就是“用手划开一层”，觉得时间短、也更开心。和 B 站上很火的解压“擦干净”同一种爽感。最关键的是，揭晓时也用同一个动作（D1），整段只教一次。',
+  risk:'老人可能只点不擦，所以点也要有效果。擦自己的脸，个别人可能觉得别扭，可以把雾气做得轻快些。'},
+ {id:'A3',name:'给原片贴贴纸',tags:[['用原照片'],['小孩、情侣'],['可带走','good'],['开发量中高','warn']],
+  how:'像大头贴机的涂鸦间：右边是一盘主题贴纸，点一下就贴到原照片上的合适位置（避开脸），再点一下可以拿掉。装饰好的原片作为“彩蛋”和成片一起扫码带走。',
+  why:'顾客觉得是在创作，而不是在等。多带走一张，感觉更值。',
+  risk:'容易误以为贴纸会出现在 AI 成片上，需要一句话讲清楚；要改取图流程，让装饰后的原片也能下载，开发量比其他几项大。'},
+ {id:'A4',name:'原照片拼图',tags:[['用原照片'],['大人、大孩子'],['有自然结尾'],['开发量中']],
+  how:'原照片被切成 3×3 打乱，点两块就交换位置。右边有一张小原图做参考。拼好后换成所选主题的封面再来一局。儿童主题用 2×2。',
+  why:'拼自己的脸很有代入感。一局 20–40 秒，刚好和等待时长相当。',
+  risk:'有“快拼好了”的状态，最容易出现“差一点被打断”，必须配合收尾规则。打乱的脸可能显得滑稽，不过大多数人会觉得好笑。'},
+ {id:'A5',name:'翻牌配对',tags:[['用原照片'],['老人友好','good'],['安静'],['开发量中']],
+  how:'8 张牌，4 对：其中一对是顾客自己的原照片，另外三对是其他主题的封面。点一张翻开，再点一张，一样就留下。',
+  why:'安静、节奏慢，老人很适合。翻牌的同时顺便看到其他主题，可能促成“再拍一张”。',
+  risk:'要先看懂规则，开局多两三秒。调研里那台打印机用的就是翻牌，被打断时最让人失望。'},
+ {id:'A6',name:'抓拍（打地鼠）',tags:[['儿童最爱','good'],['可双人'],['和拍照有关'],['开发量中']],
+  how:'六个小窗口里会冒出主题小角色，点它就“咔嚓”一下闪光，拍下的小照片叠到右上角。速度很慢，没点到也不扣分。',
+  why:'“点一下就拍到”和拍照机本身是一回事。小孩会抢着点，两个人一起玩也热闹。',
+  risk:'需要一点反应速度，对老人不如 A2、A5 友好；每个主题系列要画一套小角色。'},
+],
+B:[
+ {id:'B1',name:'照片送进画室',tags:[['建议默认','good'],['开发量低','good']],
+  how:'点“开始生成”后，原照片轻轻飞进一个画架或暗房，同时出现“收到！照片已送进 AI 画室”，然后才进入等待页面。整个动画约 1.5 秒。',
+  why:'第一秒就告诉顾客“成功了，已经开始”，消除刚付钱时最大的担心。',
+  risk:'动画不能太长，否则像在拖时间。'},
+ {id:'B2',name:'抽一支“上镜签”',tags:[['情侣、年轻人'],['要识字','warn'],['开发量低']],
+  how:'等待开始时先点一下签筒，抽出一支签，比如“大吉：今天的光特别偏爱你”。签文按主题写，揭晓时再出现一次。',
+  why:'大头贴机、景区、奶茶店都有抽签，国内顾客很熟悉，和拍照的仪式感很搭，也适合拍下来发朋友圈。',
+  risk:'要识字，小孩和部分老人用不上；需要写几十条签文，文案质量决定好不好玩。'},
+],
+C:[
+ {id:'C1',name:'阶段字幕 + 笔触',tags:[['建议默认','good'],['开发量低','good']],
+  how:'原照片上有笔触在慢慢划过，旁边列出几步：认出五官 → 设计造型 → 布光、上色 → 细节精修。按已等待的时间依次点亮，最后一步一直停在“精修中”，直到照片真的好了。',
+  why:'让人看见“在为我做事”，等待更容易接受，成片也显得更值。继续显示“已等待 N 秒”，不用倒计时。',
+  risk:'这几步是对 AI 生图过程的通俗描述，不是真实进度，所以不显示百分比，也不说“还剩几秒”。'},
+ {id:'C2',name:'主题样片预告',tags:[['被动观看'],['开发量低','good']],
+  how:'在原照片旁轮播这个主题的样片，标题“你选的主题长这样”。',
+  why:'提前进入主题氛围，增加期待感。',
+  risk:'成片和样片不一样时，反而会失望。而且这是被动观看，效果不如自己动手。我不太推荐，只作为备选。'},
+],
+D:[
+ {id:'D1',name:'擦开揭晓',tags:[['和 A2 最搭','good'],['研究支持'],['开发量中']],
+  how:'成片出现时盖着一层雾，提示“擦一擦”。顾客一擦就露出成片；3 秒不擦就自动慢慢揭开，然后进入结果页。',
+  why:'研究里最能缩短体感、也最让人开心的就是这个动作；亲手揭开，记忆点最强（峰终定律）。',
+  risk:'只有揭晓本身，不加等待玩法的话，前面的等待还是要靠别的。'},
+ {id:'D2',name:'拍立得显影',tags:[['不用操作'],['开发量低','good']],
+  how:'成片像拍立得一样从出片口滑出来，从暗到亮慢慢显影，约 3 秒。点一下可以立刻显影完。',
+  why:'和“拍照、相纸、打印”是一回事，不需要学任何动作，老人小孩都没门槛。',
+  risk:'顾客只是看，没有亲手揭开那么强的参与感。'},
+ {id:'D3',name:'原片翻转成片',tags:[['对比感强'],['开发量低','good']],
+  how:'原照片像卡片一样翻过来，背面就是成片。然后并排停留两秒，让人看到前后变化。',
+  why:'“原来的我 → AI 的我”对比最直观，最想截图分享。',
+  risk:'有人不喜欢把自己的原片和美化后的成片放在一起看，可能觉得原片显得不好看。'},
+],
+E:[
+ {id:'E1',name:'60 秒换内容 + 安心提示',tags:[['建议默认','good'],['开发量低','good']],
+  how:'60 秒时出现一句“今天排队的人多，照片还在画，不会丢”，同时换一种玩法或换一套皮肤。120 秒时再提示，并提供“先保存原片”。',
+  why:'研究显示，等得越久，玩的效果越弱；同时焦虑会上升，这时需要新鲜感，也需要安心。',
+  risk:'“排队的人多”这类说法要和真实原因相符，比如服务慢可以改成“今天画得有点慢”。'},
+ {id:'E2',name:'趁等待先选边框',tags:[['有用的等待','good'],['缩短后面流程'],['开发量中']],
+  how:'等了一会儿以后，用原照片预览边框，比如“无边框 / 节日红 / 薄荷 / 胶片”，先选好。成片出来后直接套上，结果页就少一步。也可以不选，后面照样能选。',
+  why:'把后面本来就要做的事挪到等待里，有事做，总时长也变短。大头贴机打印时引导传手机，也是这个思路。',
+  risk:'多一个决定会增加负担，不能逼着选；边框套在原片和成片上的效果可能不完全一样。'},
+],
+};
+
+// Render
+for (const [g,list] of Object.entries(cards)) {
+  const host=document.querySelector(`[data-group="${g}"]`);
+  host.innerHTML=list.map(c=>`<article class="card" id="card-${c.id}">
+    <div class="sketch">${sketches[c.id]()}</div>
+    <div class="body"><h3><span class="code">${c.id}</span>${c.name}</h3>
+      <div class="tags">${c.tags.map(([t,k])=>`<span class="tag ${k||''}">${t}</span>`).join('')}</div>
+      <dl><div><dt>怎么玩</dt><dd>${c.how}</dd></div><div><dt>为什么适合</dt><dd>${c.why}</dd></div><div><dt>可能的问题</dt><dd>${c.risk}</dd></div></dl>
+      <label class="choose"><input type="checkbox" id="pick-${c.id}" value="${c.id}" data-name="${c.name}">选这个</label>
+    </div></article>`).join('');
+}
+
+// Timeline
+(function(){
+  const t=document.getElementById('timeline'); const X=s=>60+s*7.6; // 0..100 s
+  const lane=(y,label,x1,x2,cls,text)=>`<text x="10" y="${y+15}" font-size="12" class="t-muted">${label}</text><rect x="${X(x1)}" y="${y}" width="${X(x2)-X(x1)}" height="22" rx="11" class="${cls}"/><text x="${X(x1)+10}" y="${y+15}" font-size="12" font-weight="700">${text}</text>`;
+  let s=`<line x1="${X(0)}" y1="160" x2="${X(100)}" y2="160" stroke="var(--ink)" stroke-width="1.5"/>`;
+  [0,3,30,60,100].forEach(v=>{ s+=`<line x1="${X(v)}" y1="155" x2="${X(v)}" y2="165" stroke="var(--ink)"/><text x="${X(v)}" y="182" font-size="12" text-anchor="middle">${v===100?'…':v+' 秒'}</text>`; });
+  s+=`<rect x="${X(30)}" y="8" width="${X(60)-X(30)}" height="140" class="sunsoft" opacity=".55"/><text x="${X(45)}" y="152" font-size="11" text-anchor="middle" class="t-muted">通常在这里出图</text>`;
+  s+=lane(10,'开场',0,3,'coralsoft','B');
+  s+=lane(42,'看见过程',3,100,'mintsoft','C · 阶段字幕，一直都在');
+  s+=lane(74,'手上有事',3,100,'mintsoft','A · 主玩法');
+  s+=lane(106,'等久了',60,100,'coralsoft','E · 换内容 / 先选边框');
+  s+=`<g transform="translate(${X(48)},96)"><rect x="-4" y="-4" width="128" height="30" rx="15" class="inkf"/><text x="60" y="15" font-size="12" text-anchor="middle" class="t-surface" font-weight="700">照片好了 → D 揭晓</text></g>`;
+  t.innerHTML=s;
+})();
+
+// Selection summary
+const boxes=[...document.querySelectorAll('.choose input')];
+const out=document.getElementById('summary');
+function sync(){
+  const on=boxes.filter(b=>b.checked);
+  boxes.forEach(b=>b.closest('.card').classList.toggle('pick',b.checked));
+  out.textContent=on.length?on.map(b=>`${b.value} ${b.dataset.name}`).join('、'):'还没有勾选';
+  try{localStorage.setItem('wait-picks',JSON.stringify(on.map(b=>b.value)));}catch(e){}
+}
+try{const saved=JSON.parse(localStorage.getItem('wait-picks')||'[]'); boxes.forEach(b=>b.checked=saved.includes(b.value));}catch(e){}
+boxes.forEach(b=>b.addEventListener('change',sync)); sync();
+document.getElementById('copy').addEventListener('click',e=>{
+  const text='我选的等待方案：'+out.textContent; const btn=e.currentTarget;
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent='已复制';setTimeout(()=>btn.textContent='复制我的选择',1500);})
+   .catch(()=>{const r=document.createRange();r.selectNodeContents(out);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='已选中文字，请手动复制';});
+});
+</script>

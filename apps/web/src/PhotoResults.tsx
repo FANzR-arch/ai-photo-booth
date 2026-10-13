@@ -2,10 +2,11 @@ import type { ReactNode } from 'react';
 import { PhotoFrame } from './PhotoFrame';
 import type { FrameId, Caption } from '../../../packages/shared/frames';
 import type { Session } from '../../../packages/shared/types';
+import type { Fortune } from '../../../packages/shared/fortunes';
 
 /** The AI photo is the hero; decoration sits beside it and one button leads to the delivery screen (QR + print). */
-export function PhotoResults({ session, photo, selected, busy, frame, caption, children, onSelect, onPickup }: {
-    session: Session; photo: string; selected: string[]; busy: boolean; frame: FrameId; caption?: Caption; children?: ReactNode;
+export function PhotoResults({ session, photo, fortune, selected, busy, frame, caption, children, onSelect, onPickup }: {
+    session: Session; photo: string; fortune?: Fortune; selected: string[]; busy: boolean; frame: FrameId; caption?: Caption; children?: ReactNode;
     onSelect: (id: string) => void; onPickup: () => void;
 }) {
     const original = session.originalUrl || photo;
@@ -18,12 +19,16 @@ export function PhotoResults({ session, photo, selected, busy, frame, caption, c
             </button>)}</div>}
         </div>
         <div className="result-side">
-            <div className="results-heading"><h1>照片已生成</h1><span className="result-theme">{session.styleName}</span></div>
-            {session.status === 'partial' && <p className="error">部分生成成功，仅展示可用图片。</p>}
-            {children}
-            <div className="result-original">
-                {original ? <img src={original} alt="拍摄原片" draggable={false} /> : <div className="original-missing">暂无原片预览</div>}
-                <p><strong>拍摄原片</strong>扫码取图时会和 AI 成片一起保存到手机</p>
+            {/* Options scroll on their own; the next step stays below them instead of floating over the frames. */}
+            <div className="result-scroll">
+                <div className="results-heading"><h1>照片已生成</h1><span className="result-theme">{session.styleName}</span></div>
+                {fortune && <p className="result-fortune"><small>上镜签</small><b>{fortune.level}</b>{fortune.text}</p>}
+                {session.status === 'partial' && <p className="error">部分生成成功，仅展示可用图片。</p>}
+                {children}
+                <div className="result-original">
+                    {session.decoratedUrl ? <img src={session.decoratedUrl} alt="贴纸原片" draggable={false} /> : original ? <img src={original} alt="拍摄原片" draggable={false} /> : <div className="original-missing">暂无原片预览</div>}
+                    <p>{session.decoratedUrl ? <><strong>贴纸原片</strong>扫码可以保存，也可以在下一步打印</> : <><strong>拍摄原片</strong>扫码取图时会和 AI 成片一起保存到手机</>}</p>
+                </div>
             </div>
             <button className="primary result-next" disabled={!session.pickupUrl || busy} onClick={onPickup}>{busy ? '正在准备…' : '下一步：手机取图 · 打印 →'}</button>
         </div>

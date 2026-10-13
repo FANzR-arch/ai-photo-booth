@@ -55,12 +55,20 @@ export interface Session {
     promptVersion?: number;
     pickupUrl?: string;
     originalUrl?: string;
+    /** When the current generation request started; the wait page resumes its clock from here. */
+    startedAt?: number;
+    /** Fortune slip drawn while waiting (see fortunes.ts). */
+    fortune?: string;
+    /** The original photo with stickers added while waiting. */
+    decoratedUrl?: string;
 }
 export interface PickupData {
     expiresAt: number;
     mode: Mode;
     images: { id: string; downloadUrl: string }[];
     original?: { downloadUrl: string };
+    decorated?: { downloadUrl: string };
+    fortune?: { level: string; text: string };
 }
 export interface TestSettings {
     testEntries: boolean;

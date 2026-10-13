@@ -22,7 +22,8 @@ import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
 import { createMacPrinter, type MacPrinter } from './mac-printer.js';
 import { registerPrinting } from './printing.js';
-import type { PrintJob } from '../../packages/shared/printing.js';
+import { decoratedPrintId as decoratedId, type PrintJob } from '../../packages/shared/printing.js';
+import { fortuneById, isFortuneId } from '../../packages/shared/fortunes.js';
 export interface GenerateInput {
     photo: Buffer;
     prompt: string;
@@ -53,6 +54,9 @@ type StoredSession = Session & {
         preview: string;
     }>;
     snapshot?: Style;
+    /** Original photo with the visitor's wait-time stickers; offered beside the AI photos. */
+    decorated?: string;
+    decoratedAt?: number;
     token?: string;
     tokenHash?: string;
     retentionMs?: number;
@@ -191,7 +195,7 @@ export async function createApp(options: AppOptions = {}) {
         rmSync(target, { recursive: true, force: true });
         // Keep only accounting/status records; neither captions nor pickup secrets survive expiry.
         if (s.token) s.tokenHash = createHash('sha256').update(s.token).digest('hex');
-        s.token = undefined; s.pickupUrl = undefined; s.photo = undefined; s.snapshot = undefined;
+        s.token = undefined; s.pickupUrl = undefined; s.photo = undefined; s.snapshot = undefined; s.decorated = undefined; s.decoratedAt = undefined; s.fortune = undefined;
         s.files = {}; s.images = []; s.frame = undefined; s.caption = undefined;
         s.error = undefined; s.deletedAt = now(); s.status = 'ended';
         db.prepare('DELETE FROM records WHERE kind=? AND id=?').run('frame', s.id);
@@ -238,7 +242,7 @@ export async function createApp(options: AppOptions = {}) {
             throw fail('拒绝跨站请求', 403);
         const url = req.url.split('?')[0];
         if (!testSettings().testEntries && ['/stages', '/stages.html'].includes(url)) throw fail('页面不存在', 404);
-        const publicRoute = /^\/api\/pickup\/[a-f0-9]{64}(?:\/images\/[a-f0-9-]+|\/original)?$/.test(url) || /^\/pickup\/[a-f0-9]{64}$/.test(url) || (/^\/assets\/[\w.-]+$/.test(url) && !url.includes('..')) || url === '/favicon.svg';
+        const publicRoute = /^\/api\/pickup\/[a-f0-9]{64}(?:\/images\/[a-f0-9-]+|\/original|\/decorated)?$/.test(url) || /^\/pickup\/[a-f0-9]{64}$/.test(url) || (/^\/assets\/[\w.-]+$/.test(url) && !url.includes('..')) || url === '/favicon.svg';
         if (!publicRoute && (!local(req.ip) || !['localhost', '127.0.0.1', '::1'].includes(hostname)))
             throw fail('此入口仅允许本机访问', 403);
         if (['POST', 'PUT', 'PATCH'].includes(req.method) && !req.headers['content-type']?.toLowerCase().startsWith('application/json'))
@@ -282,6 +286,10 @@ export async function createApp(options: AppOptions = {}) {
         all: () => all<PrintJob>('print'), get: id => get<PrintJob>('print', id), put: job => put('print', job),
         photo: (id, imageId) => {
             const s = session(id);
+            if (imageId === decoratedId) {
+                if (!s.decorated) throw fail('贴纸原片不存在。', 404);
+                return { photo: readFileSync(path.join(data, s.decorated)), frame: 'none', caption: defaultCaption };
+            }
             if (!['ready', 'partial'].includes(s.status) || !Object.hasOwn(s.files, imageId)) throw fail('生成照片尚未准备好。', 409);
             return { photo: readFileSync(path.join(data, s.files[imageId].full)), frame: selectedFrame(id), caption: selectedCaption(id) };
         },
@@ -297,7 +305,7 @@ export async function createApp(options: AppOptions = {}) {
         return { frame, caption };
     });
     // Never return raw paths, original images, prompt snapshots or pickup secrets in ordinary session responses.
-    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, tokenHash, retentionMs, order: _staleOrder, ...v } = s as StoredSession & { order?: unknown }; return { ...v, frame: selectedFrame(s.id), caption: selectedCaption(s.id), ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}) }; };
+    const view = (s: StoredSession): Session => { const { photo, files, snapshot, token, tokenHash, retentionMs, decorated, order: _staleOrder, ...v } = s as StoredSession & { order?: unknown }; return { ...v, frame: selectedFrame(s.id), caption: selectedCaption(s.id), ...(photo ? { originalUrl: `/api/sessions/${s.id}/original` } : {}), ...(decorated ? { decoratedUrl: `/api/sessions/${s.id}/decorated?v=${s.decoratedAt ?? 0}` } : {}) }; };
     const validImage = async (v: unknown) => { if (typeof v !== 'string' || !/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=\r\n]+$/.test(v))
         throw fail('只支持 JPEG 或 PNG 照片'); const b = Buffer.from(v.slice(v.indexOf(',') + 1), 'base64'); if (b.length > 12 * 1024 * 1024)
         throw fail('照片不能超过 12MB', 413); try {
@@ -323,6 +331,26 @@ export async function createApp(options: AppOptions = {}) {
         } catch { return { faces: 0, faceHeightRatio: 0, hint: 'unknown' as DistanceHint }; }
     });
     app.get('/api/styles', async () => all<Style>('style').filter(s => s.enabled).map(({ prompt, outfitPrompt, ...s }) => s));
+    // Wait-time extras: the fortune slip and the sticker-decorated original. Both belong to a photographed session.
+    app.post<{ Params: { id: string } }>('/api/sessions/:id/fortune', { bodyLimit: 1024 }, async req => {
+        const s = session(req.params.id), fortune = object(req.body).fortune;
+        if (!isFortuneId(fortune)) throw fail('签文无效');
+        if (!s.photo) throw fail('请先拍照', 409);
+        s.fortune = fortune; put('session', s); return view(s);
+    });
+    app.post<{ Params: { id: string } }>('/api/sessions/:id/decorated', async req => {
+        const s = session(req.params.id), body = object(req.body);
+        if (!s.photo || ['created', 'photographed'].includes(s.status)) throw fail('照片还没开始生成', 409);
+        const target = path.join('sessions', s.id, 'decorated.jpg');
+        if (body.dataUrl === null) { rmSync(path.join(data, target), { force: true }); s.decorated = undefined; }
+        else { const image = await validImage(body.dataUrl); writeFileSync(path.join(data, target), await sharp(image).rotate().jpeg({ quality: 92 }).toBuffer()); s.decorated = target; s.decoratedAt = now(); }
+        put('session', s); return view(s);
+    });
+    app.get<{ Params: { id: string } }>('/api/sessions/:id/decorated', async (req, reply) => {
+        const s = session(req.params.id);
+        if (!s.decorated) throw fail('贴纸原片不存在', 404);
+        return reply.type('image/jpeg').header('Cache-Control', 'no-store').send(readFileSync(path.join(data, s.decorated)));
+    });
     app.get<{ Params: { id: string } }>('/api/sessions/:id/original', async (req, reply) => {
         const s = session(req.params.id);
         if (!s.photo) throw fail('原照片不存在', 404);
@@ -428,7 +456,7 @@ export async function createApp(options: AppOptions = {}) {
         throw fail('上游结果未知，禁止重复提交以避免重复计费', 409); if (!['photographed', 'failed'].includes(s.status) || !s.photo)
         throw fail('请先拍照', 409); if (!providerReady(s.mode))
         throw fail('请配置 Seedream API 密钥及模型标识', 503); if (jobs.size >= 1) throw fail('设备正在处理上一张照片，请稍后再试', 429); const style = get<Style>('style', s.styleId) ?? get<Style>('retired-style', s.styleId); if (!style?.enabled)
-        throw fail('风格已关闭'); validatePreset(style, s.orientation ?? 'portrait', clothing); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); s.clothingMode = clothing; s.snapshot = { ...style }; s.promptVersion = style.version; s.status = 'generating'; s.error = undefined; s.images = []; s.files = {}; s.token ??= randomBytes(32).toString('hex'); s.pickupUrl = `${base}/pickup/${s.token}`; put('session', s); const job = Promise.resolve().then(() => run(s.id)); jobs.add(job); void job.finally(() => jobs.delete(job)); return view(s); });
+        throw fail('风格已关闭'); validatePreset(style, s.orientation ?? 'portrait', clothing); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); s.clothingMode = clothing; s.snapshot = { ...style }; s.promptVersion = style.version; s.status = 'generating'; s.startedAt = now(); s.error = undefined; s.images = []; s.files = {}; s.token ??= randomBytes(32).toString('hex'); s.pickupUrl = `${base}/pickup/${s.token}`; put('session', s); const job = Promise.resolve().then(() => run(s.id)); jobs.add(job); void job.finally(() => jobs.delete(job)); return view(s); });
     app.post<{
         Params: {
             id: string;
@@ -449,7 +477,12 @@ export async function createApp(options: AppOptions = {}) {
         Params: {
             token: string;
         };
-    }>('/api/pickup/:token', async (req): Promise<PickupData> => { const { s, ids, originalAllowed } = pickup(req.params.token); return { expiresAt: s.expiresAt, mode: s.mode, images: ids.map(id => ({ id, downloadUrl: `/api/pickup/${req.params.token}/images/${id}` })), ...(originalAllowed && s.photo ? { original: { downloadUrl: `/api/pickup/${req.params.token}/original` } } : {}) }; });
+    }>('/api/pickup/:token', async (req): Promise<PickupData> => { const { s, ids, originalAllowed } = pickup(req.params.token); return { expiresAt: s.expiresAt, mode: s.mode, images: ids.map(id => ({ id, downloadUrl: `/api/pickup/${req.params.token}/images/${id}` })), ...(originalAllowed && s.photo ? { original: { downloadUrl: `/api/pickup/${req.params.token}/original` } } : {}), ...(s.decorated ? { decorated: { downloadUrl: `/api/pickup/${req.params.token}/decorated` } } : {}), ...(fortuneById(s.fortune) ? { fortune: { level: fortuneById(s.fortune)!.level, text: fortuneById(s.fortune)!.text } } : {}) }; });
+    app.get<{ Params: { token: string } }>('/api/pickup/:token/decorated', async (req, reply) => {
+        const { s } = pickup(req.params.token);
+        if (!s.decorated) throw fail('贴纸原片不存在', 404);
+        return reply.type('image/jpeg').header('Content-Disposition', 'attachment; filename="snap-stickers.jpg"').send(readFileSync(path.join(data, s.decorated)));
+    });
     app.get<{ Params: { token: string } }>('/api/pickup/:token/original', async (req, reply) => {
         const { s, originalAllowed } = pickup(req.params.token);
         if (!originalAllowed || !s.photo) throw fail('原照片不存在或未授权', 404);
