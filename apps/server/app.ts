@@ -17,11 +17,14 @@ import { generationPrompt } from './generation-prompt.js';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
 import { frameReference, detectFaces } from './reference-framing.js';
 import { defaultWifiSettings, validWifi, type WifiSettings } from '../../packages/shared/wifi.js';
+import { defaultPackages, normalizePackages, validPackages, type PhotoPackage } from '../../packages/shared/photo-packages.js';
 import { defaultPortraitSettings, isBeautyLevel, type PortraitSettings, type DistanceHint } from '../../packages/shared/portrait-settings.js';
 import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
 import { createMacPrinter, type MacPrinter } from './mac-printer.js';
 import { registerPrinting } from './printing.js';
+import { registerPayments, type PaymentProvider } from './payments.js';
+import { isPaymentMode, type Order, type PaymentMode } from '../../packages/shared/payments.js';
 import { decoratedPrintId as decoratedId, type PrintJob } from '../../packages/shared/printing.js';
 import { fortuneById, isFortuneId } from '../../packages/shared/fortunes.js';
 export interface GenerateInput {
@@ -38,6 +41,8 @@ export interface GenerateResult {
 }
 export interface AppOptions {
     printer?: MacPrinter;
+    /** Real payment providers (WeChat Pay, Alipay) plug in here; the simulation is always available. */
+    paymentProviders?: Partial<Record<Order['provider'], PaymentProvider>>;
     dataDir?: string;
     rootDir?: string;
     clock?: () => number;
@@ -48,6 +53,8 @@ export interface AppOptions {
     pickupBaseUrl?: string;
 }
 type StoredSession = Session & {
+    /** Set when the session first goes to generation; it then counts against its order. Free retries do not count again. */
+    charged?: boolean;
     photo?: string;
     files: Record<string, {
         full: string;
@@ -101,8 +108,13 @@ export async function createApp(options: AppOptions = {}) {
         const saved = get<WifiSettings & { id: string }>('setting', 'wifi');
         return saved && validWifi(saved) ? { ssid: saved.ssid, password: saved.password, security: saved.security } : defaultWifiSettings;
     };
+    const photoPackages = (): PhotoPackage[] => {
+        const saved = get<{ id: string; items: unknown }>('setting', 'packages');
+        return saved && validPackages(saved.items) ? normalizePackages(saved.items) : defaultPackages;
+    };
+    const paymentMode = (): PaymentMode => { const saved = get<{ id: string; mode: unknown }>('setting', 'payment'); return saved && isPaymentMode(saved.mode) ? saved.mode : 'off'; };
     const providerReady = (generation: Mode) => generation === 'demo' || !!options.provider || config.status().activeConfigured;
-    const health = (): Health => ({ service: 'snap-club', mode, generation: generationMode(), testMode: testSettings().testEntries, configured: providerReady(generationMode()), model: config.credentials().model, imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`) });
+    const health = (): Health => ({ service: 'snap-club', mode, generation: generationMode(), testMode: testSettings().testEntries, configured: providerReady(generationMode()), model: config.credentials().model, imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`), packages: photoPackages(), payment: paymentMode() });
     mkdirSync(data, { recursive: true });
     for (const folder of ['sessions', 'examples'])
         mkdirSync(path.join(data, folder), { recursive: true });
@@ -281,6 +293,20 @@ export async function createApp(options: AppOptions = {}) {
     const selectedDecoration = (id: string) => get<{ id: string; frame: FrameId; caption?: Caption }>('frame', id);
     const selectedFrame = (id: string): FrameId => selectedDecoration(id)?.frame ?? 'none';
     const selectedCaption = (id: string): Caption => selectedDecoration(id)?.caption ?? defaultCaption;
+    registerPayments(app, {
+        now, get: id => get<Order>('order', id), put: order => put('order', order), packages: photoPackages,
+        mode: paymentMode, setMode: mode => { const setting = { id: 'payment', mode }; put('setting', setting); }, providers: options.paymentProviders,
+    });
+    /** Paid photos already used by an order: sessions that went to generation under it. */
+    const chargedPhotos = (orderId: string) => all<StoredSession>('session').filter(item => item.orderId === orderId && item.charged).length;
+    /** With pay-before-shooting on, a new photo needs a paid order that still has photos left. */
+    const paidOrder = (orderId: unknown) => {
+        if (paymentMode() === 'off' && orderId === undefined) return undefined;
+        const order = typeof orderId === 'string' ? get<Order>('order', orderId) : undefined;
+        if (!order || order.status !== 'paid') throw fail('请先扫码付款', 402);
+        if (chargedPhotos(order.id) >= order.count) throw fail(`这一单的 ${order.count} 张已经拍完了。`, 409);
+        return order;
+    };
     const printing = registerPrinting(app, {
         printer: options.printer ?? createMacPrinter(root), data, now,
         all: () => all<PrintJob>('print'), get: id => get<PrintJob>('print', id), put: job => put('print', job),
@@ -359,7 +385,7 @@ export async function createApp(options: AppOptions = {}) {
             .send(readFileSync(path.join(data, s.photo)));
     });
     app.post('/api/sessions', async (req) => { const b = object(req.body), style = get<Style>('style', b.styleId); if (b.purpose !== undefined && !purposes.some(p => p.id === b.purpose)) throw fail('照片用途无效'); if (!style?.enabled)
-        throw fail('风格不可用'); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); const s: StoredSession = { id: randomUUID(), styleId: style.id, styleName: style.name, purpose: b.purpose ?? 'self', orientation: style.sceneOrientation ?? (style.generationPreset === 'coming-of-age' ? 'poster' : 'portrait'), clothingMode: style.generationPreset ? 'theme' : 'keep', status: 'created', mode: generationMode(), createdAt: now(), expiresAt: now() + ttl, retentionMs: ttl, images: [], files: {} }; put('session', s); const decoration = { id: s.id, frame: recommendedFrame(style.id, s.purpose), caption: defaultCaption }; put('frame', decoration); return view(s); });
+        throw fail('风格不可用'); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); const order = paidOrder(b.orderId); const s: StoredSession = { ...(order ? { orderId: order.id } : {}), id: randomUUID(), styleId: style.id, styleName: style.name, purpose: b.purpose ?? 'self', orientation: style.sceneOrientation ?? (style.generationPreset === 'coming-of-age' ? 'poster' : 'portrait'), clothingMode: style.generationPreset ? 'theme' : 'keep', status: 'created', mode: generationMode(), createdAt: now(), expiresAt: now() + ttl, retentionMs: ttl, images: [], files: {} }; put('session', s); const decoration = { id: s.id, frame: recommendedFrame(style.id, s.purpose), caption: defaultCaption }; put('frame', decoration); return view(s); });
     app.get<{
         Params: {
             id: string;
@@ -456,7 +482,7 @@ export async function createApp(options: AppOptions = {}) {
         throw fail('上游结果未知，禁止重复提交以避免重复计费', 409); if (!['photographed', 'failed'].includes(s.status) || !s.photo)
         throw fail('请先拍照', 409); if (!providerReady(s.mode))
         throw fail('请配置 Seedream API 密钥及模型标识', 503); if (jobs.size >= 1) throw fail('设备正在处理上一张照片，请稍后再试', 429); const style = get<Style>('style', s.styleId) ?? get<Style>('retired-style', s.styleId); if (!style?.enabled)
-        throw fail('风格已关闭'); validatePreset(style, s.orientation ?? 'portrait', clothing); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); s.clothingMode = clothing; s.snapshot = { ...style }; s.promptVersion = style.version; s.status = 'generating'; s.startedAt = now(); s.error = undefined; s.images = []; s.files = {}; s.token ??= randomBytes(32).toString('hex'); s.pickupUrl = `${base}/pickup/${s.token}`; put('session', s); const job = Promise.resolve().then(() => run(s.id)); jobs.add(job); void job.finally(() => jobs.delete(job)); return view(s); });
+        throw fail('风格已关闭'); validatePreset(style, s.orientation ?? 'portrait', clothing); if (/\{\{[^}]*\}\}/.test(style.prompt || '')) throw fail('请先在工作台填写主题提示词中的占位内容'); if (s.orderId && !s.charged) { paidOrder(s.orderId); s.charged = true; } s.clothingMode = clothing; s.snapshot = { ...style }; s.promptVersion = style.version; s.status = 'generating'; s.startedAt = now(); s.error = undefined; s.images = []; s.files = {}; s.token ??= randomBytes(32).toString('hex'); s.pickupUrl = `${base}/pickup/${s.token}`; put('session', s); const job = Promise.resolve().then(() => run(s.id)); jobs.add(job); void job.finally(() => jobs.delete(job)); return view(s); });
     app.post<{
         Params: {
             id: string;
@@ -517,6 +543,15 @@ export async function createApp(options: AppOptions = {}) {
         const setting = { id: 'wifi', ssid: body.ssid.trim(), password: body.security === 'nopass' ? '' : body.password, security: body.security };
         put('setting', setting);
         return wifiSettings();
+    });
+    app.get('/api/admin/packages', async () => photoPackages());
+    app.put('/api/admin/packages', { bodyLimit: 2048 }, async req => {
+        const body = object(req.body);
+        if (!validPackages(body.items)) throw fail('套餐设置无效：最多 4 档，每档 1–12 张且张数不重复，价格可留空。');
+        if (paymentMode() !== 'off' && (!body.items.length || body.items.some(item => item.price === undefined))) throw fail('已开启扫码付款，每一档都必须有价格。', 409);
+        const setting = { id: 'packages', items: normalizePackages(body.items) };
+        put('setting', setting);
+        return photoPackages();
     });
     app.get('/api/admin/portrait', async () => portraitSettings());
     app.put('/api/admin/portrait', { bodyLimit: 1024 }, async req => {

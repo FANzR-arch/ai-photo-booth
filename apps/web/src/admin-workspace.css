@@ -21,3 +21,5 @@
 .admin .style-grid .style-editor[open]>.editor-fields{padding:4px 16px 18px}
 
 .portrait-panel .mode-label{margin:0 0 10px;font-size:13px;color:#5b4e45;font-weight:600}.portrait-panel .portrait-reframe{display:flex;align-items:center;gap:10px;margin-top:22px;font-size:15px;cursor:pointer}.portrait-panel .portrait-reframe input{width:22px;height:22px;accent-color:#c9472f}
+.package-row{display:grid;grid-template-columns:110px minmax(0,1fr) 90px auto;gap:12px;align-items:end}
+.package-row .package-time{padding-bottom:12px;font-size:13px;color:#7a6d63;white-space:nowrap}

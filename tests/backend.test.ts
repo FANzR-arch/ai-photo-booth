@@ -940,7 +940,61 @@ test('venue Wi-Fi defaults off, validates input and is readable only by the loca
         assert.equal((await f.req('PUT', '/api/admin/wifi', { ssid: 'Open', password: 'ignored', security: 'nopass' })).json().password, '');
     } finally { await f.close(); }
 });
+test('photo packages default to 4–6 photos without prices, are admin-only and reach the kiosk through health', async () => {
+    const f = await fixture();
+    try {
+        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 4 }, { count: 5 }, { count: 6 }]);
+        assert.equal((await f.app.inject({ method: 'PUT', url: '/api/admin/packages', payload: { items: [] }, headers: { host: 'localhost:4377' } })).statusCode, 401);
+        assert.equal((await f.req('PUT', '/api/admin/packages', { items: [{ count: 4 }, { count: 4 }] })).statusCode, 400);
+        assert.deepEqual((await f.req('PUT', '/api/admin/packages', { items: [{ count: 6, price: 49 }, { count: 4, price: 39 }] })).json(), [{ count: 4, price: 39 }, { count: 6, price: 49 }]);
+        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 4, price: 39 }, { count: 6, price: 49 }]);
+        assert.deepEqual((await f.req('PUT', '/api/admin/packages', { items: [] })).json(), [], 'an empty list turns the choice off');
+    } finally { await f.close(); }
+});
 test('Wi-Fi join QR escapes reserved characters', () => {
     assert.equal(wifiQrText({ ssid: 'Snap;Club', password: String.raw`a:b"c\d,e`, security: 'WPA' }), String.raw`WIFI:T:WPA;S:Snap\;Club;P:a\:b\"c\\d\,e;;`);
     assert.equal(wifiQrText({ ssid: 'Open', password: '', security: 'nopass' }), 'WIFI:T:nopass;S:Open;;');
+});
+
+test('pay-before-shooting: orders need prices, unlock only when paid and stop at the paid photo count', async () => {
+    let time = Date.now();
+    const f = await fixture({ clock: () => time });
+    const shot = async (orderId?: string) => {
+        const created = await f.req('POST', '/api/sessions', { styleId: 'cinema', ...(orderId ? { orderId } : {}) });
+        if (created.statusCode !== 200) return { status: created.statusCode, id: '' };
+        const id = created.json().id as string;
+        assert.equal((await f.req('POST', `/api/sessions/${id}/photo`, { dataUrl: `data:image/jpeg;base64,${f.photo.toString('base64')}`, orientation: 'portrait' })).statusCode, 200);
+        return { status: 200, id };
+    };
+    const generate = async (id: string) => { const r = await f.req('POST', `/api/sessions/${id}/generate`, {}); if (r.statusCode === 200) await f.finish(id); return r.statusCode; };
+    try {
+        assert.equal((await f.req('GET', '/api/health')).json().payment, 'off');
+        assert.equal((await f.req('POST', '/api/orders', { count: 4 })).statusCode, 409, 'no orders while the booth does not take payment');
+        assert.equal((await f.req('PUT', '/api/admin/payment', { mode: 'mock' })).statusCode, 409, 'unpriced packages cannot be paid for');
+        assert.equal((await f.req('PUT', '/api/admin/payment', { mode: 'wechat' })).statusCode, 400, 'real providers are not wired yet');
+        assert.equal((await f.req('PUT', '/api/admin/packages', { items: [{ count: 2, price: 29.9 }] })).statusCode, 200);
+        assert.deepEqual((await f.req('PUT', '/api/admin/payment', { mode: 'mock' })).json(), { mode: 'mock' });
+        assert.equal((await f.req('GET', '/api/health')).json().payment, 'mock');
+        assert.equal((await f.req('PUT', '/api/admin/packages', { items: [{ count: 2 }] })).statusCode, 409, 'prices stay required while payment is on');
+        assert.equal((await shot()).status, 402, 'no photo without a paid order');
+        assert.equal((await f.req('POST', '/api/orders', { count: 3 })).statusCode, 400);
+        const order = (await f.req('POST', '/api/orders', { count: 2 })).json();
+        assert.equal(order.amount, 2990); assert.equal(order.status, 'pending'); assert.match(order.qrText, /^SNAPCLUB-MOCK-PAY:/);
+        assert.equal((await shot(order.id)).status, 402, 'a pending order does not unlock the booth');
+        assert.equal((await f.req('POST', `/api/orders/${order.id}/simulate-paid`, {})).json().status, 'paid');
+        const [a, b, c] = [await shot(order.id), await shot(order.id), await shot(order.id)];
+        assert.deepEqual([a.status, b.status, c.status], [200, 200, 200], 'drafts do not use up the order');
+        assert.equal((await f.req('GET', `/api/sessions/${a.id}`)).json().orderId, order.id);
+        assert.equal(await generate(a.id), 200);
+        assert.equal(await generate(b.id), 200);
+        assert.equal(await generate(c.id), 409, 'the third photo of a two-photo order is refused');
+        assert.equal((await shot(order.id)).status, 409);
+        const late = (await f.req('POST', '/api/orders', { count: 2 })).json();
+        time += 3 * 60_000;
+        assert.equal((await f.req('GET', `/api/orders/${late.id}`)).json().status, 'expired');
+        assert.equal((await f.req('POST', `/api/orders/${late.id}/simulate-paid`, {})).json().status, 'expired', 'an expired code cannot be paid');
+        const left = (await f.req('POST', '/api/orders', { count: 2 })).json();
+        assert.equal((await f.req('POST', `/api/orders/${left.id}/cancel`, {})).json().status, 'cancelled');
+        assert.equal((await f.app.inject({ method: 'POST', url: '/api/orders', payload: { count: 2 }, remoteAddress: '192.168.1.20', headers: { host: '192.168.1.5:4377' } })).statusCode, 403, 'orders are kiosk-local');
+    } finally { await f.close(); }
 });

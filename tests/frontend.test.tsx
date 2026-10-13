@@ -955,3 +955,64 @@ test('children skip the fortune and play snap; the photo then reveals before res
         assert.match(h.text(), /照片已生成/);
     } finally { await h.cleanup(); }
 });
+
+test('a photo package is chosen before the themes, counts submitted photos and ends the visit after the last one', async () => {
+    const h = await harness(url => url === '/api/health' ? { mode: 'demo', generation: 'demo', testMode: true, configured: true, model: '', imageCount: 1, pickupBaseUrl: 'http://localhost:4377', lanUrls: [], packages: [{ count: 2, price: 29 }, { count: 3 }] } : undefined);
+    try {
+        assert.match(h.text(), /可选 2–3 张 · 约 3–4 分钟 · ¥29/);
+        await h.click('开始拍照');
+        assert.match(h.text(), /这次拍几张/);
+        await h.click('约 3 分钟');
+        const shoot = async () => { await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload(); await h.consent(); await h.click('开始生成'); await h.poll(); await h.click('手机取图'); };
+        await shoot();
+        assert.match(h.text(), /第 1 \/ 2 张/);
+        await h.click('拍下一张（还剩 1 张）');
+        await shoot();
+        assert.match(h.text(), /第 2 \/ 2 张/);
+        assert.doesNotMatch(h.text(), /拍下一张|再拍一张/);
+        await h.click('已保存，完成');
+        assert.match(h.text(), /开始拍照/);
+        await h.click('开始拍照');
+        assert.match(h.text(), /这次拍几张/, 'the next visitor chooses again');
+    } finally { await h.cleanup(); }
+});
+
+test('ending early warns about photos the package has not used yet', async () => {
+    const h = await harness(url => url === '/api/health' ? { mode: 'demo', generation: 'demo', testMode: true, configured: true, model: '', imageCount: 1, pickupBaseUrl: 'http://localhost:4377', lanUrls: [], packages: [{ count: 4 }] } : undefined);
+    try {
+        await h.click('开始拍照');
+        await h.click('4张');
+        await h.click('电影人像').then(() => h.click('就拍这个')); await h.upload(); await h.consent(); await h.click('开始生成'); await h.poll(); await h.click('手机取图');
+        await h.click('结束本次');
+        assert.match(h.text(), /这一单还有 3 张没拍/);
+    } finally { await h.cleanup(); }
+});
+
+test('with payment on, the chosen package shows a pay QR, polling unlocks the themes and photos carry the order', async () => {
+    let paid = false;
+    const order = (status: string) => ({ id: 'order-1', count: 2, amount: 2900, status, provider: 'mock', qrText: 'SNAPCLUB-MOCK-PAY:order-1:2900', createdAt: Date.now(), expiresAt: Date.now() + 180000 });
+    const h = await harness(url => {
+        if (url === '/api/health') return { mode: 'demo', generation: 'demo', testMode: false, configured: true, model: '', imageCount: 1, pickupBaseUrl: 'http://localhost:4377', lanUrls: [], packages: [{ count: 2, price: 29 }], payment: 'mock' };
+        if (url === '/api/orders') return order('pending');
+        if (url === '/api/orders/order-1/cancel') return order('cancelled');
+        if (url === '/api/orders/order-1') return order(paid ? 'paid' : 'pending');
+    });
+    try {
+        await h.click('开始拍照');
+        await h.click('约 3 分钟');
+        assert.match(h.text(), /扫码付款/); assert.match(h.text(), /¥29/); assert.match(h.text(), /测试付款码，扫码不会扣钱/);
+        assert.ok(h.dom.window.document.querySelector('img[alt="付款二维码"]'));
+        assert.doesNotMatch(h.text(), /模拟付款成功/, 'the simulate button is a test-mode entry only');
+        await h.click('换张数');
+        assert.ok(h.calls.some(c => c.url === '/api/orders/order-1/cancel'), 'leaving the pay screen closes the order');
+        await h.click('约 3 分钟');
+        await h.tick(2000);
+        assert.match(h.text(), /扫码付款/, 'still waiting while unpaid');
+        paid = true;
+        await h.tick(2000);
+        assert.match(h.text(), /选择主题/);
+        assert.match(h.text(), /第 1 \/ 2 张/);
+        await h.click('电影人像').then(() => h.click('就拍这个'));
+        assert.equal(h.calls.find(c => c.url === '/api/sessions')?.body.orderId, 'order-1');
+    } finally { await h.cleanup(); }
+});

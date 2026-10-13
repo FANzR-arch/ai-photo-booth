@@ -21,13 +21,14 @@ export function wallPhotos(styles: Style[]): { src: string; name: string }[] {
 }
 
 /** Idle screen: one action on the left, a slowly drifting wall of sample photos on the right. Never starts a session by itself.
+ *  `note` answers "how many, how long, how much" under the start button.
  *  `unavailable` blocks the start before staff collect payment for a booth that cannot generate. */
-export function AttractScreen({ styles, unavailable = false, onStart }: { styles: Style[]; unavailable?: boolean; onStart: () => void }) {
+export function AttractScreen({ styles, unavailable = false, note = '', onStart }: { styles: Style[]; unavailable?: boolean; note?: string; onStart: () => void }) {
     const photos = wallPhotos(styles);
     const lanes = Array.from({ length: columns }, (_, c) => photos.filter((_, i) => i % columns === c));
     return <section className="attract-screen" aria-label="拍照机待机页">
         <div className="attract-copy"><h1><span className="attract-title-line">今天，</span><span className="attract-title-line">留张<em>好照片。</em></span></h1><ol className="attract-steps" aria-label="体验流程">{steps.map((text, i) => <li key={text}><b>{i + 1}</b><span>{text}</span></li>)}</ol>
-            {unavailable ? <div className="service-paused" role="status"><strong>暂停服务</strong><p>设备正在准备，请联系工作人员。</p></div> : <button className="primary start-button" onClick={onStart}>开始拍照 <span aria-hidden="true">→</span></button>}</div>
+            {unavailable ? <div className="service-paused" role="status"><strong>暂停服务</strong><p>设备正在准备，请联系工作人员。</p></div> : <><button className="primary start-button" onClick={onStart}>开始拍照 <span aria-hidden="true">→</span></button>{note && <p className="attract-note">{note}</p>}</>}</div>
         <div className="attract-wall" aria-hidden="true" onClick={unavailable ? undefined : onStart}>
             {lanes.map((lane, c) => !!lane.length && <div key={c} className={`wall-lane wall-lane-${c}`}>
                 {/* Two copies make the loop seamless: the lane scrolls exactly one copy's height. */}

@@ -19,14 +19,14 @@ export function timeLeft(expiresAt: number, now: number) {
     return `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
 }
 
-export function PhotoLibrary({ sessions, draftPhoto, now, busy, onOpen, onNew, onBack }: {
-    sessions: Session[]; draftPhoto: (id: string) => string; now: number; busy: boolean;
+export function PhotoLibrary({ sessions, draftPhoto, now, busy, canAddMore = true, onOpen, onNew, onBack }: {
+    sessions: Session[]; draftPhoto: (id: string) => string; now: number; busy: boolean; canAddMore?: boolean;
     onOpen: (session: Session) => void; onNew: () => void; onBack: () => void;
 }) {
     const photos = sessions.filter(s => s.expiresAt > now && (s.originalUrl || s.images.length || draftPhoto(s.id)));
     return <section className="photo-library">
         <button className="text-button library-back" onClick={onBack}>← 返回</button>
-        <div className="library-heading"><div><span className="eyebrow">THIS VISIT</span><h1>本轮照片库</h1><p>生成完成后保留 10 分钟，到期自动删除。结束本次后，照片库会隐藏。</p></div><button className="primary" disabled={busy} onClick={onNew}>再拍一张 ↗</button></div>
+        <div className="library-heading"><div><span className="eyebrow">THIS VISIT</span><h1>本轮照片库</h1><p>生成完成后保留 10 分钟，到期自动删除。结束本次后，照片库会隐藏。</p></div><button className="primary" disabled={busy || !canAddMore} onClick={onNew}>{canAddMore ? '再拍一张 ↗' : '本单张数已拍完'}</button></div>
         {photos.length ? <div className="library-grid">{photos.map(s => {
             const src = s.images[0]?.previewUrl || draftPhoto(s.id) || s.originalUrl!;
             const status = s.status === 'generating' ? '正在生成' : ['failed', 'unknown'].includes(s.status) ? '查看生成状态' : s.images.length ? '查看照片' : '待确认';

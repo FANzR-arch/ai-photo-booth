@@ -18,6 +18,12 @@ import './wait/wait.css';
 import './kiosk-polish.css';
 import './skins/memphis.css';
 import { applySkin } from './skin';
-applySkin();
-const path = location.pathname;
-createRoot(document.getElementById('root')!).render(path.startsWith('/pickup/') ? <Pickup /> : path === '/admin' ? <Admin /> : <Booth />);
+// The static demo build (vite.static-demo.config.ts) swaps the server for an in-browser stand-in before anything renders.
+const staticDemo = (import.meta as unknown as { env: Record<string, string | undefined> }).env.VITE_STATIC_DEMO === '1';
+async function start() {
+    if (staticDemo) (await import('./demo/mock-api')).installDemoApi();
+    applySkin();
+    const path = location.pathname;
+    createRoot(document.getElementById('root')!).render(path.startsWith('/pickup/') ? <Pickup /> : path === '/admin' ? <Admin /> : <Booth />);
+}
+void start();

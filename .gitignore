@@ -17,3 +17,5 @@ docs/sources/prompt-import-2026-10-06/参考样片/
 # Scratch work and raw image-generation masters (shipped art lives in assets/ as WebP).
 tmp/
 docs/sources/wait-assets-originals/
+# QA screenshot archives stay local; the reports themselves are versioned.
+docs/qa/*/

@@ -59,3 +59,80 @@
 .kiosk-shell .theme-card .scene-art .style-image img{object-fit:cover;object-position:50% 28%}
 /* The last visible row fades out, hinting that the wall scrolls. */
 .kiosk-shell .theme-scroll{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent)}
+
+/* Results: paper and caption are two tabs, so the captions are one tap away instead of below the panel's fold. */
+.kiosk-shell .frame-picker [hidden]{display:none!important}
+.kiosk-shell .frame-tabs{justify-content:flex-start;align-items:center;flex-wrap:nowrap;gap:10px;margin:0 0 16px;padding:0}
+.kiosk-shell .frame-tabs button{min-width:0;min-height:60px;padding:0 26px;font-size:20px;font-weight:600}
+.kiosk-shell .frame-tab-value{max-width:8em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:400;opacity:.8}
+.kiosk-shell .frame-options{padding-bottom:0;border-bottom:0}
+.kiosk-shell .caption-editor{padding-top:0}
+.kiosk-shell .caption-heading{display:block;margin:0 0 6px;font-size:17px;color:var(--sr-muted,#7a6d63)}
+/* Paper thumbnails stay inside their own cell whatever the photo's shape; landscape ones are sized by width. */
+.kiosk-shell .frame-swatch:has(.photo-frame){grid-template-columns:minmax(0,1fr)}
+.kiosk-shell .frame-options[data-wide] .frame-swatch:has(.photo-frame){height:auto;min-height:64px}
+.kiosk-shell .frame-options[data-wide] .frame-swatch .photo-frame{width:100%;height:auto;max-width:none}
+
+/* Confirm: tapping the greyed-out start button points at the consent box instead of doing nothing. */
+.kiosk-shell .generate-slot{position:relative;display:grid;min-width:0}
+.kiosk-shell .generate-slot>button{width:100%;min-height:76px;margin:0;padding-inline:12px;font-size:21px;white-space:nowrap}
+.kiosk-shell .consent-catch{position:absolute;inset:0;cursor:pointer}
+.kiosk-shell .consent-hint.is-nudged{font-size:20px;font-weight:700;color:var(--sr-accent-ink,var(--sr-accent))}
+.kiosk-shell .capture-copy .consent.needs-consent[data-nudge="0"]{animation:consent-shake-a .5s ease,consent-pulse 2.4s ease-in-out .5s infinite}
+.kiosk-shell .capture-copy .consent.needs-consent[data-nudge="1"]{animation:consent-shake-b .5s ease,consent-pulse 2.4s ease-in-out .5s infinite}
+@keyframes consent-shake-a{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes consent-shake-b{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@media (prefers-reduced-motion:reduce){.kiosk-shell .capture-copy .consent.needs-consent[data-nudge]{animation:none}}
+
+/* Idle warning: a dialog that says what clearing means, not a strip that can be missed. */
+.kiosk-shell .idle-dialog .idle-count{margin:0;font-size:22px;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .idle-dialog .idle-count b{display:block;font-size:64px;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--sr-accent-ink,var(--sr-accent))}
+
+/* Staff menu: skin names stay on one line. */
+.kiosk-dialog-card .skin-options .secondary{white-space:nowrap}
+
+/* Results and pickup hero: a landscape print is sized by width; height-first sizing stretched its paper into empty bands. */
+@media (orientation:landscape) and (min-width:1200px){
+  .kiosk-shell .portrait-results[data-orientation^="landscape"] .result-hero{align-items:center}
+  .kiosk-shell .portrait-results[data-orientation^="landscape"] .result-hero .photo-frame{width:100%;height:auto;max-height:100%}
+  .kiosk-shell .delivery[data-orientation^="landscape"] .delivery-photo{align-items:center}
+  .kiosk-shell .delivery[data-orientation^="landscape"] .delivery-photo .photo-frame{width:44vw;height:auto;max-height:100%}
+}
+
+/* Package choice: one big card per photo count, sized for a standing visitor's finger. */
+.kiosk-shell .plan-screen{align-items:stretch}
+.kiosk-shell .plan-options{flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,340px));justify-content:center;align-content:center;gap:32px;min-height:0}
+.kiosk-shell .plan-option{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:400px;padding:36px 24px;border:0;border-radius:var(--sr-r-lg,26px);background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-1);color:var(--sr-ink,#2e2722);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.kiosk-shell .plan-option:hover{transform:translateY(-4px);box-shadow:var(--sr-shadow-2)}
+.kiosk-shell .plan-option:active{transform:translateY(-1px) scale(.99)}
+.kiosk-shell .plan-option strong{font-family:var(--sr-display);font-size:120px;line-height:1;font-weight:800;letter-spacing:-.04em;color:var(--sr-accent-ink,var(--sr-accent))}
+.kiosk-shell .plan-option strong small{margin-left:6px;font-size:34px;letter-spacing:0;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .plan-option span{font-size:22px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .plan-option em{margin-top:6px;padding:8px 26px;border-radius:999px;background:var(--sr-accent-soft,#fde4d9);font-style:normal;font-size:30px;font-weight:700;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .plan-note{margin:0 0 8px;text-align:center;font-size:22px;color:var(--sr-muted,#7a6d63)}
+/* Visit progress in the header: which photo of the package this is. */
+.kiosk-shell .plan-chip{padding:8px 18px;border-radius:999px;background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-1);font-size:18px;white-space:nowrap;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .plan-chip b{font-size:22px;color:var(--sr-accent-ink,var(--sr-accent))}
+/* Home: how many, how long, how much — right under the one action. */
+.kiosk-shell .attract-note{margin:18px 0 0;font-size:22px;color:var(--sr-muted,#7a6d63)}
+
+/* Pay screen: what is being bought on the left, the QR on the right; payment is detected automatically. */
+.kiosk-shell .pay-layout{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:48px;align-items:center;max-width:1280px;width:100%;margin:0 auto;min-height:0}
+.kiosk-shell .pay-summary{display:flex;flex-direction:column;align-items:center;gap:16px;padding:48px 32px;border-radius:var(--sr-r-lg,26px);background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-1);text-align:center}
+.kiosk-shell .pay-summary strong{font-family:var(--sr-display);font-size:140px;line-height:1;font-weight:800;letter-spacing:-.04em;color:var(--sr-accent-ink,var(--sr-accent))}
+.kiosk-shell .pay-summary strong small{margin-left:6px;font-size:40px;letter-spacing:0;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .pay-summary span{font-size:22px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .pay-amount{margin-top:8px;font-size:64px;font-weight:800;color:var(--sr-ink,#2e2722);font-variant-numeric:tabular-nums}
+.kiosk-shell .pay-code{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px;border-radius:var(--sr-r-lg,26px);background:var(--sr-surface,#fffdfa);box-shadow:var(--sr-shadow-1);text-align:center}
+.kiosk-shell .pay-code p{margin:0}
+.kiosk-shell .pay-title{font-size:28px;font-weight:700;color:var(--sr-ink,#2e2722)}
+.kiosk-shell .pay-code img{width:320px;height:320px;border-radius:12px}
+.kiosk-shell .pay-wait{display:grid;place-items:center;width:320px;height:320px;font-size:18px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .pay-countdown{font-size:20px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .pay-countdown b{font-variant-numeric:tabular-nums;color:var(--sr-accent-ink,var(--sr-accent))}
+.kiosk-shell .pay-mock{padding:6px 16px;border-radius:999px;background:var(--sr-sunken,#f6efe6);font-size:16px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .pay-simulate{min-height:60px;padding:0 28px;font-size:18px}
+.kiosk-shell .pay-expired{display:flex;flex-direction:column;align-items:center;gap:14px;padding:60px 0}
+.kiosk-shell .pay-expired strong{font-size:32px}
+.kiosk-shell .pay-expired p{font-size:20px;color:var(--sr-muted,#7a6d63)}
+.kiosk-shell .pay-expired .primary{min-height:72px;padding:0 40px;font-size:22px}

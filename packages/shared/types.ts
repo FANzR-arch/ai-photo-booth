@@ -1,3 +1,4 @@
+import type { PhotoPackage } from './photo-packages';
 export type Mode = 'demo' | 'seedream';
 export interface Style {
     id: string;
@@ -29,6 +30,10 @@ export interface Health {
     imageCount: number;
     pickupBaseUrl: string;
     lanUrls: string[];
+    /** Photo-count choices offered before a visit; empty or missing skips the choice (no limit). */
+    packages?: PhotoPackage[];
+    /** Pay-before-shooting provider; 'off' (or missing) means staff collect money off the machine. */
+    payment?: import('./payments').PaymentMode;
 }
 export interface Session {
     purpose?: import('./portrait-experience').Purpose;
@@ -61,6 +66,8 @@ export interface Session {
     fortune?: string;
     /** The original photo with stickers added while waiting. */
     decoratedUrl?: string;
+    /** Paid order this photo belongs to, when the booth takes payment. */
+    orderId?: string;
 }
 export interface PickupData {
     expiresAt: number;
