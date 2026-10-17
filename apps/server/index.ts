@@ -4,6 +4,7 @@ import { createServer } from 'node:net';
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
+import { homedir } from 'node:os';
 import { existsSync } from 'node:fs';
 import type { AddressInfo } from 'node:net';
 
@@ -104,6 +105,8 @@ async function start() {
     console.log(`AI 拍照亭已启动：${url} （管理入口 /admin）`);
     console.log(`生成：${mode === 'seedream' ? 'Seedream 真实生图' : '本地模拟图片'}；程序内无付款环节。`);
     console.log(`数据保存在 ${path.join(process.cwd(), 'data')}，重启后继续使用。`);
+    const archive = process.env.PHOTO_ARCHIVE_DIR?.trim() || path.join(homedir(), 'Desktop', '拍照亭照片');
+    console.log(archive === 'off' ? '照片留底已关闭。' : `每组照片（原图、AI图、打印版）保存在 ${path.resolve(process.cwd(), archive)}，不会自动删除。`);
     openBrowser();
     for (const signal of ['SIGINT', 'SIGTERM'] as const)
         process.on(signal, () => { void app.close().then(() => process.exit(0)); });

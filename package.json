@@ -11,7 +11,7 @@
     "dev": "concurrently -k \"tsx watch apps/server/index.ts\" \"vite --host 127.0.0.1\"",
     "build": "tsc --noEmit && vite build",
     "start": "tsx apps/server/index.ts",
-    "test": "tsx --test tests/*.test.ts tests/*.test.tsx",
+    "test": "tsx --import ./tests/setup-env.ts --test tests/*.test.ts tests/*.test.tsx",
     "build:demo": "vite build --config vite.static-demo.config.ts"
   },
   "dependencies": {

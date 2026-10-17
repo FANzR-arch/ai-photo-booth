@@ -30,7 +30,7 @@ async function fixture(submit?: (args: string[]) => Promise<string>) {
     const printer = createMacPrinter(root, run, 'darwin');
     const image = await sharp({ create: { width: 48, height: 64, channels: 3, background: 'red' } }).jpeg().toBuffer();
     let time = Date.now();
-    const start = () => createApp({ rootDir: root, mode: 'seedream', provider: async () => ({ images: [image] }), printer, clock: () => time });
+    const start = () => createApp({ rootDir: root, mode: 'seedream', provider: async () => ({ images: [image] }), printer, clock: () => time, archiveDir: path.join(root, '拍照亭照片') });
     let app = await start();
     const req = (url: string, payload?: any, cookie = '', method?: 'POST' | 'PUT') => app.inject({ method: method || (payload === undefined ? 'GET' : 'POST'), url, payload, headers: { host: 'localhost:4377', cookie } });
     const login = async () => String((await req('/api/admin/auth/login', { password: 'test-print-password' })).headers['set-cookie']).split(';')[0];
@@ -166,5 +166,22 @@ test('restart marks an interrupted submission uncertain instead of printing agai
         await f.printer.save(defaults); await f.restart();
         const result = (await f.req(`/api/sessions/${s.id}/print`, { imageId })).json();
         assert.equal(result.status, 'unknown'); assert.equal(f.printed.length, 0);
+    } finally { await f.close(); }
+});
+test('printing saves the framed image to the local archive first and prints that kept file', async () => {
+    const f = await fixture();
+    try {
+        await f.printer.save(defaults); const s = await f.ready(), imageId = s.images[0].id;
+        const caption = { ...defaultCaption, text: '留底再打印' };
+        await f.req(`/api/sessions/${s.id}/frame`, { frame: 'instant', caption });
+        assert.equal((await f.req(`/api/sessions/${s.id}/print`, { imageId })).json().status, 'submitted');
+        const file = f.calls.find(c => c.file.endsWith('/lp'))!.args.at(-1)!;
+        assert.equal(path.relative(path.join(f.root, '拍照亭照片'), file).startsWith('..'), false, `printed from archive: ${file}`);
+        assert.equal(path.basename(file), '打印版.jpg');
+        const expected = await framePhoto(readFileSync(path.join(f.root, 'data/sessions', s.id, `${imageId}.jpg`)), 'instant', caption);
+        assert.deepEqual(readFileSync(file), expected, 'kept file is exactly what was printed');
+        f.advance(11 * 60 * 1000);
+        assert.equal((await f.req(`/api/sessions/${s.id}`)).statusCode, 410);
+        assert.deepEqual(readFileSync(file), expected, 'kept print file survives session expiry');
     } finally { await f.close(); }
 });

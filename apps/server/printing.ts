@@ -16,9 +16,11 @@ interface PrintingOptions {
     get: (id: string) => PrintJob | undefined;
     put: (job: PrintJob) => void;
     photo: (sessionId: string, imageId: string) => { photo: Buffer; frame: FrameId; caption: Caption };
+    /** Saves the print-ready image to the staff archive and returns its path; undefined when archiving is off. */
+    keep?: (sessionId: string, imageId: string, image: Buffer) => string | undefined;
 }
 export function registerPrinting(app: FastifyInstance, options: PrintingOptions) {
-    const { printer, data, now, all, get, put, photo } = options;
+    const { printer, data, now, all, get, put, photo, keep } = options;
     const directory = path.join(data, 'print-jobs');
     mkdirSync(directory, { recursive: true, mode: 0o700 });
     for (const filename of readdirSync(directory)) {
@@ -50,13 +52,17 @@ export function registerPrinting(app: FastifyInstance, options: PrintingOptions)
         if (tasks.size) throw fail('正在提交上一张照片，请稍后再试。', 409);
         const job: PrintJob = { id, sessionId, imageId, status: 'preparing', createdAt: now() };
         put(job); // Persist before awaiting anything, so duplicate clicks cannot dispatch twice.
-        const filename = path.join(directory, `${randomUUID()}.jpg`);
+        let filename = path.join(directory, `${randomUUID()}.jpg`), kept = false;
         const task = Promise.resolve().then(async () => {
             try {
                 const settings = await printer.prepare();
                 const image = await framePhoto(source.photo, source.frame, source.caption);
                 photo(sessionId, imageId); // Recheck expiry/end after asynchronous rendering.
-                writeFileSync(filename, image, { flag: 'wx', mode: 0o600 });
+                // Save locally first, then print that saved file; fall back to a temporary copy if the archive is off or unwritable.
+                let archived: string | undefined;
+                try { archived = keep?.(sessionId, imageId, image); } catch (error) { console.error('打印前保存留底失败，改用临时文件打印', error); }
+                if (archived) { filename = archived; kept = true; }
+                else writeFileSync(filename, image, { flag: 'wx', mode: 0o600 });
                 job.queue = settings.queue; job.copies = settings.copies;
                 job.status = 'submitting'; put(job);
                 job.cupsId = await printer.submit(filename, settings, `SNAP-${id.slice(0, 12)}`);
@@ -67,7 +73,7 @@ export function registerPrinting(app: FastifyInstance, options: PrintingOptions)
                 job.error = uncertain ? '提交结果不确定，请检查系统打印队列，勿重复打印。' :
                     (error as { statusCode?: number }).statusCode ? (error as Error).message : '打印准备失败，请检查打印机连接与设置。';
                 put(job);
-            } finally { rmSync(filename, { force: true }); }
+            } finally { if (!kept) rmSync(filename, { force: true }); }
         });
         tasks.add(task);
         try { await task; } finally { tasks.delete(task); }

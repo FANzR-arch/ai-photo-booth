@@ -9,7 +9,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import path from 'node:path';
-import { networkInterfaces } from 'node:os';
+import { networkInterfaces, homedir } from 'node:os';
 import type { Session, Style, Mode, Health, PickupData, TestSettings } from '../../packages/shared/types.js';
 import { isPhotoOrientation, orientedSize } from '../../packages/shared/photo-orientation.js';
 import { isClothingMode } from '../../packages/shared/clothing.js';
@@ -23,6 +23,7 @@ import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
 import { createMacPrinter, type MacPrinter } from './mac-printer.js';
 import { registerPrinting } from './printing.js';
+import { createPhotoArchive } from './photo-archive.js';
 import { registerPayments, type PaymentProvider } from './payments.js';
 import { isPaymentMode, type Order, type PaymentMode } from '../../packages/shared/payments.js';
 import { decoratedPrintId as decoratedId, type PrintJob } from '../../packages/shared/printing.js';
@@ -51,6 +52,8 @@ export interface AppOptions {
     imageCount?: number;
     ttlMs?: number;
     pickupBaseUrl?: string;
+    /** Staff reprint folder; false disables. Defaults to PHOTO_ARCHIVE_DIR, else 拍照亭照片 on the desktop. */
+    archiveDir?: string | false;
 }
 type StoredSession = Session & {
     /** Set when the session first goes to generation; it then counts against its order. Free retries do not count again. */
@@ -117,6 +120,8 @@ export async function createApp(options: AppOptions = {}) {
     mkdirSync(data, { recursive: true });
     for (const folder of ['sessions', 'examples'])
         mkdirSync(path.join(data, folder), { recursive: true });
+    const archiveSetting = options.archiveDir ?? (process.env.PHOTO_ARCHIVE_DIR?.trim() || path.join(homedir(), 'Desktop', '拍照亭照片'));
+    const archive = createPhotoArchive(archiveSetting === false || archiveSetting === 'off' ? undefined : path.resolve(root, archiveSetting));
     const db = new DatabaseSync(path.join(data, 'booth.sqlite'));
     db.exec('PRAGMA journal_mode=WAL; CREATE TABLE IF NOT EXISTS records(kind TEXT,id TEXT,json TEXT,PRIMARY KEY(kind,id))');
     const get = <T,>(kind: string, id: string): T | undefined => { const r = db.prepare('SELECT json FROM records WHERE kind=? AND id=?').get(kind, id); return r ? JSON.parse(String(r.json)) : undefined; };
@@ -224,7 +229,7 @@ export async function createApp(options: AppOptions = {}) {
     const adminToken = (cookie?: string) => cookie?.split(';').map(value => value.trim()).find(value => value.startsWith(`${cookieName}=`))?.slice(cookieName.length + 1);
     const publicAdminRoutes = new Set(['/api/admin/auth/status', '/api/admin/auth/setup', '/api/admin/auth/login', '/api/admin/auth/logout']);
     const jobs = new Set<Promise<void>>();
-    app.addHook('onClose', async () => { clearInterval(timer); await Promise.allSettled([...jobs]); await printing.close(); db.close(); });
+    app.addHook('onClose', async () => { clearInterval(timer); await Promise.allSettled([...jobs]); await printing.close(); await archive.close(); db.close(); });
     app.setErrorHandler((error, _req, reply) => { reply.code((error as any).statusCode ?? 500).send({ error: (error as any).statusCode ? (error as Error).message : '服务处理失败，请查看服务端记录或重试。' }); });
     app.addHook('onRequest', async (req, reply) => {
         let host: URL;
@@ -292,6 +297,16 @@ export async function createApp(options: AppOptions = {}) {
     const selectedDecoration = (id: string) => get<{ id: string; frame: FrameId; caption?: Caption }>('frame', id);
     const selectedFrame = (id: string): FrameId => selectedDecoration(id)?.frame ?? 'none';
     const selectedCaption = (id: string): Caption => selectedDecoration(id)?.caption ?? defaultCaption;
+    /** Print-ready copy (current frame and caption) beside each archived photo; refreshed whenever the choice changes. */
+    const archivePrintVersions = (s: StoredSession) => {
+        if (!['ready', 'partial'].includes(s.status)) return;
+        s.images.forEach((image, index) => {
+            const file = s.files[image.id];
+            if (!file) return;
+            const source = readFileSync(path.join(data, file.full)), frame = selectedFrame(s.id), caption = selectedCaption(s.id);
+            archive.save(s, index ? `打印版${index + 1}` : '打印版', () => framePhoto(source, frame, caption));
+        });
+    };
     registerPayments(app, {
         now, get: id => get<Order>('order', id), put: order => put('order', order), packages: photoPackages,
         mode: paymentMode, setMode: mode => { const setting = { id: 'payment', mode }; put('setting', setting); }, providers: options.paymentProviders,
@@ -318,6 +333,10 @@ export async function createApp(options: AppOptions = {}) {
             if (!['ready', 'partial'].includes(s.status) || !Object.hasOwn(s.files, imageId)) throw fail('生成照片尚未准备好。', 409);
             return { photo: readFileSync(path.join(data, s.files[imageId].full)), frame: selectedFrame(id), caption: selectedCaption(id) };
         },
+        keep: (id, imageId, image) => {
+            const s = session(id), index = s.images.findIndex(item => item.id === imageId);
+            return archive.keep(s, imageId === decoratedId ? '贴纸原图打印版' : index > 0 ? `打印版${index + 1}` : '打印版', image);
+        },
     });
     app.post<{ Params: { id: string } }>('/api/sessions/:id/frame', async req => {
         const s = session(req.params.id);
@@ -327,6 +346,7 @@ export async function createApp(options: AppOptions = {}) {
         if (!isCaption(caption)) throw fail('文字设置无效，最多输入 80 个字符');
         const choice = { id: s.id, frame, caption };
         put('frame', choice);
+        archivePrintVersions(s);
         return { frame, caption };
     });
     // Never return raw paths, original images, prompt snapshots or pickup secrets in ordinary session responses.
@@ -368,7 +388,7 @@ export async function createApp(options: AppOptions = {}) {
         if (!s.photo || ['created', 'photographed'].includes(s.status)) throw fail('照片还没开始生成', 409);
         const target = path.join('sessions', s.id, 'decorated.jpg');
         if (body.dataUrl === null) { rmSync(path.join(data, target), { force: true }); s.decorated = undefined; }
-        else { const image = await validImage(body.dataUrl); writeFileSync(path.join(data, target), await sharp(image).rotate().jpeg({ quality: 92 }).toBuffer()); s.decorated = target; s.decoratedAt = now(); }
+        else { const image = await validImage(body.dataUrl); writeFileSync(path.join(data, target), await sharp(image).rotate().jpeg({ quality: 92 }).toBuffer()); s.decorated = target; s.decoratedAt = now(); archive.save(s, '贴纸原图', readFileSync(path.join(data, target))); }
         put('session', s); return view(s);
     });
     app.get<{ Params: { id: string } }>('/api/sessions/:id/decorated', async (req, reply) => {
@@ -459,6 +479,9 @@ export async function createApp(options: AppOptions = {}) {
             current.elapsedMs = now() - start;
             current.requestId = result.requestId;
             put('session', current);
+            if (current.photo) archive.save(current, '原图', readFileSync(path.join(data, current.photo)));
+            prepared.forEach((item, index) => archive.save(current, index ? `AI图${index + 1}` : 'AI图', item.clean));
+            archivePrintVersions(current);
         }
         catch (error) {
             const s = get<StoredSession>('session', id);
