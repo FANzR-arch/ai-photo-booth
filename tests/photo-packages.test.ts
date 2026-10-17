@@ -1,24 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { defaultPackages, normalizePackages, packageMinutes, packageSummary, validPackages } from '../packages/shared/photo-packages';
+import { packageMinutes, packageSummary, validPrice, visitPackage } from '../packages/shared/photo-packages';
 
-test('photo packages accept up to four distinct counts with optional prices', () => {
-    assert.ok(validPackages(defaultPackages));
-    assert.ok(validPackages([{ count: 4, price: 39 }, { count: 6, price: 49.5 }]));
-    assert.ok(validPackages([]));
-    assert.equal(validPackages([{ count: 4 }, { count: 4 }]), false);
-    assert.equal(validPackages([{ count: 0 }]), false);
-    assert.equal(validPackages([{ count: 13 }]), false);
-    assert.equal(validPackages([{ count: 4, price: -1 }]), false);
-    assert.equal(validPackages([{ count: 4, price: 1.234 }]), false);
-    assert.equal(validPackages([{ count: 1 }, { count: 2 }, { count: 3 }, { count: 4 }, { count: 5 }]), false);
-    assert.deepEqual(normalizePackages([{ count: 6, price: 49, extra: 1 } as never, { count: 4 }]), [{ count: 4 }, { count: 6, price: 49 }]);
+test('a visit is one photo with an optional price of at most two decimals', () => {
+    assert.deepEqual(visitPackage(), { count: 1 });
+    assert.deepEqual(visitPackage(29.9), { count: 1, price: 29.9 });
+    assert.ok(validPrice(undefined));
+    assert.ok(validPrice(0));
+    assert.ok(validPrice(49.5));
+    assert.equal(validPrice(-1), false);
+    assert.equal(validPrice(1.234), false);
+    assert.equal(validPrice(10000), false);
+    assert.equal(validPrice('29'), false);
 });
 
-test('home summary states counts, rough total time and the lowest price only when prices are set', () => {
-    assert.equal(packageMinutes(4), 6);
-    assert.equal(packageSummary(defaultPackages), '可选 4–6 张 · 约 6–8 分钟');
-    assert.equal(packageSummary([{ count: 4, price: 39 }, { count: 6, price: 49 }]), '可选 4–6 张 · 约 6–8 分钟 · ¥39 起');
-    assert.equal(packageSummary([{ count: 5, price: 49 }]), '可选 5 张 · 约 7 分钟 · ¥49');
-    assert.equal(packageSummary([]), '');
+test('home note shows the price only once staff set it', () => {
+    assert.equal(packageMinutes(1), 2);
+    assert.equal(packageSummary(visitPackage()), '');
+    assert.equal(packageSummary(visitPackage(29)), '¥29 / 次');
+    assert.equal(packageSummary(visitPackage(29.9)), '¥29.90 / 次');
+    assert.equal(packageSummary(undefined), '');
 });

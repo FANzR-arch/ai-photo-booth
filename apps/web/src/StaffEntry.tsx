@@ -5,15 +5,16 @@ import { saveSkin, selectedSkin, skins } from './skin';
 
 const holdMs = 3000;
 
-/** Hold the logo for three seconds to reach staff controls; the homepage also links to device settings. */
+/** Hold the logo for three seconds (or right-click it with a mouse) to reach staff controls. A touch screen cannot right-click, so visitors still need the hold. */
 export function StaffEntry() {
     const [open, setOpen] = useState(false);
     const [skin, setSkin] = useState(selectedSkin);
     const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const pointer = useRef('');
     const cancel = () => { if (timer.current) clearTimeout(timer.current); timer.current = null; };
     useEffect(() => cancel, []);
     return <>
-        <div className="staff-entry" onPointerDown={() => { cancel(); timer.current = setTimeout(() => { timer.current = null; setOpen(true); }, holdMs); }}
+        <div className="staff-entry" onContextMenu={() => { if (pointer.current === 'mouse') { cancel(); setOpen(true); } }} onPointerDown={e => { pointer.current = e.pointerType; cancel(); timer.current = setTimeout(() => { timer.current = null; setOpen(true); }, holdMs); }}
             onPointerUp={cancel} onPointerLeave={cancel} onPointerCancel={cancel}>
             <Brand href={null} />
         </div>

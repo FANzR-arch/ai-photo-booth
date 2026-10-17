@@ -150,11 +150,6 @@
 [data-skin="memphis"] .kiosk-shell .result-fortune b{color:var(--mp-pink)}
 /* Reveal: the polaroid and the original get ink edges like the photo wall. */
 [data-skin="memphis"] .kiosk-shell :is(.reveal-polaroid,.reveal-original){border:var(--mp-line);box-shadow:var(--mp-drop-lg)}
-[data-skin="memphis"] .kiosk-shell .plan-option:hover{transform:translate(-2px,-2px)}
-[data-skin="memphis"] .kiosk-shell .plan-option:nth-child(3n+1) strong{color:var(--mp-pink)}
-[data-skin="memphis"] .kiosk-shell .plan-option:nth-child(3n+3) strong{color:#0b8a60}
-[data-skin="memphis"] .kiosk-shell .plan-option em{border:var(--mp-line);background:var(--mp-yellow)}
-[data-skin="memphis"] .kiosk-shell .plan-chip{font-weight:700}
 [data-skin="memphis"] .kiosk-shell .attract-note{color:var(--mp-ink);font-weight:700}
 [data-skin="memphis"] .kiosk-shell .pay-summary strong{color:var(--mp-pink)}
 [data-skin="memphis"] .kiosk-shell .pay-code img{border:var(--mp-line)}

@@ -17,7 +17,7 @@ import { generationPrompt } from './generation-prompt.js';
 import { normalizeSourcePhoto, fullPhoto, previewPhoto } from './photo-quality.js';
 import { frameReference, detectFaces } from './reference-framing.js';
 import { defaultWifiSettings, validWifi, type WifiSettings } from '../../packages/shared/wifi.js';
-import { defaultPackages, normalizePackages, validPackages, type PhotoPackage } from '../../packages/shared/photo-packages.js';
+import { validPrice, visitPackage, type PhotoPackage } from '../../packages/shared/photo-packages.js';
 import { defaultPortraitSettings, isBeautyLevel, type PortraitSettings, type DistanceHint } from '../../packages/shared/portrait-settings.js';
 import { createAdminAccess } from './admin-auth.js';
 import { adminConfiguration } from './admin-config.js';
@@ -108,10 +108,9 @@ export async function createApp(options: AppOptions = {}) {
         const saved = get<WifiSettings & { id: string }>('setting', 'wifi');
         return saved && validWifi(saved) ? { ssid: saved.ssid, password: saved.password, security: saved.security } : defaultWifiSettings;
     };
-    const photoPackages = (): PhotoPackage[] => {
-        const saved = get<{ id: string; items: unknown }>('setting', 'packages');
-        return saved && validPackages(saved.items) ? normalizePackages(saved.items) : defaultPackages;
-    };
+    /** Each visit is one photo; staff only set its price. */
+    const visitPrice = () => { const saved = get<{ id: string; price?: unknown }>('setting', 'price'); return saved && validPrice(saved.price) ? saved.price : undefined; };
+    const photoPackages = (): PhotoPackage[] => [visitPackage(visitPrice())];
     const paymentMode = (): PaymentMode => { const saved = get<{ id: string; mode: unknown }>('setting', 'payment'); return saved && isPaymentMode(saved.mode) ? saved.mode : 'off'; };
     const providerReady = (generation: Mode) => generation === 'demo' || !!options.provider || config.status().activeConfigured;
     const health = (): Health => ({ service: 'snap-club', mode, generation: generationMode(), testMode: testSettings().testEntries, configured: providerReady(generationMode()), model: config.credentials().model, imageCount: count, pickupBaseUrl: base, lanUrls: ips.map(ip => `http://${ip}:${port}`), packages: photoPackages(), payment: paymentMode() });
@@ -304,7 +303,7 @@ export async function createApp(options: AppOptions = {}) {
         if (paymentMode() === 'off' && orderId === undefined) return undefined;
         const order = typeof orderId === 'string' ? get<Order>('order', orderId) : undefined;
         if (!order || order.status !== 'paid') throw fail('请先扫码付款', 402);
-        if (chargedPhotos(order.id) >= order.count) throw fail(`这一单的 ${order.count} 张已经拍完了。`, 409);
+        if (chargedPhotos(order.id) >= order.count) throw fail('这一单已经拍完了。', 409);
         return order;
     };
     const printing = registerPrinting(app, {
@@ -544,14 +543,14 @@ export async function createApp(options: AppOptions = {}) {
         put('setting', setting);
         return wifiSettings();
     });
-    app.get('/api/admin/packages', async () => photoPackages());
-    app.put('/api/admin/packages', { bodyLimit: 2048 }, async req => {
-        const body = object(req.body);
-        if (!validPackages(body.items)) throw fail('套餐设置无效：最多 4 档，每档 1–12 张且张数不重复，价格可留空。');
-        if (paymentMode() !== 'off' && (!body.items.length || body.items.some(item => item.price === undefined))) throw fail('已开启扫码付款，每一档都必须有价格。', 409);
-        const setting = { id: 'packages', items: normalizePackages(body.items) };
+    app.get('/api/admin/price', async () => ({ price: visitPrice() }));
+    app.put('/api/admin/price', { bodyLimit: 1024 }, async req => {
+        const price = object(req.body).price ?? undefined;
+        if (!validPrice(price)) throw fail('价格无效：填 0–9999 的数字，最多两位小数，或留空。');
+        if (paymentMode() !== 'off' && price === undefined) throw fail('已开启扫码付款，必须填写价格。', 409);
+        const setting = { id: 'price', ...(price === undefined ? {} : { price }) };
         put('setting', setting);
-        return photoPackages();
+        return { price: visitPrice() };
     });
     app.get('/api/admin/portrait', async () => portraitSettings());
     app.put('/api/admin/portrait', { bodyLimit: 1024 }, async req => {

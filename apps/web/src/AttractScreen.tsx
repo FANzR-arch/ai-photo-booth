@@ -21,7 +21,7 @@ export function wallPhotos(styles: Style[]): { src: string; name: string }[] {
 }
 
 /** Idle screen: one action on the left, a slowly drifting wall of sample photos on the right. Never starts a session by itself.
- *  `note` answers "how many, how long, how much" under the start button.
+ *  `note` sits under the start button: the price once set, and that the wait comes with mini-games.
  *  `unavailable` blocks the start before staff collect payment for a booth that cannot generate. */
 export function AttractScreen({ styles, unavailable = false, note = '', onStart }: { styles: Style[]; unavailable?: boolean; note?: string; onStart: () => void }) {
     const photos = wallPhotos(styles);

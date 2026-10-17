@@ -9,11 +9,11 @@ export function PayScreen({ order, qr, now, busy, onBack, onRenew, onSimulate }:
 }) {
     const expired = order.status === 'expired' || order.status === 'cancelled' || (order.status === 'pending' && now >= order.expiresAt);
     return <section className="theme-screen pay-screen" aria-label="扫码付款">
-        <div className="theme-heading"><button className="secondary" disabled={busy} onClick={onBack}>← 换张数</button><h1>扫码付款</h1></div>
+        <div className="theme-heading"><button className="secondary" disabled={busy} onClick={onBack}>← 返回</button><h1>扫码付款</h1></div>
         <div className="pay-layout">
             <div className="pay-summary">
                 <strong>{order.count}<small>张</small></strong>
-                <span>约 {packageMinutes(order.count)} 分钟 · 每张都可以换主题</span>
+                <span>约 {packageMinutes(order.count)} 分钟</span>
                 <b className="pay-amount">{fenText(order.amount)}</b>
             </div>
             <div className="pay-code">

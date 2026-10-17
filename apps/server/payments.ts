@@ -54,7 +54,7 @@ export function registerPayments(app: FastifyInstance, options: PaymentOptions) 
     app.put('/api/admin/payment', { bodyLimit: 1024 }, async req => {
         const next = (req.body as { mode?: unknown } | undefined)?.mode;
         if (!usablePaymentMode(next)) throw fail('该收款方式尚未接入');
-        if (next !== 'off' && (!packages().length || packages().some(item => item.price === undefined))) throw fail('开启扫码付款前，请先给每一档张数填写价格。', 409);
+        if (next !== 'off' && (!packages().length || packages().some(item => item.price === undefined))) throw fail('开启扫码付款前，请先填写拍照价格。', 409);
         setMode(next);
         return { mode: mode() };
     });
@@ -63,8 +63,8 @@ export function registerPayments(app: FastifyInstance, options: PaymentOptions) 
         if (current === 'off') throw fail('本机未开启扫码付款', 409);
         const count = (req.body as { count?: unknown } | undefined)?.count;
         const item = packages().find(p => p.count === count);
-        if (!item) throw fail('没有这一档张数');
-        if (item.price === undefined) throw fail('这一档还没有定价，请联系工作人员。', 409);
+        if (!item) throw fail('拍照张数无效');
+        if (item.price === undefined) throw fail('还没有定价，请联系工作人员。', 409);
         const created = now();
         const draft = { id: randomUUID(), count: item.count, amount: toFen(item.price), expiresAt: created + orderTtlMs };
         const { qrText } = await provider(current).create(draft);

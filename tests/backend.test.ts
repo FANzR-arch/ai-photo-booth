@@ -940,15 +940,16 @@ test('venue Wi-Fi defaults off, validates input and is readable only by the loca
         assert.equal((await f.req('PUT', '/api/admin/wifi', { ssid: 'Open', password: 'ignored', security: 'nopass' })).json().password, '');
     } finally { await f.close(); }
 });
-test('photo packages default to 4–6 photos without prices, are admin-only and reach the kiosk through health', async () => {
+test('each visit is one photo; staff set an optional price that reaches the kiosk through health', async () => {
     const f = await fixture();
     try {
-        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 4 }, { count: 5 }, { count: 6 }]);
-        assert.equal((await f.app.inject({ method: 'PUT', url: '/api/admin/packages', payload: { items: [] }, headers: { host: 'localhost:4377' } })).statusCode, 401);
-        assert.equal((await f.req('PUT', '/api/admin/packages', { items: [{ count: 4 }, { count: 4 }] })).statusCode, 400);
-        assert.deepEqual((await f.req('PUT', '/api/admin/packages', { items: [{ count: 6, price: 49 }, { count: 4, price: 39 }] })).json(), [{ count: 4, price: 39 }, { count: 6, price: 49 }]);
-        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 4, price: 39 }, { count: 6, price: 49 }]);
-        assert.deepEqual((await f.req('PUT', '/api/admin/packages', { items: [] })).json(), [], 'an empty list turns the choice off');
+        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 1 }]);
+        assert.equal((await f.app.inject({ method: 'PUT', url: '/api/admin/price', payload: { price: 29 }, headers: { host: 'localhost:4377' } })).statusCode, 401);
+        assert.equal((await f.req('PUT', '/api/admin/price', { price: 1.234 })).statusCode, 400);
+        assert.deepEqual((await f.req('PUT', '/api/admin/price', { price: 29.9 })).json(), { price: 29.9 });
+        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 1, price: 29.9 }]);
+        assert.deepEqual((await f.req('PUT', '/api/admin/price', { price: null })).json(), {}, 'clearing hides the price');
+        assert.deepEqual((await f.req('GET', '/api/health')).json().packages, [{ count: 1 }]);
     } finally { await f.close(); }
 });
 test('Wi-Fi join QR escapes reserved characters', () => {
@@ -969,32 +970,31 @@ test('pay-before-shooting: orders need prices, unlock only when paid and stop at
     const generate = async (id: string) => { const r = await f.req('POST', `/api/sessions/${id}/generate`, {}); if (r.statusCode === 200) await f.finish(id); return r.statusCode; };
     try {
         assert.equal((await f.req('GET', '/api/health')).json().payment, 'off');
-        assert.equal((await f.req('POST', '/api/orders', { count: 4 })).statusCode, 409, 'no orders while the booth does not take payment');
-        assert.equal((await f.req('PUT', '/api/admin/payment', { mode: 'mock' })).statusCode, 409, 'unpriced packages cannot be paid for');
+        assert.equal((await f.req('POST', '/api/orders', { count: 1 })).statusCode, 409, 'no orders while the booth does not take payment');
+        assert.equal((await f.req('PUT', '/api/admin/payment', { mode: 'mock' })).statusCode, 409, 'an unpriced visit cannot be paid for');
         assert.equal((await f.req('PUT', '/api/admin/payment', { mode: 'wechat' })).statusCode, 400, 'real providers are not wired yet');
-        assert.equal((await f.req('PUT', '/api/admin/packages', { items: [{ count: 2, price: 29.9 }] })).statusCode, 200);
+        assert.equal((await f.req('PUT', '/api/admin/price', { price: 29.9 })).statusCode, 200);
         assert.deepEqual((await f.req('PUT', '/api/admin/payment', { mode: 'mock' })).json(), { mode: 'mock' });
         assert.equal((await f.req('GET', '/api/health')).json().payment, 'mock');
-        assert.equal((await f.req('PUT', '/api/admin/packages', { items: [{ count: 2 }] })).statusCode, 409, 'prices stay required while payment is on');
+        assert.equal((await f.req('PUT', '/api/admin/price', { price: null })).statusCode, 409, 'the price stays required while payment is on');
         assert.equal((await shot()).status, 402, 'no photo without a paid order');
-        assert.equal((await f.req('POST', '/api/orders', { count: 3 })).statusCode, 400);
-        const order = (await f.req('POST', '/api/orders', { count: 2 })).json();
+        assert.equal((await f.req('POST', '/api/orders', { count: 2 })).statusCode, 400, 'only one-photo orders exist');
+        const order = (await f.req('POST', '/api/orders', { count: 1 })).json();
         assert.equal(order.amount, 2990); assert.equal(order.status, 'pending'); assert.match(order.qrText, /^SNAPCLUB-MOCK-PAY:/);
         assert.equal((await shot(order.id)).status, 402, 'a pending order does not unlock the booth');
         assert.equal((await f.req('POST', `/api/orders/${order.id}/simulate-paid`, {})).json().status, 'paid');
-        const [a, b, c] = [await shot(order.id), await shot(order.id), await shot(order.id)];
-        assert.deepEqual([a.status, b.status, c.status], [200, 200, 200], 'drafts do not use up the order');
+        const [a, b] = [await shot(order.id), await shot(order.id)];
+        assert.deepEqual([a.status, b.status], [200, 200], 'drafts do not use up the order');
         assert.equal((await f.req('GET', `/api/sessions/${a.id}`)).json().orderId, order.id);
         assert.equal(await generate(a.id), 200);
-        assert.equal(await generate(b.id), 200);
-        assert.equal(await generate(c.id), 409, 'the third photo of a two-photo order is refused');
+        assert.equal(await generate(b.id), 409, 'a second photo on a one-photo order is refused');
         assert.equal((await shot(order.id)).status, 409);
-        const late = (await f.req('POST', '/api/orders', { count: 2 })).json();
+        const late = (await f.req('POST', '/api/orders', { count: 1 })).json();
         time += 3 * 60_000;
         assert.equal((await f.req('GET', `/api/orders/${late.id}`)).json().status, 'expired');
         assert.equal((await f.req('POST', `/api/orders/${late.id}/simulate-paid`, {})).json().status, 'expired', 'an expired code cannot be paid');
-        const left = (await f.req('POST', '/api/orders', { count: 2 })).json();
+        const left = (await f.req('POST', '/api/orders', { count: 1 })).json();
         assert.equal((await f.req('POST', `/api/orders/${left.id}/cancel`, {})).json().status, 'cancelled');
-        assert.equal((await f.app.inject({ method: 'POST', url: '/api/orders', payload: { count: 2 }, remoteAddress: '192.168.1.20', headers: { host: '192.168.1.5:4377' } })).statusCode, 403, 'orders are kiosk-local');
+        assert.equal((await f.app.inject({ method: 'POST', url: '/api/orders', payload: { count: 1 }, remoteAddress: '192.168.1.20', headers: { host: '192.168.1.5:4377' } })).statusCode, 403, 'orders are kiosk-local');
     } finally { await f.close(); }
 });

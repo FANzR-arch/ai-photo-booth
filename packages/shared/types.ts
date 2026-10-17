@@ -30,7 +30,7 @@ export interface Health {
     imageCount: number;
     pickupBaseUrl: string;
     lanUrls: string[];
-    /** Photo-count choices offered before a visit; empty or missing skips the choice (no limit). */
+    /** The visit's single photo package (always one photo) with its price, if staff set one. */
     packages?: PhotoPackage[];
     /** Pay-before-shooting provider; 'off' (or missing) means staff collect money off the machine. */
     payment?: import('./payments').PaymentMode;
