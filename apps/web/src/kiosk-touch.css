@@ -78,9 +78,12 @@ html.kiosk-touch,html.kiosk-touch body{overscroll-behavior:none}
 }
 
 /* Standing guide on the viewfinder */
-.pose-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;fill:#fffaf00d;stroke:#fffaf0b3;stroke-width:2.2;stroke-dasharray:7 6;stroke-linecap:round;transition:stroke .3s}
-.pose-guide.distance-ok{stroke:#7fd39a;stroke-dasharray:none;stroke-width:3}
-.pose-guide.distance-farther,.pose-guide.distance-closer,.pose-guide.distance-none{stroke:#ffb59f}
+.pose-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.pose-guide-shade{fill:#14120f;opacity:.34;transition:opacity .4s}
+.pose-guide-line{fill:none;stroke:#fffaf0;stroke-opacity:.9;stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 4px #0006);transition:stroke .4s}
+.pose-guide.distance-ok .pose-guide-shade{opacity:.2}
+.pose-guide.distance-ok .pose-guide-line{stroke:#a6f0c0}
+.camera-frame:has(.pose-guide) .viewfinder{display:none}
 .kiosk-shell .distance-hint{top:18px;padding:12px 26px;font-size:22px}
 
 /* Countdown big enough to read from a metre away */
